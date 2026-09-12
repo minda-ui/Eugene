@@ -1,0 +1,15 @@
+# Current State — Eugene (AI IT & Engineering Assistant)
+
+_Standing control file. Overwritten by archive-then-recreate at the end of any session that changes it — it holds the present snapshot, not history. Per-session history lives in `change-log/`. Companion standing files: `open-issues.md`, `external-source-register.md`, `processed-items-ledger.md`. See `CLAUDE.md` §4._
+
+| Field | Value |
+|---|---|
+| Last session | **2026-09-12 — created.** Eugene stood up as the group's second AI employee (after Peter), built before Content & Marketing at Minda's instruction. Drive home `My Drive / Eugene - AI IT Assistant` (`1o4MBRcckZBspw-uT6qM2V-74H6OsRK9T`) with `Runbooks/`, `Infra-Inventory/`, `Hardware-Projects/`, `change-log/`, `Archive/`. Charter `CLAUDE.md`, `README.md` and the four control files uploaded (byte-verified). Git mirror `minda-ui/Eugene` seeded (charter, README, control files, the group-standard SessionStart PDF-toolkit hook). Added to the Fishbone Group master index (`CLAUDE.md` §1 sister systems) and noted in the AI Workforce Plan as the IT/ops build, promoted to build #2. No live-system change made and no routine created — Eugene is interactive by default (§5). |
+| Last session by | Claude (AI assistant), on behalf of minda@fishboneconstruction.co.uk |
+| Role | IT & engineering enablement. Writes runbooks/config/code and KB scaffolding; **edits code/repos/KB directly, guide-only for live systems, never holds secrets** (charter §3). |
+| Beats | 2a software-setup enablement (runbooks + config + verification); 2b build/maintain workforce infrastructure; 2c hardware/automation coding; 2d infra inventory + IT change-log. |
+| Connectors | Google Drive, GitHub, Web. **No Gmail** (Eugene is not an email agent). |
+| Routines | **None.** Interactive by default. A light read-only weekly health-check routine is optional-later (§5), to be created via the routines form once the infrastructure has stabilised. |
+| Items done | 0 IT tasks logged yet (creation itself is this session's change-log entry, not a ledger row). See `processed-items-ledger.md`. |
+| Open issues | 3 open: OI-1 (Google Workspace tenant shape — one tenant + multiple domains vs separate subscriptions; decides how the 1&1 domains consolidate), OI-2 (whether the Gmail connector can read a Google Group / delegated / shared mailbox — relates to Peter OI-5), OI-3 (priority order of the first setup runbooks). See `open-issues.md`. |
+| Next action | (a) **Minda to answer OI-1** (Workspace tenant shape) so the first runbook can be the Workspace multi-domain + ops-account guide. (b) Produce the first runbook per OI-3 (proposed order: Workspace multi-domain + ops account → Companies House egress allowlist [Peter OI-6] → dedicated `info@` groups [Peter OI-5]). (c) Populate `Infra-Inventory/` with the confirmed Workspace-vs-1&1 map, connector inventory and live-routine list. (d) When Content & Marketing is built (AI Workforce Plan Phase 1), Eugene scaffolds its KB + drafts its routine prompt. |
