@@ -1,84 +1,81 @@
-# Runbook — Dedicated `info@` inbox + scoped ops/agent account (v0.1)
+# Runbook — Dedicated `info@` inbox + scoped ops/agent account (v0.2)
 
 _Eugene runbook. **Eugene is guide-only (charter §3): this is the guide; Minda performs every
 Admin-console / account / connector step.** **No password or API key is ever written into this file or
-any KB** — the owner sets and holds them; Eugene references only *where* a secret lives. Author: Claude
-for Eugene, 2026-09-13. Resolves **Peter OI-5** (the Gmail connector currently reaches minda@'s own
-personal mailbox, not a dedicated business inbox) and gives the Companies House API key (CH runbook)
-and every future workforce credential a home. Gated by **Eugene OI-2** — run the §2 test first._
+any KB.** Author: Claude for Eugene. v0.1 2026-09-13; **v0.2 2026-09-13** — ops account now created and
+verified, so §1–§3 rewritten to the concrete Construction setup and the `info@` routing made specific.
+Resolves **Peter OI-5**._
+
+## Status (2026-09-13)
+- ✅ **Ops account `ops@fishboneconstruction.co.uk` created** — least-privilege, 2FA on, own mailbox.
+- ✅ **Peter's Gmail connector repointed to `ops@`** — verified: the ops mailbox shows only its own
+  setup mail (all addressed to `ops@`), so Peter no longer reads minda@'s personal mailbox.
+- ⏳ **`info@` not yet routed to `ops@`** — verified: a `deliveredto:info@fishboneconstruction.co.uk`
+  search in the ops mailbox returns zero. **`info@` is its own separate Workspace user/mailbox** (not
+  an alias on minda@; confirmed by owner), so its business mail sits in the `info@` inbox and does not
+  reach `ops@` where Peter reads. Delivering `info@` mail into `ops@` is the remaining step (§3) to
+  close Peter OI-5.
+- Cosmetic: the Workspace **org display name still reads "Fishbone Drylining Ltd"** (Construction's
+  pre-2024 name) — rename in the Admin console when convenient; does not affect routing.
 
 ## 1. What this creates
+1. **Scoped ops/agent account** (`ops@fishboneconstruction.co.uk`) — **done** (see Status).
+2. **Dedicated `info@` business inbox** Peter triages — the remaining work (§3).
 
-Two things, per Workspace tenant, starting with **Construction**:
-1. **A scoped ops/agent account** — one real Workspace user (e.g. `ops@fishboneconstruction.co.uk`),
-   **least-privilege (no admin roles), 2FA on**, its own mailbox. This is the single identity the AI
-   workforce authenticates as: Peter's Gmail connector connects here (not to minda@), and it owns the
-   Companies House API key and any future workforce secrets. **Costs one Workspace seat.**
-2. **A dedicated `info@<domain>` business inbox** — the inbox Peter triages, wired so Peter reads
-   *business* mail only, never Minda's personal correspondence.
+## 2. The three accounts (Construction) and the goal
+- **`info@`** — its own Workspace user + mailbox: the **customer-facing business inbox** (humans log
+  in / send as `info@`).
+- **`ops@`** — the scoped, least-privilege agent identity the **connector authenticates as** (holds
+  the CH key + future secrets). Peter reads whatever lands in `ops@`.
+- **`minda@`** — the owner's personal/business mailbox, **out of scope** for Peter.
 
-## 2. Decide the `info@` wiring — run the OI-2 test first (5 minutes)
+**Goal:** get `info@`'s incoming business mail into **`ops@`** so Peter triages it, while `info@` stays
+a normal inbox humans can use. Keeping the connector on the locked-down `ops@` (rather than pointing it
+at `info@`, which can send as the company) is the least-privilege choice.
 
-The Gmail connector connects to **one account** and reads mailboxes it can see. Whether `info@` can be
-a free Google Group / shared mailbox or must be a real user depends on a capability we have not yet
-confirmed (**Eugene OI-2**). Test it:
-- With the Gmail connector pointed at the **ops account**, make `info@` a **Google Group
-  (Collaborative Inbox)** with the ops account as a member, send a test mail to `info@`, and check
-  whether the connector can **read the Group's messages**.
+## 3. Deliver `info@` mail into `ops@` (Minda, Construction Admin console / the info@ account)
 
-**Outcome A — connector can read the Group / a delegated mailbox:**
-`info@` = a **Google Group (Collaborative Inbox)** (or a delegated shared mailbox). **No extra seat.**
-The ops account is a member; Peter reads the Group. Cleanest and cheapest.
+Recommended: **A**. **B** is the simpler-to-read alternative if you'd rather Peter read `info@`
+directly.
 
-**Outcome B — connector reads only the connected account's own primary mailbox:**
-`info@` = either a **real user mailbox** (costs a seat) that the connector connects to directly, **or**
-keep `info@` as a Group/alias but **auto-forward** its mail into the **ops account's own mailbox**, and
-Peter reads the ops account. Forwarding into the ops mailbox avoids a second seat.
+### Option A (recommended) — forward / route `info@` → `ops@`, keeping `info@`'s own copy
+`info@` stays a real inbox; a copy of every incoming message also lands in `ops@`, where the connector
+reads it. Two ways to set it, either is fine:
+- **User-level (quickest):** sign in to the **`info@` account** → Gmail Settings → **Forwarding and
+  POP/IMAP** → add forwarding address `ops@fishboneconstruction.co.uk`, confirm it, then **forward
+  incoming mail and keep Gmail's copy in the Inbox**. (Optionally add a filter so only genuinely
+  business mail forwards.)
+- **Admin-level (cleaner headers, survives if someone edits the info@ account):** Admin console →
+  Apps → Google Workspace → Gmail → **Routing** → add a rule that also delivers mail **to `info@`**
+  onward **to `ops@`** (add recipient). Preferable because the delivered copy keeps the original
+  envelope.
 
-Record the outcome in `Infra-Inventory/` and, if it settles OI-2, mark OI-2 resolved.
+### Option B (alternative) — read `info@` directly
+Repoint Peter's Gmail connector from `ops@` to **`info@`** and read the business inbox directly; keep
+`ops@` only as the credential/identity holder (CH key). Simplest read path and cleanest search, but the
+connector then authenticates as the customer-facing account (less least-privilege). Choose this only if
+you'd rather avoid the forward hop.
 
-## 3. Steps — Construction (the tenant Peter's inbox already lives in)
+**Do NOT** leave it with the connector on `ops@` and no routing — Peter would keep seeing an empty
+inbox.
 
-**A. Create the ops/agent account (Minda, Construction Admin console).**
-1. Create user `ops@fishboneconstruction.co.uk` (or an agreed name). **No admin roles.** Turn on
-   **2-step verification**. Minda sets and holds the password; **Eugene never sees it.**
-2. Give it only what the workforce needs: its own mailbox + Drive; membership of the `info@` Group
-   (step B). Nothing else.
+## 4. Verify (Eugene, read-only)
+Send a test email to `info@fishboneconstruction.co.uk`, then Eugene checks the **`ops@`** mailbox (by
+subject / `to:info@fishboneconstruction.co.uk`, since forwarding can rewrite the `deliveredto` header):
+- **Pass:** the test — and any real business threads — now appear in `ops@`, so Peter will see them.
+- Confirm the ops mailbox still shows **no** personal (minda@) mail.
+This closes **Peter OI-5** (record it in Peter's own `open-issues.md`).
 
-**B. Stand up / redirect `info@` (Minda, Admin console).**
-3. Per the §2 outcome: make `info@fishboneconstruction.co.uk` a **Collaborative Inbox Group** (A) or a
-   real mailbox / forwarding target (B), with the ops account as member/owner.
-4. **Redirect the real business mail.** Today `info@` effectively lands in minda@'s mailbox; route
-   incoming `info@` mail to the dedicated Group/mailbox so it no longer mixes with Minda's personal
-   mail. Keep a copy to Minda during a short bedding-in period if wanted.
+## 5. Then — Peter's routine
+Once `info@` flows into `ops@`, Peter's **inbox-triage routine prompt** is updated to target the
+`ops@`/`info@` inbox (Eugene drafts it; Minda enters it in the routines form). The Companies House
+beat + key is the separate CH runbook.
 
-**C. Reconnect Peter (Minda, in the routines/connector setup).**
-5. **Repoint Peter's Gmail connector from minda@ to the ops/`info@` inbox.** This is the change that
-   actually closes **Peter OI-5** — Peter then reads a scoped business inbox, not Minda's personal
-   mailbox. Update Peter's inbox-triage routine prompt if the mailbox address it targets changes.
+## 6. Later — other companies (tied to Peter OI-4)
+Holdings/SSAS/Waste once in the Construction hub: add their `info@` as Groups the same `ops@` reads.
+Properties/Amfa stay separate tenants — cross-domain group membership or forward into `ops@`. Start
+with Construction.
 
-**D. Park the workforce secrets on the ops account (Minda).**
-6. Register the **Companies House API key** (CH runbook) under the ops account and store it as the
-   routine's environment secret. Future workforce credentials live here too — **one scoped identity,
-   never Minda's personal login, and never recorded in a KB.**
-
-## 4. Later — the other companies (tied to OI-4 consolidation)
-
-- **Holdings, SSAS, Waste** move into the **Construction hub** (consolidation runbook). Once there,
-  each `info@<domain>` can be a Group the **same ops account** reads — no new ops account needed.
-- **Properties (+ Commercial)** and **Amfa** stay separate tenants. For those, either add the ops
-  account as a **cross-domain member** of their `info@` Group (where the connector allows) or **forward**
-  their business mail into the hub ops mailbox. Decide per company alongside Peter OI-4 ("which
-  inboxes"). Start with Construction; expand only when a company's inbox is actually in scope.
-
-## 5. Verify
-- Peter's connector, reconnected, sees the **business** threads (a `deliveredto:info@fishboneconstruction.co.uk`
-  search returns them) and **not** Minda's personal mail.
-- A test message to `info@` appears to Peter; a draft reply can be created (never sent).
-- The ops account has **no admin roles** and **2FA on**; the CH key works from the ops account.
-
-## 6. Boundary / notes
-- Every step is Minda's to perform in the console/connector; Eugene documents and verifies.
-- **Least-privilege + 2FA** on the ops account; it is not an admin.
-- **No password or API key is recorded in this runbook, any KB, any change-log, or any prompt.**
-- Closing Peter OI-5 is recorded in **Peter's** own `open-issues.md` once the connector is repointed.
+## 7. Boundary
+Guide-only; every step is Minda's in the console. Least-privilege + 2FA on `ops@` (done). **No
+password or key recorded anywhere.**

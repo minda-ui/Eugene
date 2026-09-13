@@ -10,7 +10,7 @@ multiple domains. Commercial Properties does **not** have its own subscription �
 
 | Company | Email hosting | Subscription / tenant | Notes |
 |---|---|---|---|
-| Fishbone Construction Ltd | Google Workspace (paid) | **Own subscription** | Domain `fishboneconstruction.co.uk`. Carries `info@` + `minda@` (the connected Gmail account). |
+| Fishbone Construction Ltd | Google Workspace (paid) | **Own subscription** | Domain `fishboneconstruction.co.uk`. Users incl. `minda@`, `info@` and `ops@` (the workforce agent identity — the currently connected Gmail account). See the identity table below. |
 | Fishbone Properties Ltd | Google Workspace (paid) | **Own subscription** | Domain `fishboneproperties.co.uk`. **Also carries Fishbone Commercial Properties** as a user/alias `commercial@fishboneproperties.co.uk`. |
 | Fishbone Commercial Properties Ltd | Google Workspace (paid) | **Inside Properties' subscription** | No separate subscription; `commercial@fishboneproperties.co.uk`. |
 | Fishbone Waste Ltd | Google Workspace (paid) | **Own subscription** | Domain (to confirm — likely `fishbonewaste.co.uk`; `lana@fishbonewaste.co.uk` seen as a Collaboration Space owner). |
@@ -44,6 +44,17 @@ Procedure in `Runbooks/Runbook-Workspace-Consolidation-into-Construction.md` (v0
 tracks: **1&1 → Construction** (Holdings, SSAS — secondary-domain onboarding + IMAP mail migration)
 and **Waste Workspace → Construction** (domain must be removed from Waste's account before it can be
 added to the hub; then cancel the Waste subscription). Properties and Amfa untouched.
+
+## Identity / workforce accounts — Construction (as at 2026-09-13)
+
+| Account | Type | Role | Status |
+|---|---|---|---|
+| `ops@fishboneconstruction.co.uk` | Workspace user | **Scoped agent identity** — least-privilege, no admin, 2FA; the account Peter's Gmail connector authenticates as; home for the Companies House API key + future workforce secrets | **Live 2026-09-13**; connector repointed here (verified: mailbox reads `ops@`, not minda@) |
+| `info@fishboneconstruction.co.uk` | **Workspace user** (its own mailbox/seat — **not** an alias) | Customer-facing business inbox Peter triages | Live; **its mail not yet delivered into `ops@`** — routing pending (`Runbooks/Runbook-Dedicated-info-Inbox-and-Ops-Account.md` §3) |
+| `minda@fishboneconstruction.co.uk` | Workspace user | Owner's personal/business mailbox | Out of scope for Peter (connector no longer reads it) |
+
+Cosmetic: the Construction Workspace **org display name still reads "Fishbone Drylining Ltd"** (the
+pre-2024 name) — rename in the Admin console when convenient; no routing impact.
 
 ## To confirm next
 - Amfa's and Waste's exact Workspace domains (and whether Amfa's domain was renamed with the company).
