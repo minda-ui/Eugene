@@ -50,8 +50,15 @@ added to the hub; then cancel the Waste subscription). Properties and Amfa untou
 | Account | Type | Role | Status |
 |---|---|---|---|
 | `ops@fishboneconstruction.co.uk` | Workspace user | **Scoped agent identity** — least-privilege, no admin, 2FA; the account Peter's Gmail connector authenticates as; home for the Companies House API key + future workforce secrets | **Live 2026-09-13**; connector repointed here (verified: mailbox reads `ops@`, not minda@) |
-| `info@fishboneconstruction.co.uk` | **Workspace user** (its own mailbox/seat — **not** an alias) | Customer-facing business inbox Peter triages | Live; **its mail not yet delivered into `ops@`** — routing pending (`Runbooks/Runbook-Dedicated-info-Inbox-and-Ops-Account.md` §3) |
-| `minda@fishboneconstruction.co.uk` | Workspace user | Owner's personal/business mailbox | Out of scope for Peter (connector no longer reads it) |
+| `info@fishboneconstruction.co.uk` | **Workspace user** (its own mailbox/seat — **not** an alias) | Customer-facing business inbox | **Forwards a copy of incoming mail into `ops@`** — live & verified 2026-09-13 |
+| `minda@fishboneconstruction.co.uk` | Workspace user | Mindaugas's work mailbox — **~95% business** (clients/suppliers/counterparties), ~5% personal | **Also forwards into `ops@`** (owner added 2026-09-13) so Peter gets the business mail that comes to Minda directly. Personal mail is being **migrated to Minda's separate personal inbox over time**; until then Peter **skips clearly-personal mail** (charter §3). |
+| (Minda's personal inbox) | External / personal | Mindaugas's personal correspondence | The destination for personal mail migrating off `minda@`; **not** forwarded to `ops@`, never read by Peter |
+
+**Inbox design (settled 2026-09-13):** `ops@` = the single business inbox Peter reads = forwarded
+copies of `info@` **+** business `minda@`. Peter triages business only and **skips personal** (never
+stages/copies it). As personal mail drains from `minda@` to Minda's personal inbox, the residual
+personal share of `ops@` trends to zero. Forwarding is go-forward only (no backlog). Stricter option
+if ever wanted: a business-only *filter* on the `minda@` forward instead of relying on Peter to skip.
 
 Cosmetic: the Construction Workspace **org display name still reads "Fishbone Drylining Ltd"** (the
 pre-2024 name) — rename in the Admin console when convenient; no routing impact.
