@@ -10,11 +10,12 @@ Resolves **Peter OI-5**._
 - ✅ **Ops account `ops@fishboneconstruction.co.uk` created** — least-privilege, 2FA on, own mailbox.
 - ✅ **Peter's Gmail connector repointed to `ops@`** — verified: the ops mailbox shows only its own
   setup mail (all addressed to `ops@`), so Peter no longer reads minda@'s personal mailbox.
-- ⏳ **`info@` not yet routed to `ops@`** — verified: a `deliveredto:info@fishboneconstruction.co.uk`
-  search in the ops mailbox returns zero. **`info@` is its own separate Workspace user/mailbox** (not
-  an alias on minda@; confirmed by owner), so its business mail sits in the `info@` inbox and does not
-  reach `ops@` where Peter reads. Delivering `info@` mail into `ops@` is the remaining step (§3) to
-  close Peter OI-5.
+- ✅ **`info@` → `ops@` forwarding live and verified 2026-09-13.** `info@` is its own separate
+  Workspace user/mailbox (not an alias); Minda set it to **forward incoming mail into `ops@`** (Gmail
+  Forwarding; the initial attempt was inactive because forwarding was left on "Disable forwarding" —
+  fixed). Verified: a test to `info@` arrived in `ops@`, and `ops@` shows no personal mail. **Peter OI-5
+  is closed.** The to/cc-`info@` proxy is retired — Peter triages the `ops@` inbox directly. Note:
+  forwarding is **go-forward only** — the pre-2026-09-13 `info@` backlog stays in the `info@` mailbox.
 - Cosmetic: the Workspace **org display name still reads "Fishbone Drylining Ltd"** (Construction's
   pre-2024 name) — rename in the Admin console when convenient; does not affect routing.
 
@@ -44,7 +45,8 @@ reads it. Two ways to set it, either is fine:
 - **User-level (quickest):** sign in to the **`info@` account** → Gmail Settings → **Forwarding and
   POP/IMAP** → add forwarding address `ops@fishboneconstruction.co.uk`, confirm it, then **forward
   incoming mail and keep Gmail's copy in the Inbox**. (Optionally add a filter so only genuinely
-  business mail forwards.)
+  business mail forwards.) *(Gotcha seen 2026-09-13: adding + confirming the address is not enough —
+  the radio must be switched from "Disable forwarding" to "Forward a copy…" and Saved.)*
 - **Admin-level (cleaner headers, survives if someone edits the info@ account):** Admin console →
   Apps → Google Workspace → Gmail → **Routing** → add a rule that also delivers mail **to `info@`**
   onward **to `ops@`** (add recipient). Preferable because the delivered copy keeps the original
@@ -64,7 +66,7 @@ Send a test email to `info@fishboneconstruction.co.uk`, then Eugene checks the *
 subject / `to:info@fishboneconstruction.co.uk`, since forwarding can rewrite the `deliveredto` header):
 - **Pass:** the test — and any real business threads — now appear in `ops@`, so Peter will see them.
 - Confirm the ops mailbox still shows **no** personal (minda@) mail.
-This closes **Peter OI-5** (record it in Peter's own `open-issues.md`).
+This closes **Peter OI-5** (record it in Peter's own `open-issues.md`). **Done 2026-09-13** — see Status.
 
 ## 5. Then — Peter's routine
 Once `info@` flows into `ops@`, Peter's **inbox-triage routine prompt** is updated to target the
