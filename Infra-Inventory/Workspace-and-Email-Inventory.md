@@ -30,15 +30,20 @@ domain from its current subscription, add it as a secondary domain to the chosen
 users / mailboxes / Drive). That is a real, staged project, not a settings change. (This retires the
 hope in the 2026-09-12 owner note that Workspace multi-domain would make it a one-step change.)
 
-Three realistic paths (decision pending — see Eugene `open-issues.md` OI-4):
-- **A — Full consolidation:** migrate all domains into one chosen subscription (e.g. Construction) as
-  secondary domains. One bill, one admin console; largest migration effort/risk.
-- **B — Standardise in place:** keep the four separate subscriptions; just add the dedicated `info@`
-  group/shared mailbox + a scoped ops/agent account **within each** where the workforce needs it.
-  Fastest; unblocks Peter OI-5 now; more bills/consoles long-term.
-- **C — Hybrid:** move only the two **1&1** entities (Holdings, SSAS) into an existing Workspace
-  subscription as secondary domains (gets them off 1&1), leave the four Workspace subscriptions as
-  they are for now. Middle effort.
+### Decided target architecture (owner, 2026-09-13; OI-4 resolved) — three tenants
+
+- **Construction = hub** → fold in **Holdings** and **SSAS** (off 1&1) and **Waste** (dormant, its
+  own Workspace) as **secondary domains**.
+- **Properties (+ Commercial)** → **stays its own tenant** (separate legal company; keeps the clean
+  governance line; already carries Commercial).
+- **Amfa** → **stays standalone**, kept sale-ready (group OI-13) — a standalone tenant is clean to
+  carve out on a future sale. (The separate website was **not** the reason — a secondary domain keeps
+  its own email/website/brand; consolidation only merges admin + billing.)
+
+Procedure in `Runbooks/Runbook-Workspace-Consolidation-into-Construction.md` (v0.1). Two migration
+tracks: **1&1 → Construction** (Holdings, SSAS — secondary-domain onboarding + IMAP mail migration)
+and **Waste Workspace → Construction** (domain must be removed from Waste's account before it can be
+added to the hub; then cancel the Waste subscription). Properties and Amfa untouched.
 
 ## To confirm next
 - Amfa's and Waste's exact Workspace domains (and whether Amfa's domain was renamed with the company).
