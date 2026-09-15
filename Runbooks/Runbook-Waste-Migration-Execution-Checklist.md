@@ -103,9 +103,10 @@ editing IONOS's copy will silently do nothing.
 
 - [ ] As Construction's super-admin: Account → Domains → Add a domain → `fishbonewaste.co.uk` →
   add as a **secondary domain**.
-- [ ] Find WordPress's DNS management for this domain (wherever the WordPress account/dashboard for
-  `fishbonewaste.co.uk` is) and check it actually exposes custom TXT/MX record editing — most
-  "domain connected to WordPress" setups do, but confirm rather than assume, since dashboards vary.
+- [x] **Access confirmed 2026-09-15** — Minda has working logins to the WordPress account that hosts
+  the Fishbone Waste website (`fishbonewaste.co.uk`). Remaining: locate the **DNS / domain management**
+  section inside that account (naming varies — could be under Domains, Settings, or a DNS Records
+  page) and confirm it exposes custom TXT/MX editing, not just website-hosting records.
 - [ ] Add the Google-provided verification record (TXT, or the HTML-tag alternative) there.
 - [ ] Wait for verification to complete (DNS propagation — can take minutes to a few hours) before
   moving on.
