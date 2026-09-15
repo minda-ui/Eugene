@@ -90,7 +90,13 @@ confirmed-verification section with the SPF follow-up; §8 and the version heade
 `Infra-Inventory/Workspace-and-Email-Inventory.md` Holdings row updated with the verified MX and the
 SPF follow-up; "to confirm next" trimmed. `processed-items-ledger.md` row 5 added.
 
-**Next.** Outstanding: (1) fix Holdings' SPF record (Minda, in the 1&1 panel, low urgency); (2) Minda
-decides where the Waste mailbox archive should live and whether `info@`/`sales@` stay live
+**Later still same day — SPF finding formally tracked as OI-6.** At Minda's request, promoted the SPF
+finding from runbook/inventory prose into a tracked issue: **OI-6** added to `open-issues.md` (open,
+task, not blocking) — the fix (`include:_spf.google.com` in the 1&1 DNS panel) and verification path
+recorded there as the single source of truth; runbook §3.6/§8 and the inventory now cross-reference
+OI-6 instead of just describing the finding inline. `processed-items-ledger.md` row 6 added.
+
+**Next.** Outstanding: (1) OI-6 — Minda fixes Holdings' SPF record in the 1&1 panel, low urgency; (2)
+Minda decides where the Waste mailbox archive should live and whether `info@`/`sales@` stay live
 post-migration (§4 open decisions); (3) once those two are settled, §4 can be executed; (4) OI-5 is the
 owner's call, not time-sensitive.

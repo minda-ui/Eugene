@@ -78,15 +78,15 @@ as the record of what should have happened, used as a **verification checklist**
    this environment — no `dig`/`nslookup`, and a DNS-over-HTTPS fallback via `dns.google` was rejected
    by the session's proxy, organisation policy, the same restriction that originally blocked Peter's
    Companies House access).
-   **Loose end found in the same screenshot, not yet fixed:** the domain's **SPF TXT record still
-   references IONOS's mail servers** (the 1&1 SPF include), not Google's. MX governs incoming mail
-   (fixed); SPF governs whether *outgoing* mail sent through Google's servers is authenticated —
-   left as-is, mail sent from this domain via Google Workspace risks failing SPF checks at the
-   receiving end (spam-folder risk, or rejection by strict recipients). Not urgent (only matters once
-   this domain actively sends mail through Google), but worth fixing: update the SPF TXT record to
-   include Google's SPF mechanism (`include:_spf.google.com`) alongside or instead of the 1&1 include,
-   per Google's own SPF-migration guidance. Minda to action in the 1&1 DNS panel; Eugene can't verify
-   this one either without DNS egress, same as above.
+   **Loose end found in the same screenshot, tracked as OI-6 (`open-issues.md`):** the domain's **SPF
+   TXT record still references IONOS's mail servers** (the 1&1 SPF include), not Google's. MX governs
+   incoming mail (fixed); SPF governs whether *outgoing* mail sent through Google's servers is
+   authenticated — left as-is, mail sent from this domain via Google Workspace risks failing SPF
+   checks at the receiving end (spam-folder risk, or rejection by strict recipients). Not urgent (only
+   matters once this domain actively sends mail through Google), but worth fixing: update the SPF TXT
+   record to include Google's SPF mechanism (`include:_spf.google.com`) alongside or instead of the
+   1&1 include, per Google's own SPF-migration guidance. Minda to action in the 1&1 DNS panel; Eugene
+   can't verify this one either without DNS egress, same as above.
 
 ## 4. Track 2 — Waste: its own Workspace → Construction hub (domain move)
 
@@ -154,9 +154,9 @@ and Minda environments; Peter's weekly beat-2b run succeeded (all six companies 
 ## 8. Status / next
 §5 and §6 are done (2026-09-13). **§3 Holdings (`fishboneholdings.co.uk`) is done and MX-verified
 (2026-09-15)** — Minda checked the 1&1 DNS panel directly, MX points to `smtp.google.com`. One loose
-end found there, not yet fixed: the **SPF TXT record still references IONOS**, not Google — a
-deliverability risk for outbound mail sent via Google Workspace, worth updating in the 1&1 panel when
-convenient (§3.6). SSAS is closed — out of scope, nothing to migrate. Construction hub headroom confirmed: Business Standard, 3
+end found there, not yet fixed, now tracked as **OI-6**: the **SPF TXT record still references
+IONOS**, not Google — a deliverability risk for outbound mail sent via Google Workspace, worth
+updating in the 1&1 panel when convenient (§3.6). SSAS is closed — out of scope, nothing to migrate. Construction hub headroom confirmed: Business Standard, 3
 spare licences available (§2.2). **§2 is now fully answered for Waste** (`fishbonewaste.co.uk`, 2
 mailboxes: `info@` + `sales@`, DNS control Minda) — **nothing left blocking §4 from a prerequisites
 standpoint.** Two things to settle before Minda executes it: (a) where the pre-migration archive of
