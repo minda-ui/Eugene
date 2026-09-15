@@ -1,10 +1,12 @@
-# Runbook — Workspace consolidation into the Construction hub (v0.1, draft)
+# Runbook — Workspace consolidation into the Construction hub (v0.2, draft)
 
 _Eugene runbook. **Eugene is guide-only for live systems (charter §3): this document is the guide;
 Minda performs every Admin-console / DNS / registrar / migration step.** No secret (password, TXT
 value, token) is ever written into this file — those are generated and entered live. Status: draft,
-pending the prerequisites in §2. Author: Claude for Eugene, 2026-09-13. Decision basis: Eugene OI-1
-(resolved) + OI-4 (owner, 2026-09-13)._
+pending the prerequisites in §2 (§5 and §6 are done — see below). Author: Claude for Eugene,
+2026-09-13; updated 2026-09-15. Decision basis: Eugene OI-1 (resolved) + OI-4 (owner, 2026-09-13).
+**v0.2 change:** §5 and §6 marked done (both closed 2026-09-13, same day this runbook was drafted) and
+§8 execution order tightened to the one step actually next — the Holdings pilot._
 
 ## 1. Target architecture (owner-agreed 2026-09-13)
 
@@ -73,24 +75,26 @@ to Construction**, and any mail/Drive must be migrated first.
    hub (this is the seat/bill saving).
 6. **Verify** as in §3.6, plus confirm the Waste subscription shows no active domains before cancelling.
 
-## 5. Dedicated `info@` + scoped ops/agent account (resolves Peter OI-5)
+## 5. Dedicated `info@` + scoped ops/agent account (resolves Peter OI-5) — **DONE 2026-09-13**
 
-Independent of the migration order — can be done per tenant as each is ready:
-1. Create a **dedicated `info@<domain>`** as a Google Group / shared mailbox (if the OI-2 test says the
-   Gmail connector can read one) **or** a real user mailbox forwarded to a single ops account (if not).
-2. Create a **scoped ops/agent account** for the AI workforce — least-privilege, no admin rights, its
-   own mailbox — the account Peter's Gmail connector should read instead of `minda@`'s personal
-   mailbox. **Eugene never holds its credentials**; Minda sets and holds them.
-3. Point the relevant company's incoming business mail at `info@`, and connect Peter's Gmail connector
-   to the ops/`info@` mailbox (not `minda@`). This closes Peter OI-5.
+Completed the same day this runbook was drafted, for the Construction tenant, ahead of the migration
+order below. Live design: `ops@fishboneconstruction.co.uk` (least-privilege, 2FA, no admin rights) is
+the account Peter's Gmail connector reads; `info@` (its own mailbox) and `invoice@` (AP inbox) both
+forward into `ops@`, plus a routing rule copies minda@/info@/invoice@ outbound mail into `ops@` so
+Peter sees both sides of a thread. Full detail: `Runbooks/Runbook-Dedicated-info-Inbox-and-Ops-Account.md`
+(v0.2) and `Runbooks/Runbook-Email-Evidence-Retention-Google-Vault.md` (v0.2, the Vault evidence-retention
+companion). Peter OI-5 closed 2026-09-13. **Still to do when Holdings/SSAS/Waste land in the hub:**
+confirm whether each newly-added domain needs its own `info@`/forward-to-`ops@`, or whether one
+Construction-wide `ops@` covers all four domains — decide per domain as each migrates.
 
-## 6. Companies House egress allowlist (resolves Peter OI-6) — independent, can go first
+## 6. Companies House egress allowlist (resolves Peter OI-6) — **DONE 2026-09-13**
 
-Not part of the email migration; unblocks Peter beat 2b. Allowlist for Peter's scheduled-session
-environment: `find-and-update.company-information.service.gov.uk` and
-`api.company-information.service.gov.uk` (the free Companies House API — a key can be issued to the ops
-account; Eugene never holds the key). Applied by the owner / environment admin; Eugene documents and
-verifies (a scheduled test fetch succeeds).
+Not part of the email migration; unblocked Peter beat 2b. Resolved via an **environment API credential**
+(not a network allowlist toggle) — a Basic credential ("Companies House API", allowed website
+`api.company-information.service.gov.uk`, free CH REST API key as username) added to the Fishbone Group
+and Minda environments; Peter's weekly beat-2b run succeeded (all six companies + trustee watch, HTTP
+200). Eugene never held the key. Full detail: `Runbooks/Runbook-Companies-House-Access-for-Peter.md`
+(v0.2). Peter OI-6 closed 2026-09-13.
 
 ## 7. Safety / rollback
 
@@ -101,6 +105,6 @@ verifies (a scheduled test fetch succeeds).
 - **No credential or TXT value is recorded in this runbook or anywhere in Eugene's KB.**
 
 ## 8. Status / next
-Draft pending §2 prerequisites. Suggested execution order once §2 is in: **§6 (Companies House
-allowlist)** → **§5 (info@/ops account)** for Construction → **§3 Holdings pilot** → §3 SSAS → **§4
-Waste** → cancel Waste subscription. Properties and Amfa untouched throughout.
+§5 and §6 are done (2026-09-13). Draft pending §2 prerequisites — nothing else can start until Minda
+gathers those from the consoles. Once §2 is in, the only remaining order is: **§3 Holdings pilot** →
+§3 SSAS → **§4 Waste** → cancel Waste subscription. Properties and Amfa untouched throughout.
