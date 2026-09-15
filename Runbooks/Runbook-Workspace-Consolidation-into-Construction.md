@@ -94,6 +94,12 @@ as the record of what should have happened, used as a **verification checklist**
 
 ## 4. Track 2 — Waste: its own Workspace → Construction hub (domain move)
 
+**Standalone execution checklist:** `Runbooks/Runbook-Waste-Migration-Execution-Checklist.md` (v1.0) —
+this section is the reasoning/reference; that file is the ordered step-by-step to actually run through
+the consoles. It also flags one genuine open question the sections below don't resolve: whether
+`fishbonewaste.co.uk` is a primary or secondary domain inside Waste's own Workspace, which decides
+whether Phase C below is a simple domain removal or a full subscription cancellation.
+
 **§2 fully answered 2026-09-15 — nothing left blocking this track.** Waste has **2 mailboxes**:
 `info@fishbonewaste.co.uk` and `sales@fishbonewaste.co.uk` (the latter is also Waste's super-admin
 login, OI-5). Owner's explicit precaution (2026-09-15): **archive the historical mail/Drive data
