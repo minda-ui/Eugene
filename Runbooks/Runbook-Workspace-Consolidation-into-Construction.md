@@ -6,7 +6,8 @@ value, token) is ever written into this file — those are generated and entered
 Waste is the only track still open — see §8. Author: Claude for Eugene, 2026-09-13; updated
 2026-09-15 (v0.2), 2026-09-15 (v0.3). Decision basis: Eugene OI-1 (resolved) + OI-4 (owner,
 2026-09-13). **v0.3 change (owner-reported 2026-09-15):** Holdings is **already migrated** under
-Construction — Track 1's Holdings half is done, pending Eugene DNS verification (blocked, see §3a).
+Construction — Track 1's Holdings half is done; MX verified 2026-09-15 via Minda's own DNS-panel check
+(Eugene's own DNS tooling stayed blocked all session — see §3.6), with a stale-SPF loose end flagged.
 SSAS turns out to have **no domain or Workspace of its own** — it drops out of the plan entirely,
 nothing to migrate. Super-admin identities recorded (§2.1) — each subscription's super-admin login is
 a shared business mailbox (`info@`/`sales@`), not a named personal account; flagged as **Eugene OI-5**
@@ -57,27 +58,35 @@ Record these in `Infra-Inventory/` (values only; **never** passwords/recovery co
 
 Do not start §4 (Waste) until items 2, 3 (Waste's domain), 4 and 5 above are filled in.
 
-## 3. Track 1 — Holdings: 1&1 → Construction hub — **reported done 2026-09-15, pending Eugene verification**
+## 3. Track 1 — Holdings: 1&1 → Construction hub — **MX verified 2026-09-15; one loose end found**
 
 SSAS dropped from this track entirely (§1) — no domain or Workspace exists for it, nothing to migrate.
 
 Minda reports Holdings is **already** a secondary domain under Construction. The steps below are kept
-as the record of what should have happened, now used as a **verification checklist** rather than a
-forward plan:
-1. ~~Add the domain as a secondary domain~~ in the Construction Admin console, verified (TXT record).
+as the record of what should have happened, used as a **verification checklist**:
+1. ~~Add the domain as a secondary domain~~ in the Construction Admin console, verified (TXT record) —
+   consistent with the Google site-verification TXT record Minda's screenshot showed present.
 2. ~~Create the users/mailboxes~~ on the domain (mirroring what existed on 1&1).
 3. ~~Pre-stage mail migration~~ from 1&1 over IMAP (Google Data Migration Service).
 4. ~~Cut over MX~~ to Google.
-5. ~~Decommission~~ the 1&1 mailboxes/hosting for Holdings.
-6. **Verify (Eugene, outstanding — blocked):** send/receive test through the new Workspace mailbox;
-   confirm old mail is present; MX resolves to Google (`dig MX <Holdings domain>`); no bounce from
-   external senders. Domain confirmed: **`fishboneholdings.co.uk`**. **Eugene could not run this check
-   2026-09-15** — tried a plain DNS lookup (no `dig`/`nslookup` installed), then a DNS-over-HTTPS
-   fallback (`dns.google`), which the session's egress proxy rejected (organisation policy — the same
-   restriction that originally blocked Peter's Companies House access, see
-   `Runbook-Companies-House-Access-for-Peter.md`). Either Minda runs `dig MX fishboneholdings.co.uk`
-   herself and reports the result, or Eugene retries this check once an environment with DNS egress is
-   available.
+5. **Decommission — clarified 2026-09-15:** "off 1&1" means off 1&1's *mail hosting*, not off 1&1 as
+   registrar/DNS host. `fishboneholdings.co.uk`'s DNS is still managed in the 1&1/IONOS panel — that's
+   normal; a Workspace secondary domain only needs the right MX/TXT records there, not a registrar move.
+6. **Verify — MX confirmed 2026-09-15 (Minda, via the 1&1 DNS panel):** the domain's **MX record now
+   points to `smtp.google.com`** (Google Workspace's current single-record MX target) — mail genuinely
+   routes to Google. This closes the verification Eugene couldn't run itself (no working DNS egress in
+   this environment — no `dig`/`nslookup`, and a DNS-over-HTTPS fallback via `dns.google` was rejected
+   by the session's proxy, organisation policy, the same restriction that originally blocked Peter's
+   Companies House access).
+   **Loose end found in the same screenshot, not yet fixed:** the domain's **SPF TXT record still
+   references IONOS's mail servers** (the 1&1 SPF include), not Google's. MX governs incoming mail
+   (fixed); SPF governs whether *outgoing* mail sent through Google's servers is authenticated —
+   left as-is, mail sent from this domain via Google Workspace risks failing SPF checks at the
+   receiving end (spam-folder risk, or rejection by strict recipients). Not urgent (only matters once
+   this domain actively sends mail through Google), but worth fixing: update the SPF TXT record to
+   include Google's SPF mechanism (`include:_spf.google.com`) alongside or instead of the 1&1 include,
+   per Google's own SPF-migration guidance. Minda to action in the 1&1 DNS panel; Eugene can't verify
+   this one either without DNS egress, same as above.
 
 ## 4. Track 2 — Waste: its own Workspace → Construction hub (domain move)
 
@@ -143,11 +152,11 @@ and Minda environments; Peter's weekly beat-2b run succeeded (all six companies 
 - **No credential or TXT value is recorded in this runbook or anywhere in Eugene's KB.**
 
 ## 8. Status / next
-§5 and §6 are done (2026-09-13). §3 Holdings (`fishboneholdings.co.uk`) is reported done (2026-09-15)
-but **unverified by Eugene** — this session has no working DNS egress at all (no `dig`/`nslookup`
-installed, and the DNS-over-HTTPS fallback was rejected by the egress proxy). Outstanding: Minda
-confirms `dig MX fishboneholdings.co.uk` herself, or Eugene retries when it has DNS egress. SSAS is
-closed — out of scope, nothing to migrate. Construction hub headroom confirmed: Business Standard, 3
+§5 and §6 are done (2026-09-13). **§3 Holdings (`fishboneholdings.co.uk`) is done and MX-verified
+(2026-09-15)** — Minda checked the 1&1 DNS panel directly, MX points to `smtp.google.com`. One loose
+end found there, not yet fixed: the **SPF TXT record still references IONOS**, not Google — a
+deliverability risk for outbound mail sent via Google Workspace, worth updating in the 1&1 panel when
+convenient (§3.6). SSAS is closed — out of scope, nothing to migrate. Construction hub headroom confirmed: Business Standard, 3
 spare licences available (§2.2). **§2 is now fully answered for Waste** (`fishbonewaste.co.uk`, 2
 mailboxes: `info@` + `sales@`, DNS control Minda) — **nothing left blocking §4 from a prerequisites
 standpoint.** Two things to settle before Minda executes it: (a) where the pre-migration archive of

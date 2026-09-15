@@ -64,8 +64,33 @@ owner's awareness; Eugene took no action (guide-only for live systems, charter �
 taken by Eugene. The DNS check was an attempted **read-only verification** (charter §2a), not a change
 — its failure is reported, not worked around.
 
-**Next.** §2 is fully answered for Waste. Outstanding: (1) Minda confirms the Holdings MX resolution
-herself, or Eugene retries DNS verification from an environment with egress; (2) Minda decides where
-the Waste mailbox archive should live and whether `info@`/`sales@` stay live post-migration (§4 open
-decisions); (3) once those two are settled, §4 can be executed; (4) OI-5 is the owner's call, not
-time-sensitive.
+**Later same day — Holdings MX verified via screenshot; SPF loose end found.** Minda shared a
+screenshot of `fishboneholdings.co.uk`'s DNS records from the 1&1/IONOS panel (Domains & SSL → DNS).
+Eugene's own DNS tooling stayed unreachable all session, so read the screenshot directly: **MX record
+points to `smtp.google.com`** — Google Workspace's current single-record MX target — confirming mail
+for this domain genuinely routes to Google. This closes the outstanding Holdings verification the
+runbook had flagged as blocked.
+
+Also visible in the same screenshot: the **SPF TXT record still references IONOS's mail servers**
+(the 1&1 SPF include), not Google's. MX governs incoming mail (now confirmed fixed); SPF governs
+whether outgoing mail sent through Google's servers is authenticated — left as-is, mail sent from this
+domain via Google Workspace risks failing SPF at the receiving end. Not urgent (matters once the
+domain actively sends via Google), but flagged as a follow-up: add `include:_spf.google.com` to the
+SPF record in the 1&1 panel. Also clarified: `fishboneholdings.co.uk` is still DNS-managed at
+1&1/IONOS — normal for a Workspace secondary domain, no registrar move required; "off 1&1" in earlier
+notes meant off 1&1's *mail hosting* specifically.
+
+**Governance note on the screenshot itself.** Per the runbook's own rule ("no secret — password, TXT
+value, token — is ever written into this file"), recorded the *findings* (MX target, SPF still
+IONOS-pointed) in plain text; did not transcribe or store the screenshot's Google site-verification TXT
+value or any other literal DNS record value. The image itself was not committed to the repo.
+
+**Produced/updated (this addendum).** Runbook §3 rewritten from a blocked-verification note into a
+confirmed-verification section with the SPF follow-up; §8 and the version header updated to match.
+`Infra-Inventory/Workspace-and-Email-Inventory.md` Holdings row updated with the verified MX and the
+SPF follow-up; "to confirm next" trimmed. `processed-items-ledger.md` row 5 added.
+
+**Next.** Outstanding: (1) fix Holdings' SPF record (Minda, in the 1&1 panel, low urgency); (2) Minda
+decides where the Waste mailbox archive should live and whether `info@`/`sales@` stay live
+post-migration (§4 open decisions); (3) once those two are settled, §4 can be executed; (4) OI-5 is the
+owner's call, not time-sensitive.
