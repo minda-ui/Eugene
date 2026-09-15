@@ -1,6 +1,6 @@
 # Infra Inventory — Email & Google Workspace (Fishbone Group)
 
-_Eugene's living inventory of where email/identity lives. Cite, never copy secrets (charter §3). Confirmed facts carry a date + source; anything unconfirmed is flagged. Last updated 2026-09-13._
+_Eugene's living inventory of where email/identity lives. Cite, never copy secrets (charter §3). Confirmed facts carry a date + source; anything unconfirmed is flagged. Last updated 2026-09-15._
 
 ## Confirmed 2026-09-13 (owner, Minda) — Google Workspace tenant shape (resolves Eugene OI-1)
 
@@ -13,13 +13,15 @@ multiple domains. Commercial Properties does **not** have its own subscription �
 | Fishbone Construction Ltd | Google Workspace (paid) | **Own subscription** | Domain `fishboneconstruction.co.uk`. Users incl. `minda@`, `info@` and `ops@` (the workforce agent identity — the currently connected Gmail account). See the identity table below. |
 | Fishbone Properties Ltd | Google Workspace (paid) | **Own subscription** | Domain `fishboneproperties.co.uk`. **Also carries Fishbone Commercial Properties** as a user/alias `commercial@fishboneproperties.co.uk`. |
 | Fishbone Commercial Properties Ltd | Google Workspace (paid) | **Inside Properties' subscription** | No separate subscription; `commercial@fishboneproperties.co.uk`. |
-| Fishbone Waste Ltd | Google Workspace (paid) | **Own subscription** | Domain (to confirm — likely `fishbonewaste.co.uk`; `lana@fishbonewaste.co.uk` seen as a Collaboration Space owner). |
-| Amfa Furniture Ltd | Google Workspace (paid) | **Own subscription** | Domain to confirm (company renamed from Furniture by Fishbone 13/07/2026 — check whether the Workspace domain was also renamed). |
-| Fishbone Holdings Ltd | **1&1 (IONOS) Webmail** | — | Candidate to move to Workspace. |
-| Fishbone SSAS | **1&1 (IONOS) Webmail** | — | A scheme, not a company; candidate to move to Workspace. |
+| Fishbone Waste Ltd | Google Workspace (paid) | **Own subscription** | Domain confirmed 2026-09-15: **`fishbonewaste.co.uk`** (`lana@fishbonewaste.co.uk` seen as a Collaboration Space owner). Super-admin login: `sales@fishbonewaste.co.uk` (owner-reported; see OI-5). |
+| Amfa Furniture Ltd | Google Workspace (paid) | **Own subscription** | Domain confirmed 2026-09-15: **`amfa.uk`** (company renamed from Furniture by Fishbone 13/07/2026; Workspace domain uses the short form). Super-admin login: `info@amfa.uk` (owner-reported; see OI-5). |
+| Fishbone Holdings Ltd | **Google Workspace, secondary domain under Construction** (owner-reported 2026-09-15) | **Inside Construction's subscription** | Migrated off 1&1. Domain confirmed 2026-09-15: **`fishboneholdings.co.uk`**. **Eugene has not independently verified this via DNS** (this session's network egress is locked down — same restriction as Peter OI-6; no `dig`/`nslookup` installed, DNS-over-HTTPS fallback rejected by the egress proxy). Minda to confirm `dig MX fishboneholdings.co.uk` or Eugene retries once it has DNS egress. |
+| Fishbone SSAS | **No domain or Workspace of its own** (owner-reported 2026-09-15) | — | Not a consolidation target — nothing to migrate. Removed from the Track 1 plan (`Runbooks/Runbook-Workspace-Consolidation-into-Construction.md` v0.3). |
 
-**So:** **four** separate paid Google Workspace subscriptions (Construction, Properties, Waste, Amfa)
-covering **five** companies (Commercial rides Properties); **two** entities on 1&1 (Holdings, SSAS).
+**So (updated 2026-09-15):** **four** separate paid Google Workspace subscriptions (Construction,
+Properties, Waste, Amfa) covering **five** companies (Commercial rides Properties). **Holdings** has
+moved off 1&1 and is now a secondary domain under Construction (owner-reported 2026-09-15, pending
+Eugene DNS verification). **SSAS has no domain or Workspace of its own** — not a consolidation target.
 
 ## What this means for consolidation
 
@@ -30,20 +32,35 @@ domain from its current subscription, add it as a secondary domain to the chosen
 users / mailboxes / Drive). That is a real, staged project, not a settings change. (This retires the
 hope in the 2026-09-12 owner note that Workspace multi-domain would make it a one-step change.)
 
-### Decided target architecture (owner, 2026-09-13; OI-4 resolved) — three tenants
+### Decided target architecture (owner, 2026-09-13; OI-4 resolved; updated 2026-09-15)
 
-- **Construction = hub** → fold in **Holdings** and **SSAS** (off 1&1) and **Waste** (dormant, its
-  own Workspace) as **secondary domains**.
+- **Construction = hub** → **Holdings already folded in** (secondary domain, owner-reported
+  2026-09-15) + **Waste** (dormant, its own Workspace — still to migrate). **SSAS dropped** — no
+  domain/Workspace exists for it.
 - **Properties (+ Commercial)** → **stays its own tenant** (separate legal company; keeps the clean
   governance line; already carries Commercial).
 - **Amfa** → **stays standalone**, kept sale-ready (group OI-13) — a standalone tenant is clean to
   carve out on a future sale. (The separate website was **not** the reason — a secondary domain keeps
   its own email/website/brand; consolidation only merges admin + billing.)
 
-Procedure in `Runbooks/Runbook-Workspace-Consolidation-into-Construction.md` (v0.1). Two migration
-tracks: **1&1 → Construction** (Holdings, SSAS — secondary-domain onboarding + IMAP mail migration)
-and **Waste Workspace → Construction** (domain must be removed from Waste's account before it can be
-added to the hub; then cancel the Waste subscription). Properties and Amfa untouched.
+Procedure in `Runbooks/Runbook-Workspace-Consolidation-into-Construction.md` (v0.3). **Only remaining
+track: Waste Workspace → Construction** (domain must be removed from Waste's account before it can be
+added to the hub; then cancel the Waste subscription). Properties, Amfa and (now) SSAS untouched.
+Construction hub headroom confirmed 2026-09-15: **Business Standard**, 0 free seats, up to **3 more
+licences** can be added.
+
+### Super-admin identities (owner-reported 2026-09-15)
+
+| Subscription | Super-admin login |
+|---|---|
+| Construction | `info@fishboneconstruction.co.uk` |
+| Properties | `info@fishboneproperties.co.uk` |
+| Waste | `sales@fishbonewaste.co.uk` |
+| Amfa | `info@amfa.uk` |
+
+Each super-admin login is the subscription's **shared business mailbox itself**, not a separate named
+admin account — flagged as **OI-5** (advisory, not blocking): anyone reading that inbox has full
+Workspace admin rights, with no distinct break-glass identity. Owner's call whether to change.
 
 ## Identity / workforce accounts — Construction (as at 2026-09-13)
 
@@ -95,8 +112,10 @@ Cosmetic: the Construction Workspace **org display name still reads "Fishbone Dr
 pre-2024 name) — rename in the Admin console when convenient; no routing impact.
 
 ## To confirm next
-- Amfa's and Waste's exact Workspace domains (and whether Amfa's domain was renamed with the company).
-- Per-subscription edition/seat counts and who the super-admin is on each (needed before any migration
-  runbook; **read from the Admin console by Minda** — Eugene is guide-only for the console, charter §3).
-- Whether the Gmail connector can read a Google Group / delegated mailbox (Eugene OI-2) — decides how
-  the dedicated `info@` is wired (group membership vs a forwarded ops mailbox).
+- DNS control (registrar) for `fishbonewaste.co.uk`, and its mailbox count / mail volume / Drive data
+  — the last blockers before the Waste migration can start.
+- Eugene's DNS verification of the Holdings migration (`dig MX fishboneholdings.co.uk` resolving to
+  Google) — blocked this session by locked-down network egress (no `dig`/`nslookup`, DoH fallback
+  rejected by the proxy); retry when DNS-reachable, or Minda confirms herself.
+- OI-5 (super-admin-as-shared-mailbox) — advisory only, no action required unless the owner decides
+  otherwise.

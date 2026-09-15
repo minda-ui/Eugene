@@ -1,61 +1,81 @@
-# Runbook — Workspace consolidation into the Construction hub (v0.2, draft)
+# Runbook — Workspace consolidation into the Construction hub (v0.3, draft)
 
 _Eugene runbook. **Eugene is guide-only for live systems (charter §3): this document is the guide;
 Minda performs every Admin-console / DNS / registrar / migration step.** No secret (password, TXT
-value, token) is ever written into this file — those are generated and entered live. Status: draft,
-pending the prerequisites in §2 (§5 and §6 are done — see below). Author: Claude for Eugene,
-2026-09-13; updated 2026-09-15. Decision basis: Eugene OI-1 (resolved) + OI-4 (owner, 2026-09-13).
-**v0.2 change:** §5 and §6 marked done (both closed 2026-09-13, same day this runbook was drafted) and
-§8 execution order tightened to the one step actually next — the Holdings pilot._
+value, token) is ever written into this file — those are generated and entered live. Status: draft;
+Waste is the only track still open — see §8. Author: Claude for Eugene, 2026-09-13; updated
+2026-09-15 (v0.2), 2026-09-15 (v0.3). Decision basis: Eugene OI-1 (resolved) + OI-4 (owner,
+2026-09-13). **v0.3 change (owner-reported 2026-09-15):** Holdings is **already migrated** under
+Construction — Track 1's Holdings half is done, pending Eugene DNS verification (blocked, see §3a).
+SSAS turns out to have **no domain or Workspace of its own** — it drops out of the plan entirely,
+nothing to migrate. Super-admin identities recorded (§2.1) — each subscription's super-admin login is
+a shared business mailbox (`info@`/`sales@`), not a named personal account; flagged as **Eugene OI-5**
+(advisory, not blocking). Waste is now the only remaining migration track._
 
-## 1. Target architecture (owner-agreed 2026-09-13)
+## 1. Target architecture (owner-agreed 2026-09-13; updated 2026-09-15)
 
-Three Google Workspace tenants:
+Two Google Workspace tenants change; two don't:
 
 | Tenant | Holds | Change |
 |---|---|---|
-| **Construction (hub)** | `fishboneconstruction.co.uk` + **Holdings** + **SSAS** (from 1&1) + **Waste** (from its own Workspace), each as a **secondary domain** | Receives three domains |
+| **Construction (hub)** | `fishboneconstruction.co.uk` + **Holdings** (secondary domain, **already added — owner-reported 2026-09-15**) + **Waste** (still to migrate) | Receives Waste; Holdings done |
 | **Properties** | `fishboneproperties.co.uk` + Commercial (`commercial@fishboneproperties.co.uk`) | **Unchanged** |
 | **Amfa** | its own subscription | **Unchanged — kept standalone for sale-readiness** (group OI-13) |
+
+**SSAS is out of scope** — it has no domain or Workspace of its own (owner-reported 2026-09-15), so
+there is nothing to consolidate. Removed from the target architecture and from Track 1 below.
 
 **A secondary domain keeps its own addresses, website and brand** — consolidation only merges the
 admin console + billing, not identity. Amfa is kept separate because it is the entity most likely to
 be sold; a standalone tenant is clean to carve out later.
 
-**Out of scope:** Properties/Commercial and Amfa are not touched.
+**Out of scope:** Properties/Commercial and Amfa are not touched. SSAS is not touched (nothing to move).
 
 ## 2. Prerequisites — gather before any change (Minda, from the consoles; Eugene guide-only)
 
 Record these in `Infra-Inventory/` (values only; **never** passwords/recovery codes):
-1. **Super-admin** of each of the four Workspace subscriptions (Construction, Properties, Waste, Amfa)
-   and the **1&1/IONOS admin** for Holdings and SSAS.
-2. **Construction hub headroom:** Workspace edition and number of free user licences (each migrated
-   mailbox needs one).
-3. **Exact domains:** confirm Waste's domain (likely `fishbonewaste.co.uk`), Amfa's domain, and the
-   Holdings and SSAS domains on 1&1.
-4. **DNS control** for each domain being moved (registrar/where MX + TXT records are edited).
-5. **Mailboxes + rough mail volume** per domain being moved, and whether each has Drive data to carry.
-6. **Gmail connector delegated-mailbox test (Eugene OI-2)** — decides whether a dedicated `info@` can
-   be a Google Group / shared mailbox the connector reads, or must be a real user mailbox forwarded to
-   an ops account.
+1. **Super-admin** of each Workspace subscription — **owner-reported 2026-09-15:** Construction =
+   `info@fishboneconstruction.co.uk`, Properties = `info@fishboneproperties.co.uk`, Waste =
+   `sales@` (domain tbc), Amfa = `info@` (domain tbc). Each is the shared business mailbox itself,
+   not a separate named admin account — see **OI-5** in `open-issues.md`. Holdings' 1&1 admin is now
+   moot (already off 1&1, see §1); SSAS has no admin to record (no domain/Workspace).
+2. **Construction hub headroom — owner-reported 2026-09-15:** **Business Standard**, 0 free seats
+   currently, but **up to 3 more licences can be added**. Waste is dormant so its mailbox count should
+   be small — confirm it fits within 3 before starting §4 (if not, buy headroom first).
+3. **Exact domains — owner-reported 2026-09-15:** Holdings = `fishboneholdings.co.uk` (migration
+   reported done, DNS unverified by Eugene — see §3.6); Waste = `fishbonewaste.co.uk`; Amfa = `amfa.uk`
+   (for the inventory record only, not migrating). SSAS — confirmed n/a, no domain exists.
+4. **DNS control** for `fishbonewaste.co.uk` (registrar/where MX + TXT records are edited) — **still
+   needed**.
+5. **Mailboxes + rough mail volume** for `fishbonewaste.co.uk`, and whether it has Drive data to
+   carry — **still needed** (expect near-zero; Waste is dormant).
+6. **Gmail connector delegated-mailbox test (Eugene OI-2)** — not blocking; the live `info@`→`ops@`
+   forwarding pattern already covers the need without a Group. Only revisit if a future company
+   specifically wants a shared-mailbox `info@`.
 
-Do not start Track 1 or 2 until §2 is filled in.
+Do not start §4 (Waste) until items 2, 3 (Waste's domain), 4 and 5 above are filled in.
 
-## 3. Track 1 — Holdings & SSAS: 1&1 → Construction hub (secondary-domain onboarding)
+## 3. Track 1 — Holdings: 1&1 → Construction hub — **reported done 2026-09-15, pending Eugene verification**
 
-For each of the two domains (do Holdings first as a pilot, then SSAS):
-1. **Add the domain as a secondary domain** in the Construction Admin console and **verify** it (add
-   the Google-provided TXT record at the registrar; the TXT value is generated live — not stored here).
-2. **Create the users/groups** on the new domain (mirror the mailboxes that exist on 1&1). Set
-   temporary passwords the owner controls; the owner rotates them — Eugene never sees them.
-3. **Pre-stage mail migration** from 1&1 over **IMAP** using Google's Data Migration Service (host,
-   port, per-user IMAP credentials entered live by Minda). Run while 1&1 still receives mail.
-4. **Cut over MX:** once mail is staged, change the domain's **MX records** at the registrar to
-   Google's. Keep 1&1 mailboxes live briefly to catch stragglers; run a final delta migration.
-5. **Decommission** the 1&1 mailboxes/hosting for that domain once mail is confirmed flowing to
-   Workspace and the delta is clean.
-6. **Verify:** send/receive test through the new Workspace mailbox; confirm old mail is present; MX
-   resolves to Google (`dig MX <domain>`); no bounce from external senders.
+SSAS dropped from this track entirely (§1) — no domain or Workspace exists for it, nothing to migrate.
+
+Minda reports Holdings is **already** a secondary domain under Construction. The steps below are kept
+as the record of what should have happened, now used as a **verification checklist** rather than a
+forward plan:
+1. ~~Add the domain as a secondary domain~~ in the Construction Admin console, verified (TXT record).
+2. ~~Create the users/mailboxes~~ on the domain (mirroring what existed on 1&1).
+3. ~~Pre-stage mail migration~~ from 1&1 over IMAP (Google Data Migration Service).
+4. ~~Cut over MX~~ to Google.
+5. ~~Decommission~~ the 1&1 mailboxes/hosting for Holdings.
+6. **Verify (Eugene, outstanding — blocked):** send/receive test through the new Workspace mailbox;
+   confirm old mail is present; MX resolves to Google (`dig MX <Holdings domain>`); no bounce from
+   external senders. Domain confirmed: **`fishboneholdings.co.uk`**. **Eugene could not run this check
+   2026-09-15** — tried a plain DNS lookup (no `dig`/`nslookup` installed), then a DNS-over-HTTPS
+   fallback (`dns.google`), which the session's egress proxy rejected (organisation policy — the same
+   restriction that originally blocked Peter's Companies House access, see
+   `Runbook-Companies-House-Access-for-Peter.md`). Either Minda runs `dig MX fishboneholdings.co.uk`
+   herself and reports the result, or Eugene retries this check once an environment with DNS egress is
+   available.
 
 ## 4. Track 2 — Waste: its own Workspace → Construction hub (domain move)
 
@@ -99,12 +119,20 @@ and Minda environments; Peter's weekly beat-2b run succeeded (all six companies 
 ## 7. Safety / rollback
 
 - **Never cut MX before mail is staged.** Keep the source mailboxes live until a clean delta migration.
-- Do **Holdings** as the pilot; only proceed to SSAS and Waste once Holdings verifies end-to-end.
+- Holdings was done as the pilot; treat Waste's cutover with the same caution even though it's now the
+  only track left (SSAS dropped — no domain/Workspace to migrate, §1).
 - Keep an export/backup of each source mailbox until cutover is confirmed.
 - No step here is taken by Eugene; each is executed by Minda in the console/registrar and then verified.
 - **No credential or TXT value is recorded in this runbook or anywhere in Eugene's KB.**
 
 ## 8. Status / next
-§5 and §6 are done (2026-09-13). Draft pending §2 prerequisites — nothing else can start until Minda
-gathers those from the consoles. Once §2 is in, the only remaining order is: **§3 Holdings pilot** →
-§3 SSAS → **§4 Waste** → cancel Waste subscription. Properties and Amfa untouched throughout.
+§5 and §6 are done (2026-09-13). §3 Holdings (`fishboneholdings.co.uk`) is reported done (2026-09-15)
+but **unverified by Eugene** — this session has no working DNS egress at all (no `dig`/`nslookup`
+installed, and the DNS-over-HTTPS fallback was rejected by the egress proxy). Outstanding: Minda
+confirms `dig MX fishboneholdings.co.uk` herself, or Eugene retries when it has DNS egress. SSAS is
+closed — out of scope, nothing to migrate. Construction hub headroom confirmed: Business Standard, 3
+spare licences available (§2.2). **Only remaining work is §4 Waste** (`fishbonewaste.co.uk`), still
+blocked on: DNS control for it and its mailbox count/volume (§2.4–§2.5) — the domain itself is now
+known. Properties and Amfa (`amfa.uk`) untouched throughout. Advisory raised, not blocking: **OI-5** —
+each subscription's super-admin login is a shared business mailbox (`info@`/`sales@`), not a dedicated
+named admin account (§2.1).
