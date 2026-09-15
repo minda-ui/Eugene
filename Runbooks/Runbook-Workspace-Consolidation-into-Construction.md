@@ -94,7 +94,10 @@ as the record of what should have happened, used as a **verification checklist**
 `info@fishbonewaste.co.uk` and `sales@fishbonewaste.co.uk` (the latter is also Waste's super-admin
 login, OI-5). Owner's explicit precaution (2026-09-15): **archive the historical mail/Drive data
 before migrating, don't just re-point and move on** — this is now the required approach for step 1
-below, not an optional nice-to-have.
+below, not an optional nice-to-have. Owner also decided (2026-09-15): **both mailboxes stay live under
+Construction after migrating** (step 2) — the archive is a historical safeguard, not a replacement for
+keeping the addresses active. **Only one open decision left: where the pre-migration archive should
+live** (step 1).
 
 Harder than Track 1: **Google will not let a domain be added to a second account while it still
 exists in the first.** So the domain must be **removed from Waste's Workspace before it can be added
@@ -109,11 +112,12 @@ to Construction**, and any mail/Drive must be archived first.
    about to move, and 1&1-style "still live for stragglers" isn't available here the way it was for
    Holdings' 1&1 migration — Waste's own Workspace gets **cancelled** at the end of this track (step 5),
    so anything not archived or re-provisioned by then is gone.
-2. **Open decision — Minda:** after the archive (step 1), do `info@fishbonewaste.co.uk` and
-   `sales@fishbonewaste.co.uk` need to stay **live** mailboxes (re-provisioned under Construction, as
-   in Track 1 steps 1–3), or is archiving them enough because Waste is dormant and nothing still needs
-   to arrive there? The archive-first precaution answers "don't lose the history" — it doesn't by
-   itself answer whether these inboxes keep receiving mail going forward.
+2. **Migrate mail — decided 2026-09-15 (Minda): both stay live.** `info@fishbonewaste.co.uk` and
+   `sales@fishbonewaste.co.uk` are **re-provisioned as live mailboxes under Construction** (as in
+   Track 1 steps 1–3), in addition to the archive from step 1, not instead of it — Waste is dormant but
+   its two inboxes keep receiving mail going forward. **Note:** `sales@fishbonewaste.co.uk` is also
+   Waste's super-admin login (OI-5) — decide separately whether that role moves with it or a new
+   super-admin is assigned once Waste's own Workspace is gone (step 5 below).
 3. **Remove the Waste domain** from the Waste Workspace subscription (Admin console), then **add it as
    a secondary domain** in the Construction hub and verify (TXT).
 4. **Cut over MX** to the Construction hub; run a final delta.
@@ -159,9 +163,11 @@ IONOS**, not Google — a deliverability risk for outbound mail sent via Google 
 updating in the 1&1 panel when convenient (§3.6). SSAS is closed — out of scope, nothing to migrate. Construction hub headroom confirmed: Business Standard, 3
 spare licences available (§2.2). **§2 is now fully answered for Waste** (`fishbonewaste.co.uk`, 2
 mailboxes: `info@` + `sales@`, DNS control Minda) — **nothing left blocking §4 from a prerequisites
-standpoint.** Two things to settle before Minda executes it: (a) where the pre-migration archive of
-`info@`/`sales@` should live (§4 step 1, open decision), and (b) whether both mailboxes stay live under
-Construction after migrating or the archive alone is sufficient (§4 step 2, open decision). Properties
-and Amfa (`amfa.uk`) untouched throughout. Advisory raised, not blocking: **OI-5** — each subscription's
-super-admin login is a shared business mailbox (`info@`/`sales@`), not a dedicated named admin account
-(§2.1).
+standpoint.** Decided 2026-09-15: **both mailboxes stay live under Construction after migrating** (§4
+step 2) — the archive is a historical safeguard, not instead of re-provisioning. **Only one thing left
+to settle before Minda executes §4: where the pre-migration archive of `info@`/`sales@` should live**
+(§4 step 1, open decision). Properties and Amfa (`amfa.uk`) untouched throughout. Advisory raised, not
+blocking: **OI-5** — each subscription's super-admin login is a shared business mailbox
+(`info@`/`sales@`), not a dedicated named admin account (§2.1); note `sales@fishbonewaste.co.uk` is
+Waste's super-admin and is one of the two mailboxes migrating (§4 step 2) — decide separately whether
+that admin role carries over. **OI-6** — Holdings' SPF record still points at IONOS, low-urgency fix.

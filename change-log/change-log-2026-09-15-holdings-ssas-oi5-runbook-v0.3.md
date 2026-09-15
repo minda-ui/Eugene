@@ -96,7 +96,19 @@ task, not blocking) — the fix (`include:_spf.google.com` in the 1&1 DNS panel)
 recorded there as the single source of truth; runbook §3.6/§8 and the inventory now cross-reference
 OI-6 instead of just describing the finding inline. `processed-items-ledger.md` row 6 added.
 
+**Later still same day — §4 step 2 decided: both mailboxes stay live.** Minda confirmed
+`info@fishbonewaste.co.uk` and `sales@fishbonewaste.co.uk` will be **re-provisioned as live mailboxes
+under Construction** post-migration, in addition to the archive from step 1 — the archive-first
+precaution was about preserving history, not a signal these addresses go dormant. Closes one of §4's
+two open decisions. Noted as a follow-on: `sales@` is also Waste's super-admin login (OI-5) — whether
+that admin role carries over to Construction or a new super-admin gets assigned once Waste's own
+Workspace is cancelled (step 5) is a separate decision, not yet asked.
+
+**Produced/updated (this addendum).** Runbook §4 step 2 rewritten from an open question into a
+decided step; §4 intro and §8 updated to reflect only one open decision left (archive location).
+Inventory Waste row and "to confirm next" updated to match. `processed-items-ledger.md` row 7 added.
+
 **Next.** Outstanding: (1) OI-6 — Minda fixes Holdings' SPF record in the 1&1 panel, low urgency; (2)
-Minda decides where the Waste mailbox archive should live and whether `info@`/`sales@` stay live
-post-migration (§4 open decisions); (3) once those two are settled, §4 can be executed; (4) OI-5 is the
-owner's call, not time-sensitive.
+Minda decides where the Waste mailbox archive should live — the **only** remaining thing before §4 can
+be executed; (3) separately, whether Waste's super-admin role (`sales@`) carries over to Construction;
+(4) OI-5 is the owner's call, not time-sensitive.
