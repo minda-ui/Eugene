@@ -10,7 +10,9 @@ Construction — Track 1's Holdings half is done, pending Eugene DNS verificatio
 SSAS turns out to have **no domain or Workspace of its own** — it drops out of the plan entirely,
 nothing to migrate. Super-admin identities recorded (§2.1) — each subscription's super-admin login is
 a shared business mailbox (`info@`/`sales@`), not a named personal account; flagged as **Eugene OI-5**
-(advisory, not blocking). Waste is now the only remaining migration track._
+(advisory, not blocking). Waste is now the only remaining migration track. **v0.3 addendum (same day):** DNS control confirmed —
+Minda holds registrar access for both `fishboneholdings.co.uk` and `fishbonewaste.co.uk`. Only §2.5
+(Waste's mailbox count/mail volume) is still outstanding before §4 can start._
 
 ## 1. Target architecture (owner-agreed 2026-09-13; updated 2026-09-15)
 
@@ -45,8 +47,8 @@ Record these in `Infra-Inventory/` (values only; **never** passwords/recovery co
 3. **Exact domains — owner-reported 2026-09-15:** Holdings = `fishboneholdings.co.uk` (migration
    reported done, DNS unverified by Eugene — see §3.6); Waste = `fishbonewaste.co.uk`; Amfa = `amfa.uk`
    (for the inventory record only, not migrating). SSAS — confirmed n/a, no domain exists.
-4. **DNS control** for `fishbonewaste.co.uk` (registrar/where MX + TXT records are edited) — **still
-   needed**.
+4. **DNS control — owner-reported 2026-09-15:** Minda controls DNS for both `fishboneholdings.co.uk`
+   and `fishbonewaste.co.uk` (registrar access confirmed for the two domains still relevant; SSAS n/a).
 5. **Mailboxes + rough mail volume** for `fishbonewaste.co.uk`, and whether it has Drive data to
    carry — **still needed** (expect near-zero; Waste is dormant).
 6. **Gmail connector delegated-mailbox test (Eugene OI-2)** — not blocking; the live `info@`→`ops@`
@@ -131,8 +133,8 @@ but **unverified by Eugene** — this session has no working DNS egress at all (
 installed, and the DNS-over-HTTPS fallback was rejected by the egress proxy). Outstanding: Minda
 confirms `dig MX fishboneholdings.co.uk` herself, or Eugene retries when it has DNS egress. SSAS is
 closed — out of scope, nothing to migrate. Construction hub headroom confirmed: Business Standard, 3
-spare licences available (§2.2). **Only remaining work is §4 Waste** (`fishbonewaste.co.uk`), still
-blocked on: DNS control for it and its mailbox count/volume (§2.4–§2.5) — the domain itself is now
-known. Properties and Amfa (`amfa.uk`) untouched throughout. Advisory raised, not blocking: **OI-5** —
+spare licences available (§2.2). **Only remaining work is §4 Waste** (`fishbonewaste.co.uk`), now
+blocked on just one item — its mailbox count/mail volume (§2.5); DNS control is confirmed (Minda,
+§2.4). Properties and Amfa (`amfa.uk`) untouched throughout. Advisory raised, not blocking: **OI-5** —
 each subscription's super-admin login is a shared business mailbox (`info@`/`sales@`), not a dedicated
 named admin account (§2.1).

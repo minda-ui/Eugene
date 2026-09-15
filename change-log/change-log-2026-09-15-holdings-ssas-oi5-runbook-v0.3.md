@@ -23,6 +23,9 @@ Construction" could have meant anywhere from "fully migrated" to "just a restate
   up to **3 more licences** can be added.
 - Item 3 (exact domains), supplied mid-turn: Holdings = `fishboneholdings.co.uk`, SSAS = confirmed no
   domain, Waste = `fishbonewaste.co.uk`, Amfa = `amfa.uk`.
+- Item 4 (DNS control), supplied mid-turn: Minda holds registrar access for both
+  `fishboneholdings.co.uk` and `fishbonewaste.co.uk` (SSAS n/a). This closes out every §2 item for
+  Waste except mailbox count/mail volume (§2.5) — the one thing still blocking §4.
 
 **Verification attempted, blocked.** Tried to independently confirm the Holdings migration via DNS —
 first without a domain name (`dig`/`nslookup` not installed; `python3 -c "import dns.resolver"` also
@@ -54,6 +57,6 @@ taken by Eugene. The DNS check was an attempted **read-only verification** (char
 — its failure is reported, not worked around.
 
 **Next.** Outstanding: (1) Minda confirms the Holdings MX resolution herself, or Eugene retries DNS
-verification from an environment with egress; (2) Holdings' exact domain name, for the inventory
-record; (3) Waste's exact domain, DNS control, and mailbox/mail-volume — the last blockers before the
-Waste migration (§4) can start; (4) OI-5 is the owner's call, not time-sensitive.
+verification from an environment with egress; (2) Waste's mailbox count/mail volume — the **only**
+remaining §2 item, now that domains and DNS control are both confirmed; (3) OI-5 is the owner's call,
+not time-sensitive.
