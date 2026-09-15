@@ -81,15 +81,30 @@ forward plan:
 
 ## 4. Track 2 — Waste: its own Workspace → Construction hub (domain move)
 
+**§2 fully answered 2026-09-15 — nothing left blocking this track.** Waste has **2 mailboxes**:
+`info@fishbonewaste.co.uk` and `sales@fishbonewaste.co.uk` (the latter is also Waste's super-admin
+login, OI-5). Owner's explicit precaution (2026-09-15): **archive the historical mail/Drive data
+before migrating, don't just re-point and move on** — this is now the required approach for step 1
+below, not an optional nice-to-have.
+
 Harder than Track 1: **Google will not let a domain be added to a second account while it still
 exists in the first.** So the domain must be **removed from Waste's Workspace before it can be added
-to Construction**, and any mail/Drive must be migrated first.
-1. **Inventory + export** everything worth keeping from the Waste subscription (mail via export/Takeout
-   or Data Migration; any Drive files — but per the group rules, cite/keep records rather than
-   duplicating what already lives in the Waste KB). Waste is dormant, so volume should be small.
-2. **Migrate mail** into the destination Waste addresses **created in the Construction hub** (as in
-   Track 1 steps 1–3), or, if the addresses are only being retained (not actively used), export to an
-   archive and skip re-provisioning.
+to Construction**, and any mail/Drive must be archived first.
+1. **Archive both mailboxes before touching anything else** (owner precaution, 2026-09-15): export
+   `info@` and `sales@` in full — Google Workspace Data Export (admin-initiated, whole-account) or a
+   per-mailbox Google Takeout, plus any Drive files either account owns. **Open decision — Minda:**
+   where should the archive live? Options: a dedicated folder in Construction's Drive (nearest the new
+   home for these addresses), or wherever Waste's own company records/KB already live if one exists.
+   Eugene has no visibility into a Waste KB today — say if one exists so this gets referenced correctly
+   rather than assumed. Whichever location, treat it as the durable historical record: this account is
+   about to move, and 1&1-style "still live for stragglers" isn't available here the way it was for
+   Holdings' 1&1 migration — Waste's own Workspace gets **cancelled** at the end of this track (step 5),
+   so anything not archived or re-provisioned by then is gone.
+2. **Open decision — Minda:** after the archive (step 1), do `info@fishbonewaste.co.uk` and
+   `sales@fishbonewaste.co.uk` need to stay **live** mailboxes (re-provisioned under Construction, as
+   in Track 1 steps 1–3), or is archiving them enough because Waste is dormant and nothing still needs
+   to arrive there? The archive-first precaution answers "don't lose the history" — it doesn't by
+   itself answer whether these inboxes keep receiving mail going forward.
 3. **Remove the Waste domain** from the Waste Workspace subscription (Admin console), then **add it as
    a secondary domain** in the Construction hub and verify (TXT).
 4. **Cut over MX** to the Construction hub; run a final delta.
@@ -133,8 +148,11 @@ but **unverified by Eugene** — this session has no working DNS egress at all (
 installed, and the DNS-over-HTTPS fallback was rejected by the egress proxy). Outstanding: Minda
 confirms `dig MX fishboneholdings.co.uk` herself, or Eugene retries when it has DNS egress. SSAS is
 closed — out of scope, nothing to migrate. Construction hub headroom confirmed: Business Standard, 3
-spare licences available (§2.2). **Only remaining work is §4 Waste** (`fishbonewaste.co.uk`), now
-blocked on just one item — its mailbox count/mail volume (§2.5); DNS control is confirmed (Minda,
-§2.4). Properties and Amfa (`amfa.uk`) untouched throughout. Advisory raised, not blocking: **OI-5** —
-each subscription's super-admin login is a shared business mailbox (`info@`/`sales@`), not a dedicated
-named admin account (§2.1).
+spare licences available (§2.2). **§2 is now fully answered for Waste** (`fishbonewaste.co.uk`, 2
+mailboxes: `info@` + `sales@`, DNS control Minda) — **nothing left blocking §4 from a prerequisites
+standpoint.** Two things to settle before Minda executes it: (a) where the pre-migration archive of
+`info@`/`sales@` should live (§4 step 1, open decision), and (b) whether both mailboxes stay live under
+Construction after migrating or the archive alone is sufficient (§4 step 2, open decision). Properties
+and Amfa (`amfa.uk`) untouched throughout. Advisory raised, not blocking: **OI-5** — each subscription's
+super-admin login is a shared business mailbox (`info@`/`sales@`), not a dedicated named admin account
+(§2.1).

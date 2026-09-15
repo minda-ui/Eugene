@@ -26,6 +26,14 @@ Construction" could have meant anywhere from "fully migrated" to "just a restate
 - Item 4 (DNS control), supplied mid-turn: Minda holds registrar access for both
   `fishboneholdings.co.uk` and `fishbonewaste.co.uk` (SSAS n/a). This closes out every §2 item for
   Waste except mailbox count/mail volume (§2.5) — the one thing still blocking §4.
+- Item 5 (mailboxes/volume), supplied mid-turn: Waste has **2 mailboxes** — `info@` and `sales@`.
+  Owner added an explicit precaution: **archive the historical mail/Drive data before migrating**,
+  not just re-point and move on. **§2 is now fully answered — nothing left blocking §4 on
+  prerequisites.** Rewrote §4 step 1 from an optional "inventory + export" into a required
+  archive-first step, and flagged two open decisions for Minda rather than assuming an answer: where
+  the archive should live (no visibility into a Waste KB, if one exists), and whether `info@`/`sales@`
+  stay live under Construction post-migration or the archive alone suffices — the precaution answers
+  "don't lose history," not "do these inboxes keep receiving mail."
 
 **Verification attempted, blocked.** Tried to independently confirm the Holdings migration via DNS —
 first without a domain name (`dig`/`nslookup` not installed; `python3 -c "import dns.resolver"` also
@@ -56,7 +64,8 @@ owner's awareness; Eugene took no action (guide-only for live systems, charter �
 taken by Eugene. The DNS check was an attempted **read-only verification** (charter §2a), not a change
 — its failure is reported, not worked around.
 
-**Next.** Outstanding: (1) Minda confirms the Holdings MX resolution herself, or Eugene retries DNS
-verification from an environment with egress; (2) Waste's mailbox count/mail volume — the **only**
-remaining §2 item, now that domains and DNS control are both confirmed; (3) OI-5 is the owner's call,
-not time-sensitive.
+**Next.** §2 is fully answered for Waste. Outstanding: (1) Minda confirms the Holdings MX resolution
+herself, or Eugene retries DNS verification from an environment with egress; (2) Minda decides where
+the Waste mailbox archive should live and whether `info@`/`sales@` stay live post-migration (§4 open
+decisions); (3) once those two are settled, §4 can be executed; (4) OI-5 is the owner's call, not
+time-sensitive.

@@ -13,7 +13,7 @@ multiple domains. Commercial Properties does **not** have its own subscription �
 | Fishbone Construction Ltd | Google Workspace (paid) | **Own subscription** | Domain `fishboneconstruction.co.uk`. Users incl. `minda@`, `info@` and `ops@` (the workforce agent identity — the currently connected Gmail account). See the identity table below. |
 | Fishbone Properties Ltd | Google Workspace (paid) | **Own subscription** | Domain `fishboneproperties.co.uk`. **Also carries Fishbone Commercial Properties** as a user/alias `commercial@fishboneproperties.co.uk`. |
 | Fishbone Commercial Properties Ltd | Google Workspace (paid) | **Inside Properties' subscription** | No separate subscription; `commercial@fishboneproperties.co.uk`. |
-| Fishbone Waste Ltd | Google Workspace (paid) | **Own subscription** | Domain confirmed 2026-09-15: **`fishbonewaste.co.uk`** (`lana@fishbonewaste.co.uk` seen as a Collaboration Space owner). Super-admin login: `sales@fishbonewaste.co.uk` (owner-reported; see OI-5). DNS control: **Minda** (registrar access confirmed 2026-09-15). |
+| Fishbone Waste Ltd | Google Workspace (paid) | **Own subscription** | Domain confirmed 2026-09-15: **`fishbonewaste.co.uk`** (`lana@fishbonewaste.co.uk` seen as a Collaboration Space owner). Super-admin login: `sales@fishbonewaste.co.uk` (owner-reported; see OI-5). DNS control: **Minda** (registrar access confirmed 2026-09-15). **2 mailboxes confirmed 2026-09-15: `info@` + `sales@`.** Owner precaution: archive both mailboxes' historical mail/Drive data before migrating — see `Runbooks/Runbook-Workspace-Consolidation-into-Construction.md` §4 (open decisions: archive storage location; whether both stay live post-migration). |
 | Amfa Furniture Ltd | Google Workspace (paid) | **Own subscription** | Domain confirmed 2026-09-15: **`amfa.uk`** (company renamed from Furniture by Fishbone 13/07/2026; Workspace domain uses the short form). Super-admin login: `info@amfa.uk` (owner-reported; see OI-5). |
 | Fishbone Holdings Ltd | **Google Workspace, secondary domain under Construction** (owner-reported 2026-09-15) | **Inside Construction's subscription** | Migrated off 1&1. Domain confirmed 2026-09-15: **`fishboneholdings.co.uk`**. **Eugene has not independently verified this via DNS** (this session's network egress is locked down — same restriction as Peter OI-6; no `dig`/`nslookup` installed, DNS-over-HTTPS fallback rejected by the egress proxy). Minda to confirm `dig MX fishboneholdings.co.uk` or Eugene retries once it has DNS egress. DNS control: **Minda** (registrar access confirmed 2026-09-15). |
 | Fishbone SSAS | **No domain or Workspace of its own** (owner-reported 2026-09-15) | — | Not a consolidation target — nothing to migrate. Removed from the Track 1 plan (`Runbooks/Runbook-Workspace-Consolidation-into-Construction.md` v0.3). |
@@ -112,9 +112,10 @@ Cosmetic: the Construction Workspace **org display name still reads "Fishbone Dr
 pre-2024 name) — rename in the Admin console when convenient; no routing impact.
 
 ## To confirm next
-- `fishbonewaste.co.uk` mailbox count / mail volume / Drive data — the **only** remaining blocker
-  before the Waste migration (§4) can start. DNS control confirmed 2026-09-15: **Minda** holds
-  registrar access for both `fishboneholdings.co.uk` and `fishbonewaste.co.uk`.
+- **§2 prerequisites for Waste are now fully answered — nothing left blocking §4 from a
+  prerequisites standpoint.** Two open decisions before Minda executes it: where the pre-migration
+  archive of `info@`/`sales@` should live, and whether both mailboxes stay live under Construction
+  after migrating or the archive alone is sufficient. See runbook §4.
 - Eugene's DNS verification of the Holdings migration (`dig MX fishboneholdings.co.uk` resolving to
   Google) — blocked this session by locked-down network egress (no `dig`/`nslookup`, DoH fallback
   rejected by the proxy); retry when DNS-reachable, or Minda confirms herself.
