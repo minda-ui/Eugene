@@ -91,13 +91,28 @@ Holdings.
 
 ## Phase D — Add the domain to the Construction hub
 
+**⚠️ DNS wrinkle found 2026-09-15, different from Holdings — read before doing this phase.**
+`fishbonewaste.co.uk`'s nameservers are currently pointed at **WordPress** (the domain is connected to
+WordPress as its external website service), not at IONOS's own nameservers. The IONOS DNS panel says
+plainly: edits made there **do not take effect** unless the nameservers are reset back to IONOS's
+defaults first. This is why mail already works today despite the IONOS panel showing MX
+records — the *real*, authoritative DNS is at WordPress, and what IONOS displays is a stored-but-
+inactive mirror. **This means any new DNS record (the Google verification TXT here, and the MX/SPF
+changes in Phase G) has to be entered in WordPress's own DNS/domain dashboard, not the IONOS panel** —
+editing IONOS's copy will silently do nothing.
+
 - [ ] As Construction's super-admin: Account → Domains → Add a domain → `fishbonewaste.co.uk` →
   add as a **secondary domain**.
-- [ ] Add the Google-provided verification record (TXT, or the HTML-tag alternative) at the domain's
-  DNS host — the 1&1/IONOS panel for `fishbonewaste.co.uk` (Minda has registrar access, confirmed).
-  Generated and entered live; not recorded in this file.
+- [ ] Find WordPress's DNS management for this domain (wherever the WordPress account/dashboard for
+  `fishbonewaste.co.uk` is) and check it actually exposes custom TXT/MX record editing — most
+  "domain connected to WordPress" setups do, but confirm rather than assume, since dashboards vary.
+- [ ] Add the Google-provided verification record (TXT, or the HTML-tag alternative) there.
 - [ ] Wait for verification to complete (DNS propagation — can take minutes to a few hours) before
   moving on.
+- [ ] **Don't reset the nameservers back to IONOS** as a shortcut to use the more familiar panel —
+  that's what's currently serving the live website; resetting it risks taking the site offline unless
+  it's reconfigured to point at wherever it's actually hosted. Not worth the risk for a DNS record
+  change that WordPress's own dashboard should be able to handle.
 
 ## Phase E — Recreate the two mailboxes under Construction
 
@@ -121,8 +136,11 @@ you also want the old mail **searchable from inside the live inbox**, not just h
 
 ## Phase G — Cut over MX (and fix SPF at the same time — don't repeat the Holdings gap)
 
-- [ ] In the 1&1 DNS panel for `fishbonewaste.co.uk`: update the **MX record** to Google's current
-  single-record target, matching what's already confirmed working for Holdings.
+**Same wrinkle as Phase D applies here** — make these changes in **WordPress's DNS dashboard**, not
+the IONOS panel, since IONOS's copy is inactive while WordPress's nameservers are in effect.
+
+- [ ] In WordPress's DNS management for `fishbonewaste.co.uk`: update the **MX record** to Google's
+  current single-record target, matching what's already confirmed working for Holdings.
 - [ ] **At the same time**, update the **SPF TXT record** to include Google
   (`include:_spf.google.com`) — Holdings' migration left this stale (tracked as OI-6); don't repeat it
   here by treating SPF as an afterthought.

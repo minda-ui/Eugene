@@ -67,3 +67,35 @@ rewritten to separate the two facts clearly. `processed-items-ledger.md` row 10 
 
 **Next.** Same as above — Minda checks Waste's Admin console for the primary/secondary status when
 she's ready for Phase C, and reports back.
+
+## 2026-09-15 — Phase D/G finding: domain's real DNS is at WordPress, not IONOS
+
+**By:** Claude (AI assistant), on behalf of minda@fishboneconstruction.co.uk.
+
+Minda shared a screenshot of `fishbonewaste.co.uk`'s DNS settings in the IONOS panel. The panel itself
+states the domain's **nameservers are pointed at WordPress** (its external website host) — any record
+edited in the IONOS panel **does not take effect** unless the nameservers are reset back to IONOS's
+defaults first. This explains why the panel shows apparently-correct Google MX records (`alt1-4.
+aspmx.l.google.com`) even though it's inactive: it's a stored-but-not-authoritative mirror; the real,
+live DNS — the one actually serving mail today — is at WordPress.
+
+**Practical consequence.** The checklist's Phase D (adding Google's verification TXT record so
+Construction can claim the domain as a secondary domain) and Phase G (cutting MX to Google's current
+single-record target and fixing SPF) both need those records entered in **WordPress's own DNS
+dashboard**, not the IONOS panel — editing IONOS's copy would silently do nothing. Rewrote both phases
+accordingly, and added an explicit "don't reset nameservers back to IONOS as a shortcut" warning,
+since that would put the live website's hosting at risk for no good reason (WordPress's own dashboard
+should be able to handle the DNS record changes needed).
+
+**Produced/updated.** `Runbooks/Runbook-Waste-Migration-Execution-Checklist.md` Phases D and G
+rewritten with the WordPress-DNS redirect and the nameserver-reset warning.
+`Infra-Inventory/Workspace-and-Email-Inventory.md` Waste row updated with the same finding.
+`processed-items-ledger.md` row 11 added.
+
+**Governance.** Documentation-only; no DNS or console step taken by Eugene — this was reading a
+screenshot Minda provided and updating the guidance accordingly.
+
+**Next.** When Minda reaches Phase D, she'll need to locate WordPress's DNS/domain management for
+this site (wherever that account/dashboard lives) and confirm it exposes TXT/MX editing before
+proceeding — flagged in the checklist as a check-before-you-act item, same treatment as the Phase C
+primary/secondary question.
