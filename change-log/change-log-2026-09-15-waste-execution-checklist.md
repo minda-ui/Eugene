@@ -45,3 +45,25 @@ applied.
 **Next.** Minda works through the checklist at her own pace; report back after each phase (especially
 Phase C's actual mechanism, once seen in the console) so the ledger/inventory/open-issues can be kept
 current as the migration progresses.
+
+## 2026-09-15 — Phase C: DNS-host location confirmed, separate from the account-structure question
+
+**By:** Claude (AI assistant), on behalf of minda@fishboneconstruction.co.uk.
+
+Minda reported `fishbonewaste.co.uk` is DNS-hosted/registered at 1&1, not Google Domains — same
+pattern as Holdings. Useful and worth recording, but it answers a **different** question from the
+checklist's Phase C checkpoint: DNS/registrar location says nothing about whether the domain is
+registered as Waste's Google Workspace account's **primary** or **secondary** domain (a Workspace
+account-structure setting, independent of where DNS lives). Rather than let the two get conflated,
+updated the checklist's Phase C checkpoint to record the DNS-host fact explicitly (no registrar-
+transfer complication, same as Holdings) while keeping the primary-vs-secondary question open — still
+needs a direct check in Waste's Admin console (Account → Domains → Manage domains) before relying on
+"remove the domain" as a simple step.
+
+**Produced/updated.** `Runbooks/Runbook-Waste-Migration-Execution-Checklist.md` Phase C checkpoint
+rewritten to separate the two facts clearly. `processed-items-ledger.md` row 10 added.
+
+**Governance.** Documentation-only; no console step taken by Eugene.
+
+**Next.** Same as above — Minda checks Waste's Admin console for the primary/secondary status when
+she's ready for Phase C, and reports back.

@@ -18,12 +18,20 @@ version for executing it. Author: Claude for Eugene, 2026-09-15._
 
 ## One thing to check before you start, not yet confirmed
 
-**Is `fishbonewaste.co.uk` a primary or secondary domain inside Waste's own Workspace account?**
-Almost certainly **primary** (it's Waste's own subscription, not a secondary domain added to some
-other tenant). This matters because Holdings' migration (already done) was the *easy* case — Holdings
-was presumably a secondary domain being removed from 1&1, a non-Workspace host with no such
-restriction. Google Workspace generally does **not** let you remove a **primary** domain from an
-account the way you remove a secondary one — freeing it up typically means cancelling/deleting the
+**Is `fishbonewaste.co.uk` a primary or secondary domain inside Waste's own Google Workspace
+*account*?** This is a separate question from where the domain's DNS/registrar lives — **confirmed
+2026-09-15: `fishbonewaste.co.uk` is registered/DNS-hosted at 1&1, not Google Domains** (same as
+Holdings), so there's no registrar-transfer complication and DNS control stays with Minda at 1&1
+throughout. But that doesn't settle whether the domain is registered as Waste's Workspace account's
+**primary** domain in the Admin console's own domain list — a domain can sit at any registrar and
+still be a Workspace account's primary domain; the two are independent. Almost certainly **primary**
+here (it's Waste's own subscription, not a secondary domain added to some other tenant) — but this is
+still worth confirming directly rather than assuming.
+
+This matters because Holdings' migration (already done) was the *easy* case — Holdings was a secondary
+domain coming off 1&1's own mail hosting, with no Google Workspace account structure involved on the
+source side at all. Google Workspace generally does **not** let you remove a **primary** domain from
+an account the way you remove a secondary one — freeing it up typically means cancelling/deleting the
 Workspace subscription itself, which can carry a data-purge/cooldown period before the domain becomes
 available to verify elsewhere (this is not guaranteed to be instant). **Check this in the Admin
 console (as Waste's super-admin, `sales@fishbonewaste.co.uk`) before relying on the "remove domain,
