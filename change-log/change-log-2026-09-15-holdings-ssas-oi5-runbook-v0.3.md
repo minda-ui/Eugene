@@ -108,7 +108,25 @@ Workspace is cancelled (step 5) is a separate decision, not yet asked.
 decided step; §4 intro and §8 updated to reflect only one open decision left (archive location).
 Inventory Waste row and "to confirm next" updated to match. `processed-items-ledger.md` row 7 added.
 
+**Later still same day — archive destination confirmed; §4 fully decided; bumped to v0.4.** Minda
+confirmed Waste has its own KB, `Fishbone Waste Ltd - Knowledge Base`. Located it via Drive search
+(`mcp__Google_Drive__search_files`) — folder id `1LMVTPw4YFw9OmW7GcTjaDEfXqCIjp1ZJ`, standard group KB
+shape (`CLAUDE.md`, `README.md`, `Archive/`, `Outputs/`, `Wiki/`, `Raw/`). Checked `Raw/` (id
+`1TlNINqtx8JU1Qe6152uqhEPZEvt7JN_C`) and found it already holds a hand-off precedent
+(`2026-09-10_handoff_group-to-waste_...`) plus the group's document-numbering/filing policy — so the
+pre-migration mail/Drive archive goes there, per the group §7a hand-off rule (Eugene charter §3: may
+add to another KB's `Raw/`, never edit/move/delete elsewhere in it), following the existing naming
+convention rather than inventing a new one. Minda also confirmed `sales@fishbonewaste.co.uk`'s
+super-admin role (OI-5) resolves itself at step 5: once Waste's own Workspace subscription is
+cancelled, there's no separate Workspace left for it to be super-admin *of* — no carry-over decision
+needed.
+
+**§4 is now fully decided end-to-end, with nothing left open.** Rewrote the runbook's status header
+and bumped to **v0.4** ("ready to execute"); registered the Waste KB as **SRC-9** in
+`external-source-register.md`; updated the inventory's Waste row and "to confirm next" to point at the
+finished decision set. `processed-items-ledger.md` row 8 added.
+
 **Next.** Outstanding: (1) OI-6 — Minda fixes Holdings' SPF record in the 1&1 panel, low urgency; (2)
-Minda decides where the Waste mailbox archive should live — the **only** remaining thing before §4 can
-be executed; (3) separately, whether Waste's super-admin role (`sales@`) carries over to Construction;
-(4) OI-5 is the owner's call, not time-sensitive.
+§4 (Waste) is ready for Minda to execute in the consoles whenever she chooses — archive → re-provision
+→ domain move → MX cutover → cancel Waste subscription → verify; (3) OI-5 (the *other* subscriptions'
+shared-mailbox admin logins) remains the owner's call, not time-sensitive.

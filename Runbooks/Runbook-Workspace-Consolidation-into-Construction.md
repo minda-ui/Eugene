@@ -1,19 +1,23 @@
-# Runbook — Workspace consolidation into the Construction hub (v0.3, draft)
+# Runbook — Workspace consolidation into the Construction hub (v0.4, ready to execute)
 
 _Eugene runbook. **Eugene is guide-only for live systems (charter §3): this document is the guide;
 Minda performs every Admin-console / DNS / registrar / migration step.** No secret (password, TXT
-value, token) is ever written into this file — those are generated and entered live. Status: draft;
-Waste is the only track still open — see §8. Author: Claude for Eugene, 2026-09-13; updated
-2026-09-15 (v0.2), 2026-09-15 (v0.3). Decision basis: Eugene OI-1 (resolved) + OI-4 (owner,
-2026-09-13). **v0.3 change (owner-reported 2026-09-15):** Holdings is **already migrated** under
-Construction — Track 1's Holdings half is done; MX verified 2026-09-15 via Minda's own DNS-panel check
-(Eugene's own DNS tooling stayed blocked all session — see §3.6), with a stale-SPF loose end flagged.
-SSAS turns out to have **no domain or Workspace of its own** — it drops out of the plan entirely,
-nothing to migrate. Super-admin identities recorded (§2.1) — each subscription's super-admin login is
-a shared business mailbox (`info@`/`sales@`), not a named personal account; flagged as **Eugene OI-5**
-(advisory, not blocking). Waste is now the only remaining migration track. **v0.3 addendum (same day):** DNS control confirmed —
-Minda holds registrar access for both `fishboneholdings.co.uk` and `fishbonewaste.co.uk`. Only §2.5
-(Waste's mailbox count/mail volume) is still outstanding before §4 can start._
+value, token) is ever written into this file — those are generated and entered live. Author: Claude
+for Eugene, 2026-09-13; updated 2026-09-15 (v0.2, v0.3, v0.4). Decision basis: Eugene OI-1 (resolved)
++ OI-4 (owner, 2026-09-13).
+
+**Status as of v0.4 (2026-09-15): Holdings done and MX-verified; SSAS out of scope; §4 (Waste) fully
+decided and ready for Minda to execute — see §4 and §8.** Summary of how it got here: Holdings was
+already migrated under Construction by the time this runbook was drafted (§3), later MX-verified via
+Minda's own 1&1 DNS-panel check since Eugene's DNS tooling stayed network-blocked all session (a stale
+Holdings SPF record was found in the process — tracked as **OI-6**, low urgency). SSAS turned out to
+have no domain or Workspace of its own, dropping it from the plan entirely. Waste's §2 prerequisites
+(super-admin identities — flagged advisory as **OI-5**; hub licence headroom; exact domains; DNS
+control; 2 mailboxes with an archive-first precaution) were answered through the session, and its two
+open execution decisions — whether `info@`/`sales@` stay live post-migration (yes) and where the
+pre-migration archive lives (Waste's own KB `Raw/` folder, per the group §7a hand-off rule) — are both
+settled. `sales@fishbonewaste.co.uk`'s super-admin role resolves itself at cancellation (step 5) rather
+than needing a decision._
 
 ## 1. Target architecture (owner-agreed 2026-09-13; updated 2026-09-15)
 
@@ -96,28 +100,34 @@ login, OI-5). Owner's explicit precaution (2026-09-15): **archive the historical
 before migrating, don't just re-point and move on** — this is now the required approach for step 1
 below, not an optional nice-to-have. Owner also decided (2026-09-15): **both mailboxes stay live under
 Construction after migrating** (step 2) — the archive is a historical safeguard, not a replacement for
-keeping the addresses active. **Only one open decision left: where the pre-migration archive should
-live** (step 1).
+keeping the addresses active. **§4 is now fully decided — archive location confirmed 2026-09-15**
+(step 1): Waste has its own KB, `Fishbone Waste Ltd - Knowledge Base` (Drive folder id
+`1LMVTPw4YFw9OmW7GcTjaDEfXqCIjp1ZJ`), with the standard group KB shape — `CLAUDE.md`, `README.md`,
+`Archive/`, `Outputs/`, `Wiki/`, `Raw/`. The archive goes in its **`Raw/`** folder (id
+`1TlNINqtx8JU1Qe6152uqhEPZEvt7JN_C`), per the group §7a hand-off rule (Eugene charter §3: may add to
+another KB's `Raw/`, never edit/move/delete elsewhere in it) — `Raw/` already holds a precedent hand-off
+(`2026-09-10_handoff_group-to-waste_...`) and the group's own document-numbering/filing policy, so
+follow that existing convention for naming the archive files rather than inventing a new one.
 
 Harder than Track 1: **Google will not let a domain be added to a second account while it still
 exists in the first.** So the domain must be **removed from Waste's Workspace before it can be added
 to Construction**, and any mail/Drive must be archived first.
 1. **Archive both mailboxes before touching anything else** (owner precaution, 2026-09-15): export
    `info@` and `sales@` in full — Google Workspace Data Export (admin-initiated, whole-account) or a
-   per-mailbox Google Takeout, plus any Drive files either account owns. **Open decision — Minda:**
-   where should the archive live? Options: a dedicated folder in Construction's Drive (nearest the new
-   home for these addresses), or wherever Waste's own company records/KB already live if one exists.
-   Eugene has no visibility into a Waste KB today — say if one exists so this gets referenced correctly
-   rather than assumed. Whichever location, treat it as the durable historical record: this account is
-   about to move, and 1&1-style "still live for stragglers" isn't available here the way it was for
-   Holdings' 1&1 migration — Waste's own Workspace gets **cancelled** at the end of this track (step 5),
-   so anything not archived or re-provisioned by then is gone.
+   per-mailbox Google Takeout, plus any Drive files either account owns. **Destination — decided
+   2026-09-15:** `Fishbone Waste Ltd - Knowledge Base/Raw/` (Drive folder id
+   `1TlNINqtx8JU1Qe6152uqhEPZEvt7JN_C`) — Waste's own KB, per the group §7a hand-off rule. Treat it as
+   the durable historical record: this account is about to move, and 1&1-style "still live for
+   stragglers" isn't available here the way it was for Holdings' 1&1 migration — Waste's own Workspace
+   gets **cancelled** at the end of this track (step 5), so anything not archived or re-provisioned by
+   then is gone.
 2. **Migrate mail — decided 2026-09-15 (Minda): both stay live.** `info@fishbonewaste.co.uk` and
    `sales@fishbonewaste.co.uk` are **re-provisioned as live mailboxes under Construction** (as in
    Track 1 steps 1–3), in addition to the archive from step 1, not instead of it — Waste is dormant but
-   its two inboxes keep receiving mail going forward. **Note:** `sales@fishbonewaste.co.uk` is also
-   Waste's super-admin login (OI-5) — decide separately whether that role moves with it or a new
-   super-admin is assigned once Waste's own Workspace is gone (step 5 below).
+   its two inboxes keep receiving mail going forward. **Resolved 2026-09-15:** `sales@fishbonewaste.co.uk`
+   is also Waste's current super-admin login (OI-5), but once step 5 cancels Waste's own Workspace
+   subscription, that role has nothing left to be super-admin *of* — `sales@` migrates as an ordinary
+   Construction mailbox, no admin role to carry over or reassign.
 3. **Remove the Waste domain** from the Waste Workspace subscription (Admin console), then **add it as
    a secondary domain** in the Construction hub and verify (TXT).
 4. **Cut over MX** to the Construction hub; run a final delta.
@@ -164,10 +174,14 @@ updating in the 1&1 panel when convenient (§3.6). SSAS is closed — out of sco
 spare licences available (§2.2). **§2 is now fully answered for Waste** (`fishbonewaste.co.uk`, 2
 mailboxes: `info@` + `sales@`, DNS control Minda) — **nothing left blocking §4 from a prerequisites
 standpoint.** Decided 2026-09-15: **both mailboxes stay live under Construction after migrating** (§4
-step 2) — the archive is a historical safeguard, not instead of re-provisioning. **Only one thing left
-to settle before Minda executes §4: where the pre-migration archive of `info@`/`sales@` should live**
-(§4 step 1, open decision). Properties and Amfa (`amfa.uk`) untouched throughout. Advisory raised, not
-blocking: **OI-5** — each subscription's super-admin login is a shared business mailbox
-(`info@`/`sales@`), not a dedicated named admin account (§2.1); note `sales@fishbonewaste.co.uk` is
-Waste's super-admin and is one of the two mailboxes migrating (§4 step 2) — decide separately whether
-that admin role carries over. **OI-6** — Holdings' SPF record still points at IONOS, low-urgency fix.
+step 2) — the archive is a historical safeguard, not instead of re-provisioning. **§4 is now fully
+decided end-to-end — nothing left open.** Archive destination: `Fishbone Waste Ltd - Knowledge
+Base/Raw/` (§4 step 1). **§4 is ready for Minda to execute** — see §4 for the full sequence: archive
+→ re-provision `info@`/`sales@` under Construction → remove domain from Waste's Workspace → add as
+secondary domain to Construction → cut MX → cancel Waste subscription → verify. Properties and Amfa
+(`amfa.uk`) untouched throughout. `sales@fishbonewaste.co.uk`'s super-admin role (OI-5) **resolves
+itself at step 5**: once Waste's own Workspace subscription is cancelled, there's no longer a separate
+Workspace for it to be super-admin *of* — it migrates as an ordinary mailbox under Construction, no
+role to carry over (owner-confirmed 2026-09-15). Advisory still open, not blocking: **OI-5** — the
+*other* subscriptions' super-admin logins remain shared business mailboxes, not dedicated named admin
+accounts (§2.1). **OI-6** — Holdings' SPF record still points at IONOS, low-urgency fix.
