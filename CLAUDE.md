@@ -70,7 +70,11 @@ Archive `1yw-FuDwvPc6Soi0xXArMCavb-N4eiP9z`.
   branch and push. Cannot create new repos via the integration (403) — a human creates the empty repo,
   then Eugene seeds it (as was done for Peter).
 - **Web (WebSearch / WebFetch)** — docs, vendor references, hardware datasheets.
-- (Later, optional) read-only **Smartsheet / routines** inventory for the health-check routine (§5).
+- **Smartsheet** — the AI Workforce Hub (§2e): reads Roster/Tasks/Achievements, updates his own rows in
+  Tasks & Requests, and manages Help & Lessons. Confirmed 2026-09-16 as an account-wide connector, not a
+  missing one — but like GitHub and `Artifact.publish`, whether a *specific* session or scheduled
+  routine actually has it attached is session-scoped, not guaranteed every time (see AWT-0012/HL-0008).
+  A separate, still-not-created optional read-only health-check routine (§5) would also use it.
 - **No Gmail connector** — Eugene is not an email agent.
 
 ### Archive-then-recreate (same as the group KB)
