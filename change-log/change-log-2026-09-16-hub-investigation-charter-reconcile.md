@@ -2,6 +2,35 @@
 
 _Eugene (AI IT & Engineering Assistant) dated session file (append-only; newest note at the top). See `CLAUDE.md` §4._
 
+## 2026-09-16 — HL-0007 rename verified and Resolved (after a false start)
+
+**By:** Claude (AI assistant), on behalf of minda@fishboneconstruction.co.uk.
+
+**First attempt.** Minda did the manual rename per the instructions handed over earlier. Checking via
+`list_branches` afterward showed the branch had become `claude/main`, not plain `main` — the `claude/`
+prefix from the original auto-generated name hadn't been cleared in the rename field, just the suffix
+replaced. Flagged this immediately rather than accepting it: checked whether an org-wide ruleset might
+require that prefix (no dedicated ruleset-inspection tool available, so reasoned from evidence instead
+— every other Fishbone repo already uses plain `main` with no prefix, which wouldn't be possible under
+such a ruleset), concluded it was very likely an incomplete field edit, and asked Minda to retry with
+the field fully cleared first.
+
+**Second attempt, verified.** `list_branches` now shows `main` (same commit,
+`3c1b4ae8a87d496e5cd3073428269d9974af641d`, confirming it's the same renamed branch, not a fresh one)
+and `claude/hello-mpwhig`. Matches the shape of every other Fishbone repo.
+
+**Produced/updated.** Smartsheet Help & Lessons `HL-0007` moved to **Resolved**, with the full
+before/after record (including the `claude/main` false start) kept on the row rather than quietly
+smoothed over. `processed-items-ledger.md` row 15 added.
+
+**Governance.** Verification only (`list_branches` calls); the actual rename was Minda's action both
+times, as it had to be — no tool in Eugene's kit performs it. Catching the `claude/main` mismatch
+before marking anything Resolved is exactly the "verify the outcome" half of Eugene's normal
+guide-then-verify pattern (charter §2a) — worth noting since this was a Hub item, not a runbook, but
+the same discipline applied.
+
+**Next.** HL-0007 is closed. Nothing else outstanding from today's Hub thread.
+
 ## 2026-09-16 — HL-0007 (Fishbone-Group default branch) investigated; hit a real tool limit
 
 **By:** Claude (AI assistant), on behalf of minda@fishboneconstruction.co.uk.
