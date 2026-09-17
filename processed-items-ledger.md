@@ -4,4 +4,4 @@ _One row per IT task / change ever done, keyed on a stable dedup key (a runbook 
 
 | # | Date | Key | Beat | Task | Outcome / where | Status |
 |---|---|---|---|---|---|---|
-| — | — | — | — | (no IT tasks logged yet — Eugene created 2026-09-12; the creation itself is recorded in `change-log/`) | — | — |
+| 1 | 2026-09-17 | task-checkin-2026-09-17 | Hub | Scheduled task check-in routine: read AI Workforce Hub Tasks & Requests (`8860839228606340`), filtered Assigned to = Eugene, Status in (Open, In Progress) | Checked, nothing pending — all 11 rows on the sheet are Status = Done, including Eugene's own AWT-0003 and AWT-0012. No row required action. | Done |
