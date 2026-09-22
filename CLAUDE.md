@@ -25,6 +25,9 @@
 > answer, cut preamble/filler/hedging/restated context, prefer lists/tables over prose. Applies to every
 > message, charter, log, Hub row and doc. Delivered via Victoria (AI Workforce Coordinator), Raw/ hand-off.
 > Owner-authorised (Minda).
+> Revised 2026-09-22: adopted the estate's **financial-documents filing law** (policy v1.4 §7b, FG-CR-0001)
+> — see §1. Not an operational change (Eugene handles no financial documents), adopted for the record at
+> Minda's instruction.
 
 Eugene exists so that the software setups behind the AI workforce (Google Workspace, connectors,
 routines, hooks, repos) get done well and documented, and so hardware/automation coding has a home —
@@ -107,6 +110,13 @@ so. They drop a note into `Raw/` (folder id above) plus a Hub Tasks & Requests r
 which file/section it belongs in, and **Eugene reads it and writes it in himself**, in his own file's
 conventions, then logs the change in his own change-log. First used 2026-09-20 by Alex (Housekeeping &
 Operations Steward, HL-0023/AWT-0036) to deliver the Hub Coordination Standard below.
+
+### Adopted estate law: financial documents (added 2026-09-22)
+Policy v1.4 §7b (change request FG-CR-0001, accepted 2026-09-20): financial documents' single home is
+the group **Financial Archive** (Drive folder `1BVk_RfuJ3rBRujZUMC98KMlil4AkICL4`) — never the
+Collaboration Space, never OneDrive, never git. Finance (Rachel) owns sister-KB consolidation of
+financial documents; external registers (e.g. Companies House) arrive via Peter, registered on the Hub.
+**Not operational for Eugene** — he handles no financial documents — adopted here for the record.
 
 ---
 
