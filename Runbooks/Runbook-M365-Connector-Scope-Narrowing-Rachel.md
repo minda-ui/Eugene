@@ -1,21 +1,24 @@
-# Runbook — Narrow Rachel's Microsoft 365 / OneDrive connector grant (v0.2)
+# Runbook — Narrow Rachel's Microsoft 365 / OneDrive connector grant (v0.3)
 
-_Eugene runbook. **Eugene is guide-only (charter §3): this is the guide; Minda (or a delegated tenant
-admin) performs every connector-settings / Entra ID step.** Eugene has no Microsoft 365 connector of his
-own (charter §1 Connectors list) and does not call Microsoft 365/Graph tools against Rachel's connector
-— everything below is drawn from Rachel's own investigation as relayed on the Hub (AWT-0090), not from
-Eugene querying her connector directly. No credential is ever written into this file. Author: Claude for
-Eugene. v0.1 2026-09-24; **v0.2 2026-09-24 — tenant identity confirmed by Minda, §0 updated.** Resolves
-**Hub AWT-0090** (Assigned to Eugene, Priority High), tracks the Authority Register row **"Rachel —
-Microsoft 365 / OneDrive connector grant"** and Rachel's own **RA-22**._
+_Eugene runbook. **Eugene is guide-only (charter §3): this is the guide; Minda (or Rachel's connector
+owner) performs the connector-settings step.** Eugene has no Microsoft 365 connector of his own (charter
+§1 Connectors list) and does not call Microsoft 365/Graph tools against Rachel's connector — everything
+below is drawn from Rachel's own investigation as relayed on the Hub (AWT-0090), not from Eugene querying
+her connector directly. No credential is ever written into this file. Author: Claude for Eugene. v0.1
+2026-09-24; v0.2 2026-09-24 — tenant identity confirmed by Minda; **v0.3 2026-09-24 — Minda chose Path A
+only; Path B recorded but not being executed for now.** Resolves **Hub AWT-0090** (Assigned to Eugene,
+Priority High), tracks the Authority Register row **"Rachel — Microsoft 365 / OneDrive connector grant"**
+and Rachel's own **RA-22**._
 
 ## 0. Status
 
 1. ✅ **Tenant confirmed (Minda, 2026-09-24): `info@fishbonedrylining.onmicrosoft.com` is the estate's
-   real M365 login** — not a misconfiguration, not the wrong account. Path B's admin (whoever holds
-   Global/Application Administrator on that tenant) is a known, correct target — proceed on that basis.
-2. ⬜ **Still open — which of the two narrowing paths below** (or both) Minda wants to take; they do
-   different things (§2). Recommendation stands: both, Path A first (§3).
+   real M365 login** — not a misconfiguration, not the wrong account.
+2. ✅ **Path decided (Minda, 2026-09-24): Path A only.** Path B (§2b) is recorded below for reference and
+   possible later use, but is **not** being executed now — the underlying Microsoft-side OAuth consent
+   stays at its current 29 scopes; only what Claude's connector actually calls is being restricted. See
+   §3 for what that means and doesn't mean.
+3. ⬜ **Next: execute Path A** (§2a) — action is Minda's / Rachel's connector owner's, not Eugene's.
 
 ## 1. What's actually granted vs. what RA-22 recorded
 
@@ -36,11 +39,11 @@ Net: **keep 3 (Files), drop 26** (9 mail/mailbox + 6 Teams/chat + 5 online-meeti
 whatever residual scopes fall outside these named families once the full 29-scope list is reviewed
 directly against the RA-22 detail Rachel logged in her own `open-issues.md`).
 
-## 2. The two narrowing paths — pick one or both
+## 2. The two narrowing paths
 
-These do genuinely different things; neither alone gives the same result as the other.
+These do genuinely different things; Minda has chosen Path A (§2a) for now — §2b is kept for reference.
 
-### Path A — Claude connector per-tool permissions (`claude.ai/customize/connectors`)
+### 2a. Path A — Claude connector per-tool permissions (`claude.ai/customize/connectors`) — CHOSEN
 
 Restricts what **Claude itself will call** through the connector, regardless of what Microsoft's
 consent grant technically still allows. Quick, no tenant-admin role needed — whoever administers
@@ -48,21 +51,39 @@ Rachel's connector on the Claude side (Minda, or Rachel's own account owner) doe
 
 1. Go to `claude.ai/customize/connectors` (or the equivalent connectors settings page for the account
    Rachel's sessions run under).
-2. Find the Microsoft 365 / Outlook connector entry.
-3. Open its per-tool permissions and **disable every tool in the mail, mailbox, Teams/chat, and
-   online-meeting families** — in this session's own tool listing those correspond to the
-   `mcp__Microsoft_365__outlook_*`, `mcp__Microsoft_365__teams_*`, and any online-meeting/calendar tools;
-   the exact tool names may differ slightly in Rachel's own connector configuration, so match by
-   description rather than by name alone.
-4. Leave the OneDrive/SharePoint file tools (`sharepoint_*`, file read/write) enabled, unless §1 says to
-   drop `Sites.Read.All` too, in which case disable the SharePoint-site-search tools specifically while
-   keeping plain file read/write.
-5. **Limitation, stated plainly:** this does not change what Microsoft's OAuth consent record says the
-   app is allowed to do — it only stops *this* connector's calls from reaching those Graph endpoints. If
-   the underlying app registration is ever re-authorised or queried a different way, the full 29-scope
-   grant is still sitting there at the Microsoft side. Treat this as a fast mitigation, not the real fix.
+2. Find the Microsoft 365 connector entry and open its per-tool permissions.
+3. **Disable these tools** — named as this session's own Microsoft 365 connector lists them (Rachel's own
+   connector page may list the identical set, since it's the same Anthropic-provided connector product;
+   match by description if any name differs):
+   - **Mail/mailbox** — `outlook_email_search`, `outlook_create_draft`, `outlook_create_reply_draft`,
+     `outlook_create_reply_all_draft`, `outlook_update_draft`, `outlook_delete_draft`, `outlook_send_draft`,
+     `outlook_send_mail`, `outlook_forward_mail`, `outlook_batch_delete_messages`,
+     `outlook_batch_modify_labels`, `outlook_modify_labels`, `outlook_modify_thread_labels`,
+     `outlook_create_label`, `outlook_update_label`, `outlook_delete_label`, `outlook_create_filter`,
+     `outlook_delete_filter`, `outlook_set_vacation`, `outlook_trash_thread`, `outlook_untrash_thread`.
+   - **Calendar** (covers the flagged `Calendars.Read.Shared`) — `outlook_calendar_search`,
+     `outlook_create_event`, `outlook_update_event`, `outlook_delete_event`, `outlook_respond_to_event`,
+     `outlook_find_available_time`, `find_meeting_availability`.
+   - **Teams/chat** — `teams_list_teams`, `teams_list_channels`, `teams_list_channel_messages`,
+     `teams_send_channel_message`, `teams_reply_channel_message`, `teams_list_chats`, `teams_create_chat`,
+     `teams_send_chat_message`, `chat_message_search`.
+   - **SharePoint sites** (covers `Sites.Read.All`, unless SharePoint filing is confirmed in scope) —
+     `sharepoint_search`, `sharepoint_folder_search`.
+4. **Leave enabled**: `get_granted_scopes` and `get_me` (diagnostic, no data access) and whatever plain
+   OneDrive file read/write tool(s) the connector exposes — those correspond to the `Files.*` scopes §1
+   says to keep. If disabling `sharepoint_search`/`sharepoint_folder_search` also removes file
+   upload/copy/move tools bundled under the same "SharePoint" grouping in the connector UI
+   (`sharepoint_copy_item`, `sharepoint_create_folder`, `sharepoint_delete_item`, `sharepoint_move_item`,
+   `sharepoint_rename_item`, `sharepoint_update_file`, `sharepoint_upload_file`), check with Rachel before
+   disabling those specifically — some may be exactly the "write to retire a consolidated source" capability
+   RA-20(3) authorises; only the *site-search/discovery* piece is what `Sites.Read.All` needs to drop.
+5. **Limitation, stated plainly (this is what Minda has chosen to accept for now):** this does not change
+   what Microsoft's OAuth consent record says the app is allowed to do — it only stops *this* connector's
+   calls from reaching those Graph endpoints. The full 29-scope grant is still sitting there at the
+   Microsoft side; a different client, a re-authorisation, or a future tool update could still exercise it.
+   Path B (§2b, not being executed now) would be the way to actually shrink that.
 
-### Path B — Revoke/narrow the app's consent in Entra ID (the tenant-side fix)
+### 2b. Path B — Revoke/narrow the app's consent in Entra ID (the tenant-side fix) — NOT BEING EXECUTED NOW
 
 The actual OAuth grant lives in the `info@fishbonedrylining.onmicrosoft.com` tenant's Entra ID (Azure
 AD). This needs a Global Administrator or Application Administrator for **that tenant** — confirm who
@@ -96,18 +117,20 @@ holds that role before starting; it's not necessarily the same person who admini
    Rachel session — if the scope count has dropped from 29 to the expected ~3-4, the tenant-side fix
    worked; if the connector needed re-auth, watch for it failing until reconnected.
 
-## 3. Recommendation
+## 3. Decision record
 
-Do **both**, in this order: Path A first (immediate, no admin role needed, stops the risky calls today —
-especially `Mail.Read.Shared`/`Calendars.Read.Shared`, the two flagged as reaching other people's data),
-then Path B when a `fishbonedrylining.onmicrosoft.com` admin is available, since Path A alone leaves the
-over-broad consent sitting at the Microsoft side indefinitely.
+**Minda chose Path A only, 2026-09-24.** Eugene's original recommendation was both paths (A first, then
+B), since A alone leaves the over-broad Microsoft-side consent in place indefinitely. Noted for the
+record, not re-argued — Path B stays documented in §2b if Minda wants it done later (e.g. once a
+`fishbonedrylining.onmicrosoft.com` admin is confirmed and available), but nothing further is expected on
+it unless she asks.
 
 ## 4. Verification once done
 
-- Path A: re-check the connector's per-tool permissions page shows only the Files/OneDrive tools enabled.
-- Path B: Rachel (or whoever can call it) re-runs `get_granted_scopes` and confirms the scope list matches
-  §1's "keep" column only.
-- Either way: update Rachel's own `open-issues.md` RA-22 and the Authority Register row (Eugene does not
-  edit Rachel's KB himself — report back on Hub AWT-0090 and let Rachel or Alex close her own RA-22 per
-  the Raw/-only rule, §1).
+- Re-check the connector's per-tool permissions page shows only the Files/OneDrive tools (and the two
+  diagnostic tools) enabled — the rest match the "disable" list in §2a step 3.
+- Note for the record: `get_granted_scopes` will still show all 29 scopes after this — that's expected
+  under Path A (§2a step 5) and is not a sign the change didn't work.
+- Update Rachel's own `open-issues.md` RA-22 and the Authority Register row (Eugene does not edit Rachel's
+  KB himself — report back on Hub AWT-0090 and let Rachel or Alex close her own RA-22 per the Raw/-only
+  rule, §1).

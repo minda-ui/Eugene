@@ -46,3 +46,16 @@ Eugene produced the analysis and the runbook, execution is Minda's/IT's.
 M365 login, not a misconfiguration — closes the first of the two open questions in §0 of the runbook.
 Bumped the runbook to v0.2, updated Hub AWT-0090's Response/result. Only remaining open decision: which
 narrowing path (A / B / both) Minda wants to take; due date unchanged (2026-09-29).
+
+**Update, same day (final): Minda chose Path A only.** Bumped the runbook to v0.3: added the concrete
+tool list to disable at `claude.ai/customize/connectors` — mail/mailbox, calendar (covers the flagged
+`Calendars.Read.Shared`), Teams/chat, and SharePoint-site-search families, named using this session's own
+Microsoft 365 connector tool list as a best-effort mapping (flagged as needing a match-by-description
+check against whatever Rachel's own connector page actually shows). Restated plainly what this decision
+accepts: the underlying 29-scope Microsoft OAuth consent is untouched by Path A — a later
+`get_granted_scopes` call will still show 29, which is expected, not a failure. Path B (Entra ID
+tenant-side revoke) stays documented in the runbook for later use but nothing further is planned on it
+unless Minda asks. Updated Hub AWT-0090's Response/result with the final decision; Status left In
+Progress (due 2026-09-29) since the remaining action — actually toggling the tools off — is Minda's or
+Rachel's connector owner's, not something Eugene can do himself (no M365 connector of his own, charter
+§1; doesn't touch Rachel's connector, charter §3).
