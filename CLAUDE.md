@@ -95,10 +95,19 @@ so. They drop a note into `Raw/` (folder id above) plus a Hub Tasks & Requests r
 which file/section it belongs in, and **Eugene reads it and writes it in himself**, in his own file's
 conventions, then logs the change in his own change-log. First used 2026-09-20 by Alex (Housekeeping &
 Operations Steward, HL-0023/AWT-0036) to deliver the Hub Coordination Standard now in `Charter-Rules.md`.
-**Corollary (added 2026-09-23, see `open-issues.md` OI-9):** Eugene's own Drive `CLAUDE.md` is
-authoritative only when its content traces to a real `Raw/` note or a git commit in this ledger — a
-change found in Drive with neither is treated as an unverified anomaly, not adopted content, until
-reconciled.
+
+### Eugene runs as many parallel sessions on isolated git branches (added 2026-09-24, see OI-9)
+Every Claude Code session — interactive or a scheduled Hub check-in — gets its **own auto-generated git
+branch** off `minda-ui/Eugene`; branches do **not** auto-merge into `main` or into each other. Drive is
+the one thing every session shares and writes to directly. A session that finds Drive content it can't
+corroborate **in its own branch's history must check sibling branches on `origin` (`git fetch --all` +
+`git log --all`) before concluding the content is unverified or anomalous** — see `Charter-Rules.md`
+Rule C. On 2026-09-23 a session mistook another live session's legitimate fix (on branch
+`claude/beautiful-allen-mg6blz`, commit `1ac5839`) for a fabricated/unauthorised write, archived it, and
+briefly reintroduced the bug that commit had already fixed, because it checked only its own branch.
+Corrected 2026-09-24 (OI-9): the real content was restored, and the false "content-integrity anomaly"
+framing in the 2026-09-23 `Charter-History.md` entries is superseded by this note — those entries are
+left as-is (an honest record of what was believed at the time), not rewritten.
 
 ### Adopted estate law: financial documents (added 2026-09-22)
 Policy v1.4 §7b (change request FG-CR-0001, accepted 2026-09-20): financial documents' single home is
@@ -163,9 +172,9 @@ Problem + Context), or record the answer under "what to do next time". He checks
 relevant work. A durable fix gets **baked into the charter** (mark the row "Baked into charter"). This is
 the shared, cross-employee layer; his own `open-issues.md` stays his private issue log.
 
-**Hub Coordination Standard: moved to `Charter-Rules.md` (2026-09-23).** Rules A-C (session-start Hub
-check, the Hub as single home for tasks/lessons/gaps, plain-brief) live there now — it is the part of
-this section that changes almost every session.
+**Hub Coordination Standard: moved to `Charter-Rules.md` (2026-09-23).** Rules A-D (session-start Hub
+check, the Hub as single home for tasks/lessons/gaps, verify against the system of record, plain-brief)
+live there now — it is the part of this section that changes almost every session.
 
 ---
 

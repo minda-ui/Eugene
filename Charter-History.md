@@ -5,6 +5,27 @@ convention as `change-log/`. Created 2026-09-23 when the single-file charter was
 
 ---
 
+**2026-09-24 — correction: the 2026-09-23 "content-integrity anomaly" was a misdiagnosis, not an
+attack.** Session-start Hub check found real Hub rows (AWT-0060/0062/0064, HL-0043/HL-0044) that
+exactly matched the content the 2026-09-23 entry below calls fabricated. Investigating found the real
+cause: every Claude Code session — interactive or scheduled Hub check-in — gets its own auto-generated
+git branch off `minda-ui/Eugene`, and branches never auto-merge. A legitimate parallel session, on
+branch `claude/beautiful-allen-mg6blz` (commit `1ac5839`, "Sync charter with Drive; fix Rule C/D
+fold-in clash (AWT-0064)"), had correctly restored a real **Rule C — verify against the system of
+record** (added 2026-09-21, a real owner-ruled Raw/ hand-off this branch's history never received) after
+an earlier fold-in mistake had overwritten it, and relabelled the plain-brief rule **Rule D**. The
+2026-09-23 session below checked only its own branch's git history and Raw/ folder, found no
+corroboration there, and concluded — wrongly — that the content was unauthorised or fabricated. It
+archived the real fix (intact, recoverable, never deleted) and reconstructed the charter from its own
+stale knowledge, which reintroduced the exact Rule C/D clash the other session had just fixed.
+**Corrected here:** the real Rule C (verify against system of record) is restored in `Charter-Rules.md`,
+plain-brief is correctly Rule D, and `CLAUDE.md` §1 now carries a standing note (and `Charter-Rules.md`
+Rule C itself) requiring a check of sibling branches (`git fetch --all` + `git log --all`) before any
+future session treats unfamiliar Drive content as anomalous. OI-9 (`open-issues.md`) updated to record
+this as resolved-by-misdiagnosis; the Hub Help & Lessons row is corrected to match. The 2026-09-22 and
+2026-09-23 entries below are left exactly as originally written — an honest record of what was believed
+at the time — rather than rewritten, per this file's append-only discipline.
+
 **2026-09-23 — split into three files.** `CLAUDE.md` now holds only the stable identity/role/authority
 sections (§1-§5); the session-start read order, the Hub Coordination Standard, and the OI-<n> open
 questions moved out to `Charter-Rules.md` in full; this version-history footer moved out to this file.
