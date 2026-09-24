@@ -40,4 +40,9 @@ full findings and the two open decisions for Minda.
 Eugene produced the analysis and the runbook, execution is Minda's/IT's.
 
 **Files:** `Runbooks/Runbook-M365-Connector-Scope-Narrowing-Rachel.md` (new), `processed-items-ledger.md`
-(row 30), `current-state.md`, Hub AWT-0090. All to be synced/byte-verified to Drive.
+(row 30), `current-state.md`, Hub AWT-0090. All synced/byte-verified to Drive.
+
+**Update, same day:** Minda confirmed `info@fishbonedrylining.onmicrosoft.com` **is** the estate's real
+M365 login, not a misconfiguration — closes the first of the two open questions in §0 of the runbook.
+Bumped the runbook to v0.2, updated Hub AWT-0090's Response/result. Only remaining open decision: which
+narrowing path (A / B / both) Minda wants to take; due date unchanged (2026-09-29).

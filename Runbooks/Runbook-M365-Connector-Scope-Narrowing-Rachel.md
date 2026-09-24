@@ -1,24 +1,21 @@
-# Runbook — Narrow Rachel's Microsoft 365 / OneDrive connector grant (v0.1)
+# Runbook — Narrow Rachel's Microsoft 365 / OneDrive connector grant (v0.2)
 
 _Eugene runbook. **Eugene is guide-only (charter §3): this is the guide; Minda (or a delegated tenant
 admin) performs every connector-settings / Entra ID step.** Eugene has no Microsoft 365 connector of his
 own (charter §1 Connectors list) and does not call Microsoft 365/Graph tools against Rachel's connector
 — everything below is drawn from Rachel's own investigation as relayed on the Hub (AWT-0090), not from
 Eugene querying her connector directly. No credential is ever written into this file. Author: Claude for
-Eugene. v0.1 2026-09-24. Resolves **Hub AWT-0090** (Assigned to Eugene, Priority High), tracks the
-Authority Register row **"Rachel — Microsoft 365 / OneDrive connector grant"** and Rachel's own **RA-22**._
+Eugene. v0.1 2026-09-24; **v0.2 2026-09-24 — tenant identity confirmed by Minda, §0 updated.** Resolves
+**Hub AWT-0090** (Assigned to Eugene, Priority High), tracks the Authority Register row **"Rachel —
+Microsoft 365 / OneDrive connector grant"** and Rachel's own **RA-22**._
 
-## 0. Two things to confirm with Minda before touching anything
+## 0. Status
 
-1. **Which tenant is this actually on?** Rachel's `get_me` call (2026-09-24) shows the connector signs
-   in as **`info@fishbonedrylining.onmicrosoft.com`** — a different tenant/entity from
-   `fishboneconstruction.co.uk`. Fishbone Construction was formerly Fishbone Drylining Ltd (renamed by
-   special resolution 31 Oct 2024, per the group KB Org profile), so this may simply be the tenant's
-   original `.onmicrosoft.com` default domain surviving the rename — normal and harmless — **or** it may
-   mean the connector is signed into the wrong account entirely. Worth a 30-second confirmation before
-   deciding who has the authority to change its consent (whoever administers that tenant).
-2. **Which of the two narrowing paths below** (or both) Minda wants to take — they do different things
-   (§2).
+1. ✅ **Tenant confirmed (Minda, 2026-09-24): `info@fishbonedrylining.onmicrosoft.com` is the estate's
+   real M365 login** — not a misconfiguration, not the wrong account. Path B's admin (whoever holds
+   Global/Application Administrator on that tenant) is a known, correct target — proceed on that basis.
+2. ⬜ **Still open — which of the two narrowing paths below** (or both) Minda wants to take; they do
+   different things (§2). Recommendation stands: both, Path A first (§3).
 
 ## 1. What's actually granted vs. what RA-22 recorded
 
