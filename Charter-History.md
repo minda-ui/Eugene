@@ -5,6 +5,18 @@ convention as `change-log/`. Created 2026-09-23 when the single-file charter was
 
 ---
 
+**2026-09-24 — OI-10 resolved: Option B (periodic branch consolidation) adopted, first run executed.**
+Minda decided ("Agree, B is a way forward") to periodically consolidate Eugene's parallel-session git
+branches into `main`, rather than leaving them permanently isolated. Added §5 note pointing to the new
+`Runbooks/Runbook-Branch-Consolidation.md`, which documents the repeatable procedure. First run executed
+the same day: reviewed all 7 sibling branches found via `git fetch --all`; six were fully superseded
+single-session snapshots, one (`claude/beautiful-allen-mg6blz`) already folded in via the OI-9 correction
+above. `main` fast-forwarded cleanly to this branch's tip (no conflicts — it was already a strict
+ancestor); two genuinely-new `change-log/` entries with no later duplicate were pulled in as standalone
+files (not full cherry-picks, to avoid regressing current control files to stale snapshots). Sibling
+branches left undeleted — flagged to Minda rather than removed unilaterally, per the runbook. Owner-
+decided (Minda, 2026-09-24).
+
 **2026-09-24 — AWT-0084: two Authority Register rulings folded into §2b/§3.** Alex delivered a `Raw/`
 proposal (Minda's rulings, 2026-09-23, from the estate's Authority Register audit): (1) new-employee
 creation now has a named 3-step trigger — Victoria proposes/briefs, Minda approves, Eugene builds — so
