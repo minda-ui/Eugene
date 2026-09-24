@@ -5,6 +5,15 @@ convention as `change-log/`. Created 2026-09-23 when the single-file charter was
 
 ---
 
+**2026-09-24 — AWT-0084: two Authority Register rulings folded into §2b/§3.** Alex delivered a `Raw/`
+proposal (Minda's rulings, 2026-09-23, from the estate's Authority Register audit): (1) new-employee
+creation now has a named 3-step trigger — Victoria proposes/briefs, Minda approves, Eugene builds — so
+Eugene no longer unilaterally decides whether/when to scaffold a new KB, only how; (2) Eugene's
+Drive-write-into-a-new-KB step during approved scaffolding is named as the **one explicit exception**
+to the group's Raw/-only cross-KB rule, scoped strictly to that step and nothing else. Added to §2b with
+a cross-reference note in §3 so the governance boundary doesn't read as contradicting the exception.
+Owner-ruled (Minda, 2026-09-23), delivered via Alex's Raw/ hand-off. Closed on the Hub (AWT-0084).
+
 **2026-09-24 — correction: the 2026-09-23 "content-integrity anomaly" was a misdiagnosis, not an
 attack.** Session-start Hub check found real Hub rows (AWT-0060/0062/0064, HL-0043/HL-0044) that
 exactly matched the content the 2026-09-23 entry below calls fabricated. Investigating found the real
