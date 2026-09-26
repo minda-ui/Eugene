@@ -49,30 +49,17 @@ yet connected." Eugene has no connector into Amfa's Workspace to check this dire
    starts sending from this address.
 4. Until both are done, `info@amfa.uk` remains the safe interim FA outbound identity.
 
-## FM — Fishbone Commercial Properties Ltd: blocked, needs a decision before anything else
+## FM — Fishbone Commercial Properties Ltd: resolved, no action needed
 
-**This one can't be executed as scoped.** Per `Infra-Inventory/Workspace-and-Email-Inventory.md`
-(OI-1, resolved 2026-09-13): Fishbone Commercial Properties Ltd has **no domain and no Workspace
-subscription of its own** — it rides inside **Fishbone Properties Ltd's** subscription, and its mailbox
-`commercial@fishboneproperties.co.uk` is on **Properties' domain** (`fishboneproperties.co.uk`), not a
-domain of its own. "Provision a real mailbox on FM's own domain" presupposes a domain that doesn't
-currently exist.
+Fishbone Commercial Properties Ltd has no domain or Workspace subscription of its own — it rides inside
+**Fishbone Properties Ltd's** subscription, and its mailbox `commercial@fishboneproperties.co.uk` is on
+**Properties' domain**, not a domain of its own. This was flagged as `OI-11` (three options: register FM
+an own domain; accept the shared Properties-domain mailbox as-is; something else) rather than assumed.
 
-Giving FM an actual own-domain mailbox is not a mailbox-provisioning step — it would mean first deciding
-whether to register a new domain for FM, then either standing up a fourth Workspace subscription or
-adding it as a secondary domain under an existing tenant, then DNS, then DKIM/SPF/DMARC (same shape as
-the Amfa runbook) — a materially bigger and more expensive undertaking than what's been asked for FC/FA,
-and one Eugene shouldn't assume the answer to.
-
-**Flagged as `OI-11` rather than guessed at. Needs Minda's decision:**
-- **(a)** Register FM an actual own domain (cost/DNS/hosting decision, then a build similar in shape to
-  this runbook's FA section), or
-- **(b)** Accept `commercial@fishboneproperties.co.uk` as FM's outbound identity as-is — since Commercial
-  Properties has always shared Properties' domain space, this may already be "good enough" and the
-  distinct-identity goal may not require a literal separate domain for this one company, or
-- **(c)** Some other shape not yet on the table.
-
-No mailbox work proceeds for FM until this is decided.
+**Decided (Minda, 2026-09-26): option (b) — accept the shared Properties-domain mailbox.**
+`commercial@fishboneproperties.co.uk` (already live, already in use) is FM's outbound identity going
+forward. No new domain, no new Workspace subscription, no DNS/DKIM/SPF/DMARC work required. Nothing to
+provision — same "already satisfied" shape as FC, just via the shared domain rather than one of FM's own.
 
 ## Verification (Eugene, after execution)
 
@@ -80,10 +67,14 @@ No mailbox work proceeds for FM until this is decided.
 - FA: once `enquiries@amfa.uk` exists, Eugene re-checks `Infra-Inventory/Workspace-and-Email-Inventory.md`
   is updated to record it, and confirms with Minda that the DKIM/SPF/DMARC runbook has been worked
   through before treating the address as ready to send.
-- FM: no verification possible until OI-11 is resolved and a path is chosen.
+- FM: no verification needed — `commercial@fishboneproperties.co.uk` is already live; OI-11 resolved
+  2026-09-26 accepting it as-is.
 
 ## History
 
 - 2026-09-26 — v0.1 drafted in response to Hub `AWT-0105`. FC confirmed already satisfied; FA needs a
   confirm-or-create step on `enquiries@amfa.uk` plus the existing DKIM/SPF/DMARC runbook; FM blocked,
   raised as `OI-11`, pending Minda's decision on whether FM gets an own domain at all.
+- 2026-09-26 (later) — **OI-11 resolved:** Minda chose option (b) — accept
+  `commercial@fishboneproperties.co.uk` as FM's outbound identity as-is, no new domain. FM section
+  rewritten to match; FM now needs no action, same as FC. Only FA's confirm-or-create step remains open.
