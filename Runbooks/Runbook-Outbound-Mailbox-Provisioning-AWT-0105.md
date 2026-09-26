@@ -32,22 +32,19 @@ FA has its own Workspace subscription, domain `amfa.uk` (confirmed 2026-09-15). 
 `info@amfa.uk` is a real mailbox on that domain — usable today as an interim outbound identity with no
 further step.
 
-**Open item, not yet confirmed either way:** `enquiries@amfa.uk` was named during Nadia's build (Hub
-AWT-0093, 2026-09-24) as the intended sales/enquiry address, but whether it exists as a live Workspace
-mailbox has never actually been checked — Nadia's own `open-issues.md` (NA-3) already flags it as "not
-yet connected." Eugene has no connector into Amfa's Workspace to check this directly.
+**Resolved 2026-09-26 — Minda confirmed `enquiries@amfa.uk` is created,** with copies of all mail
+forwarding to `ops@fishboneconstruction.co.uk`. This matches the design already on record in Nadia's own
+`external-source-register.md` (NASRC-6/NASRC-7): Peter triages the copy at `ops@` and routes Amfa
+enquiries into Nadia's `Raw/` (Hub AWT-0095) — Nadia has no direct read access of her own, by design, the
+same Raw/-only hand-off pattern used everywhere else in the estate. So this isn't an accidental
+cross-company leak into Peter's Construction-scoped inbox — it's the intended intake mechanism. **The
+mailbox-provisioning ask of this runbook is satisfied.**
 
-**Steps for Minda (or Amfa's super-admin):**
-1. In Amfa's Admin console (signed in as `info@amfa.uk`) → Users: check whether `enquiries@amfa.uk`
-   already exists as a user/mailbox.
-2. If it doesn't: **Add new user** with that address (Directory → Users → Add new user), or add it as an
-   alias of an existing user if a shared inbox is preferred over a dedicated seat — Minda's call, no
-   technical reason to prefer one over the other from what's on record.
-3. Either way (existing or newly created), **`enquiries@amfa.uk` must not send outbound sales/quote mail
-   until DKIM/SPF/DMARC are set up** — this was already flagged and the runbook already exists:
-   `Runbooks/Runbook-Amfa-Email-DKIM-SPF-DMARC.md`. Work through that runbook before Nadia (or anyone)
-   starts sending from this address.
-4. Until both are done, `info@amfa.uk` remains the safe interim FA outbound identity.
+**Still open, but a separate matter — not this runbook's ask:** `enquiries@amfa.uk` must not send
+**outbound** sales/quote mail until DKIM/SPF/DMARC are set up (`Runbook-Amfa-Email-DKIM-SPF-DMARC.md`),
+and Nadia's own Gmail connector (`create_draft`-only, NASRC-6) still needs to be provisioned before she
+can draft into it directly — both already tracked in Nadia's `open-issues.md` NA-3, not re-raised here.
+`info@amfa.uk` remains the safe interim FA outbound identity until then.
 
 ## FM — Fishbone Commercial Properties Ltd: resolved, no action needed
 
@@ -64,11 +61,14 @@ provision — same "already satisfied" shape as FC, just via the shared domain r
 ## Verification (Eugene, after execution)
 
 - FC: no verification needed — already confirmed live.
-- FA: once `enquiries@amfa.uk` exists, Eugene re-checks `Infra-Inventory/Workspace-and-Email-Inventory.md`
-  is updated to record it, and confirms with Minda that the DKIM/SPF/DMARC runbook has been worked
-  through before treating the address as ready to send.
+- FA: **done** — `enquiries@amfa.uk` confirmed created (Minda, 2026-09-26); forwarding to `ops@` matches
+  the intended Peter→`Raw/` intake design. Recorded in `Infra-Inventory/Workspace-and-Email-Inventory.md`.
+  The DKIM/SPF/DMARC outbound gate and Nadia's own connector remain open, but as Nadia's NA-3, not this
+  runbook.
 - FM: no verification needed — `commercial@fishboneproperties.co.uk` is already live; OI-11 resolved
   2026-09-26 accepting it as-is.
+
+**All three companies now have a real, confirmed mailbox. This runbook's ask is complete.**
 
 ## History
 
@@ -78,3 +78,8 @@ provision — same "already satisfied" shape as FC, just via the shared domain r
 - 2026-09-26 (later) — **OI-11 resolved:** Minda chose option (b) — accept
   `commercial@fishboneproperties.co.uk` as FM's outbound identity as-is, no new domain. FM section
   rewritten to match; FM now needs no action, same as FC. Only FA's confirm-or-create step remains open.
+- 2026-09-26 (later still) — **FA resolved:** Minda confirmed `enquiries@amfa.uk` is created, with
+  copies forwarding to `ops@fishboneconstruction.co.uk` — matching the intake design already recorded in
+  Nadia's own KB (NASRC-6/7, Hub AWT-0095), not an accidental cross-company leak. All three companies now
+  satisfied; `AWT-0105` closed. Outbound authentication (DKIM/SPF/DMARC) and Nadia's own connector remain
+  open as Nadia's NA-3, tracked in her own KB, not this runbook.
