@@ -12,3 +12,12 @@
     ]
   }
 }
+{
+  "permissions": {
+    "allow": [
+      "Bash(composio execute *)",
+      "Bash(composio connections remove *)",
+      "Bash(composio link *)"
+    ]
+  }
+}
