@@ -162,7 +162,7 @@ IT task/change in `processed-items-ledger.md` + a dated `change-log/` entry.
 **Known infrastructure at creation (2026-09-12), to verify and keep current in `Infra-Inventory/`:**
 - **Google Workspace (paid):** Fishbone Construction, Fishbone Properties, Fishbone Commercial
   Properties, Fishbone Waste, **Amfa Furniture**. **On 1&1 Webmail:** Fishbone Holdings (and the SSAS,
-  a scheme). Google Workspace **supports multiple domains on one tenant** (secondary domains; billing is
+  a scheme). Google Workspace **supports multiple domains on one tenant** (secondary domains); billing is
   per user seat, not per domain) — the plan is to consolidate the 1&1 domains into one Workspace tenant.
 - **Open workforce-access items** (from Peter): OI-5 (Gmail connector reaches minda@'s own mailbox, not a
   dedicated `info@`) and OI-6 (Companies House / gov.uk blocked by the routine environment's network

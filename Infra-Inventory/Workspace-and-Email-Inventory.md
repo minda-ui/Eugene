@@ -21,7 +21,7 @@ multiple domains. Commercial Properties does **not** have its own subscription �
 **So (updated 2026-09-15):** **four** separate paid Google Workspace subscriptions (Construction,
 Properties, Waste, Amfa) covering **five** companies (Commercial rides Properties). **Holdings** has
 moved off 1&1 and is now a secondary domain under Construction (owner-reported 2026-09-15, pending
-Eugene DNS verification). **SSAS has no domain or Workspace of its own** — not a consolidation target.
+Eugene DNS verification). **SSAS has no domain or Workspace of its own#* — not a consolidation target.
 
 ## What this means for consolidation
 

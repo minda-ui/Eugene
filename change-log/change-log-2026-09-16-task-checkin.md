@@ -19,7 +19,7 @@ authority per charter §2e; no boundary widened.
   standing Smartsheet connector to Eugene's environment, or (b) amend §2e to route Hub-row
   updates through Alex per §9a instead. This is a decision only Minda can make, not a guess for
   Eugene to make — escalated to **Help & Lessons `HL-0007`** rather than actioned directly.
-  Added one relevant new fact to the HL row: this scheduled task-check-in routine session *does*
+  Added one relevant new fact to the HL row: this scheduled task-check-in routing session *does*
   have live Smartsheet MCP tool access (used it to read/write both the Tasks & Requests sheet and
   Help & Lessons), so the gap AWT-0012 describes may be routine-specific config rather than a
   charter-wide connector gap — unconfirmed whether Eugene's general interactive sessions also get

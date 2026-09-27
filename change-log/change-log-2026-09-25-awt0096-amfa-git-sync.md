@@ -33,7 +33,7 @@ Re-synced to Drive, archive-then-recreate, byte-verified (30745 → 31314 bytes)
 
 Hub AWT-0096 closed **Done**.
 
-## AWT-0101 — Alex's cross-login Properties routine audit (parked)
+## AWT-0101 — Alex's cross-login Properties routing audit (parked)
 
 Minda asked to start this next. Investigated before building, rather than taking the brief's assumed
 mechanism ("via `create_session` with the right environment_id") at face value:
