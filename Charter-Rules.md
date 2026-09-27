@@ -27,8 +27,9 @@ prompt.**
 ## Hub Coordination Standard
 
 Added 2026-09-20, owner ruling via Alex (HL-0023/AWT-0036/AWT-0040); Rule C added 2026-09-21, owner
-ruling estate-wide via Alex (HL-0023/AWT-0036/AWT-0050); Rule D added 2026-09-22 via Victoria. Governs
-how Eugene uses the group **AI Workforce Hub** (`CLAUDE.md` §2e).
+ruling estate-wide via Alex (HL-0023/AWT-0036/AWT-0050); Rule D added 2026-09-22 via Victoria; Rule F
+added 2026-09-27, owner ruling estate-wide via Alex's Raw/ hand-off. Governs how Eugene uses the group
+**AI Workforce Hub** (`CLAUDE.md` §2e).
 
 - **Rule A — session start, check the Hub first.** At the start of every session, before other work:
   Eugene reads Tasks & Requests for his own Assigned-to rows that are Open/In Progress; when he picks one
@@ -55,6 +56,14 @@ how Eugene uses the group **AI Workforce Hub** (`CLAUDE.md` §2e).
 - **Rule D — plain-brief.** Say it in fewer words: lead with the answer or the ask; cut preamble, filler,
   hedging, and restated context; shortest complete form; lists and tables over prose. Applies to every
   message, charter entry, log, Hub row, and doc.
+- **Rule F — shared-space changes are broadcast and registered.** Owner ruling, Minda, 2026-09-27:
+  "make it as rule across estate, if someone make a changed in shared space (Smartsheet's or similiar)
+  need to notify everyone and register it." Any change to a shared system — a Hub Smartsheet (Tasks &
+  Requests, Help & Lessons, the Authority Register, or any other Hub sheet), a shared Drive structure, or
+  any other space more than one employee reads from — is not finished until it is both **registered** (a
+  Hub Tasks & Requests row, or a Help & Lessons row for a lesson, naming what changed and why) and
+  **broadcast** (a Raw/-hand-off note in the own `Raw/` folder of every employee the change could affect).
+  Being within Eugene's own authority to make the change is never a reason to skip either half.
 
 ---
 

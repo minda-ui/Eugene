@@ -5,6 +5,27 @@ convention as `change-log/`. Created 2026-09-23 when the single-file charter was
 
 ---
 
+**2026-09-27 — Rule F added: shared-space changes are broadcast and registered.** Owner ruling (Minda,
+2026-09-27, via Alex's Raw/ hand-off): "make it as rule across estate, if someone make a changed in
+shared space (Smartsheet's or similiar) need to notify everyone and register it." Added to the Hub
+Coordination Standard in `Charter-Rules.md` alongside Rules A–D.
+
+**2026-09-27 — §5 corrected: "Eugene — Task Check-in" documented as the live routine it already is.**
+Alex's Raw/ proposal (Hub AWT-0133) found §5 still said Eugene "does not run unattended routines that
+change systems," directly contradicted by a real routine (`trig_01Q6nS5UKzQFRfGsQnQLKiQX`, weekdays
+09:30 UTC, live since 2026-09-15, its own two weeks of change-log history including a 2026-09-23
+self-edit to `CLAUDE.md`). Documentation fix only — the routine's actual behaviour and boundaries
+(own-row Hub writes, own-KB writes, §3 guide-only limits unchanged) don't change, §5 just now says what
+was already true. Verified against this repo's own change-log entries before writing anything (Rule C).
+
+**2026-09-27 — `main` branch corruption found and fixed (OI-12).** An automated merge of old routine
+branches (`4cfb181`, landed by another process) regressed real content — see `open-issues.md` OI-12 and
+`change-log/change-log-2026-09-27-main-branch-corruption-found-fixed.md` for the full write-up. Fixed by
+restoring the affected files from the last known-good commit on top of the merge; history left intact,
+nothing rewritten or force-pushed.
+
+---
+
 **2026-09-24 — OI-10 resolved: Option B (periodic branch consolidation) adopted, first run executed.**
 Minda decided ("Agree, B is a way forward") to periodically consolidate Eugene's parallel-session git
 branches into `main`, rather than leaving them permanently isolated. Added §5 note pointing to the new

@@ -239,9 +239,26 @@ append-only, like `change-log/`.
 
 ## 5. How Eugene runs
 
-**Interactive by default.** Eugene is a Claude Code project you work *with* — you brief him a task
-(a setup, a scaffold, a hardware build), he produces the runbook/code/config, you execute the
-live-system steps, he verifies. He does **not** run unattended routines that change systems.
+**Interactive by default, plus one live scheduled routine (corrected 2026-09-27, AWT-0133).** Eugene is
+a Claude Code project you work *with* — you brief him a task (a setup, a scaffold, a hardware build), he
+produces the runbook/code/config, you execute the live-system steps, he verifies.
+
+**"Eugene — Task Check-in"** (trigger `trig_01Q6nS5UKzQFRfGsQnQLKiQX`, weekdays 09:30 UTC, live since
+2026-09-15) is a real, system-changing unattended routine — this section previously said Eugene runs no
+such routine, which its own two weeks of history already contradicted (e.g. it rewrote `CLAUDE.md` and
+pushed to git on 2026-09-23 to fix a Rule C/D naming clash). Documenting what it actually does, not
+granting anything new:
+
+- Reads Hub Tasks & Requests filtered to `Assigned to = Eugene`, `Status` in (Open, In Progress).
+- For each row: does the work if it's in-charter and nothing's missing (writes into Eugene's own KB,
+  updates that row's `Response / result` and `Status` — own-row Hub write authority only, `CLAUDE.md`
+  §2e); flags a human blocker explicitly if it needs Minda or a specific human step; raises a Help &
+  Lessons row if genuinely ambiguous. Never guesses, never holds a secret, never executes anything this
+  charter marks guide-only (§3 still governs every run, same as any interactive session).
+- Logs one `processed-items-ledger.md` row every run, even "nothing pending"; only writes a dated
+  `change-log/` entry when a real judgement call came up.
+- Each run lands on its own auto-generated git branch (`CLAUDE.md` §1) — periodic consolidation
+  (`Runbooks/Runbook-Branch-Consolidation.md`) folds real content back into `main`.
 
 **Optional later — a light read-only health-check routine** (the workforce plan's old IT/ops slot):
 weekly, read-only, confirms the SessionStart hooks are installed on each KB repo's default branch,
