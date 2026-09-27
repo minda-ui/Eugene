@@ -10,9 +10,7 @@
         ]
       }
     ]
-  }
-}
-{
+  },
   "permissions": {
     "allow": [
       "Bash(composio execute *)",
