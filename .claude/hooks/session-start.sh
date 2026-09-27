@@ -31,4 +31,19 @@ fi
 pip install --quiet pdfplumber pymupdf pdf2image pytesseract pillow pypdf \
   || echo "session-start: pip install of PDF libraries failed" >&2
 
+# --- Composio CLI (fallback connector layer; SRC-13, Hub AWT-0155) ---
+# Pinned version per the estate rollout. Installs the CLI only — login and
+# `composio link` still need Minda to authorise in her browser each new
+# container (auth is not stored in this repo, charter §3). The installer's
+# optional agent-plugin step may fail (HTTP 403); the CLI itself still works.
+COMPOSIO_VERSION="0.4.1"
+if [ "$("$HOME/.local/bin/composio" --version 2>/dev/null)" != "$COMPOSIO_VERSION" ]; then
+  curl -fsSL https://composio.dev/install | sh -s -- "@composio/cli@${COMPOSIO_VERSION}" >/dev/null 2>&1 || true
+  [ -x "$HOME/.local/bin/composio" ] \
+    || echo "session-start: composio CLI not installed" >&2
+fi
+if [ -n "${CLAUDE_ENV_FILE:-}" ]; then
+  echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> "$CLAUDE_ENV_FILE"
+fi
+
 exit 0
