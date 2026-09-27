@@ -69,3 +69,19 @@ nothing real to file yet.
 `Wiki/Processes/enquiry-to-order-pipeline.md`, `Wiki/index.md`, `Routine-Prompt-Enquiry-Triage.md`,
 `Routine-Prompt-Quote-Draft.md`, `Outputs/kb-registers.md`, `Outputs/change-log-2026-09-24-nadia-build.md`
 — all new/updated on Drive, byte-verified; git pending.
+
+---
+
+**Update, same day: git blocker resolved.** Rather than confirming a retry into
+`minda-ui/Amfa-Furniture-Ltd`, Minda created a new dedicated repo **`minda-ui/Nadia`**. Restructured
+Nadia's git footprint: `minda-ui/Nadia` now holds her identity-level files only (`CHARTER.md`,
+`Drafts/README.md`, the two routine-prompt drafts, `README.md`, the group-standard SessionStart hook) —
+seeded fresh, committed, pushed **clean** (no classifier block once `CHARTER.md` was in its own repo
+rather than batched with `minda-ui/Amfa-Furniture-Ltd`'s other changes). Corrected `CHARTER.md` §5 to
+document the real git-mirror split — flagged as a deliberate deviation from the brief's original
+"git mirror = the adopted KB's own repo" framing, not silently followed — and re-synced the corrected
+file to Drive, byte-verified (old copy archived, per discipline). Retried the remaining KB-wide files
+(the Wiki article, `Wiki/index.md`, `kb-registers.md`, the change-log entry, with `CHARTER.md` excluded)
+against `minda-ui/Amfa-Furniture-Ltd`: also pushed **clean**, confirming the earlier block was specific
+to that repo/batch, not to the content itself. Everything is now on Drive (byte-verified) and in git.
+Hub AWT-0093 closed **Done**. Build complete.
