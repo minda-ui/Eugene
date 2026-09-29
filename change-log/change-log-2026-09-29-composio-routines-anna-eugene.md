@@ -3,6 +3,24 @@
 Interactive session with Minda, branch `claude/lucid-mayer-nsoili` (restarted from `main` after each
 merge). Continues the 2026-09-27 session (`change-log-2026-09-27-daily-summary.md`).
 
+## Update 2026-09-29 ~09:55 UTC — today's routine branch folded; Task Check-in prompt v2 live
+
+- **Second clash found:** today's 09:38 Task Check-in left `claude/beautiful-allen-gk3r0z` with one ledger
+  row it numbered "46" — already taken on `main`. Folded in as **row 48** (noted in the row).
+- **Root cause:** every routine run works on its own branch cut from an older `main`, so self-numbered
+  ledger rows collide with rows written elsewhere (09-28 and 09-29 both did).
+- **Fix — prompt v2** (`Runbooks/Routine-Prompt-Task-Checkin.md`, full paste-ready): rows written as
+  `NEW`, numbered at consolidation; no control-file Drive writes from the routine; Composio Connect
+  fallback with own aliases, never Gmail; reads `CLAUDE.md` (v1 named a non-existent `CHARTER.md`); checks
+  `Blocked` rows too; other repos only when a Minda Hub row asks. Consolidation runbook gained step 5a.
+- **Applied by Minda** 09:50 UTC in the routines form; Eugene re-read the live routine
+  (`trig_01Q6nS5UKzQFRfGsQnQLKiQX`) and confirmed section-by-section it matches v2 (visual comparison —
+  the routine tool returns text to the model only, so not byte-diffed). Schedule, connectors, enabled
+  state unchanged. First v2 run: 2026-09-30 ~09:37 UTC.
+- All three side branches (`beautiful-allen-1ze8qj`, `beautiful-allen-gk3r0z`, `lucid-mayer-nsoili`) are
+  now fully contained in `main` — deletion left to Minda. PRs merged today: minda-ui/Eugene#4–#9,
+  minda-ui/Anna#1–#3.
+
 ## Update 2026-09-29 ~09:45 UTC — 09-28 check-in branch folded into `main`
 
 Minda: "fold yesterday's check-in branch into main." `claude/beautiful-allen-1ze8qj` (2 commits, 09-28 Task
