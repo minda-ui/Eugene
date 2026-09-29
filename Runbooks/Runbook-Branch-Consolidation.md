@@ -79,6 +79,13 @@ branches' real content back into `main` so history stops fragmenting indefinitel
    This preserves the historical record (e.g. a change-log entry documenting a real past session) without
    overwriting current control files with that commit's older snapshot of them.
 
+5a. **Number routine ledger rows.** Scheduled Task Check-in runs (prompt v2,
+   `Runbooks/Routine-Prompt-Task-Checkin.md`) write their ledger row with `NEW` in the `#` column, because
+   their branch starts from an older `main` and a self-assigned number collides (seen 09-28 and 09-29).
+   When folding one in, append the row to `main`'s ledger with the next free number and a note naming
+   the source branch. Also sync the control files that run left for consolidation to Drive (via
+   Composio, byte-verified).
+
 6. **Do not delete sibling branches as part of this step.** Their content is now redundant on `main`, but
    deleting a remote branch is a less-reversible action on shared state (charter's general caution on
    hard-to-reverse git/Drive operations). Flag reviewed-and-now-redundant branches to Minda explicitly and
