@@ -3,6 +3,29 @@
 Interactive session with Minda, branch `claude/lucid-mayer-nsoili` (restarted from `main` after each
 merge). Continues the 2026-09-27 session (`change-log-2026-09-27-daily-summary.md`).
 
+## Update 2026-09-29 ~09:40 UTC — Eugene's Composio Connect test: PASS
+
+Newest note first; the "unconfirmed" entries below stand as what was known at the time.
+
+- A session restart loaded `.mcp.json` and the `ck_` key, but the server failed with
+  `Proxy refused to open a tunnel: 403 Forbidden` — the Eugene environment's network policy blocked
+  `connect.composio.dev`. Minda added it to the environment's network access.
+- Re-tested directly against the server (read-only):
+
+| Check | Result |
+|---|---|
+| `connect.composio.dev` reachable | PASS — 401 without key (expected) |
+| `ck_` key + MCP `initialize` | PASS — HTTP 200, session opened |
+| `tools/list` | PASS — 11 tools (`COMPOSIO_SEARCH_TOOLS`, `COMPOSIO_MULTI_EXECUTE_TOOL`, `COMPOSIO_MANAGE_CONNECTIONS`, …) |
+| `GOOGLEDRIVE_GET_ABOUT` via `account: eugene-googledrive` | PASS — minda@fishboneconstruction.co.uk |
+| Listing Eugene's KB root | PASS — 14 items |
+
+- Account selection works by alias (`account` field) — routine prompts must always pass their own.
+- This session's built-in `mcp__composio__*` tools stay unloaded (connection failed at start); new
+  sessions, incl. the 09:30 Task Check-in, load them automatically.
+- **Anna:** same network entry needed in the Anna environment, plus `minda-ui/Anna` attached to her
+  routine — then Run now; AWT-0060 closes after that run is verified.
+
 ## At a glance
 
 | # | Work | Where | Outcome |
@@ -15,7 +38,7 @@ merge). Continues the 2026-09-27 session (`change-log-2026-09-27-daily-summary.m
 | 6 | Anna repo branches consolidated | minda-ui/Anna#3 | Merged `c8b7f50` |
 | 7 | `eugene-github` Composio link + Minda's repo-scope rule | SRC-13, minda-ui/Eugene#4 | Merged `9004157` |
 | 8 | Composio Connect MCP for Eugene | minda-ui/Eugene#5 | Merged `35f65b6` |
-| 9 | Test of Eugene's Connect setup | child session `session_018dfhs1NfDLazRAzrZnfxad` | **Unconfirmed** |
+| 9 | Test of Eugene's Connect setup | child session `session_018dfhs1NfDLazRAzrZnfxad` | **Unconfirmed** at the time — **PASS** after network fix (see update above) |
 
 ## 1. Hub check
 
