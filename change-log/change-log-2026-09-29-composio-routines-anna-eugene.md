@@ -3,6 +3,34 @@
 Interactive session with Minda, branch `claude/lucid-mayer-nsoili` (restarted from `main` after each
 merge). Continues the 2026-09-27 session (`change-log-2026-09-27-daily-summary.md`).
 
+## Update 2026-09-29 ~19:40 UTC — Rachel + Darius set up; end-of-day wrap-up skill + hook
+
+**Rachel and Darius — repo side done** (Minda: "yes to all, add the hook, you can push"), built with the
+`composio-routine-setup` skill:
+
+| | minda-ui/Rachel#2 → `9e12e2a` | minda-ui/Darius#1 → `c154472` |
+|---|---|---|
+| SessionStart hook | new — code identical to Anna's merged hook | same |
+| `.mcp.json` + pre-approval | Composio Connect | same |
+| Deny-rules (CLI path) | 10: Gmail send/send-draft/reply/forward/delete/trash, Drive delete (charter: no sending, "delete anything, anywhere" barred) | 3: all Gmail (charter: "no Gmail"), Drive delete |
+| Connections | `rachel-minda-gmail`; **`rachel-googledrive` still to link** | `darius-googledrive` ACTIVE |
+| Routine | "Monthly bank statements reminder" — no connectors, doesn't need Composio | none |
+
+Left for Minda (tomorrow): `COMPOSIO_API_KEY` + allow `connect.composio.dev` in both environments;
+approve the `rachel-googledrive` link; then Eugene runs `verify_connect.sh` in a fresh session of each.
+
+**End-of-day wrap-up** (Minda's idea: "as soon as I write good night, trigger 'have you documented
+today's work?'"):
+- `.claude/skills/end-of-day-wrapup/SKILL.md` — find today's work from git/PRs/Hub (Rule C), compare with
+  change-log/ledger/current-state, write what's missing, sync via `drive-sync-verified`, PR, good-night
+  summary.
+- `.claude/hooks/end-of-day.sh` + `UserPromptSubmit` in `.claude/settings.json` — deterministic trigger:
+  on "good night", "goodnight", "night night", "done for today", "signing off", "see you tomorrow"… it
+  injects the reminder. Read-only, never blocks. Tested on 8 messages: 5 sign-offs trigger, 3 near-misses
+  ("what a great day", "fix the nightly build", …) don't.
+- First real run: this note (it found Rachel#2/Darius#1 and the skill itself unlogged).
+- Takes effect from the next session started on `main` (hooks load at session start).
+
 ## Update 2026-09-29 ~19:15 UTC — two skills built from today's work; old branches deleted
 
 - **Branches deleted** at Minda's request (all verified contained in `main` first — content-checked for
