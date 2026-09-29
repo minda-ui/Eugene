@@ -1,8 +1,37 @@
-# Runbook — Anna's routine settings: Composio working in unattended runs (v0.1)
+# Runbook — Anna's routine settings: Composio working in unattended runs (v0.2)
 
 _Eugene runbook, 2026-09-29. Guide-only for the live steps (charter §3): Minda enters the API key,
 edits environment settings and the routines form; Eugene supplies the files and verifies afterwards.
 Related: Hub AWT-0060 (SessionStart hook on `minda-ui/Anna`), SRC-13 (Composio)._
+
+## v0.2 update (2026-09-29) — the key Composio issues is `ck_`, so use Composio Connect (MCP)
+
+First routine run: "Composio installed (v0.4.1) but isn't signed in." Cause: Composio's **Sessions &
+API Key** page issues a **`ck_` consumer key**, which authenticates MCP clients to **Composio Connect**
+(`https://connect.composio.dev/mcp`, header `x-consumer-api-key`). It cannot sign the CLI in — the CLI
+takes only `uak_` user keys (the "CLI Sessions" on the same page, 3-month expiry). Minda chose the
+MCP route (no expiry, no CLI sign-in). Shipped in **minda-ui/Anna#2**:
+
+- `.mcp.json` — server `composio`, url `https://connect.composio.dev/mcp`, header
+  `x-consumer-api-key: ${COMPOSIO_API_KEY:-}` (from the environment; `:-` keeps sessions without the
+  key loadable).
+- `.claude/settings.json` — `"enabledMcpjsonServers": ["composio"]` so unattended runs load it with no
+  approval prompt.
+- Hook — skips CLI sign-in for `ck_` keys (MCP-only); a `uak_` key still signs the CLI in (fallback).
+
+Part A changes: keep the `ck_` key as `COMPOSIO_API_KEY`; allow **`connect.composio.dev`** if network
+access is restricted. Part C: the routine **must** have `minda-ui/Anna` attached (first run showed
+"Fishbone Construction Ltd · Anna" — Anna's repo apparently not attached, so neither hook nor
+`.mcp.json` loads).
+
+**Limits:** (1) the B2 deny-rules match CLI commands only — via MCP, actions run through generic
+meta-tools with the action name as an argument, which permission rules can't match, so read-and-draft
+-only rests on Anna's charter/prompt on this path; (2) which Gmail account Connect uses must be
+checked on the first run; (3) untested without the key — a known Composio issue reports `401 Invalid
+consumer API key` after regenerating a `ck_` key (ComposioHQ/composio#3485).
+
+**First-run check (replaces Part E steps 1–3 for this path):** the run lists `mcp__composio__*` tools;
+one read through them returns mail from the intended mailbox; no 401.
 
 ## The problem
 
