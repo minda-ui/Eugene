@@ -3,6 +3,31 @@
 Interactive session with Minda, branch `claude/lucid-mayer-nsoili` (restarted from `main` after each
 merge). Continues the 2026-09-27 session (`change-log-2026-09-27-daily-summary.md`).
 
+## Update 2026-09-29 ~19:15 UTC — two skills built from today's work; old branches deleted
+
+- **Branches deleted** at Minda's request (all verified contained in `main` first — content-checked for
+  the two routine branches): Eugene `claude/beautiful-allen-1ze8qj` (`cd42e0e`),
+  `claude/beautiful-allen-gk3r0z` (`eecac9c`), `claude/lucid-mayer-nsoili` (`d05278b`); Anna
+  `claude/lucid-mayer-nsoili` (`0c6ceac`). `git push --delete` was refused by the session's git proxy, so
+  deleted via GitHub API (`GITHUB_DELETE_A_REFERENCE`, `eugene-github`). **Kept:** Anna
+  `claude/loving-gates-8bcu4a` (new commit after PR #3 — live work) and `claude/jolly-knuth-gtmj4i`
+  (likely a live session). Eugene now has only `main`.
+- **Skills** (Minda: "is it worth converting today's work to a skill?" → yes, the repeatable parts):
+  - `.claude/skills/drive-sync-verified/` — `scripts/sync.sh`: verified archive-then-recreate to Drive
+    via the Composio CLI, `--baseline origin/main` guard (Rule C), five post-upload checks, exit codes
+    0/1/2 (nothing changed)/3 (investigate).
+  - `.claude/skills/composio-routine-setup/` — `apply_repo.sh` (adds `.mcp.json` + pre-approval,
+    idempotent, keeps existing settings), `verify_connect.sh` (read-only end-to-end check), and the
+    environment/routine checklist with boundaries (other repos only when Minda asks; key never seen).
+- **Tests (real work, not samples):** sync no-op on an unchanged file; baseline guard refused a stale
+  baseline and changed nothing; dry run; real sync of `external-source-register.md` (SRC-13 now covers
+  Composio Connect + the skills) — size, md5, round-trip, U+FFFD, one live copy all OK;
+  `verify_connect.sh` PASS (Drive as minda@); `apply_repo.sh` on Anna's pre-#2 settings reproduced
+  Anna's `main` byte-for-byte (JSON-normalised) and was idempotent on re-run. One cosmetic output bug
+  found and fixed during testing. The skill-creator's parallel-agent benchmark was skipped — these are
+  deterministic scripts better proven on real files.
+- This note, ledger row 51 and the register were synced to Drive with `drive-sync-verified` itself.
+
 ## Update 2026-09-29 ~09:55 UTC — today's routine branch folded; Task Check-in prompt v2 live
 
 - **Second clash found:** today's 09:38 Task Check-in left `claude/beautiful-allen-gk3r0z` with one ledger
