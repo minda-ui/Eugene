@@ -3,6 +3,18 @@
 Interactive session with Minda, branch `claude/lucid-mayer-nsoili` (restarted from `main` after each
 merge). Continues the 2026-09-27 session (`change-log-2026-09-27-daily-summary.md`).
 
+## Update 2026-09-29 ~09:45 UTC — 09-28 check-in branch folded into `main`
+
+Minda: "fold yesterday's check-in branch into main." `claude/beautiful-allen-1ze8qj` (2 commits, 09-28 Task
+Check-in) folded per `Runbooks/Runbook-Branch-Consolidation.md` rather than merged — its
+`current-state.md`/ledger were stale snapshots and its ledger row "44" clashed with this session's row 44:
+
+- `change-log/change-log-2026-09-28-task-checkin.md` — brought in unchanged (new file).
+- Its ledger row → **row 46** (renumbered, noted in the row); this fold → row 47.
+- Its `current-state.md` entry → inserted between 09-29 and 09-27, marked as folded in.
+- Drive: the sync that run deferred (no Composio login then) is now done via Composio.
+- The branch itself is left on `origin` for Minda to delete (runbook step 6).
+
 ## Update 2026-09-29 ~09:40 UTC — Eugene's Composio Connect test: PASS
 
 Newest note first; the "unconfirmed" entries below stand as what was known at the time.
