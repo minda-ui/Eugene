@@ -2,6 +2,15 @@
 
 _Newest note at the top. Append-only._
 
+## Update 2026-09-30 ~18:20 UTC — Microsoft 365 disconnected; other-login employees
+
+| What | Result |
+|---|---|
+| Microsoft 365 connector | Checked **disconnected** in minda@'s login (status only, no M365 calls). Minda: the M365 account is being closed. |
+| Hub AWT-0090 | **Done (moot)**: Rachel's 29 scopes go with the account. Reopen for the Entra revoke (Path B) if the closure is cancelled. |
+| Hub AWT-0121 | Updated, still **In Progress**. Before closure: confirm Rachel's OneDrive tax archive (SRC-32) is moved; Alex's AWT-0202 still unanswered. |
+| Other logins | Minda: **Helen, Nadia and John** are in another login too, like Anna. `composio-routine-setup` skill: new step 0, "which login?" (minda-ui/Eugene#15). |
+
 ## Update 2026-09-30 ~17:40 UTC — Anna verified; AWT-0060 closed
 
 | What | Result |
