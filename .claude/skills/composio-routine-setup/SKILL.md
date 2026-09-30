@@ -83,6 +83,7 @@ Checks, in order, and stops at the first failure: key set and `ck_` → host rea
 | Symptom | Cause | Fix |
 |---|---|---|
 | "Composio installed but isn't signed in" | CLI path with a `ck_` key | Expected — use the MCP route (this skill) |
+| Key set, 0 Composio tools, "needs auth"; worked before | A **new `ck_` key was generated**, which cancels the old one in every environment (2026-09-30) | Never generate a new key for one environment. To fix one, copy the **current** key. After a rotation, update every environment in every login (list in step 0), then re-test |
 | `COMPOSIO_API_KEY not set` | Key missing, or session started before it was added | Add in environment variables; start a new session |
 | `Proxy refused to open a tunnel: 403` | Network access blocks the host | Allow `connect.composio.dev` |
 | handshake 401 | Key rejected | Re-copy the key; regenerated `ck_` keys can 401 (ComposioHQ/composio#3485) |
