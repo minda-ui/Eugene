@@ -2,6 +2,20 @@
 
 _Newest note at the top. Append-only._
 
+## Update 2026-09-30 ~19:20 UTC — John verified
+
+| What | Result |
+|---|---|
+| Repo | John has no repo of his own; his git mirror is `minda-ui/Fishbone-Properties-Ltd`. PR #2 merged (`c70d8b6`): `.mcp.json` + 10 deny rules from his charter §9. |
+| Environment | John's login, **Fishbone Properties Ltd**. Key + network set by Minda. |
+| First test | FAIL, 0 Composio tools: it ran before the PR was merged, so `main` had no `.mcp.json`. |
+| Re-test | **PASS**: `ck_`, Composio tools present, Drive via `john-googledrive` = minda@ (Eugene re-checked). |
+| Raw/ note | Left in the Properties KB `Raw/` for John: charter §9 still describes the CLI + setup-script route. |
+
+**Lesson:** merge the repo PR **before** the test; a session only loads `.mcp.json` from what's on `main` when it starts.
+
+**Composio Connect verified:** Eugene, Anna, Rachel, Darius, Helen, Nadia, John. **Not yet:** Peter, Victoria, Alex.
+
 ## Update 2026-09-30 ~18:50 UTC — Helen and Nadia verified
 
 | What | Result |
