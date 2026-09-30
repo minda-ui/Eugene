@@ -2,6 +2,32 @@
 
 _Newest note at the top. Append-only._
 
+## Update 2026-09-30 ~21:00 UTC — Tomorrow's critical project: regain control of the HQ network core
+
+Minda: a big project needs preparing; there are no admin logins for the server, and the contractor who
+built the network is not responding. Deadline: end of this week.
+
+| What | Status (Minda, 2026-09-30) |
+|---|---|
+| Server | The HP ProLiant at Unit 30–31 (Debian 12, FusionPBX, OI-7): physical and running; **no OS login** |
+| No admin login | ProLiant OS, Cisco ASA pair, Catalyst 3850 stack, Beverley Place server(s) |
+| Admin login held | UniFi controller, Hikvision NVR, airFiber radios |
+| Phones | **Still down** (OI-8, since 2026-09-17) |
+| Kit ready | USB-to-RJ45 Cisco console cable, Windows laptop with PuTTY installed, monitor, keyboard, mouse |
+| Window | Tomorrow afternoon and late evening (2026-10-01) |
+
+**Plan (Minda executes, Eugene writes the runbook and checks each step):**
+1. ProLiant: console root reset, then back up FusionPBX straight away.
+2. Catalyst stack: password recovery, keeping the config.
+3. ASA pair, late evening: recovery on one unit, then bring the second back in.
+4. Save each config and put new passwords only in Minda's password manager.
+5. Fix the inbound-call rule (OI-8).
+
+Never accept a config erase. Eugene holds no credentials.
+
+**Waiting on:** model labels (ASA, Catalyst, ProLiant + iLO tab); the laptop COM port check. Also suggested:
+ask WebMate to divert the 4 DDIs at their end as a stop-gap for callers.
+
 ## Update 2026-09-30 ~20:25 UTC — Peter, Victoria, Alex; key rotation
 
 | What | Result |
