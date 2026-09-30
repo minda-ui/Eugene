@@ -2,6 +2,20 @@
 
 _Newest note at the top. Append-only._
 
+## Update 2026-09-30 ~18:50 UTC — Helen and Nadia verified
+
+| What | Result |
+|---|---|
+| Repos | minda-ui/Nadia#3 and minda-ui/Helen#4 merged. Nadia: `.mcp.json` + 10 deny rules (drafts allowed). Helen: group SessionStart hook (she had none) + `.mcp.json` + deny all Gmail and Drive delete. |
+| Where they run | Another login, **AMFA Furniture Ltd** environment. Minda did the key + network steps and ran the test there. |
+| **Nadia** | **PASS**: Drive via `nadia-googledrive-v2` = minda@ (first try hit a transient Cloudflare 502; retry OK). |
+| **Helen** | **PASS**: key `ck_`, Composio tools present, Drive via `helen-googledrive` = minda@ (Eugene re-checked). |
+| Composio logins | `nadia-googledrive`, `nadia-gmail` expired unused; `nadia-gdrive-test1` stuck initializing. Minda's to remove. `nadia-gmail` (enquiries@amfa.uk, read + draft) awaits her decision. |
+
+**Lesson:** give a test prompt with the account name already filled in. A placeholder like `ALIAS` got pasted as-is and failed the Drive step.
+
+**Composio Connect is now verified for:** Eugene, Anna, Rachel, Darius, Helen, Nadia. **Not yet:** John, Peter, Victoria, Alex.
+
 ## Update 2026-09-30 ~18:20 UTC — Microsoft 365 disconnected; other-login employees
 
 | What | Result |

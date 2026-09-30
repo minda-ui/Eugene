@@ -35,11 +35,13 @@ description: Set up, repair or verify Composio for an AI employee's sessions and
 ## Steps
 
 **0. Which login?** Some employees run in **another claude.ai login**, not Eugene's (minda@). As of
-2026-09-30 that means **Anna, Helen, Nadia and John**. Eugene can't see their routines or
+2026-09-30 that means **Anna, Helen, Nadia and John** (Anna's routine: "Fishbone Construction Ltd" environment;
+Helen and Nadia: "AMFA Furniture Ltd"). Eugene can't see their routines or
 environments, and environments with the same name in two logins are separate. For these employees,
 Minda does steps 1, 3 and 4 in *their* login. For step 4 she pastes the test prompt from
 `Runbooks/Runbook-Anna-Routine-Composio-Setup.md` (v0.3) into a new session there and sends Eugene a
-screenshot. Step 2 (the repo) is the same from any login. Rachel, Darius and Eugene are in Eugene's
+screenshot. **Fill in the real account name** in the prompt before handing it over: a placeholder
+like `ALIAS` gets pasted as-is and fails. Step 2 (the repo) is the same from any login. Rachel, Darius and Eugene are in Eugene's
 login, so Eugene can test them himself.
 
 **1. Minda — environment (per employee's cloud environment)** — environment menu in the session title
