@@ -1,8 +1,33 @@
-# Runbook — Anna's routine settings: Composio working in unattended runs (v0.2)
+# Runbook — Anna's routine settings: Composio working in unattended runs (v0.3)
 
 _Eugene runbook, 2026-09-29. Guide-only for the live steps (charter §3): Minda enters the API key,
 edits environment settings and the routines form; Eugene supplies the files and verifies afterwards.
 Related: Hub AWT-0060 (SessionStart hook on `minda-ui/Anna`), SRC-13 (Composio)._
+
+## v0.3 update (2026-09-30) — Anna lives in a separate login: set up and test there
+
+**Verified PASS 2026-09-30** (Hub AWT-0060 Done). Anna's Inbox Report Routine is in **another
+claude.ai login**, not Eugene's/minda@'s. It runs in *that* login's **Fishbone Construction Ltd**
+environment, which is a different environment from the one of the same name in Eugene's login.
+Eugene can't see or test environments in another login, so:
+
+1. Minda does Part A (key + `connect.composio.dev` allow + empty Setup script) **in Anna's login**, on
+   the environment the routine actually shows (the chip in Edit routine).
+2. Minda runs the check herself in a new session there (repo `minda-ui/Anna`) with this prompt, and
+   sends Eugene a screenshot:
+
+```
+Read-only check, change nothing, no Gmail calls.
+1. Is COMPOSIO_API_KEY set? Show only its first 3 characters.
+2. List any mcp__composio__* tools and their count.
+3. If present, run COMPOSIO_MULTI_EXECUTE_TOOL with GOOGLEDRIVE_GET_ABOUT (fields "user"), account "anna-googledrive", and report the Drive user email.
+4. If not present, run: curl -s -o /dev/null -w "%{http_code}" https://connect.composio.dev/mcp  (401 = reachable, 403 = blocked).
+First line of your answer: VERDICT: PASS or VERDICT: FAIL with the reason.
+```
+
+Result 2026-09-30: key `ck_`, 11 Composio tools, Drive via `anna-googledrive` = minda@. No CLI or
+Setup-script install is needed on this route. A Composio install in an environment's **Setup
+script** can stop sessions before they start (Darius, 2026-09-30); keep that box empty.
 
 ## v0.2 update (2026-09-29) — the key Composio issues is `ck_`, so use Composio Connect (MCP)
 

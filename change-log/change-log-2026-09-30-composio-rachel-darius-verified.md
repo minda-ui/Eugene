@@ -2,6 +2,18 @@
 
 _Newest note at the top. Append-only._
 
+## Update 2026-09-30 ~17:40 UTC — Anna verified; AWT-0060 closed
+
+| What | Result |
+|---|---|
+| Where Anna runs | Her Inbox Report Routine is in **another claude.ai login**, in that login's "Fishbone Construction Ltd" environment, with `minda-ui/Anna` attached. |
+| Eugene's own tests | Two tests in Eugene's login (its FC and Anna environments) showed no key and a 403. They don't apply to Anna's login. Both test sessions archived. |
+| Minda's test in Anna's login | **PASS**: key `ck_`, 11 Composio tools, Drive via `anna-googledrive` = minda@. No Gmail calls. |
+| Hub | **AWT-0060 → Done** (2026-09-30). |
+| Runbook | `Runbook-Anna-Routine-Composio-Setup.md` → v0.3: the separate-login steps and the test prompt. |
+
+**Lesson:** before testing an employee's routine, confirm which **login** and which environment it runs in. Environments with the same name in different logins are separate.
+
 ## Update 2026-09-30 ~17:35 UTC — Verified, tidied, folded
 
 | What | Result |
