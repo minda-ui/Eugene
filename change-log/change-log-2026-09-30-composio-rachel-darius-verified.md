@@ -2,6 +2,21 @@
 
 _Newest note at the top. Append-only._
 
+## Update 2026-09-30 ~20:25 UTC — Peter, Victoria, Alex; key rotation
+
+| What | Result |
+|---|---|
+| Repos | minda-ui/Peter#1, minda-ui/Alex#6, minda-ui/Fishbone-Group#2 (Victoria's home) merged. `.mcp.json` + 10 deny rules each; Alex also got the group hook; Peter's hook skips CLI login for `ck_`. |
+| Alex Drive | `alex-googledrive` linked, ACTIVE, minda@. |
+| First tests | Victoria (Fishbone Group env) PASS, Alex PASS, **Peter FAIL** (key rejected). |
+| Key rotation | Eugene asked Minda to replace Peter's key but didn't say to copy the **existing** one. A new `ck_` key was generated, and that **cancelled the old key everywhere** (Eugene's own session then got 401). Minda updated all 8 other environments with the new key. |
+| Re-tests (Eugene's login) | **PASS** for Eugene, Rachel, Darius, Alex, Victoria and Peter: 11 tools, Drive = minda@ each. |
+| Other login | Anna, Helen, Nadia, John: re-test with the new key pending. Minda will send evidence on 2026-10-01. |
+
+**Lesson:** a new `ck_` key cancels the old one in every environment. Never generate one to fix a single environment; copy the current key. (Skill troubleshooting row added.)
+
+**Composio Connect status:** all 10 employees set up. Verified on the new key: Eugene, Rachel, Darius, Peter, Victoria, Alex. Awaiting evidence: Anna, Helen, Nadia, John.
+
 ## Update 2026-09-30 ~19:20 UTC — John verified
 
 | What | Result |
