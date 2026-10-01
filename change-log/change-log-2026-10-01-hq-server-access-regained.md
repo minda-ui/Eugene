@@ -4,6 +4,70 @@ _Newest note at the top. Append-only. Minda executed every step at the console a
 Eugene guided step by step and checked each result from her photos. **No credential was written,
 typed or held by Eugene.** All new passwords are in Minda's password manager (1Password)._
 
+## Update 2026-10-01 ~20:30 UTC — Catalyst 3850 **RECOVERED**: admin access regained, full config restored, network up
+
+Minda at the console all evening, Eugene guiding. **Full admin control of the core switch is back.** This
+was the hard one — it took most of the evening because of a hardware fault, not the method.
+
+**End state (switch 1, standalone; switch 2 still powered off, stack cables out):**
+- Logged in as our own **`recovery`** account (privilege 15); **`enable secret`** set; **`aaa authorization
+  console`** added so `recovery` gets full rights on the console. Credentials **only in Minda's 1Password**
+  — none held or written by Eugene.
+- Full config restored (hostname **`Catalyst`**): `Vlan3 192.168.1.218 up/up`, **`Vlan10 10.224.10.4`**
+  (mgmt SVI) `up/up`, **`Gi1/1/1` StarLink WAN uplink `up/up`**, **`Gi1/1/2` ASA uplink (Po1 member)
+  `up/up`**. Network forwarding again.
+- A **complete config backup is captured on Minda's laptop** (PuTTY log of `old_wifi_config`).
+
+**The real blocker (diagnosed, Cisco bug CSCvj49423):** switch 1's StackWise adapter (`R0/0`) is faulty and
+spews `%SIF_MGR-1-FAULTY_CABLE: Switch 1 R0/0: High hardware interrupt` **faster than the console accepts
+input** — it is a driver-level print that `no logging console` does **not** suppress, and it **corrupted
+every manual save** we tried. Removing the stack cable did not stop it (the fault is the adapter/port, not
+the cable). This, not the password method, is why the night was long.
+
+**Two more gotchas found along the way:**
+- **PuTTY flow control XON/XOFF froze console input** (a stray XOFF in the flood wedged it). Fix: **Flow
+  control = None**.
+- **Correct bootloader variable is `SWITCH_IGNORE_STARTUP_CFG` (not `…CONFIG`)** — the `set` output showed
+  `SWITCH_IGNORE_STARTUP_CFG=0` as the live one. Set **both** to 1 to ignore config, both to 0 to boot it.
+
+**The method that finally worked — flood-immune auto-save via EEM:**
+1. Boot ignoring config (`switch:` → `SWITCH_IGNORE_STARTUP_CFG=1` + `SWITCH_IGNORE_STARTUP_CONFIG=1` →
+   `boot`) → quiet `Switch>` → `enable`.
+2. While quiet, set `username recovery privilege 15 secret …` and an EEM applet that saves on a timer:
+   `event manager applet SAVECFG authorization bypass / event timer watchdog time 150 / action 1 cli
+   command "enable" / action 2 cli command "write memory"`. EEM runs **internally**, so the console flood
+   can't corrupt the save.
+3. Load the config, then let the timer save it: `copy flash:old_wifi_config running-config` → wait ~5 min
+   (EEM auto-saves running→startup every 150 s).
+4. Reboot, clear the flags (`switch:` → both vars `=0` → `boot`), log in as `recovery`.
+
+**Important mistake + recovery (documented honestly):** the first EEM attempt set the timer **before** the
+config was loaded, so it fired while running-config was still minimal and **overwrote `nvram_config` AND
+`nvram_config_bkup`** with an empty config — their startup config was wiped. **Recovered** because
+`flash:old_wifi_config` (an Oct 2024 full backup the contractor left) was still on flash; its `username
+admin` hash `$1$HTHO$…` matches the current one, so it was current enough. Restored from it, in the correct
+order this time. **Lesson: never arm an EEM/kron auto-save before the real config is in running-config —
+`write memory` writes both nvram copies and will destroy startup if running is empty.** Keep an off-box
+config backup so this is never fatal (now have one on the laptop).
+
+**Config facts recorded** (from `old_wifi_config`, matches live): `aaa new-model` / `authentication login
+default local` / `authorization exec default local`; `username admin privilege 15 secret 5 $1$HTHO$…`;
+`Port-channel1` "ASA-1" trunk vlan 2,3,10,11,20; `Gi1/1/2` "TMP_ASA_LINK" `channel-group 1 mode active`;
+`Gi1/1/1` "## Uplink to StarLink terminal ##" access vlan 2; `Gi1/0/48` "AP" access vlan 10; stack-power
+pool **fishbone** redundant; `switch 1/2 provision ws-c3850-48p`. The file also carries the **old Cisco
+Converged-Access wireless config** (pre-Ubiquiti) — inert now (no Cisco APs), to be stripped later.
+
+**Still open (next session, all non-urgent — switch is up):**
+- **Remove the `SAVECFG` EEM auto-save applet** — it keeps saving every 150 s (flash wear). Do it over
+  **SSH to `10.224.10.4`** (clean session, no console flood), then `write memory`.
+- **Replace/remove switch 1's faulty StackWise adapter** (CSCvj49423); firmware 16.3.6+ also fixes it. PSU
+  **A** on switch 1 is also flapping (`FRU_PS`) — watch/replace.
+- **Rejoin switch 2 / rebuild the stack** — switch 2 holds a synced config copy and its console is likely
+  clean (the fault is switch 1's). Plan the StackPower reconnect in a window (resync reload expected).
+- **Redo the ASA swap** (top unit to active) now that Port-channel1 bundles, then **fix the phones** (OI-8,
+  ASA inbound SIP/RTP).
+- Strip the defunct Cisco wireless config; reconcile against switch 2's current config.
+
 ## Update 2026-10-01 ~12:45 UTC — Catalyst 3850 stack: recovery attempted, defeated by StackPower; network restored
 
 Minda at the console, Eugene guiding. **Config intact, no damage. Switch still locked.**
