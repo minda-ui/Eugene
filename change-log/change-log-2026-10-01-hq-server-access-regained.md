@@ -4,6 +4,27 @@ _Newest note at the top. Append-only. Minda executed every step at the console a
 Eugene guided step by step and checked each result from her photos. **No credential was written,
 typed or held by Eugene.** All new passwords are in Minda's password manager (1Password)._
 
+## Update 2026-10-01 ~23:00 UTC — **WIRED INTERNET + WIFI RESTORED** (service back)
+
+After the switch-2 discovery, Minda found a **printed "Fishbone Network diagram"** giving the authoritative
+access-port plan for both 3850s — and it matched every device we'd found live. Used it to apply the
+reconstructed access-port config **live** on switch 1 (logged in as `recovery`), in batches, on the running
+config; the EEM timer auto-saved it. Applied (Gi1/0/1-48): **1-16 → vlan 12** (CCTV cameras + recorder),
+**17 → vlan 10** (iLo), **18-24 → vlan 11 + voice vlan 13** (IP telephony), **25-45 → vlan 11** (computers
+& printers), **46-48 → trunk native vlan 5 (ubnt-mgmt), allowed 5,20,21** (Ubiquiti U7 APs).
+
+**Result: wired internet LIVE and WiFi LIVE**, both verified by Minda. Save confirmed permanent
+(`show startup-config | include switchport access vlan` shows the 12/10/11 assignments written to
+startup). The full port plan + paste-ready config is in
+`Runbooks/Runbook-HQ-Network-Core-Recovery.md` Part E.
+
+**Still pending (daytime, non-urgent — internet is up):** **phones** need the **server 10G trunk
+(Te1/1/4)** to carry vlan 13 to the PBX VM — defer until the trunk's VLAN list is read from
+Proxmox/OPNsense (too risky to guess, could disturb OPNsense routing). Then switch 2's access config +
+stack rebuild, remove the `SAVECFG` EEM timer via SSH to 10.224.10.4, restore redundancy, replace switch
+1's faulty stack adapter. Port plan recorded in the runbook; the authoritative **printed diagram** is at
+Unit 30-31 (photographed, in the session log).
+
 ## Update 2026-10-01 ~20:30 UTC — Catalyst 3850 **RECOVERED**: admin access regained, full config restored, network up
 
 Minda at the console all evening, Eugene guiding. **Full admin control of the core switch is back.** This
