@@ -4,6 +4,40 @@ _Newest note at the top. Append-only. Minda executed every step at the console a
 Eugene guided step by step and checked each result from her photos. **No credential was written,
 typed or held by Eugene.** All new passwords are in Minda's password manager (1Password)._
 
+## Update 2026-10-01 ~12:45 UTC — Catalyst 3850 stack: recovery attempted, defeated by StackPower; network restored
+
+Minda at the console, Eugene guiding. **Config intact, no damage. Switch still locked.**
+
+**The stack:** 2x **WS-C3850-48P**, StackWise **data + StackPower** cabled (one logical stack), IOS-XE
+**16.09.05**, active = switch 1 (priority 15). Startup config lives in `flash:/nvram_config` (+ `_bkup`)
+— not `config.text` (16.x convention). Console login is locked (`Username:`).
+
+**What we did:** powered the whole stack off (all 4 cords), powered the top switch on holding **MODE** →
+reached the `switch:` boot loader → `flash_init` → confirmed `nvram_config` present → set
+`SWITCH_IGNORE_STARTUP_CONFIG=1` → `boot`. It came up blank (`Switch>`, no password) — **access gained**.
+
+**Why it didn't complete:** **StackPower kept both switches alive from the top switch's one PSU**, so the
+bottom switch (switch 2) also booted and the stack formed in a mismatched state. The moment we ran
+`copy startup-config running-config`, the stack did a **resync reload** ("Reload peer command"). After the
+reload it loaded the real config normally — **internet restored** — and returned to the locked `Username:`
+prompt. The password was never changed; `nvram_config` was never overwritten.
+
+**Lesson (switch recovery on a StackPower stack):** the single-switch ignore-config method is defeated
+because StackPower powers the partner too, triggering a stack resync reload. To recover cleanly you must
+**physically disconnect the StackPower cable** first so switch 1 boots truly alone, recover that one
+switch, `write memory`, clear the flag, then reconnect StackPower and power switch 2 back on. Do it in a
+planned window or hand to a Cisco engineer.
+
+**Status:** all other systems recovered today (iLO, Proxmox, OPNsense, VM backups, ssh-gateway off, ASA
+standby prepared). **Only the 3850 stack remains locked** — low risk, because the contractor's real
+routes (server, hypervisor, OPNsense, ssh-gateway, firewall admin) are already closed or changed, so his
+path to even reach switch management is cut.
+
+**Remaining network-core work (planned, not today):**
+1. 3850 stack — recover with StackPower disconnected (window or engineer).
+2. Finish the ASA swap (needs the switch to bundle Port-channel1).
+3. Fix the phones (ASA inbound SIP/RTP rule, OI-8).
+
 ## Update 2026-10-01 ~11:00 UTC — ASA pair: standby recovered; swap blocked on switch (fell back)
 
 Minda at the console, Eugene guiding. **No credential held by Eugene.**

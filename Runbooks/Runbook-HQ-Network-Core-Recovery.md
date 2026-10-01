@@ -136,6 +136,14 @@ Console port is on the back of each switch; the active switch's ACTV LED is gree
 off ~15-20 min. Keep the config; never erase it. After recovery, confirm the ASA uplink Port-channel is
 bundled before re-running Part A's swap.
 
+**CRITICAL stack caveat (learned 2026-10-01):** these two 3850s share **StackPower**. Powering on one
+switch feeds the other through the StackPower cable, so the whole stack boots and a `copy startup-config
+running-config` triggers a **stack resync reload** that undoes the recovery (confirmed 2026-10-01: got to
+`Switch>` via ignore-config, but the reload reloaded the config and relocked it). **Before recovery,
+physically disconnect the StackPower cable** so switch 1 boots alone; recover it, `write memory`, clear
+`SWITCH_IGNORE_STARTUP_CONFIG`, then reconnect StackPower and power switch 2 on. Config is in
+`flash:/nvram_config` (IOS-XE 16.x), not `config.text`.
+
 ## C. Then fix the phones (OI-8)
 With ASA access: check the inbound rule and NAT for SIP (UDP 5060) and RTP. They are believed to allow
 only the old provider (`93.95.124.106`). Add the new provider's ranges once known (WebMate ticket
