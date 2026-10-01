@@ -190,36 +190,80 @@ phones↔PBX VM 105 at 10.224.13.9), not routed by the ASA.
 - The several **connected-but-unmapped** access ports (Gi1/0/16,17,20,33,39,41; sw2 Gi2/0/16,35,41,Gi2/1/1)
   — more cameras or PCs; confirm per-port before assigning.
 
-## E. Draft edge-port config (switch 1) — review before applying
+## E. AUTHORITATIVE port plan (from Minda's printed "Fishbone Network diagram", 2026-10-01) + paste-ready config
 
-Restores **wifi + phones + CCTV** on switch 1's known edge ports. Apply in ignore-config boot after
-loading `old_wifi_config`, then EEM-save. **The AP VLAN-5-native assumption and the server trunk are not
-yet confirmed** — verify first.
+The printed diagram gives the intended access-port layout for **both** switches, and it **matches every
+device we discovered live** (cameras 1-15, recorder 16, iLo 17, phones in 18-24, PCs 25-45, APs 46-48) —
+so it is trustworthy. The Gi x/0/1-48 copper ports:
+
+| Ports (each switch, Gi x/0/n) | Destination | VLAN |
+|---|---|---|
+| 1-15 | CCTV cameras | 12 (CCTV), access |
+| 16 | CCTV Recorder (NVR) | 12, access |
+| 17 | iLo (server mgmt) | 10 (MGMT), access |
+| 18-24 | IP Telephony (phones; PC passthrough) | 11 data + 13 voice |
+| 25-45 | Computers & Printers | 11 (LAN), access |
+| 46-48 | WiFi AP (Ubiquiti U7) | trunk, native 5 (ubnt-mgmt) + 20,21 tagged |
+
+**Known real-world exceptions vs the diagram (reconcile per-port — the diagram is the plan, CDP/LLDP/MAC
+is the truth):**
+- **Switch 2, Gi2/0/46 = Daisy FTTB WAN router** (not a WiFi AP) → access vlan 6, not the AP trunk.
+- Uplinks (not in the 1-48 diagram): Gi1/1/1 StarLink (vlan 2) ✓, Po1=Gi1/1/2+Gi2/1/2 ASA trunk ✓,
+  **Te1/1/4+Te2/1/4 = server 10G trunk** (VLAN list still to confirm from Proxmox/OPNsense — needs
+  5,10,11,12,13,20,21,30 as applicable), Te1/1/3 notconnect vlan 3 (Vodafone?).
+
+### Paste-ready config — switch 1 access ports (Gi1/0/1-48)
+Apply in ignore-config boot after `copy flash:old_wifi_config running-config`, in batches, then EEM-save.
+`spanning-tree portfast` is safe on edge ports; omit it later on any that turn out to be switch-to-switch.
 
 ```
-! Yealink T48S phones (Gi1/0/21-22): data VLAN 11, voice VLAN 13
-interface range GigabitEthernet1/0/21-22
+! CCTV cameras + recorder (1-16) -> VLAN 12
+interface range GigabitEthernet1/0/1-16
+ switchport mode access
+ switchport access vlan 12
+ spanning-tree portfast
+!
+! iLo server management (17) -> VLAN 10
+interface GigabitEthernet1/0/17
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+!
+! IP Telephony (18-24) -> data VLAN 11 + voice VLAN 13
+interface range GigabitEthernet1/0/18-24
  switchport mode access
  switchport access vlan 11
  switchport voice vlan 13
  spanning-tree portfast
 !
-! Ubiquiti APs (Gi1/0/47-48): trunk, mgmt VLAN 5 untagged for adoption, SSIDs 20/21 tagged  [CONFIRM scheme]
-interface range GigabitEthernet1/0/47-48
+! Computers & Printers (25-45) -> VLAN 11 (LAN)
+interface range GigabitEthernet1/0/25-45
+ switchport mode access
+ switchport access vlan 11
+ spanning-tree portfast
+!
+! WiFi APs (46-48) -> trunk: ubnt-mgmt VLAN 5 native, WLANs 20/21 tagged
+interface range GigabitEthernet1/0/46-48
  switchport mode trunk
  switchport trunk native vlan 5
  switchport trunk allowed vlan 5,20,21
  spanning-tree portfast trunk
-!
-! CCTV cameras (Gi1/0/1,11,13): access VLAN 12
-interface range GigabitEthernet1/0/1,GigabitEthernet1/0/11,GigabitEthernet1/0/13
+```
+
+**Switch 2 (Gi2/0/1-48): identical EXCEPT Gi2/0/46 = FTTB WAN** —
+```
+interface GigabitEthernet2/0/46
  switchport mode access
- switchport access vlan 12
+ switchport access vlan 6
  spanning-tree portfast
 ```
-Switch-2 equivalents (cameras Gi2/0/1,4,6,8; FTTB Gi2/0/46 → vlan 6; ASA Gi2/1/2 → Po1) apply once the
-stack is rebuilt. **The server 10G trunk and WAN ports (Vodafone/BT/FTTB) must be set before internet is
-fully back** — hence the cross-check above is the first task tomorrow.
+(apply on switch 2 directly, or once the stack is rebuilt; its other ports follow the table above).
+
+**Expected result after switch-1 access config + the existing StarLink/ASA uplinks:** wired PCs (vlan 11)
+and wifi (vlan 20 via the APs) reach the internet through the ASA; phones register once the **server 10G
+trunk carries vlan 13** to the PBX VM. So the one remaining must-do for full service is confirming/setting
+the **server trunk** (Te1/1/4) — read its VLAN list from the Proxmox VM NICs / OPNsense config we already
+hold. **This is the first task tomorrow, then paste the above.**
 
 Temporary diagnostic change made 2026-10-01: `lldp run` enabled on switch 1 (harmless, left on; the EEM
 auto-save persisted it). The `SAVECFG` EEM applet is still auto-saving every 150 s — remove it over SSH
