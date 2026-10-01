@@ -151,6 +151,45 @@ T02530-15072026). Eugene words the exact lines with Minda at the console.
 
 ---
 
+## D. Catalyst port map (captured 2026-10-01 ~22:00, for config reconstruction)
+
+The live port→VLAN map was lost when the nvram was wiped; both backups (switch 1 old_wifi_config 2024,
+switch 2 startup 2019) predate it. Rebuilt from live discovery (`show interfaces status`, `show cdp
+neighbors detail`, `show lldp neighbors` after `lldp run`, `show mac address-table dynamic`) on both
+switches while the 2024 config was loaded (so most ports read vlan 1).
+
+**VLAN map (from switch 2 `show vlan brief`):** 2 StarLink, 3 Vodafone, 4 BT, 5 ubnt-mgmt, 6 FTTB, 10
+MGMT, 11 LAN, 12 CCTV, 13 Telephony, 20 Main WLAN, 21 Guest_WLAN, 30 DMZ. **ASA trunk (Po1) carries only
+2,3,10,11,20** — so the ASA routes the internet-facing VLANs; 12/13 are L2 domains (cameras↔NVR,
+phones↔PBX VM 105 at 10.224.13.9), not routed by the ASA.
+
+| Port | Device (CDP/LLDP) | MAC | Target config |
+|---|---|---|---|
+| Gi1/1/1 | StarLink terminal | 7424.9f20.76b2 | access vlan 2 (StarLink WAN) — already correct |
+| Gi1/1/2 (+Gi2/1/2) = **Po1 "ASA-1"** | ASA 5550 | 5475.d0e3.da56 | trunk allowed 2,3,10,11,20 — already correct |
+| Gi1/0/21 | Yealink **SIP-T48S** phone | 805e.c007.a71d | `switchport access vlan 11` + `voice vlan 13` |
+| Gi1/0/22 | Yealink **SIP-T48S** phone | 805e.c007.a6ab | `switchport access vlan 11` + `voice vlan 13` |
+| Gi1/0/47 | Ubiquiti **U7-Outdoor** AP | 2870.4ee4.88d3 | trunk, native/mgmt vlan 5, allowed 5,20,21 (confirm UniFi scheme) |
+| Gi1/0/48 | Ubiquiti **U7-Pro-XG** AP | 8c30.6686.7b7c | trunk, native/mgmt vlan 5, allowed 5,20,21 (now wrongly access vlan 10) |
+| Gi2/0/46 (sw2) | **Daisy FTTB** router Cisco C1111-8P `fishbone-48316010-gw.cust.daisygroup.net` 62.105.119.117 (native vlan 100) | — | FTTB WAN, vlan 6 (ASA outside_fttb is .118) |
+| Te1/1/4 + Te2/1/4 | 10G device `48df.37b7.f780/.f788`, LLDP id `3533343B-3635-SA43-4…` | — | **TBD** — likely the Ubiquiti gateway or a server; Te1/1/4 is a routed L3 port. Confirm. |
+| Gi1/0/1,11,13; Gi2/0/1,4,6,8,16,35,41; Gi2/1/1 | MACs `0403.124c.*`, `0403.1257.*`, `e8a0.ed80.*`, `3c1b.f836.*`, `001f.f010.*`, `e84d.ec07.*`, `76ac.b96f.*` (near-sequential — a device fleet) | — | **TBD — likely CCTV cameras (vlan 12) or office PCs (vlan 11). Confirm with Minda.** |
+
+**Open questions before writing the paste-ready config (ask Minda):**
+1. Are the clustered `0403.124c.*` devices the **CCTV cameras** (→ vlan 12) or office **PCs** (→ vlan 11)?
+2. Where is the **UniFi controller / Ubiquiti gateway** (the 10G device on Te1/1/4? a CloudKey? cloud?) —
+   determines the AP mgmt VLAN (5) tagging so the APs adopt and serve wifi.
+3. Which ports carry **Vodafone (vlan 3)** and **BT (vlan 4)** WANs (Te1/1/3 is notconnect vlan 3 — was
+   Vodafone here?), and the **DMZ (30)** / **server/PBX** uplink.
+
+Temporary diagnostic change made 2026-10-01: `lldp run` enabled on switch 1 (harmless, left on; the EEM
+auto-save persisted it). The `SAVECFG` EEM applet is still auto-saving every 150 s — remove it over SSH
+to 10.224.10.4 once the rebuild is done.
+
+---
+
 ## Version history
+- **v0.2 (2026-10-01):** Switch 1 recovered (admin access regained); Part D port map added from live
+  discovery; VLAN map recovered. Config reconstruction pending Minda's answers to the open questions.
 - **v0.1 (2026-10-01):** ASA section written (model confirmed: ASA 5550 pair, bottom active). Catalyst
   section pending the model label.
