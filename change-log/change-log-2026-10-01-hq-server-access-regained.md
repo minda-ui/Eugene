@@ -50,6 +50,22 @@ order this time. **Lesson: never arm an EEM/kron auto-save before the real confi
 `write memory` writes both nvram copies and will destroy startup if running is empty.** Keep an off-box
 config backup so this is never fatal (now have one on the laptop).
 
+**VLAN map recovered (from switch 2's `show vlan brief`, authoritative names):** 2 StarLink (WAN), 3
+Vodafone (WAN), 4 BT (WAN), 5 ubnt-mgmt (Ubiquiti), 6 FTTB (WAN), 10 MGMT, **11 LAN (user network)**,
+12 CCTV, 13 Telephony, 20 Main WLAN, 21 Guest_WLAN, 30 DMZ. The ASA is the L3 gateway for these
+(inside 10.224.11.1, cctv .12.1, telephony .13.1, wifi .20.1 …), carried over Po1.
+
+**Important reality found (switch 2):** switch 2's console is **clean** (no faulty-cable flood — confirms
+the fault is switch 1's adapter). But switch 2's **saved startup-config is dated "Tue Jan 29 2019"** —
+older than switch 1's 2024 `old_wifi_config` — and in **both** backups most access ports are default
+(VLAN 1). So the **current port→VLAN / trunk assignments (which port is LAN, which trunks to the Ubiquiti
+APs, CCTV, phones) are in neither backup** — they lived only in the running config that was lost when the
+EEM timer wiped switch 1's nvram. `vlan.dat` (the VLAN database, Aug 2026) is current, so the VLAN
+*definitions* survive; only the per-port assignments are gone. **Consequence: restoring internet/wifi is a
+reconstruction job, not a config paste** — needs the physical port layout (trace the rack) + the VLAN map
++ any network documentation, done in daylight. Network left **down overnight** (no one working); admin
+access and the core uplinks (StarLink Gi1/1/1, ASA Po1) are up, but edge ports are on the stale VLAN map.
+
 **Config facts recorded** (from `old_wifi_config`, matches live): `aaa new-model` / `authentication login
 default local` / `authorization exec default local`; `username admin privilege 15 secret 5 $1$HTHO$…`;
 `Port-channel1` "ASA-1" trunk vlan 2,3,10,11,20; `Gi1/1/2` "TMP_ASA_LINK" `channel-group 1 mode active`;
