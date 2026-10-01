@@ -175,12 +175,51 @@ phones↔PBX VM 105 at 10.224.13.9), not routed by the ASA.
 | Te1/1/4 + Te2/1/4 | 10G device `48df.37b7.f780/.f788`, LLDP id `3533343B-3635-SA43-4…` | — | **TBD** — likely the Ubiquiti gateway or a server; Te1/1/4 is a routed L3 port. Confirm. |
 | Gi1/0/1,11,13; Gi2/0/1,4,6,8,16,35,41; Gi2/1/1 | MACs `0403.124c.*`, `0403.1257.*`, `e8a0.ed80.*`, `3c1b.f836.*`, `001f.f010.*`, `e84d.ec07.*`, `76ac.b96f.*` (near-sequential — a device fleet) | — | **TBD — likely CCTV cameras (vlan 12) or office PCs (vlan 11). Confirm with Minda.** |
 
-**Open questions before writing the paste-ready config (ask Minda):**
-1. Are the clustered `0403.124c.*` devices the **CCTV cameras** (→ vlan 12) or office **PCs** (→ vlan 11)?
-2. Where is the **UniFi controller / Ubiquiti gateway** (the 10G device on Te1/1/4? a CloudKey? cloud?) —
-   determines the AP mgmt VLAN (5) tagging so the APs adopt and serve wifi.
-3. Which ports carry **Vodafone (vlan 3)** and **BT (vlan 4)** WANs (Te1/1/3 is notconnect vlan 3 — was
-   Vodafone here?), and the **DMZ (30)** / **server/PBX** uplink.
+**Answered by Minda 2026-10-01 ~22:30:**
+1. The `0403.124c.*` cluster = **CCTV cameras** → VLAN 12.
+2. **UniFi controller lives at Beverley Place** (remote site) — APs reach it over the OPNsense
+   site-to-site tunnel, not locally. APs keep serving wifi on their adopted config while the controller
+   is unreachable, so wifi can be restored from the switch side alone.
+3. **Te1/1/4 + Te2/1/4 (10G) = the server** (dual-homed Proxmox) — a **trunk** carrying the VM VLANs
+   (OPNsense routing, PBX voice 13, etc.), not the "routed" the stale 2024 config shows.
+
+**Still to confirm tomorrow (cross-check against the ASA / OPNsense / Proxmox configs we own):**
+- Exact **VLAN list on the server 10G trunk** (so vlan 5 ubnt-mgmt, 11 LAN, 12 CCTV, 13 voice, 20/21 WLAN
+  reach OPNsense → Beverley Place). Read it from Proxmox VM NIC config + the OPNsense config backup.
+- **Vodafone (3) / BT (4)** WAN ports (Te1/1/3 is notconnect vlan 3 — likely Vodafone) and **DMZ (30)**.
+- The several **connected-but-unmapped** access ports (Gi1/0/16,17,20,33,39,41; sw2 Gi2/0/16,35,41,Gi2/1/1)
+  — more cameras or PCs; confirm per-port before assigning.
+
+## E. Draft edge-port config (switch 1) — review before applying
+
+Restores **wifi + phones + CCTV** on switch 1's known edge ports. Apply in ignore-config boot after
+loading `old_wifi_config`, then EEM-save. **The AP VLAN-5-native assumption and the server trunk are not
+yet confirmed** — verify first.
+
+```
+! Yealink T48S phones (Gi1/0/21-22): data VLAN 11, voice VLAN 13
+interface range GigabitEthernet1/0/21-22
+ switchport mode access
+ switchport access vlan 11
+ switchport voice vlan 13
+ spanning-tree portfast
+!
+! Ubiquiti APs (Gi1/0/47-48): trunk, mgmt VLAN 5 untagged for adoption, SSIDs 20/21 tagged  [CONFIRM scheme]
+interface range GigabitEthernet1/0/47-48
+ switchport mode trunk
+ switchport trunk native vlan 5
+ switchport trunk allowed vlan 5,20,21
+ spanning-tree portfast trunk
+!
+! CCTV cameras (Gi1/0/1,11,13): access VLAN 12
+interface range GigabitEthernet1/0/1,GigabitEthernet1/0/11,GigabitEthernet1/0/13
+ switchport mode access
+ switchport access vlan 12
+ spanning-tree portfast
+```
+Switch-2 equivalents (cameras Gi2/0/1,4,6,8; FTTB Gi2/0/46 → vlan 6; ASA Gi2/1/2 → Po1) apply once the
+stack is rebuilt. **The server 10G trunk and WAN ports (Vodafone/BT/FTTB) must be set before internet is
+fully back** — hence the cross-check above is the first task tomorrow.
 
 Temporary diagnostic change made 2026-10-01: `lldp run` enabled on switch 1 (harmless, left on; the EEM
 auto-save persisted it). The `SAVECFG` EEM applet is still auto-saving every 150 s — remove it over SSH
