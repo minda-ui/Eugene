@@ -111,14 +111,30 @@ Plan their replacement as part of the rebuild.
 
 ---
 
-## B. Cisco Catalyst switch stack
+## A-RESULT (2026-10-01): standby ASA recovered; swap blocked on the switch
 
-_To be completed once the model label photo arrives. 2× Catalyst 3850-48 PoE+ stack per
-the 2026-09-17 inventory; to be confirmed. Expected method: console password recovery holding the
-**MODE** button at power-on, with the "ignore startup config" flag. Configuration kept; wired network off
-for about 10–15 minutes._
+Part A was run on the **secondary/top** ASA and worked up to the swap: new enable + admin passwords set,
+admin SSH key removed, saved (`config-register 0x1`, `write memory`), verified. **But the swap could not
+complete:** the ASA uplinks are an **LACP Port-channel to the Catalyst stack**, and the switch would not
+bundle the top unit's ports (switches still locked), so Port-channel1 stayed **down** and the top unit
+could not pass traffic. Rolled back to the bottom unit; internet restored; the top unit's new config
+survived.
 
----
+**Therefore the order is: Part B (switches) FIRST, then re-run Part A's swap (A5–A7).** When re-running
+A5, confirm `show interface ip brief` shows **Port-channel1 up** on the top unit before trusting it.
+
+## B. Cisco Catalyst 3850 switch stack (2x WS-C3850-48P, stack "Catalyst")
+
+Confirmed 2026-10-01: front label "Catalyst 3850 48 PoE+", 2 switches stacked, console asks for a
+username (locked). The ASA uplink Port-channel terminates on this stack, so the stack must be recovered
+before the ASA swap can complete.
+
+**Eugene does not script the 3850 recovery.** Follow **Cisco's official "Recover/Reset the Password on
+Catalyst 3850 Series Switches"** procedure (cisco.com) at the console (MODE button at power-on, boot with
+the startup config ignored, keep the config, set new passwords), or use a Cisco-qualified engineer.
+Console port is on the back of each switch; the active switch's ACTV LED is green. Effect: wired network
+off ~15-20 min. Keep the config; never erase it. After recovery, confirm the ASA uplink Port-channel is
+bundled before re-running Part A's swap.
 
 ## C. Then fix the phones (OI-8)
 With ASA access: check the inbound rule and NAT for SIP (UDP 5060) and RTP. They are believed to allow
