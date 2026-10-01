@@ -31,7 +31,30 @@ controller's reachability from HQ) stay connected even if the radio link fails.
 
 ## Fishbone HQ — rack inventory
 
-### Server
+### Server — updated 2026-10-01 (access regained)
+_Discovery and recovery 2026-10-01, Minda executing with Eugene guiding; no credential recorded anywhere._
+
+| Item | Detail |
+|---|---|
+| Hardware | **HPE ProLiant DL380 Gen9**, serial CZJ64905NP, System ROM P89 v3.40 (2024-08-29) |
+| iLO | **iLO 4**, firmware 2.82, Standard licence, `10.224.10.78`. Default tag password worked; **Minda changed it 2026-10-01** (password manager). iLO clock shows 2001 (fix later, NTP). |
+| Hypervisor | **Proxmox VE 8.2.2** on ZFS (`rpool/ROOT/pve-1`, systemd-boot), host `pve` at **`10.224.10.10:8006`** |
+| Root access | **Regained 2026-10-01**: console `init=/bin/bash` root reset, new password in Minda's password manager; web UI login verified |
+
+**VMs (2026-10-01):**
+| VM | Name | State | Notes |
+|---|---|---|---|
+| 100 | test | stopped | |
+| 101 | FW | running | Firewall/router VM, 2 NICs. Role (Beverley VPN?) to confirm; login unknown |
+| 102 | public-proxy | running | Internet-facing reverse proxy; what it publishes to confirm |
+| 103 | tftp | stopped | Likely phone provisioning |
+| 104 | ssh-gateway | running | Likely the contractor's remote access route in; **security review** |
+| 105 | PBX | running | FusionPBX (`10.224.13.9`) |
+
+**Network segments found:** `10.224.10.x` management (iLO `.78`, Proxmox `.10`, a Cisco web login at `.4` (probably the 3850 stack), plus `.9`, `.50`–`.52` with no web UI); `10.224.13.x` phones (PBX `.9`, Yealink T48S `.10`, `.11`); `10.224.20.x` WiFi `FSG0218`.
+**Firewalls:** confirmed **Cisco ASA 5550** pair (end of support), bottom unit active, top standby (2026-10-01).
+
+#### Earlier record (2026-09-17)
 | Item | Detail |
 |---|---|
 | Hardware | HP ProLiant (2U, SFF chassis, Intel Xeon) |
