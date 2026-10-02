@@ -1,8 +1,13 @@
 # Runbook — ASA Failover Data-Path Integration (HQ)
 
-> **Status: v1.0 (2026-10-02) — ready to plan, not yet executed.** Guide-only: Minda executes at the
-> console/SSH/rack; Eugene guides and verifies (charter §3). Governs **OI-14**. Follows the 2026-10-02
-> ASA failover re-join (`change-log/change-log-2026-10-02-asa-failover-pair-rejoined.md`).
+> **Status: v1.1 (2026-10-02) — EXECUTED. Steps 1–4 done; OI-14 resolved.** The standby data path is in
+> service (switch `Po2` on `Te1/1/3`+`Te2/1/3`, both bundled; SVI re-IP'd `10.224.11.2→10.224.11.3`); the
+> firewall is now a fully-redundant pair, each unit dual-homed. **Remaining = optional follow-ups only:**
+> Step 4 stateful link (`Gi1/3`, deferred per Minda), Step 5 TMP-label rename / controlled-failover test,
+> Step 6 OI-8. See `change-log/change-log-2026-10-02-asa-datapath-integration-OI14-complete.md`.
+> Guide-only: Minda executes at the console/SSH/rack; Eugene guides and verifies (charter §3). Governs
+> **OI-14** (resolved). Follows the 2026-10-02 ASA failover re-join
+> (`change-log/change-log-2026-10-02-asa-failover-pair-rejoined.md`).
 
 ## Goal
 Bring the HQ ASA **Secondary (Standby)** unit's **data path** into service so the active/standby pair is a
