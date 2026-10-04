@@ -108,8 +108,9 @@ replace,** unless Minda names a concrete pain.
   worker; Minda deploys/runs it (charter §2c/§3).
 - **Evidence-quality flag:** Telegram compresses "Photo" sends; full-res needs "send as File" — advise
   crews. **Backup:** this becomes critical data → fold into the OI-7 backup plan.
-- **Open decisions:** (a) backfill existing history vs go-forward only; (b) confirm HQ-server hosting;
-  (c) move research→build (spec + prototype the worker).
+- **Decisions (Minda, 2026-10-04):** (a) **go-forward only** — capture from go-live, **no backfill** of
+  existing history; (b) **host on the HQ Proxmox server — confirmed**; (c) **stays research — build NOT
+  yet authorized** (do not spec/prototype until Minda says go). Parked here at that state.
 
 ## Recommendation by goal (for when Minda decides)
 - **Archive the project record (the real ask)** → **integrate: mirror each Telegram project group into

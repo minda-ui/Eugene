@@ -60,7 +60,13 @@ Raw Bot API (Composio can't download bytes); Minda holds the token, Eugene write
 critical data for the OI-7 backup plan. Open decisions put to Minda: backfill vs go-forward; confirm
 HQ-server hosting; move research→build (spec + prototype). Design captured in the Runbook note.
 
+## Decisions locked (Minda, 2026-10-04)
+(a) **Go-forward only** — no backfill of existing history; (b) **host on the HQ Proxmox server —
+confirmed**; (c) **stays research — build not yet authorized** (don't spec/prototype until Minda says
+go). Design fully captured; parked at this state.
+
 ## State left
-No connector/worker built yet — still at decision point (awaiting Minda's go + the backfill/host/build
-answers). Research note updated with the firmed design. Open from before unchanged: OI-8 audio (RTP) +
-ASA `write memory`; main consolidation.
+No connector/worker built. Design + decisions recorded; **build deliberately not started** (Minda keeps
+it research for now). When she gives the go: write + test the Telegram→Drive worker (go-forward, HQ
+host), then she creates the bot + token and deploys. Open from before unchanged: OI-8 audio (RTP) + ASA
+`write memory`; main consolidation.
