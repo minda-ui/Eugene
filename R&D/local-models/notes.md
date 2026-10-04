@@ -46,6 +46,14 @@ feasible on this box today, zero hardware spend.** GPU only later for live visio
 - **Path B:** dedicated small box — mini-PC + RTX, or **Mac mini M-series** (great perf/watt, silent).
   Leaves production server untouched.
 
+### GPU capacity in the HQ DL380 Gen9 (2U)
+Max **2× double-wide GPUs** → **2× P40 = 48 GB** (P40 is dual-slot/FL/~250W; a 3rd DW won't fit in 2U).
+Needs: HPE Gen9 **GPU enablement kit** (risers+power cables), **high-wattage PSUs** (2 cards ≈ 500W GPU),
+high-perf heatsinks + GPU air shroud, **both CPUs populated** (✅). 48 GB = exactly the 70B tier, so the
+box tops out at the single-strong-model sweet spot. 3 P40s across the estate (2 HQ pooled + 1 Beverley
+independent). 4–8 GPUs in one box = a dedicated GPU chassis (Apollo 6500 / Supermicro 4U / GPU
+workstation), not a DL380 — future play only.
+
 ### GPU adds: VRAM decides which models run FAST (Q4 ≈ 0.6 GB/billion params)
 | VRAM | Fast on-GPU | Unlocks |
 |---|---|---|
