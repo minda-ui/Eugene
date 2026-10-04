@@ -11,10 +11,16 @@ contractor-lockout pattern as HQ (which we recovered 2026-10-01/02). Needed to h
 ZFS replica.
 
 ## Confirmed kit (Minda, from memory, 2026-10-04) — SAME as HQ
-- **Cisco ASA** (firewall) · **Cisco Catalyst 3850** (switch) · **UPS** · **Ubiquiti UniFi controller**
-  (held) · **small server running Proxmox**.
-- **This is the HQ stack in miniature.** The entire HQ recovery playbook + hard-won lessons apply
-  directly — Beverley should be far faster than HQ (we were *learning* at HQ; here we're *executing*).
+- **ONE Cisco ASA** (not a pair) · **ONE Cisco Catalyst 3850** (not a stack) · **UPS** ·
+  **Ubiquiti UniFi controller** (held) · **small server running Proxmox**.
+- **This is the HQ stack in miniature — and the EASY version.** The two biggest HQ time-sinks DON'T
+  apply here:
+  - **Single 3850 → no stack, no StackWise cables, almost certainly no `CSCvj49423` console-flood bug.**
+    Straightforward bootloader password recovery, then rebuild the access VLANs from the UniFi map.
+  - **Single ASA → no failover pair.** Direct console password recovery; no controlled-failover needed
+    to reach config.
+- The entire HQ recovery playbook + hard-won lessons apply directly, minus the two hard parts — so
+  Beverley should be markedly faster than HQ (we *learned* at HQ; here we *execute*).
 
 ### HQ playbook → Beverley (device by device)
 | Device | Proven HQ method to reuse |
