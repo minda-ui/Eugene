@@ -102,6 +102,17 @@ embedding model → vector DB (Chroma/Qdrant/LanceDB) → retrieve relevant chun
 - Feed it KB + Telegram site-evidence + project docs → a private assistant that knows the whole
   business. The plain-`.md` discipline pre-built the knowledge base for the estate AI.
 
+## Composio + local models = agentic estate AI (Minda Q, 2026-10-04)
+Yes — Composio is model-agnostic. A local model (Llama 3.3 / Qwen2.5 / Mixtral — all good at
+tool-calling) uses Composio either **via the MCP server** (same Composio Connect + `ck_` key the estate
+already uses; point Open WebUI / AnythingLLM / an agent framework at it) or **via the SDK + tool-calling**.
+Result: **a model we own that both KNOWS (RAG over the KB) and DOES (Composio tools: email, Drive,
+Smartsheet, Telegram).**
+- **Privacy nuance:** thinking + reading the KB = fully local/private; **acting** on apps via Composio
+  routes through Composio's managed cloud (where the app auth lives) = "private brain, managed hands."
+  Fully-local hands would need self-hosted per-app tool connectors (more work) — Composio is the sweet
+  spot for breadth.
+
 ## Links to other sparks
 Pairs with the Telegram→Drive evidence stream (RND cluster): local models = private photo tagging,
 delivery-note OCR→QuickBooks, sign-in OCR, RAG over the whole project record. The KB (markdown) is the
