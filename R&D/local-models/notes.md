@@ -8,10 +8,30 @@ Minda executing; the production PBX is never put at risk._
 Private (estate data stays in-building — ideal for site-evidence + finance), no per-token cost,
 always-on, sovereign. We now control the network, so this is the payoff.
 
-## The platform
-- HQ server: **DL380 Gen9**, Proxmox VE 8.2.2. Runs **FusionPBX (VM 105) = production phones**, plus
-  OPNsense (101) and others. **Hard rule: model work lives in a resource-capped LXC/VM; the PBX keeps
-  priority and is never starved.**
+## The platform (confirmed from POST, 2026-10-04)
+- HQ server: **DL380 Gen9**, BIOS P89 v3.40 (2024), S/N CZJ64905NP, iLO4 `10.224.10.78`, UEFI.
+- **2× Intel Xeon E5-2695 v4 @ 2.10 GHz** = **36 cores / 72 threads** (Broadwell, AVX2+FMA3, no AVX-512).
+- **128 GB RAM** (HPE SmartMemory, Advanced ECC) — the headline: big models + big context + RAG index
+  fit in RAM even with the VMs running.
+- **2 sockets = 2 NUMA nodes** → pin one model per socket (numactl) or run two model servers for
+  throughput; avoids the cross-socket memory-bandwidth penalty. CPU inference is **memory-bandwidth
+  bound** (DDR4-2400, ~4 ch/socket, ~75 GB/s/socket).
+- Runs **FusionPBX (VM 105) = production phones**, plus OPNsense (101) and others. **Hard rule: model
+  work lives in a resource-capped LXC/VM; the PBX keeps priority and is never starved.**
+- GPU: not shown on POST (confirm with `lspci | grep -i vga`); not needed to start.
+- Power/thermal flag: 2× E5-2695 v4 ≈ 240 W CPU under load → extra heat + UPS draw (ties to OI-7).
+
+## Expected CPU performance (Q4, honest ranges)
+| Model | ~RAM | ~tok/s | Role |
+|---|---|---|---|
+| Llama 3.1 8B / Qwen2.5 7B | 5 GB | 8–12 | daily driver, RAG |
+| Qwen2.5 14B | 9 GB | 5–8 | better reasoning |
+| **Mixtral 8×7B (MoE)** | 26 GB | 6–10 | **sweet spot** — quality/speed |
+| Qwen2.5 32B | 20 GB | 3–4 | heavier analysis |
+| Llama 3.3 70B | 40 GB | 1.5–3 | overnight/batch |
+| bge/nomic embeddings | tiny | instant | RAG index |
+Great for async/batch + RAG; usable for chat; not GPU-fast. Verdict: **a real private estate AI is
+feasible on this box today, zero hardware spend.** GPU only later for live vision / real-time.
 
 ## Feasible on CPU today
 - Small/mid **quantized LLMs** (Llama 3.1 8B, Qwen2.5 7–14B, Mistral, Phi) via **Ollama/llama.cpp** —
