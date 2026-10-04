@@ -46,6 +46,20 @@ feasible on this box today, zero hardware spend.** GPU only later for live visio
 - **Path B:** dedicated small box — mini-PC + RTX, or **Mac mini M-series** (great perf/watt, silent).
   Leaves production server untouched.
 
+### GPU adds: VRAM decides which models run FAST (Q4 ≈ 0.6 GB/billion params)
+| VRAM | Fast on-GPU | Unlocks |
+|---|---|---|
+| 16 GB (Tesla T4 70W / P100 / RTX A4000) | up to ~14B; 8B at 40–80 tok/s | real-time small/mid chat, fast RAG, Whisper-large, light vision |
+| **24 GB (Tesla P40 / RTX 3090/4090)** ⭐ | up to ~32B; Mixtral 8×7B; 70B hybrid | real-time strong reasoning, **live site-photo vision**, LoRA fine-tune |
+| 48 GB (2× 24 GB) | **70B/72B fully** (Llama 3.3 70B, Qwen2.5 72B) | top open models "GPT-4-class" at home, big context, fine-tuning |
+
+Speed: 8B ~10→50+ tok/s, 70B ~2→10–20 tok/s (GPU vs CPU). **Start: one P40 (24 GB).** 2× P40 = run 70B.
+DL380 Gen9 fit: datacenter **passive** cards (not consumer RTX) + HPE **GPU enablement kit** +
+high-wattage PSUs; ≤~250 W/card; both CPUs populated (needed, ✅). Power/heat → UPS (OI-7).
+Beyond speed: **live vision tagging** of the Telegram evidence, **LoRA fine-tune on Fishbone data**,
+image-gen if ever wanted. Dedicated RTX 3090/4090 box = faster+cheaper/GB than P40, better for
+fine-tuning, leaves the production server untouched.
+
 ## Phased pilot (zero risk to phones)
 1. **Headroom check** (Minda, Proxmox shell): `lscpu`, `free -h`, `df -h`, `lspci | grep -i vga`.
 2. **Prove it:** capped LXC → Ollama → pull an 8B → benchmark tok/s.
