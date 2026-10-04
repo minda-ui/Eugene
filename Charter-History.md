@@ -5,6 +5,17 @@ convention as `change-log/`. Created 2026-09-23 when the single-file charter was
 
 ---
 
+**2026-10-04 — §5: Creative / R&D mode added (Minda's idea).** New standing capability — an **R&D pool**
+(`R&D/`) for creative/speculative work, triggered by **"Creative mode"** (ended by **"Normal mode"**)
+via a `UserPromptSubmit` hook (`.claude/hooks/creative-mode.sh`). Note added to §5 "How Eugene runs".
+Creative mode loosens **scope/formality only** — §3 safety is explicitly unchanged (no live changes,
+no secrets, archive-never-trash, cross-KB via Raw/, irreversible actions flagged). Scope: Eugene's own
+to start (estate-wide would go via Victoria/Alex); ideas become real only on Minda's approval. Built and
+authorized by Minda the same session. See `R&D/README.md` and
+`change-log/change-log-2026-10-04-rd-pool-creative-mode.md`.
+
+---
+
 **2026-09-27 — Rule F added: shared-space changes are broadcast and registered.** Owner ruling (Minda,
 2026-09-27, via Alex's Raw/ hand-off): "make it as rule across estate, if someone make a changed in
 shared space (Smartsheet's or similiar) need to notify everyone and register it." Added to the Hub
