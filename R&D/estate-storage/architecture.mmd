@@ -1,0 +1,29 @@
+flowchart LR
+  subgraph HQ["HQ - Unit 30/31  (DL380 Gen9, Proxmox, 128GB)"]
+    direction TB
+    POOL[("ZFS storage pool<br/>TrueNAS SCALE VM<br/>HBA passthrough")]
+    SNAP["ZFS snapshots<br/>hourly / daily / weekly<br/>instant undo"]
+    NC["Nextcloud<br/>Drive / OneDrive-like<br/>web, desktop sync,<br/>mobile photo upload,<br/>share links"]
+    SMB["SMB / NFS shares<br/>mapped Z: drive  (NAS)"]
+    PBS["Proxmox Backup Server<br/>VM backups - fixes OI-7"]
+    VMS["Phones FusionPBX<br/>+ other VMs"]
+    POOL --> NC
+    POOL --> SMB
+    POOL --> PBS
+    VMS --> PBS
+    POOL -.-> SNAP
+  end
+
+  WIN["Office PCs<br/>mapped drive"] --- SMB
+  MOB["Site phones<br/>auto photo upload"] --- NC
+  CLIENT["Clients<br/>share links"] --- NC
+  TG["Telegram site-evidence<br/>mirror"] --> NC
+
+  subgraph BP["Beverley Place - 2nd site"]
+    REPLICA[("Replica NAS<br/>ZFS receive")]
+  end
+
+  POOL ==>|"ZFS send/recv over IPsec VPN<br/>incremental - OFF-SITE copy"| REPLICA
+
+  CLOUD["Encrypted cloud  Backblaze B2<br/>or rotating USB kept off-site<br/>DISASTER copy"]
+  REPLICA -.->|encrypted| CLOUD
