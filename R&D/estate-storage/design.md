@@ -30,6 +30,18 @@ Two assets most setups lack: a **big server** (DL380 Gen9, 128 GB) and a **secon
 5. **Disaster/offline:** **encrypted** copy to cloud (Backblaze B2 / Wasabi) or rotating USB kept
    off-site. Encryption key is Minda's (a secret Eugene never holds).
 
+## Disk capacity SOLVED — spare NetApp DS2246 shelf (Minda, 2026-10-04)
+Minda has a spare **NetApp DS2246** ("without work") → **this becomes the ZFS pool.**
+- **2U, 24× 2.5" SFF SAS bays**, SAS 6 Gb/s, **dual IOM6** (multipath), dual hot-swap PSU/fan,
+  hot-swap drives/IOMs, ACP. It's a **JBOD shelf** (no controller) — ideal for ZFS (raw disks).
+- **Integration:** add an **external SAS HBA** to the DL380 (LSI 9207-8e / 9300-8e or HP H221, ~£40-80,
+  **IT mode**) → **mini-SAS SFF-8088** to the shelf, cabling **both IOM6s** for multipath redundancy →
+  TrueNAS/ZFS sees all 24 bays = one big pool. Supersedes the "use the server's internal bays" question.
+- **Fill:** 24× 2.5" SAS/SATA — HDD for capacity or **SSD for a fast pool** (Nextcloud/VM/AI-index tier).
+- **Heads-ups:** NetApp drives (if present) are likely **520-byte** → one-time `sg_format` to 512 before
+  ZFS; needs the HBA + SFF-8088 cables (cheap, commodity); storage-only (lives at HQ by the DL380);
+  2U + dual PSU → UPS/heat.
+
 ## Hardware checkpoints to confirm (Minda, console / iLO)
 - **Disks in the DL380** — how many bays populated, sizes, SSD/HDD? (`lsblk`, iLO array config.) Decides
   pool size + layout (mirror vs RAIDZ2).
