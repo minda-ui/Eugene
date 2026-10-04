@@ -20,9 +20,25 @@ wrote a capability/decision note, and **parked** it at Minda's choice ("just res
   books — both need the provider token to download. For getting receipts/docs **in**, the estate's
   existing **email → `invoice@` → Dext → QuickBooks** route is still the cleanest (no token, no webhook).
 
+## Real driver (clarified mid-session, with a screenshot)
+Minda then explained the actual context: **Telegram is already the estate's main project-documentation
+platform.** One **group per project** (e.g. `FC2602 — BBC Road…`; many `FC####` groups), each using
+**Topics/forum mode** as the filing tree — **Extra works, Delivery, Progress pictures, Sign-in, General,
+Drawings** — holding site **photos, delivery/sign-in albums and drawing PDFs**. So the ask is
+**integrate or replace** this system, not just "add a bot."
+
+**Sharpened conclusion:** the natural move is **integrate — mirror each project group into Drive**
+(by topic), giving a permanent, searchable, backed-up site record without changing how crews work. But
+**Composio's Telegram toolkit can't download file bytes** (no `getFile`), so archiving the actual
+photos/PDFs needs a **small custom Bot-API worker** (Eugene builds/tests; Minda holds the token; 20 MB
+Bot-API download cap; bot needs privacy-mode-off or admin in each group). **Replacement** is possible
+but discouraged — the crews use Telegram happily on site — unless a concrete pain (client access, audit,
+drawing version control) names it.
+
 ## Recommendation recorded (for the later decision)
-Push alerts **out** → Telegram (simplest). Get photos **in** → stay on email/Dext. Two-way → Telegram
-(poll-based) over WhatsApp. Full matrix + the guide-and-verify setup outline in
+Archive the project record → **integrate/mirror Telegram→Drive via a Bot-API worker** (the real ask).
+Push alerts **out** → Telegram. Photos **in** (finance) → stay on email/Dext. Two-way → Telegram over
+WhatsApp. Full matrix, the integrate-vs-replace analysis and the guide-and-verify outline in
 `Runbooks/Runbook-Messaging-Channel-Options-Telegram-WhatsApp.md`.
 
 ## Also confirmed this session
