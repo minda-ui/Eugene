@@ -91,6 +91,18 @@ CPU model · total RAM + free-after-VMs · free disk · any GPU present.
   per-token activations). Gives AI the same 2-site redundancy as the RND-3 storage.
 - One giant model on all 3 cards would require them in one machine (or a fast local link), not the WAN.
 
+## The KB IS the fuel — markdown → local model via RAG (Minda Q, 2026-10-04)
+Yes: the estate's `Raw/Wiki/Outputs` `.md` KB is ideal RAG input. Pipeline (all local/private):
+embedding model → vector DB (Chroma/Qdrant/LanceDB) → retrieve relevant chunks → local LLM answers
+**citing the actual files**. **Live** — edit a `.md`, re-index in seconds, no retraining.
+- **RAG for facts** (easy, current, cites sources) vs **fine-tune/LoRA for tone** (GPU, goes stale).
+  Use RAG for the KB.
+- Turnkey self-hosted: **Open WebUI** / **AnythingLLM** (point at the markdown folder + Ollama), or
+  **Nextcloud's built-in AI assistant** (rides on the RND-3 storage).
+- Feed it KB + Telegram site-evidence + project docs → a private assistant that knows the whole
+  business. The plain-`.md` discipline pre-built the knowledge base for the estate AI.
+
 ## Links to other sparks
 Pairs with the Telegram→Drive evidence stream (RND cluster): local models = private photo tagging,
-delivery-note OCR→QuickBooks, sign-in OCR, RAG over the whole project record.
+delivery-note OCR→QuickBooks, sign-in OCR, RAG over the whole project record. The KB (markdown) is the
+primary RAG source; storage (RND-3) hosts it; GPU (2× P40) runs the brain that answers over it.
