@@ -69,6 +69,20 @@ fine-tuning, leaves the production server untouched.
 ## Sizing inputs still needed (the 4 numbers)
 CPU model · total RAM + free-after-VMs · free disk · any GPU present.
 
+## Multi-GPU & multi-site: pool vs route (Minda Q, 2026-10-04)
+"Share power" = two different things:
+- **Same machine (2× P40 HQ): YES pool** → 48 GB, run a full 70B (Q4) via llama.cpp/vLLM tensor split
+  over PCIe (P40 = no NVLink, PCIe P2P fine for inference). Combined VRAM + compute for one model.
+- **Across the two sites (HQ pair + Beverley P40): NOT for one model.** Model-parallel swaps activations
+  every token; inside a box that's PCIe (~tens of GB/s, µs latency), between sites it's the airFiber+VPN
+  (~1 Gbps, WAN latency, wireless hop) — 100s× slower → chokepoint. Tools exist (llama.cpp RPC, vLLM+Ray,
+  exo) but it crawls. Cross-node pooling needs 10/25 GbE / InfiniBand, not a site bridge.
+- **Right design: independent nodes, share the WORK not the MODEL.** HQ = 2× P40 → 70B estate brain;
+  Beverley = 1× P40 → failover + local vision / fast 8–14B. A **gateway/router (LiteLLM)** load-balances
+  independent requests + fails over — works fine over the slow link (only prompt+answer cross it, not
+  per-token activations). Gives AI the same 2-site redundancy as the RND-3 storage.
+- One giant model on all 3 cards would require them in one machine (or a fast local link), not the WAN.
+
 ## Links to other sparks
 Pairs with the Telegram→Drive evidence stream (RND cluster): local models = private photo tagging,
 delivery-note OCR→QuickBooks, sign-in OCR, RAG over the whole project record.
