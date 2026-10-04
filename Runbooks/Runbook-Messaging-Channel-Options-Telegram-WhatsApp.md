@@ -87,6 +87,30 @@ losing that simplicity and adoption. Only worth it if there's a specific pain Te
 (client access, audit trail, drawing version control). **Default recommendation: integrate/mirror, don't
 replace,** unless Minda names a concrete pain.
 
+## Firmed requirements (Minda, 2026-10-04)
+1. **These Telegram chats are the estate's main data stream from site** — the record for **evidence,
+   data and progress** (progress photos, delivery proof, signed sign-in sheets, drawings). This is
+   primary, business-critical field data, not a convenience channel.
+2. **Structure is the same across all project groups** (load varies) → **one generic worker** can
+   handle every `FC####` group; no per-project code.
+3. **Two-way wanted** — not just mirror-in; also post back into topics.
+
+### Proposed design (self-hosted Telegram→Drive evidence archive)
+- **One bot**, admin in every project group; captures all topic posts.
+- **Ingest → Drive**, mirroring the topic tree: `Projects/FC#### <name>/<Topic>/…` with each photo/
+  album/PDF **plus a metadata sidecar** (sender, timestamp, caption, message_id, media_group_id,
+  message_thread_id) → a **defensible, write-once** evidence trail.
+- **Two-way:** post into a topic via its `message_thread_id` (`SEND_MESSAGE`/`SEND_DOCUMENT`).
+- **Runs on the recovered HQ Proxmox server** so the evidence stays **in-estate** (no third-party
+  pipe like Zapier/Make). Real-time via long-poll or webhook on the **raw Bot API** (Composio can't
+  download bytes).
+- **Boundary unchanged:** Minda creates the bot + holds the token; Eugene **writes and tests** the
+  worker; Minda deploys/runs it (charter §2c/§3).
+- **Evidence-quality flag:** Telegram compresses "Photo" sends; full-res needs "send as File" — advise
+  crews. **Backup:** this becomes critical data → fold into the OI-7 backup plan.
+- **Open decisions:** (a) backfill existing history vs go-forward only; (b) confirm HQ-server hosting;
+  (c) move research→build (spec + prototype the worker).
+
 ## Recommendation by goal (for when Minda decides)
 - **Archive the project record (the real ask)** → **integrate: mirror each Telegram project group into
   Drive** via a small Bot-API worker (Eugene builds, Minda holds the token). Composio alone can't do the

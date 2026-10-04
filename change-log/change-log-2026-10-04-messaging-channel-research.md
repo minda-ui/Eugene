@@ -48,6 +48,19 @@ WhatsApp. Full matrix, the integrate-vs-replace analysis and the guide-and-verif
   switch/ASA/OI-8/OI-16 work; the authoritative branch is `claude/lucid-mayer-nsoili`. Consolidation to
   `main` remains an open housekeeping item (not forced).
 
+## Firmed requirements (Minda, later same session)
+Minda confirmed: (1) these Telegram chats are the **estate's main data stream from site** — the record
+for **evidence, data and progress** (business-critical, not a convenience channel); (2) **structure is
+uniform** across all project groups → one generic worker; (3) **two-way** wanted. Proposed a
+**self-hosted Telegram→Drive evidence archive** on the recovered HQ Proxmox server (in-estate, no
+third party): one bot (admin in each group) ingesting all topic posts into `Projects/FC#### <name>/
+<Topic>/` with write-once metadata sidecars, and posting back into topics via `message_thread_id`.
+Raw Bot API (Composio can't download bytes); Minda holds the token, Eugene writes/tests, Minda runs
+(§2c/§3). Flagged: Telegram "Photo" compression (send-as-File for full-res evidence); this becomes
+critical data for the OI-7 backup plan. Open decisions put to Minda: backfill vs go-forward; confirm
+HQ-server hosting; move research→build (spec + prototype). Design captured in the Runbook note.
+
 ## State left
-No connector added. Research note filed. Open from before unchanged: OI-8 audio (RTP) + ASA
-`write memory`; main consolidation.
+No connector/worker built yet — still at decision point (awaiting Minda's go + the backfill/host/build
+answers). Research note updated with the firmed design. Open from before unchanged: OI-8 audio (RTP) +
+ASA `write memory`; main consolidation.
