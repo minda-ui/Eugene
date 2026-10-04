@@ -27,7 +27,7 @@ ZFS replica.
 |---|---|
 | Catalyst 3850 | bootloader password-recovery; watch for StackWise `CSCvj49423` console flood; EEM timer auto-save to beat it; rebuild access VLANs from the UniFi/diagram map |
 | ASA | read-only failover check first; gain config via controlled failover (no traffic drop); folink/statelink; `write memory` replicates |
-| Proxmox server | iLO/console reset, remove contractor SSH keys, **back up VMs first**, then reset root; check what it hosts (telephony? storage?) |
+| Proxmox box (**small PC, NO iLO**) | **Direct keyboard+monitor** (no out-of-band). Same root reset as HQ: GRUB → `init=/bin/bash` → remount rw → `passwd root` → remove contractor SSH keys → reboot. **Back up VMs first.** iLO only mattered for *remote* access — not needed for an on-site recovery. Optional later: a **PiKVM / IP-KVM (~£100)** gives iLO-style remote console+power on a plain PC; Proxmox web UI is remote over the VPN once up. |
 | UPS | inventory/label; fold into the backup-power picture (OI-7) |
 | UniFi controller | already held — use it for the recon map (below) |
 
@@ -38,8 +38,13 @@ ZFS replica.
 - **Step 1 (any quiet moment):** UniFi controller → screenshot Devices + Clients → build the device map,
   name the Proxmox server + its mgmt IP, confirm the ASA/3850 mgmt addresses.
 - **Then on the visit:** work the table above, document → reset creds to Minda's vault → back up.
-- This also delivers the **RND-3 off-site replica node** (the Proxmox server there becomes the ZFS
-  replica + the Beverley AI node, RND-2).
+- This also delivers the **RND-3 off-site replica node** (the Proxmox box becomes the ZFS replica +
+  the Beverley AI node, RND-2).
+- **Small-PC implications (flag for RND-2/RND-3, not blockers):** a Tesla **P40 likely won't fit** an
+  SFF/small case (big, hot, double-wide, server-airflow) — so Beverley's AI node is probably **CPU-only
+  (small failover model)** or a **low-profile GPU** (e.g. RTX A2000); and **fewer drive bays** → the
+  replica holds the *critical* data (which is what an off-site copy should be anyway). **Decide once we
+  see the box** — a photo + the UniFi recon will tell us the case size, disks, and slots.
 
 ## The foothold: the UniFi controller = the map
 Even with no device passwords, the controller enumerates the whole LAN:
