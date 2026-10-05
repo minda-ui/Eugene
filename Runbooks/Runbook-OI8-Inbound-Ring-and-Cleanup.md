@@ -1,8 +1,31 @@
-# Runbook — OI-8 inbound RING fix + telephony cleanup (night-shift)
+# Runbook — OI-8 inbound RING fix + telephony cleanup
 
-**Status:** ready to execute. Everything else in OI-8 is fixed and saved as of 2026-10-05 (fibre primary,
-internal, outbound, inbound-reaching-the-PBX). This runbook finishes the **last** item — the handset
-*ringing* on an inbound call — plus three small cleanups. Guide-only: Minda executes; Eugene verifies.
+**STATUS: OI-8 RESOLVED 2026-10-05 — telephony fully restored (internal, outbound, inbound all ringing, on
+fibre, saved).** The real desk-ring blockers were NOT the early-media tuning below — they were (1) a **stale
+handset** (1001 could call out but not receive; clock stuck Oct 01) fixed by a **power-cycle**, and (2) a
+**stale DID forward** to Minda's own mobile (`447855463292`) that made every self-test loop — fixed by
+setting the DID `01916052945` Action to plain **`1001`**. See
+`change-log/change-log-2026-10-05-oi8-inbound-ring-RESOLVED.md`. The `ignore_early_media` material below is
+kept for reference (the scoped rule was built and left in place, harmless), plus a RECOVERY CARD.
+
+---
+
+## 🚑 RECOVERY CARD (if telephony misbehaves)
+- **All phones "Forbidden" / all calls fail (403):** FusionPBX → `Status → SIP Status` → **Flush Cache →
+  Reload XML → Restart the `internal` profile**. (Phones stay registered; this clears the bad state. This is
+  what recovered the mid-session outage caused by a catch-all `.*` dialplan — **never use `.*`; scope to the
+  exact DDIs.**)
+- **A handset won't RECEIVE calls** (rings out from it fine, but calling it does nothing; its clock looks
+  wrong): **power-cycle that handset** — pull its LAN/PoE cable ~10s, replug, wait ~2 min to re-register.
+- **ASA / switch:** configs are saved (`write memory`); FusionPBX persists to its DB — all survive a reboot.
+- **A FusionPBX `public`-context dialplan is invisible in the Dialplan Manager list** — that's normal; search
+  by name won't find it either. Use the `public` Context filter / `SHOW ALL`, or just leave it.
+
+---
+
+## (Reference) original inbound-ring notes
+
+**Guide-only: Minda executes; Eugene verifies.**
 
 Context: inbound calls from WebMate now reach FusionPBX, pass the "providers" ACL (`52.28.7.189` allowed),
 match DID `01916052945`, and route to extension/ring group — but the **handset doesn't ring**. WebMate's
