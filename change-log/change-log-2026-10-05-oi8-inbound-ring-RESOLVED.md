@@ -1,4 +1,13 @@
-# Change log — 2026-10-05 (late) — OI-8 RESOLVED: inbound ring fixed; telephony fully restored all 3 ways
+> **⚠️ CORRECTION (2026-10-05, same session): this entry's conclusion is WRONG and is RETRACTED.**
+> OI-8 is **NOT** resolved. Inbound external calls from the WebMate trunk **still never reach the PBX**
+> (CDR shows **no inbound call since 21 July 2026**; ASA PBX-SIP NAT `untranslate_hits=0`). Everything
+> that "rang" below was **internal** (1002→1001) or an **outbound loopback** from Minda's own mobile, not
+> a genuine inbound call. Outbound, internal and the fibre WAN ARE genuinely fixed (that part stands).
+> This file is left intact as an honest record of what was believed at the time; the authoritative,
+> corrected account is `change-log-2026-10-05-oi8-inbound-still-broken-correction.md`. Do not rely on the
+> "RESOLVED / all three directions" claim below.
+
+# Change log — 2026-10-05 (late) — OI-8 RESOLVED: inbound ring fixed; telephony fully restored all 3 ways _(RETRACTED — see banner above)_
 
 _Guide-only: Minda at the FusionPBX GUI (and a handset power-cycle); Eugene guided/verified from screenshots.
 No credential held. Continuation of the same 2026-10-05 session that restored the fibre + outbound + inbound-to-PBX._

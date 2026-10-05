@@ -1,12 +1,20 @@
 # Runbook — OI-8 inbound RING fix + telephony cleanup
 
-**STATUS: OI-8 RESOLVED 2026-10-05 — telephony fully restored (internal, outbound, inbound all ringing, on
-fibre, saved).** The real desk-ring blockers were NOT the early-media tuning below — they were (1) a **stale
-handset** (1001 could call out but not receive; clock stuck Oct 01) fixed by a **power-cycle**, and (2) a
-**stale DID forward** to Minda's own mobile (`447855463292`) that made every self-test loop — fixed by
-setting the DID `01916052945` Action to plain **`1001`**. See
-`change-log/change-log-2026-10-05-oi8-inbound-ring-RESOLVED.md`. The `ignore_early_media` material below is
-kept for reference (the scoped rule was built and left in place, harmless), plus a RECOVERY CARD.
+**STATUS: OI-8 NOT resolved — inbound external calls still never reach the PBX.** A premature "Resolved"
+on 2026-10-05 was retracted the same session: **the CDR shows no inbound call since 21 July 2026**, and the
+ASA PBX-SIP NAT shows `untranslate_hits=0` — WebMate's INVITEs reach the ASA (`52.28.7.189:5060 →
+62.105.119.118:5080`) but are **not forwarded** to FusionPBX (`10.224.13.9:5080`). Everything that "rang"
+during testing was **internal** (1002→1001) or an **outbound loopback** from Minda's own mobile.
+**Genuinely fixed and still true:** internal ✓, outbound ✓ (clean audio, `caller-id-in-from`=True), 1Gb
+fibre primary. The desk-ring internal fixes below were real but are NOT inbound: (1) a **stale handset**
+(1001 could call out but not receive; clock stuck Oct 01) fixed by a **power-cycle**; (2) a **stale DID
+forward** to Minda's own mobile (`447855463292`) that made every self-test loop — fixed by setting the DID
+`01916052945` Action to plain **`1001`**. **Authoritative account:**
+`change-log/change-log-2026-10-05-oi8-inbound-still-broken-correction.md` (the `-inbound-ring-RESOLVED`
+change-log is retracted). The real inbound fix needs ASA console / SSH work (see that change-log's
+"clean fix" steps) — reachable remotely over the **existing remote-access VPN** (test it from 4G before
+leaving); WebMate DDI-divert is the 5-day fallback. The `ignore_early_media` material below is kept for
+reference (harmless, DDI-scoped), plus a RECOVERY CARD.
 
 ---
 
