@@ -43,3 +43,17 @@ reliable path before she leaves.
 
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01CpGucX3hhykKcyhW2tf43c
+
+## Addendum (same day) — reviewed Anna's first real RAMS + wrote Anna's instruction
+Minda: "I will ask Anna to send you ready RAMS… you will do instruction for Anna how to use it." Anna
+dropped the RAMS into Eugene's `Raw/` with a §7a hand-off note (Hub AWT-0352): **FC2611 — Goldsmiths
+Bullring, Breitling & Rolex CPO, rev g** (a `.docx`, Minda-reviewed, still headed DRAFT, unsigned).
+**Reviewed it for signing-readiness** (read-only; not mirrored to git per the hand-off — it carries
+operatives' names + site contacts). Verdict: **content-ready** — clear signature blocks (Issued By / MD,
+"person completing", and the Induction/RAMS Briefing Sign-off Sheet for the operatives); ~4 signers, under
+the 10 cap. **Two prep steps flagged to Minda before it can be sent:** (1) it's a `.docx` — eSignature needs
+a **PDF** (or Google Doc), so export to PDF; (2) **finalise the DRAFT header** to issued rev g (signers
+shouldn't sign a "DRAFT – not valid"). Also need each signer's **name + email**. **Delivered the instruction
+for Anna:** `Runbooks/Instruction-Anna-Getting-a-RAMS-Signed-Google-eSignature.md` (generic + reusable, no
+personal data) — Part 1 (Anna: finalise header, export PDF, attach a signer list) + Part 2 (sending/signing
+in the browser) + watch-outs. Offered to drop a copy into Anna's own `Raw/` as the cross-KB hand-off.
