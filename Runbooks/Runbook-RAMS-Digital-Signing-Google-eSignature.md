@@ -19,18 +19,23 @@ project, and they need digital sign-off — by Minda and by the operatives/subbi
   counts outgrow 10 or Fishbone wants off Google; and it needs a public HTTPS endpoint through the HQ ASA,
   which is the exact inbound path currently broken (OI-8). Revisit when that's settled.
 
-## Prerequisite to confirm (ONE thing) — the Workspace edition
+## Prerequisite — the Workspace edition (CONFIRMED for Construction, 2026-10-06)
 Google eSignature **sending** requires **Business Standard, Business Plus, Enterprise, or Education Plus**.
-- If Anna's company is on one of those → good, proceed.
-- If it's on **Business Starter** → eSignature sending isn't included; either upgrade that one subscription,
-  or fall back to DocuSeal later. **Confirm the edition first** (Admin console → Billing / Subscriptions),
-  since Fishbone's companies are separate subscriptions (OI-1) and may differ.
+**Confirmed 2026-10-06 (Minda's Admin console screenshot):** **Fishbone Construction Ltd is on Business
+Standard**, and the setting **"Allow users in your organisation to request eSignatures on files" is already
+ON** (Admin console → Settings for Drive and Docs → eSignatures). So **Step 1 below is already done for
+Construction — no admin action needed; it's live now.** The licence note on that page means the person who
+*requests* a signature must hold a Business Standard seat (Minda/Anna do); **signers/subbies need no licence
+and no Google account.** If a *different* company's RAMS are ever signed, re-check that subscription's
+edition (separate subs per OI-1; Business **Starter** can't send → upgrade or use DocuSeal).
 
 ---
 
-## Step 1 — Admin: turn eSignature on (one-time, per subscription)
+## Step 1 — Admin: turn eSignature on (one-time, per subscription) — ✅ ALREADY DONE for Construction (2026-10-06)
 Done by the Workspace **super-admin** of the company whose Drive holds the RAMS (note OI-5: each
 subscription's super-admin is the shared business inbox, e.g. `info@fishboneconstruction.co.uk`).
+**For Fishbone Construction Ltd this is already ON (verified 2026-10-06) — skip to Step 2.** Steps below
+are only needed for another subscription that hasn't been enabled yet.
 1. **admin.google.com** → **Apps → Google Workspace → Drive and Docs**.
 2. Open **eSignature** settings → **turn eSignature ON** for the organisation (or the relevant OU).
 3. Save. (Allow a short while to propagate.)
