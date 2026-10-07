@@ -68,6 +68,19 @@ Beyond speed: **live vision tagging** of the Telegram evidence, **LoRA fine-tune
 image-gen if ever wanted. Dedicated RTX 3090/4090 box = faster+cheaper/GB than P40, better for
 fine-tuning, leaves the production server untouched.
 
+### DL380 Gen9 + Tesla P40 install checklist (verified 2026-10-07)
+**Yes, the box accepts a P40 (24 GB), up to 2× double-wide in the 2U.** Requirements:
+1. **GPU enablement/riser kit** — HPE **719082-B21** (double-wide graphics enablement).
+2. **GPU power cable** — P40 needs an 8-pin: HPE **805123-001** (10→8-pin) or **728539-B21** (10→6+8-pin).
+3. **⚠️ BIOS: enable "Above 4G Decoding"** (= "PCI 64-bit resource handling above 4G" / "MMIO above 4GB").
+   **The #1 gotcha** — without it the P40's 24 GB BAR won't map and the card won't initialise.
+4. **Both CPUs populated** (the GPU riser hangs off CPU2) — ✅ 2× E5-2695 v4 present.
+5. **Cooling + power** — P40 is **passive** (no fan): needs the **high-perf fan kit + GPU air baffle**, and
+   adequate **PSUs** (≈800 W one card / ≈1400 W two). Thermal + UPS headroom beside the live PBX (OI-7).
+Caveats: passive card = server airflow only (never a desktop); **Pascal is being sunset in newest CUDA** —
+great value + fine for Ollama/llama.cpp today, but a "good-now-not-forever" buy. **Start: one P40.**
+Sources: HPE community (DL380 Gen9 GPU + large-BAR threads); itcreations 805123-001 cable.
+
 ## Phased pilot (zero risk to phones)
 1. **Headroom check** (Minda, Proxmox shell): `lscpu`, `free -h`, `df -h`, `lspci | grep -i vga`.
 2. **Prove it:** capped LXC → Ollama → pull an 8B → benchmark tok/s.
