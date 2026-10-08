@@ -15,4 +15,4 @@ or **delete** (status `deleted — <one-line reason>`). Never delete a row outri
 
 | ID | Spotted | Candidate skill | What it would automate | Seen / why | Status |
 |----|---------|-----------------|------------------------|------------|--------|
-| SC-1 | 2026-10-08 | `gmail-vendor-quote-draft` | Search minda@ for a named vendor, pull contacts + prior order/invoice refs, and draft a quote/enquiry email that references the existing account — draft-only, never send. | Done ad-hoc for the Techbuyer P40 quote (2026-10-08); the "find the vendor, cite past orders, draft to the right AM" shape will recur for any parts/supplier request. | proposed |
+| SC-1 | 2026-10-08 | `gmail-vendor-quote-draft` | Search minda@ for a named vendor, pull contacts + prior order/invoice refs, and draft a quote/enquiry email that references the existing account — draft-only, never send. | Done ad-hoc for the Techbuyer P40 quote (2026-10-08); the "find the vendor, cite past orders, draft to the right AM" shape will recur for any parts/supplier request. | adopted → `.claude/skills/gmail-vendor-quote-draft/` (2026-10-08) |

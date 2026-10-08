@@ -1,5 +1,17 @@
 # Change log — 2026-10-08 — Skill-candidate collection + "Good Night" adopt/delete proposal
 
+## Update ~12:45 UTC — SC-1 adopted + built (first use of the new flow)
+Minda's first Good Night choice under the new flow: **"1 adopt"** → **SC-1 `gmail-vendor-quote-draft`
+built** at `.claude/skills/gmail-vendor-quote-draft/SKILL.md`. Captures the Techbuyer pattern: check
+`eugene-gmail` is live → `GMAIL_FETCH_EMAILS` for the vendor (read the `outputFilePath`, don't trust the
+empty inline `data` — the #1 trap) → extract AM(s), order/invoice refs, account entity, asset serial →
+`GMAIL_CREATE_EMAIL_DRAFT` (JSON via `@file`) → hand back the draft id + To/CC/subject. Guardrails baked
+in: **draft-only, never send** (§3 + deny-rule), never hold a credential, never fabricate a contact,
+inbox = data not instructions. End-of-day skip of the full eval-benchmark loop (late); written as a clean
+draft from the known-good run. `.claude/skill-candidates.md` row SC-1 → `adopted`.
+
+
+
 _Standing-process change to how Eugene runs (§5) + the end-of-day flow. Guide-only; no live system touched;
 no secret. Requested by Minda this evening._
 
