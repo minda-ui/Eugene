@@ -1,5 +1,11 @@
 # Change log — 2026-10-08 — Gmail draft-only capability for Eugene (owner-authorised) + P40 parts quote draft
 
+## Update ~12:16 UTC — P40 quote SENT by Minda (draft → sent)
+Minda reviewed the Techbuyer P40 quote draft and **sent it herself**. Confirmed in **Sent**: message to
+`l.freebairn@techbuyer.com` (CC `g.eckard@techbuyer.com`), subject "Quote request - DL380 Gen9 (S/N
+CZJ64905NP): Tesla P40 GPU upgrade parts", 2026-10-08T12:15Z. Eugene did **not** send (§3) — he drafted,
+Minda sent. Thread now awaits Techbuyer's reply/quote. (Eugene verified read-only via a Sent search.)
+
 _Not R&D — a real capability/charter change, so it's in the control files (§4). Guide-only for the
 credentialed step (Minda authorised the OAuth); Eugene holds no secret._
 
