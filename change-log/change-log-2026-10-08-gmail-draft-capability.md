@@ -35,6 +35,25 @@ cooling, PSU-adequacy check) with the server's exact details (DL380 Gen9, 2× E5
 CZJ64905NP). **Recipient left blank** — Minda adds the vendor (Bargain Hardware / ETB / ITInstock) and sends.
 (An earlier copy was made in the pre-existing ops@ mailbox before this connection — superseded by this one.)
 
+## Techbuyer found — P40 draft re-addressed to the real vendor
+Minda: "Look for Techbuyer — we bought all IT from them." Searched the connected inbox
+(`GMAIL_FETCH_EMAILS`, query `Techbuyer`; results offloaded to `outputFilePath`, parsed from
+`/tmp/composio/.../GMAIL_FETCH_EMAILS_OUTPUT_*.json`) — **30 Techbuyer emails**. So the
+"server-purchase email not found" above is corrected: the kit **was** bought from **Techbuyer**, the
+earlier passes just didn't hit the vendor name. Extracted:
+- **Account managers:** Garrick Eckard (`g.eckard@techbuyer.com`, ×10 — handled the original order) and
+  **Liam Freebairn** (`l.freebairn@techbuyer.com`, current AM per 2026 check-ins).
+- **Orders** SO483746 (2024), SO510630 (2025); **invoices** I2757387, I2781156; account registered under
+  **Fishbone Drylining Ltd**.
+
+**Re-addressed the P40 quote draft** (new draft `r4461050835829063460`, via `GMAIL_CREATE_EMAIL_DRAFT`):
+To **Liam Freebairn**, CC **Garrick Eckard**, subject "Quote request – DL380 Gen9 (S/N CZJ64905NP):
+Tesla P40 GPU upgrade parts", body references the existing account and asks them to look the server up by
+serial **CZJ64905NP** / order **SO483746** to match guaranteed-fit parts (P40 ×1/×2, kit 719082-B21,
+power cable 805123-001/728539-B21, passive cooling, PSU-headroom check). **Deleted the earlier
+blank-recipient draft** (`r-6135796713194806801`) so there's no wrong-recipient copy. Still draft-only —
+**Minda reviews and sends**; Eugene never sends (§3).
+
 ## Boundary note
 Eugene is still **not an autonomous email agent** (inbox triage = Peter; bookkeeping mail = Rachel). This is
 a narrow draft-and-read capability for Minda's convenience; the send always stays with her.
