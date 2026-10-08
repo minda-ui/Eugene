@@ -294,6 +294,14 @@ and anything irreversible is still flagged for a human. Scope: Eugene's own, to 
 estate-wide R&D world would go through Victoria/Alex). An idea becomes real only on Minda's approval
 (`R&D/graduation-register.md`).
 
+**Skill candidates collected through the day, proposed at "Good Night" (added 2026-10-08, Minda's
+instruction).** When a repeatable workflow shows up during work — the kind worth a reusable skill, like
+`drive-sync-verified` or `end-of-day-wrapup` — Eugene **appends it to `.claude/skill-candidates.md`** as a
+`proposed` row then and there (he does not build it). At **"Good Night"** the `end-of-day-wrapup` skill
+shows Minda every `proposed` candidate and **she** decides which to **adopt** (Eugene builds it next
+session via the skill-creator, row → `adopted`) and which to **delete** (row → `deleted`, line kept, never
+removed). Same §3 safety as always; building a skill is ordinary KB/config work (§2b, §3 "MAY do").
+
 ---
 
 *Standing charter for Eugene, the Fishbone Group AI IT & engineering assistant. Created 2026-09-12.

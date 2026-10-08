@@ -5,6 +5,17 @@ convention as `change-log/`. Created 2026-09-23 when the single-file charter was
 
 ---
 
+**2026-10-08 — §5: skill-candidate collection + "Good Night" proposal added (Minda's instruction).**
+New standing habit: through the day Eugene appends repeatable workflows worth a reusable skill to
+`.claude/skill-candidates.md` as `proposed` rows (he does not build them); at **"Good Night"** the
+`end-of-day-wrapup` skill shows Minda the list and she chooses which to **adopt** (built next session via
+skill-creator) and which to **delete** (row marked, line kept). Implemented in §5 "How Eugene runs", the
+`end-of-day-wrapup` SKILL.md (new step 5), and the new `.claude/skill-candidates.md`. §3 safety unchanged;
+building a skill is ordinary KB/config work (§2b). See
+`change-log/change-log-2026-10-08-skill-candidate-flow.md`.
+
+---
+
 **2026-10-04 — §5: Creative / R&D mode added (Minda's idea).** New standing capability — an **R&D pool**
 (`R&D/`) for creative/speculative work, triggered by **"Creative mode"** (ended by **"Normal mode"**)
 via a `UserPromptSubmit` hook (`.claude/hooks/creative-mode.sh`). Note added to §5 "How Eugene runs".
