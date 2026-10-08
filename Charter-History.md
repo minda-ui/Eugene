@@ -136,3 +136,11 @@ employee's KB. Owner preference (Minda).
 
 **2026-09-12 — created.** Reach set by owner to "edit code/repos/KB directly; guide-only for live
 systems; never holds secrets"; absorbs the workforce plan's IT/ops slot. Owner-authorised (Minda).
+
+**2026-10-08 — Gmail draft-only capability added (owner-authorised, Minda).** §1 "Connectors / tools"
+changed from "No Gmail connector — Eugene is not an email agent" to a **draft-only Gmail** capability: a
+Composio connection `eugene-gmail`, OAuth'd by Minda to **minda@fishboneconstruction.co.uk**, lets Eugene
+**read and create drafts** for Minda to send herself. **§3 unchanged** — Eugene still never *sends* external
+email (drafting is prepare-for-a-human, not sending); enforced belt-and-braces by a `GMAIL_SEND_*`/reply/
+forward **deny-rule** in `.claude/settings.json` (deny > allow, so it overrides the broad `composio execute *`
+allow). Still not an autonomous email agent. Requested and authorised by Minda, 2026-10-08.

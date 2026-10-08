@@ -78,7 +78,14 @@ Archive `1yw-FuDwvPc6Soi0xXArMCavb-N4eiP9z`, Raw `1qkD2xtFMJtZQVaBJFzHQPz842t8Vx
   missing one — but like GitHub and `Artifact.publish`, whether a *specific* session or scheduled
   routine actually has it attached is session-scoped, not guaranteed every time (see AWT-0012/HL-0008).
   A separate, still-not-created optional read-only health-check routine (§5) would also use it.
-- **No Gmail connector** — Eugene is not an email agent.
+- **Gmail — draft-only (added 2026-10-08, owner-authorised).** A Composio Gmail connection (`eugene-gmail`,
+  OAuth'd by Minda to **minda@fishboneconstruction.co.uk**) lets Eugene **read and create drafts** for Minda
+  to review and **send herself**. Eugene **never sends** — §3's "never send external email" still holds;
+  drafting is "prepare for a human to send", not sending. Belt-and-braces: a `GMAIL_SEND_*` / reply / forward
+  **deny-rule in `.claude/settings.json`** blocks any send path, so only drafts are possible. Eugene is still
+  **not an autonomous email agent** (inbox triage is Peter's, bookkeeping mail is Rachel's); this is a
+  narrow draft-and-read capability for Minda's own convenience. Note (OAuth scope): Google has no
+  "draft-only" scope, so the not-sending is enforced by this rule + §3, not by Google.
 
 ### Archive-then-recreate (same as the group KB)
 Every replacement of a control file or the charter: rename the old to

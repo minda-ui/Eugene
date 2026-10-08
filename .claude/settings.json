@@ -35,6 +35,14 @@
       "Bash(composio execute *)",
       "Bash(composio connections remove *)",
       "Bash(composio link *)"
+    ],
+    "deny": [
+      "Bash(composio execute GMAIL_SEND*)",
+      "Bash(composio execute GMAIL_REPLY*)",
+      "Bash(composio execute GMAIL_FORWARD*)",
+      "mcp__Gmail__send_message",
+      "mcp__Gmail__reply",
+      "mcp__Gmail__forward"
     ]
   }
 }
