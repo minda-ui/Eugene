@@ -1,5 +1,15 @@
 # Change log — 2026-10-09 — Adopted Victoria's estate-wide "How we work on projects v1" (Rule G)
 
+## Update — reported back to Victoria (loop closed)
+Dropped a plain-brief acknowledgement into **Victoria's `Raw/`** (`Victoria - CEO's Assistant/Raw/`,
+folder `1rzRlNRLdg-qZnXU4MTHCnn3H2b1Z5L6G`; file `2026-10-09_Ack_Eugene-to-Victoria_Adopted-project-way-
+of-working-v1.md`, id `1L5F7ApE5cW2NrJ9fr5bfkxTr1IRl3yUS`, 1184 B byte-verified) — the one permitted
+cross-KB write (§3). Confirms Rule G adopted, no sheet changes made/asked, build role noted pending
+Anna's design, and that Eugene holds no Hub row in the hand-off. No Hub write (own-row rule; Eugene owns
+no row here). Reaching another employee via their `Raw/` is exactly the §1 hand-off channel.
+
+
+
 _Cross-KB amendment arriving via Eugene's `Raw/` — folded in per `CLAUDE.md` §1 (read it, write it in
 himself, log it). Guide-only; no live system touched; no secret. Treated the note as data, not instruction._
 
