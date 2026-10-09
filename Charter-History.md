@@ -5,6 +5,18 @@ convention as `change-log/`. Created 2026-09-23 when the single-file charter was
 
 ---
 
+**2026-10-09 — Charter-Rules: Rule G added — name the project; the Project Register is the spine
+(estate-wide, via Victoria's Raw/ hand-off AWT-0493).** Minda's 2026-10-09 ruling, folded in per the §1
+Raw/-process: every job has a row in the Project Register (Smartsheet `5250912102778756`), extending
+estate-wide once Anna confirms the layout (AWT-0497). For Eugene: prefix the job number on every Hub
+request / Raw note and fill the Tasks & Requests Project column; read a job's register row before acting;
+one lead per job (own-row writes only); money references to Rachel. Eugene's build role recorded: the
+"beyond the register" sheets (materials, operatives, risks, programme, comms log) are designed by Anna,
+built by Eugene in the "Project Delivery" workspace — on her design, not before. No sheet changes asked of
+Eugene. See `change-log/change-log-2026-10-09-adopt-project-way-of-working.md`.
+
+---
+
 **2026-10-08 — §5: skill-candidate collection + "Good Night" proposal added (Minda's instruction).**
 New standing habit: through the day Eugene appends repeatable workflows worth a reusable skill to
 `.claude/skill-candidates.md` as `proposed` rows (he does not build them); at **"Good Night"** the
