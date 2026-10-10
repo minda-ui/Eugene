@@ -46,10 +46,20 @@ The extra ~250 W is heat + UPS draw beside the live PBX. Worth confirming the UP
 run the card hard (overnight batch vision is the heaviest draw). Flagged, not blocking.
 
 ## If/when you go to a second P40 later (the 70B tier)
-- A **second Tesla P40** (→ 48 GB pooled = full Llama 3.3 70B / Qwen2.5 72B via tensor-split).
-- **Second power cable** (item 3 again).
-- Likely the **1400 W PSUs** (item 6) — two cards ≈ 1400 W total.
-- The 719082-B21 kit supports up to 2× double-wide in the 2U, so no new riser needed.
+The DL380 Gen9 supports **2× double-wide GPUs = 2× P40 = 48 GB** (full Llama 3.3 70B / Qwen2.5 72B via
+tensor-split). But a P40 is **double-wide**, so the two cards can't share one riser — each needs its own
+GPU-ready riser (the second card's heatsink overhangs the neighbouring slot). Second P40 therefore needs:
+- A **second Tesla P40**.
+- ⚠️ A **second, *primary* GPU-ready riser — HPE 719076-B21** (2-slot primary GPU-ready; spare 777282-001).
+  The 719073-B21 (secondary) already bought holds P40 #1; #2 goes on the primary riser. **Correction
+  (2026-10-10):** an earlier note here wrongly said no new riser was needed — a 2nd P40 **does** need
+  719076-B21.
+- A **second 8-pin power cable** (item 3 again).
+- The **1400 W PSUs** (item 6) — HPE **720620-B21** — two cards ≈ 1400 W total.
+- Both GPU positions baffled/cooled; **CPU2 populated** (✅, already).
+Verified against HPE QuickSpecs + community (secondary riser 719073-B21 = slot2/CPU2; primary GPU riser
+719076-B21; 1400 W PSU for double-wide). **Plan stays: start with one P40; add #2 only when the
+earning use-cases justify the extra heat + UPS draw beside the live PBX.**
 
 ## Separate track — NOT this list (storage, RND-3)
 The storage upgrade (NetApp DS2246 JBOD + external SAS HBA in IT mode + mini-SAS cable, P440ar → HBA
