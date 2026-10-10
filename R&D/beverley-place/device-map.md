@@ -5,14 +5,18 @@ password not held; pivoted to physical/photo recon). Read-only; nothing changed.
 site, Eugene mapping, no credential held. Legitimate recovery: Minda owns 6 Beverley Place (her home /
 the registered address)._
 
+**Management subnet: `10.224.110.x`** (HQ used 10.224.10–13.x). Known IP so far: Cloud Key `10.224.110.5`.
+Minda is on the Beverley LAN (reached the Cloud Key), so the ASA/3850/Proxmox mgmt IPs are reachable to
+confirm/record. Patch-panel brand: **Philex** (top) / Cat.5e.
+
 ## The rack (top → bottom)
 | # | Device | Identified as | Notes / to confirm |
 |---|---|---|---|
 | 1 | Patch panel | 24-port **Cat.5e** | ports numbered 1–24 |
-| 2 | Small server / mini-PC (black; DisplayPort + multiple USB3 + 2 expansion-slot covers "1/2") | **Proxmox box** (expected) | model TBD; is this the one with the round blue LED on top? |
-| 3 | UniFi **Cloud Key** (Gen2 family; white unit w/ icon display in photo 1) | UniFi controller | **password NOT held**; try `unifi.ui.com` (ui.com SSO) before any reset — never factory-reset (wipes config + un-adopts live net) |
-| 4 | **Cisco ASA 5550** (single) | Firewall — **SAME MODEL AS HQ** | serial **MX1512L0FD** (~2015 build). Single unit → no failover pair → simpler than HQ. HQ recovery method applies directly. |
-| 5 | **Cisco Catalyst 3850, 48-port** + **C3850-NM-2-10G** (2×10G uplink module) | Switch (single, no stack) | port labels seen up to 36X/37X → 48-port. Single switch → no StackWise, likely no `CSCvj49423` flood bug. |
+| 2 | **Mini-PC — Proxmox box** (confirmed by Minda). Black SFF: 2× DisplayPort, ~6× USB3, 2 low-profile expansion-slot covers ("1/2"), single NIC (blue cable, link up → on the LAN), round power button | **Proxmox host** (the recovery target + future RND-3 off-site replica node) | **No iLO** → recover by **direct keyboard+monitor** (DP→monitor, USB→keyboard): GRUB → `init=/bin/bash` → remount rw → `passwd root` → remove contractor SSH keys → reboot; **back up VMs first**. Brand/model badge not visible on rear (no logo) — need a front/bottom label photo for exact model. Likely Dell OptiPlex Micro / HP Mini / Lenovo Tiny class. IP = some `10.224.110.x` (TBC). Small case → few drive bays (replica = critical data only); 2 slots could take a NIC/low-profile GPU. |
+| 3 | UniFi **Cloud Key Gen2** (front display: ~400Mbps, 18+7 clients) | UniFi controller @ **10.224.110.5** | **password NOT held** (UniFi OS local login, password-only). Remote access likely **not** linked (login page shows the "enable remote access" prompt) → `unifi.ui.com` probably won't show it. **Never factory-reset** (wipes config + drops 18 live WiFi clients). **Not on the recovery critical path** — only manages the WiFi APs. |
+| 4 | **Cisco ASA 5550** (single) | Firewall — **SAME MODEL AS HQ** | serial **MX1512L0FD** (~2015 build). Single unit → no failover pair → simpler than HQ. HQ recovery method applies directly (console ROMMON password recovery). |
+| 5 | **Cisco Catalyst 3850, 48-port** + **C3850-NM-2-10G** (2×10G uplink module) | Switch — **SAME MODEL AS HQ** (single, no stack) | port labels seen up to 36X/37X → 48-port; IOS-XE like HQ (16.09.05 install mode). **Single unit → no StackWise, no `CSCvj49423` console-flood bug** → cleaner than HQ. Bootloader password recovery, then rebuild access VLANs. |
 | 6 | **APC UPS** | Power protection | 5 green LEDs = healthy/online. Model TBD. Folds into OI-7 power picture. |
 
 _(A loose TP-Link Archer Wi-Fi6/BT PCIe card is sitting on the shelf — spare part, not installed, ignore.)_
