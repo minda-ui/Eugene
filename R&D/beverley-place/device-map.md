@@ -51,7 +51,17 @@ _(A loose TP-Link Archer Wi-Fi6/BT PCIe card is sitting on the shelf — spare p
   NIC `nic0` → bridge `vmbr0 = 10.224.111.199/24`, **no VMs, no containers** (empty host — ideal for the
   RND-3 off-site replica). Gremlins: faulty mouse spammed the console (unplugged); the gaming keyboard
   wouldn't work in the minimal boot shell → swapped to a plain keyboard (lesson below).
-- **3850 + ASA — NOT YET** (need a USB-to-RJ45 **console cable**; only keyboard+monitor on site today).
+- **ASA 5550 (`home-asa`) — RECOVERED + SECURED** (2026-10-10, console cable). Console dropped to
+  `home-asa>` (no login pw) but enable pw unknown → **ROMMON password recovery**: power-cycle → `Esc`/Break
+  → `rommon #0>` → `confreg 0x41` (ignore startup config) → `boot` → came up default `ciscoasa>` →
+  `enable` (blank) → `copy startup-config running-config` (real config back, 7348 B) → set new **enable**
+  + **admin** passwords (Minda set both, saved in 1Password; Eugene never recorded them) → **removed the
+  contractor's `ssh authentication publickey`** on the priv-15 `admin` account (his SSH back door) →
+  `config-register 0x1` → `write memory [OK]`. **Internet confirmed back.** SSH was allowed from the HQ
+  mgmt subnets (`10.224.10/5/11.0`, `office_mgmt`) via the admin key+pw — both now closed. ASA SW 9.1,
+  ROMMON 1.0(11)5.
+- **Catalyst 3850 — NOT YET** (the last box; needs the Mode-button bootloader recovery + a full-LAN
+  reboot). Single switch, no stack → the clean version of HQ.
 - **Cloud Key — left alone** (not on critical path; never reset).
 
 ## Lessons (fold into the runbook)
