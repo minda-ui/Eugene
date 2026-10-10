@@ -17,6 +17,13 @@ Confirmed from the order emails in minda@'s Gmail:
   (two cards ≈ 1400 W); the **two P40 cards** themselves (not on tonight's orders); **perf fan kit +
   GPU baffles**; then the **"Above 4G Decoding"** BIOS toggle on fit day.
 
+## GPU options considered & rejected
+- **NVIDIA Tesla M10 (HP Q0J62A), "32 GB"** — ❌ **rejected 2026-10-10.** It's **4× Maxwell GM107 GPUs,
+  8 GB each** — NOT a 32 GB pool. A model only sees **8 GB**, so it can't run 24B/32B/70B at all; caps
+  at ~7–8B. Older Maxwell arch, no tensor cores, built for **VDI**, not inference. Fits the same risers
+  (double-wide, 225 W) but is a step *back* from the P40. Only niche use = 4 small models in parallel.
+  **Verdict: wrong for the 70B estate-brain build; stay on the P40.**
+
 ## The box we're upgrading
 HPE **ProLiant DL380 Gen9** (2U), 2× E5-2695 v4 (both sockets populated ✅ — the GPU riser hangs off
 CPU2), 128 GB RAM, iLO4 `10.224.10.78`. Runs the **production PBX (VM 105)** — so this upgrade must not
