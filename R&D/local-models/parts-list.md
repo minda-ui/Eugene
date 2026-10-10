@@ -14,7 +14,7 @@ starve the phones (model work stays in a resource-capped LXC/VM).
 | # | Part | HPE / model no. | Why | ~Cost (used) | Got it? |
 |---|---|---|---|---|---|
 | 1 | **NVIDIA Tesla P40, 24 GB** (datacenter, passive) | GPU-P40 | The GPU itself — 24 GB runs up to ~32B / Mixtral 8×7B fast, live site-photo vision | £150–250 | ⬜ |
-| 2 | **GPU enablement / double-wide riser kit** | HPE **719082-B21** | DL380 Gen9 riser + bracket the P40 mounts into (off CPU2) | £40–90 | ⬜ |
+| 2 | **Secondary 3-slot GPU-ready riser kit** | HPE **719073-B21** (spare **777283-001**) | DL380 Gen9 GPU riser (2× FL x16 + 1× x8) the P40 mounts into; installs in the **secondary** slot, **needs CPU2** (✅). ⚠️ **NOT** the standard primary riser 777281-001 / 719072-001 / 729804-001 — those are x8 expansion risers, wrong for a GPU. | £40–90 | ⬜ |
 | 3 | **GPU power cable** (10-pin → 8-pin) | HPE **805123-001** (or **728539-B21** = 10→6+8) | P40 needs an 8-pin PCIe power feed from the board | £10–25 | ⬜ |
 | 4 | **High-performance fan kit** (all 6 bays) | HPE Gen9 perf fans | P40 is **passive** — it relies entirely on server airflow; needs the high-static-pressure fans | £30–80 | ⬜ |
 | 5 | **GPU air baffle / shroud** | HPE Gen9 GPU baffle | Ducts the airflow through the passive card; without it the P40 cooks | £10–30 | ⬜ |
