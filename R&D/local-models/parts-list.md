@@ -13,9 +13,14 @@ Confirmed from the order emails in minda@'s Gmail:
   205-2221513-6219536. Payment sorted (same). (One cable = powers **one** P40.)
 - ✅ **HPE 719076-B21** *primary* GPU-ready riser (P40 **#2**) — Renewtech £95.00 (+£21 ship = £116),
   order WEB083034, card accepted, std 4–5 day UPS/Fedex. (Spare 777282-001.)
-- **Still to source for the full 2× build:** a **2nd power cable**; **1400 W PSUs — HPE 720620-B21**
-  (two cards ≈ 1400 W); the **two P40 cards** themselves (not on tonight's orders); **perf fan kit +
-  GPU baffles**; then the **"Above 4G Decoding"** BIOS toggle on fit day.
+- ✅ **2× HP NVIDIA Tesla P40 24 GB (SKU 872323-001)** — **Bytestock £390.00 total (≈£195 each)**,
+  order **#000006986**, card payment, DHL Domestic Express, free delivery (referral code). Both cards
+  for the dual-P40 build. (Email says "GDDR5X" — the P40 is actually GDDR5; vendor typo, same card.)
+- **Still to source for the full 2× build:** a **2nd power cable** (805123-001/728539-B21); **1400 W
+  PSUs — HPE 720620-B21** (two cards ≈ 1400 W); **perf fan kit + GPU baffles**; then the **"Above 4G
+  Decoding"** BIOS toggle on fit day.
+- **GPU side now complete:** 2× P40 + both risers + 1 power cable all ordered. Remaining = power/cooling
+  (2nd cable, 1400 W PSUs, fans/baffles) + the BIOS toggle.
 
 ## GPU options considered & rejected
 - **NVIDIA Tesla M10 (HP Q0J62A), "32 GB"** — ❌ **rejected 2026-10-10.** It's **4× Maxwell GM107 GPUs,
@@ -33,7 +38,7 @@ starve the phones (model work stays in a resource-capped LXC/VM).
 
 | # | Part | HPE / model no. | Why | ~Cost (used) | Got it? |
 |---|---|---|---|---|---|
-| 1 | **NVIDIA Tesla P40, 24 GB** (datacenter, passive) | GPU-P40 | The GPU itself — 24 GB runs up to ~32B / Mixtral 8×7B fast, live site-photo vision | £150–250 | ⬜ |
+| 1 | **NVIDIA Tesla P40, 24 GB** (datacenter, passive) | HP **872323-001** | The GPU itself — 24 GB runs up to ~32B / Mixtral 8×7B fast, live site-photo vision | £150–250 | ✅ **ORDERED ×2** (2026-10-10, Bytestock £390 total, order #000006986) |
 | 2 | **Secondary 3-slot GPU-ready riser kit** | HPE **719073-B21** (spare **777283-001**) | DL380 Gen9 GPU riser (2× FL x16 + 1× x8) the P40 mounts into; installs in the **secondary** slot, **needs CPU2** (✅). ⚠️ **NOT** the standard primary riser 777281-001 / 719072-001 / 729804-001 — those are x8 expansion risers, wrong for a GPU. | £40–90 | ✅ **GOT IT** (2026-10-10, Amazon Renewed, refurb "Excellent") |
 | 3 | **GPU power cable** (10-pin → 8-pin) | HPE **805123-001** (or **728539-B21** = 10→6+8) | P40 needs an 8-pin PCIe power feed from the board | £10–25 | ✅ **ORDERED ×1** (2026-10-10, Amazon £10.39, payment sorted; need a 2nd for P40 #2) |
 | 4 | **High-performance fan kit** (all 6 bays) | HPE Gen9 perf fans | P40 is **passive** — it relies entirely on server airflow; needs the high-static-pressure fans | £30–80 | ⬜ |
