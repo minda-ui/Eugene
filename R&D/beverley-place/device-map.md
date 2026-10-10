@@ -60,9 +60,24 @@ _(A loose TP-Link Archer Wi-Fi6/BT PCIe card is sitting on the shelf — spare p
   `config-register 0x1` → `write memory [OK]`. **Internet confirmed back.** SSH was allowed from the HQ
   mgmt subnets (`10.224.10/5/11.0`, `office_mgmt`) via the admin key+pw — both now closed. ASA SW 9.1,
   ROMMON 1.0(11)5.
-- **Catalyst 3850 — NOT YET** (the last box; needs the Mode-button bootloader recovery + a full-LAN
-  reboot). Single switch, no stack → the clean version of HQ.
+- **Catalyst 3850 (`home-sw`) — RECOVERED + SECURED + reboot-verified** (2026-10-10, console cable).
+  Console at `home-sw>` but enable unknown → **Mode-button bootloader** (`switch:`) → booted ignoring the
+  startup config (`SWITCH_IGNORE_STARTUP_CFG` route → default `Switch>`) → `enable` (blank) →
+  `copy startup-config running-config` (real config back, 12625 B → `home-sw#`, VLANs/trunks up, site
+  online) → set new **enable secret** + changed the **`admin` (priv 15)** account password (Minda set
+  both, 1Password; Eugene never recorded them) → `no system ignore startupconfig switch all` →
+  `write memory`. **Controlled reload confirmed clean**: came back as `home-sw`, prompted login,
+  `LOGIN_SUCCESS [user: admin]` with the new password → ignore-flag cleared + new creds work. SSH was
+  password-only (no publickey back door on the switch). **Minor:** boot log shows
+  `SIF_MGR-1-FAULTY_CABLE` (faulty StackWise adapter — same as HQ's CSCvj49423); **cosmetic on a single
+  switch** (StackWise unused) → replace-someday item.
 - **Cloud Key — left alone** (not on critical path; never reset).
+
+## ✅ ALL THREE CORE BOXES RECOVERED + SECURED (2026-10-10)
+Proxmox (`10.224.111.199`), ASA 5550 (`home-asa`), Catalyst 3850 (`home-sw`) — all with new credentials in
+Minda's 1Password, contractor back doors removed (Proxmox SSH key; ASA admin SSH key + password; 3850 admin
+password), and the 3850 reboot-verified. Beverley Place is **back under Fishbone control.** Guide-only
+throughout; Eugene held no credential.
 
 ## Lessons (fold into the runbook)
 - A **plain USB keyboard** works in the systemd-boot/initramfs shell; a **"gaming" keyboard may not**

@@ -40,11 +40,37 @@ turned out **not to be held** either (same careful-contractor lockout as HQ) —
 - `exec /sbin/init` cleanly resumes a normal boot from `init=/bin/bash` (no power-cycle).
 - **Back up `authorized_keys` before emptying it** (reversible).
 
-## NOT done yet (need a console cable)
-- **Catalyst 3850** and **ASA 5550** recovery — both need a **USB-to-RJ45 console cable** (only
-  keyboard+monitor were on site today). Deferred to the next visit; both are **identical to HQ**, so it's
-  a fast, scripted job (bootloader pw recovery on the 3850; ROMMON pw recovery on the single ASA — no
-  failover dance). Runbook to be pre-written: `Runbooks/Runbook-Beverley-Place-Recovery.md`.
+## UPDATE (same evening) — ASA 5550 + Catalyst 3850 ALSO recovered → ALL THREE BOXES DONE ✅
+Minda had a console cable after all, so we finished the pair the same night (guide-only, one box at a time).
+
+**ASA 5550 (`home-asa`) — recovered + secured.** Console dropped to `home-asa>` but enable pw unknown →
+**ROMMON**: power-cycle → `Esc`/Break → `rommon #0>` → `confreg 0x41` (ignore startup) → `boot` → default
+`ciscoasa>` → `enable` (blank) → `copy startup-config running-config` (real config back) → new **enable** +
+**admin** passwords (Minda, 1Password) → **removed the contractor's `ssh authentication publickey`** on the
+priv-15 `admin` account (his SSH back door; SSH was allowed from HQ mgmt subnets `10.224.10/5/11.0`) →
+`config-register 0x1` → `write memory [OK]`. Internet confirmed back. ASA SW 9.1, ROMMON 1.0(11)5.
+
+**Catalyst 3850 (`home-sw`) — recovered + secured + reboot-verified.** Console at `home-sw>` but enable
+unknown → **Mode-button → `switch:` bootloader** → booted ignoring startup config → default `Switch>` →
+`enable` (blank) → `copy startup-config running-config` (12625 B → `home-sw#`, VLANs/trunks up, site
+online) → new **enable secret** + changed the contractor **`admin` (priv 15)** password (Minda, 1Password)
+→ `no system ignore startupconfig switch all` → `write memory [OK]`. **Controlled reload confirmed clean**:
+came back as `home-sw`, prompted login, `LOGIN_SUCCESS [user: admin]` with the new password — so the
+ignore-flag is cleared and the new creds work. SSH was password-only (no key back door). **Minor:** boot
+log shows `SIF_MGR-1-FAULTY_CABLE` (faulty StackWise adapter, same class as HQ's CSCvj49423) — **cosmetic on
+a single switch** (StackWise unused), a replace-someday item.
+
+**Result: all three Beverley core boxes (Proxmox, ASA, 3850) recovered, secured, new creds in 1Password,
+contractor back doors removed, site fully online. Beverley Place is back under Fishbone control** — in one
+evening, on top of the morning's OI-8 marathon. Guide-only throughout; Eugene held no credential.
+
+**Security notes (flagged to Minda):** the same password was reused across boxes and was visible in a couple
+of recovery photos → recommended distinct per-box passwords (all in 1Password). Still to do: fuller sweep
+for other users/cron/tunnels on each box; stand the Proxmox box up as the RND-3 off-site replica + backups;
+replace the 3850's faulty StackWise adapter (cosmetic); the Cloud Key (WiFi only) left as-is.
+
+## Runbook
+`Runbooks/Runbook-Beverley-Place-Recovery.md` to be written from this now-proven sequence (it mirrors HQ).
 
 ## Follow-ups
 - **OI-20** (new) — Beverley Place network recovery (Proxmox DONE; 3850 + ASA pending a console cable).
