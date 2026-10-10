@@ -31,6 +31,15 @@ _(A loose TP-Link Archer Wi-Fi6/BT PCIe card is sitting on the shelf — spare p
 - **APC UPS** present and healthy — power is covered.
 - Telephony: Beverley phone (ext **1006**) registers to the HQ FusionPBX over the VPN/airFiber bridge.
 
+## Topology / cabling (from on-site observation)
+- **ASA 5550 ↔ Catalyst 3850: two patch cables** (Minda, 2026-10-10). Most likely a **2-link
+  EtherChannel / LACP port-channel** (same pattern as HQ's `Po1`/`Po2` ASA uplinks) — or two separate
+  ASA interfaces (e.g. inside + a second zone). **To confirm:** which two **3850 ports** the cables land
+  in (adjacent + same config ⇒ port-channel), and which two **ASA interfaces**. This matters for the
+  recovery: when we rebuild the 3850, those ports must carry the ASA's VLANs (the exact HQ lesson —
+  missing VLANs on the ASA-uplink trunk is what took HQ's phones/WAN down).
+- FTTP 1 Gb uplink lands at the ASA (outside) — confirm which ASA interface / which 3850 port carries it.
+
 ## Access status
 - **Held:** nothing device-level yet (Cloud Key password also not held — the one we thought we had).
 - **Route in (on-site):** physical/console on each box, reusing the proven HQ playbook. Does **not** need
