@@ -40,6 +40,28 @@ _(A loose TP-Link Archer Wi-Fi6/BT PCIe card is sitting on the shelf — spare p
   missing VLANs on the ASA-uplink trunk is what took HQ's phones/WAN down).
 - FTTP 1 Gb uplink lands at the ASA (outside) — confirm which ASA interface / which 3850 port carries it.
 
+## RECOVERY OUTCOME (2026-10-10, on-site, guide-only)
+- **Proxmox box — RECOVERED + SECURED.** Monitor+keyboard; systemd-boot entry edited (`init=/bin/bash`
+  appended to `root=ZFS=rpool/ROOT/pve-1 boot=zfs`) → root shell → `mount -o remount,rw /` →
+  `passwd root` (Minda set a new password, saved in 1Password: "Beverley Proxmox root — 10.224.111.199
+  (root@pam)") → `exec /sbin/init` → normal boot → logged in. **Then secured:** found **one contractor
+  `ssh-rsa` key** in `/root/.ssh/authorized_keys`; backed it up to `authorized_keys.removed-2026-10-10`
+  and **emptied the live file** (verified empty) → his key back door is closed, the new password is the
+  only way in. Facts: kernel **6.17.2-1-pve**, ZFS `rpool` **117G total / 115G free / ONLINE**, single
+  NIC `nic0` → bridge `vmbr0 = 10.224.111.199/24`, **no VMs, no containers** (empty host — ideal for the
+  RND-3 off-site replica). Gremlins: faulty mouse spammed the console (unplugged); the gaming keyboard
+  wouldn't work in the minimal boot shell → swapped to a plain keyboard (lesson below).
+- **3850 + ASA — NOT YET** (need a USB-to-RJ45 **console cable**; only keyboard+monitor on site today).
+- **Cloud Key — left alone** (not on critical path; never reset).
+
+## Lessons (fold into the runbook)
+- A **plain USB keyboard** works in the systemd-boot/initramfs shell; a **"gaming" keyboard may not**
+  (and a flaky mouse spams the console — unplug it / `dmesg -n 1`). Bring a basic keyboard.
+- Proxmox here is **systemd-boot**, not GRUB: highlight "Proxmox Virtual Environment", `e`, append to the
+  `root=ZFS=… boot=zfs` line, **Enter** to boot (not Ctrl+X). Editor was **not** locked.
+- `exec /sbin/init` cleanly resumes a normal boot from the `init=/bin/bash` shell (no power-cycle needed).
+- Always **back up `authorized_keys` before emptying it** (reversible).
+
 ## Access status
 - **Held:** nothing device-level yet (Cloud Key password also not held — the one we thought we had).
 - **Route in (on-site):** physical/console on each box, reusing the proven HQ playbook. Does **not** need
