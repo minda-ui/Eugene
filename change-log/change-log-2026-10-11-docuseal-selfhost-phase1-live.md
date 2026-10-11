@@ -1,5 +1,35 @@
 # Change log — 2026-10-11 — DocuSeal self-hosted LIVE on the HQ box (RND-8 Phase 1); free-vs-Pro settled; Pro license acquired → Option B
 
+## Update ~20:30 UTC — Pro (EE) image live on the self-host; public route begun; ASA deferred to tomorrow AM
+Evening continuation (guide-only; Minda executed, Eugene guided; no secret held).
+- **Route chosen:** full **public** Pro (vendor Pro compose + a real domain, public signing for external
+  subbies) over internal-only. Then the **ASA inbound step was deferred to tomorrow morning** (no ASA
+  access tonight; also a deliberate "don't open a new inbound :443 the night before a 3-week absence
+  without care").
+- **Signing domain = `sign.fishbonegroup.co.uk`** (group-wide portal, not tied to one company). DNS at
+  **IONOS**: added **A record `sign` → `62.105.119.118`** (the FTTB/Wavenet static public IP). **Verified
+  propagated globally** (dnschecker: green on Google/Cloudflare/Quad9/OpenDNS/Akamai…).
+- **Public IP + ports confirmed:** `62.105.119.118` is live + static; **:80 and :443 are free** (4G tests
+  → "site can't be reached" on both — nothing published there; the company website on `www` is on separate
+  hosting). Eugene's own egress proxy can't probe external IPs, so Minda did the checks from 4G.
+- **Pro image is LIVE on the self-host:** swapped VM 106's compose image from `docuseal/docuseal:latest`
+  → the licensed **`ee.docuseal.com/‹token›/ds-ee`** (one `sed` line; token is the licence, Minda-held,
+  not recorded). `docker compose pull` succeeded **with no login** (token-in-path authorised); both
+  containers **Up** on the EE image.
+- **EE registration in progress at sign-off:** the self-host (`http://10.224.10.60:3000`) shows
+  **"Register your DocuSeal EE instance"** → DocuSeal **Console → On-premises License** (signed in as
+  minda@) pre-filled Installation URL `http://10.224.10.60:3000`, REGISTER pending. Pro features (DOCX
+  field-tags) unlock after registration. The `.docx` upload test on the self-host is the next confirm.
+- **Artefact:** `Runbooks/Runbook-DocuSeal-Pro-Public-Selfhost-HQ.md` (new) — the full public-Pro
+  deployment runbook (DNS done; VM swap done; **ASA + Caddy/HTTPS = tomorrow AM**). Ledger row 100.
+- **Tomorrow AM (first thing):** finish EE registration + `.docx` test on the self-host; then the ASA
+  inbound :80/:443 → `10.224.10.60` (backup → packet-tracer → write memory), re-register the public URL
+  `https://sign.fishbonegroup.co.uk`, bring up the vendor `HOST=` compose for auto-HTTPS, verify padlock
+  from 4G. Then SMTP + wire Anna.
+
+---
+
+
 _Guide-only (§3): Eugene wrote the deploy kit + guided every command live; Minda executed on the live
 Proxmox/VM and holds the Tailscale account + the DocuSeal `.env` secrets. When `DB_PASSWORD` /
 `SECRET_KEY_BASE` appeared on screen Eugene deliberately did **not** record them — references where they
