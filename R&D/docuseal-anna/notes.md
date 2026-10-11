@@ -93,8 +93,21 @@ own setup, not by Eugene editing her KB.
 - **OI-8 / RND-5:** the public HTTPS endpoint is the gating dependency; the mesh helps *admin* access but not
   *external signers*.
 
-## Open questions for Minda
-- Cloud-first trial (fast, proves the Anna flow, small cost) **or** straight to self-host (own-the-estate,
-  needs the public endpoint)?
-- Is auto-sending RAMS to operatives something she wants Anna to do unattended, or always with a human
-  "go"? (Changes whether it's a routine or a guided step.)
+## Governance decision (Minda, 2026-10-11) — approval gate, then unattended
+**The human gate is on the inputs, not the send.** Once BOTH (a) the **RAMS document** and (b) the
+**recipient list** are approved (RAMS carries director approval), Anna may **send and collect signatures
+fully unattended** — no per-send human "go". So:
+- **One approval step, upfront:** the RAMS content + the signer list are signed off before anything goes out.
+- **After approval → unattended loop:** create submission → DocuSeal emails the signing links → collects
+  signatures → webhook returns the signed PDF → filed. No human in the mechanical middle.
+- **Maps onto RND-9 (Approvals Desk):** this *is* "AI proposes → human approves (doc + recipients) →
+  action applied (send+collect) → outcome logged (signed PDF + audit trail)". The approval can be a Hub
+  Approvals row or Anna's existing RAMS director-approval step; the point is it's **explicit and before
+  the send**, after which automation is authorised.
+- **§3 stays intact:** the external send is through DocuSeal's approved automated channel after a human
+  approved exactly what/who — not Eugene sending ad-hoc email. This graduates as a **routine** (unattended),
+  gated by the approval, not a per-run guided step.
+
+## Open question still to settle
+- Phase 0 **cloud trial first** (prove the Anna DOCX+tags flow, settle free-vs-Pro) **or** straight to
+  **self-host prep** — or **both in parallel** (recommended). Unattended-vs-go is now decided (above).
