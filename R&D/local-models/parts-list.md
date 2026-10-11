@@ -58,8 +58,11 @@ Worst-case load (full GPU): 2× E5-2695 v4 ~240 W + RAM/disks/fans/board ~180 W 
 
 **Decision: buy 2× 1400 W as a matched pair — HPE 720620-B21 (spare 754382-001).** Keeps 1+1 redundancy
 on the box that runs the production PBX. A single 1400 W would power it but only **non-redundant** — not
-advised here. **First: read the label on the two PSUs already fitted** — if they're already 2× ≥1000 W
-matched, you may need nothing.
+advised here.
+
+**Fitted PSUs confirmed 2026-10-11: 2× 500 W** — ❌ **far too small** (redundant = 500 W usable vs ~950 W
+dual-P40 peak; too small even for a single P40). **PSU upgrade is required**, not optional → the 2× 1400 W
+above. The 500 W pair becomes spares.
 
 ## Free but critical — the #1 gotcha (no cost, just a BIOS toggle)
 - **Enable "Above 4G Decoding"** in BIOS (a.k.a. "PCI 64-bit resource handling above 4G" / "MMIO above
