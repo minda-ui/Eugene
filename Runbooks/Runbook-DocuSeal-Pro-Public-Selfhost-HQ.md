@@ -1,4 +1,4 @@
-# Runbook — DocuSeal **Pro** self-host, public HTTPS on `sign.fishboneconstruction.co.uk` (HQ VM 106)
+# Runbook — DocuSeal **Pro** self-host, public HTTPS on `sign.fishbonegroup.co.uk` (HQ VM 106)
 
 > **Purpose:** take the already-running self-hosted DocuSeal (free, internal) up to **Pro** (licensed EE
 > image → DOCX-field-tags API) **and expose it publicly over HTTPS** so external subbies can sign RAMS from
@@ -20,7 +20,7 @@
 
 ## Architecture (public Pro)
 ```
-Internet → sign.fishboneconstruction.co.uk (DNS A → HQ public IP ‹CONFIRM: 62.105.119.118 FTTB/Wavenet›)
+Internet → sign.fishbonegroup.co.uk (DNS A → HQ public IP ‹CONFIRM: 62.105.119.118 FTTB/Wavenet›)
         → HQ ASA  (static NAT :80,:443  outside_fttb → 10.224.10.60 ; ACL permit)
         → VM 106 (10.224.10.60)  DocuSeal Pro compose: bundled Caddy (auto Let's Encrypt) :80/:443
                                   → DocuSeal EE app  → Postgres
@@ -39,9 +39,9 @@ Caddy (in the vendor compose, driven by `HOST=`) fetches + renews the TLS cert a
    can add an **A record** there. ‹CONFIRM›.
 
 ## Step 1 — DNS (registrar; Minda)
-- Add **A record**: `sign` (→ `sign.fishboneconstruction.co.uk`) → **‹public IP›**, **TTL 300** (low, so a
+- Add **A record**: `sign` (→ `sign.fishbonegroup.co.uk`) → **‹public IP›**, **TTL 300** (low, so a
   mistake is quick to fix; raise later).
-- Verify from anywhere it resolves: `nslookup sign.fishboneconstruction.co.uk` → the public IP.
+- Verify from anywhere it resolves: `nslookup sign.fishbonegroup.co.uk` → the public IP.
   **Do not proceed to Caddy/TLS until this resolves publicly** (Let's Encrypt checks it).
 
 ## Step 2 — Prepare VM 106 (Minda, on `ssh root@10.224.10.60`)
@@ -93,7 +93,7 @@ curl https://ee.docuseal.com/<YOUR-TOKEN>/docker-compose.yaml > docker-compose.y
 ## Step 5 — Bring up Pro (Minda, on the VM)
 ```bash
 cd /opt/docuseal
-sudo HOST=sign.fishboneconstruction.co.uk docker compose up -d
+sudo HOST=sign.fishbonegroup.co.uk docker compose up -d
 docker compose ps        # all services Up
 docker compose logs -f caddy   # watch Caddy obtain the Let's Encrypt cert (needs :80 reachable + DNS live)
 ```
@@ -101,7 +101,7 @@ docker compose logs -f caddy   # watch Caddy obtain the Let's Encrypt cert (need
   reach the VM (the ASA step).
 
 ## Step 6 — VERIFY (from genuinely off-network — 4G/hotspot, not the office LAN)
-- [ ] `https://sign.fishboneconstruction.co.uk` loads with a **valid padlock** (real Let's Encrypt cert).
+- [ ] `https://sign.fishbonegroup.co.uk` loads with a **valid padlock** (real Let's Encrypt cert).
 - [ ] Create the **admin account** on first load (strong password → 1Password; Eugene doesn't see it).
 - [ ] **Pro proof:** make a template, **upload `R&D/docuseal-anna/phase0/Sample-RAMS-DocuSeal-Phase0.docx`**
       — the free UI refused `.docx`; **Pro must accept it and auto-detect the fields.** ← this confirms the
