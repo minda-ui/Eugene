@@ -129,11 +129,59 @@ layout with no manual field placement.**
     works on DocuSeal Cloud. Mechanism fully validated.
   - Footer says "Sent using DocuSeal free document signing" (suggestive, not proof — trials bundle Pro).
 
+## Phase 1 RESULT (2026-10-11) — ✅ SELF-HOSTED DOCUSEAL LIVE on the HQ box + free-vs-Pro SETTLED
+Built and deployed self-hosted DocuSeal on the HQ Proxmox, over Tailscale (guide-only; Minda executed every
+step on the live kit, Eugene guided and verified; no secret held — the `.env` `DB_PASSWORD`/`SECRET_KEY_BASE`
+appeared on screen and were deliberately **not** recorded).
+
+- **Where:** a **dedicated VM** (VM 106) on the HQ Proxmox — Debian, static **`10.224.10.60/24`** gw
+  `10.224.10.1` DNS `1.1.1.1`, net0 on **VLAN 10** (`tag=10`). Docker (Compose) with **overlay2 natively**
+  (no storage-driver workaround needed on a VM).
+- **Why VM not LXC:** Docker-in-LXC-on-ZFS failed four ways — unprivileged port sysctl denied → privileged;
+  overlay-on-ZFS permission denied → `storage-driver: vfs`; then `remount-propagation MS_PRIVATE: permission
+  denied` even with `lxc.apparmor.profile: unconfined`. **Abandoned LXC → VM** (overlay2 works out of the box).
+  Lesson baked into the deploy-kit README: for Docker on this Proxmox, use a **VM**, not an LXC-on-ZFS.
+- **Stack:** `docker compose` with **DocuSeal + Postgres 16** (the deploy-kit `docker-compose.yml`); both
+  containers **Up**; admin account created (initial-setup page → dashboard) at **http://10.224.10.60:3000**.
+- **Reachable remotely over Tailscale** — the dashboard loaded from off-site (Beverley) via the new
+  `hq-subnet-router`, proving the RND-5 remote-admin path carries the DocuSeal admin UI. (External *signers*
+  still need the public HTTPS endpoint — Caddy + an ASA :443 rule — not built yet; that's the OI-8-ish bit.)
+
+### Free-vs-Pro — SETTLED (definitive, on the live self-host)
+The open question is now closed. On the **free self-hosted** DocuSeal, the template-upload UI **only accepts
+PDF or images — it will not accept a `.docx`** (Minda tried the tagged `Sample-RAMS-DocuSeal-Phase0.docx`:
+"not allowing to choose .docx file, only pdf or pictures"). This confirms the README split empirically:
+**DOCX-field-tags auto-detection is a Pro feature**; free self-host does **manual field placement on a
+PDF/image** (or submit-against-an-already-built template via the basic API). Phase 0's DOCX auto-detect
+worked only because a **Cloud trial bundles Pro**.
+
+**Decision taken — OPTION B (Pro license acquired 2026-10-11).** Minda has the Pro license, so the
+DOCX-field-tags route is the one we build: Anna generates a fresh tagged RAMS `.docx` each time and pushes it
+via the DOCX-field-tags API — no hand-built fixed template. Option A is moot now.
+- ~~**Option A — free, fixed template**~~ — not taken (would have meant one pre-built PDF template + variables).
+- **Option B — Pro — CHOSEN:** unlocks the **DOCX-field-tags API** → Anna's "fresh tagged RAMS every time,
+  no pre-built template" vision, fully automated. **License in hand; apply it to the self-host next.**
+
+Everything mechanical is proven both ways now (Phase 0 = the whole send→sign→signed-PDF+audit loop on Cloud;
+Phase 1 = the self-host runs and is remotely reachable). The only remaining decision is A-vs-B, which is
+about **how Anna's RAMS vary**, not about the technology.
+
+## Next steps (A-vs-B now decided = B; resumable remotely over Tailscale)
+1. **Apply the Pro license** to the self-host (enter the licence key in the DocuSeal admin → confirm the
+   DOCX-upload + field-tags API unlocks on the box; re-try the tagged `Sample-RAMS-DocuSeal-Phase0.docx`
+   upload the free UI refused → it should now auto-detect the fields). ← **the "that is next" step.**
+2. **SMTP** on the self-host (so signing links actually send) + one full internal sign test end-to-end on
+   our own box (mirror of the Phase-0 Cloud loop, now on our kit).
+3. **Wire Anna** (Minda adds the DocuSeal API base URL + key to Anna's env; test
+   `DOCUSEAL_CREATE_SUBMISSION_FROM_DOCX`; confirm the webhook returns the signed PDF). Cross-KB: Anna is
+   wired via her own `Raw/`, not by Eugene editing her KB. Minda holds the key; Eugene never types it (§3).
+4. **Public exposure** (Caddy on `sign.fishbone…` + an ASA :443 rule) **only if external signers** are
+   needed — until then it's internal/Tailscale-only, which is enough to prove the loop.
+5. **Graduate** → self-host pilot runbook + Hub task once the above are proven on the box.
+
 ## Open question still to settle
-- **Free-vs-Pro** — the ONLY thing left before self-host: check the DocuSeal account's **billing/plan
-  page** (Trial vs Pro) + any "Pro only" badges on DOCX-upload/API/webhooks. Decides A (free + fixed
-  template) vs B (Pro ~£16/mo for DOCX-field-tags).
-- Then: draft the **self-host deploy kit** (compose, `.env.example`, Caddyfile, Anna template + Composio
-  call) for the recovered Proxmox. Unattended-vs-go already decided (approval gate → unattended).
-- **Graduation is close:** Phase 0 proved the whole flow. Once free-vs-Pro is known, this is ready to put
-  to Minda for graduation → self-host pilot runbook + a Hub task, and Anna wiring via her `Raw/`.
+- ~~Free-vs-Pro~~ **SETTLED 2026-10-11** (DOCX-tags = Pro; see Phase 1 above). ~~A-vs-B business choice~~
+  **DECIDED 2026-10-11 = Option B** (Minda acquired the Pro license). No technical unknowns remain — the
+  path is: apply the license → SMTP + self-host sign test → wire Anna → (optional) public exposure → graduate.
+- **Graduation status:** both phases proved out; the self-host is live. Ready to put to Minda for full
+  graduation (self-host pilot runbook + Hub task + Anna wiring) once A-vs-B is chosen and SMTP is on.
