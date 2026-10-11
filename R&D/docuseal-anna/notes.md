@@ -108,6 +108,21 @@ fully unattended** — no per-send human "go". So:
   approved exactly what/who — not Eugene sending ad-hoc email. This graduates as a **routine** (unattended),
   gated by the approval, not a per-run guided step.
 
+## Phase 0 RESULT (2026-10-11) — ✅ DOCX-field-tags auto-detect WORKS
+Minda uploaded `phase0/Sample-RAMS-DocuSeal-Phase0.docx` to a DocuSeal (Cloud) account. **Every text-tag
+auto-detected into the correct field, grouped by submitter:** Director → signature + `datenow` auto-date;
+Operative 1 (blue) + Operative 2 (yellow) rows → signature + date + name + company each, colour-coded per
+role. **The template-design unknown is settled — Anna's `{{…;role=…}}` approach produces the right signing
+layout with no manual field placement.**
+- **Caveat (free-vs-Pro still open):** a DocuSeal **trial usually bundles Pro**, and the README lists the
+  DOCX-field-tags API as **Pro**. So this proves the *mechanism*, not that it's *free forever*. To settle:
+  check the account's **plan/billing page** (Trial vs Pro) + any "Pro only" badges. If DOCX-tags needs Pro
+  → **Option B (~£16/mo)** for the fully-automated route, or **Option A** (hand-build a fixed template on
+  free) if RAMS fit one shape.
+- **Still to finish in Phase 0:** assign the 3 roles to emails → Send → sign on phone (no account) →
+  download **signed PDF + audit trail**. Confirms email + signing + output end-to-end.
+
 ## Open question still to settle
-- Phase 0 **cloud trial first** (prove the Anna DOCX+tags flow, settle free-vs-Pro) **or** straight to
-  **self-host prep** — or **both in parallel** (recommended). Unattended-vs-go is now decided (above).
+- Free-vs-Pro (above) — pending the billing-page check + the rest of the Phase 0 end-to-end run.
+- Then: draft the **self-host deploy kit** (compose, `.env.example`, Caddyfile, Anna template + Composio
+  call) for the recovered Proxmox. Unattended-vs-go already decided (approval gate → unattended).
