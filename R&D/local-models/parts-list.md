@@ -43,16 +43,23 @@ starve the phones (model work stays in a resource-capped LXC/VM).
 | 3 | **GPU power cable** (10-pin → 8-pin) | HPE **805123-001** (or **728539-B21** = 10→6+8) | P40 needs an 8-pin PCIe power feed from the board | £10–25 | ✅ **ORDERED ×1** (2026-10-10, Amazon £10.39, payment sorted; need a 2nd for P40 #2) |
 | 4 | **High-performance fan kit** (all 6 bays) | HPE Gen9 perf fans | P40 is **passive** — it relies entirely on server airflow; needs the high-static-pressure fans | £30–80 | ⬜ |
 | 5 | **GPU air baffle / shroud** | HPE Gen9 GPU baffle | Ducts the airflow through the passive card; without it the P40 cooks | £10–30 | ⬜ |
-| 6 | **PSUs adequate for the load** | see note below | ~800 W total needs headroom; check what's fitted now | £0 if already OK | ⬜ |
+| 6 | **PSUs — 2× 1400 W matched pair** | HPE **720620-B21** (spare **754382-001**) | Dual-P40 peak ~950 W; redundant mode = each PSU carries it alone, so 800 W won't do. 2× for 1+1 redundancy on the PBX box. Check what's fitted first. | ~£40–70 each | ⬜ (need 2) |
 
-### PSU note (check before buying)
-One P40 ≈ 250 W on top of the base ~300–400 W → want **≥800 W**, redundant. DL380 Gen9 uses HPE
-**Flex Slot / common-slot** PSUs. Typical options:
-- **800 W Platinum** — HPE **720479-B21** (spare **754378-001**)
-- **1400 W** (headroom for a second card later) — HPE **720620-B21** (spare **754382-001**)
+### PSU note — for the 2× P40 build (settled 2026-10-11)
+**Redundancy, not total wattage, drives this.** On the DL380 Gen9 a 1+1 PSU pair does **not** combine —
+they back each other up, so usable capacity = **one** PSU's rating, and HPE requires **both the same
+wattage**. So each PSU must independently carry the whole box.
 
-**First step:** read the label on the two PSUs already in the box. If they're already ≥800 W you need
-**nothing here** — don't buy blind.
+Worst-case load (full GPU): 2× E5-2695 v4 ~240 W + RAM/disks/fans/board ~180 W + 2× P40 @ 250 W = ~500 W
+→ **~900–950 W peak**. In redundant mode each PSU must supply that alone:
+- **800 W** (what's likely fitted) — ❌ **not enough** for dual-P40 redundant (950 > 800).
+- **1400 W** — ✅ comfortable margin; standard Gen9 high-watt unit. (1200 W would also clear it, but 1400 W
+  is commoner used + barely dearer.)
+
+**Decision: buy 2× 1400 W as a matched pair — HPE 720620-B21 (spare 754382-001).** Keeps 1+1 redundancy
+on the box that runs the production PBX. A single 1400 W would power it but only **non-redundant** — not
+advised here. **First: read the label on the two PSUs already fitted** — if they're already 2× ≥1000 W
+matched, you may need nothing.
 
 ## Free but critical — the #1 gotcha (no cost, just a BIOS toggle)
 - **Enable "Above 4G Decoding"** in BIOS (a.k.a. "PCI 64-bit resource handling above 4G" / "MMIO above
