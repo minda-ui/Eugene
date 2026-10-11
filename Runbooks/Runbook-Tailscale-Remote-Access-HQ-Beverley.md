@@ -23,6 +23,20 @@ end-to-end encrypted; Tailscale's servers broker the connection but can't read i
 > ⚠️ Before finalising, glance at each site's UniFi/ASA for any extra VLAN/subnet you want to reach and add
 > it to that site's list. CCTV VLAN is deliberately **excluded** (isolated).
 
+### HQ status (verified 2026-10-11) — live, one item open
+- ✅ **LIVE & tested from 4G:** Proxmox `10.224.10.10:8006` loads; routes green; split-tunnel confirmed.
+- **ASA is `10.224.10.1`** (the default gateway, ttl=255 Cisco — NOT `.11.x` as first guessed). It's on
+  the already-advertised `10.224.10.0/24`; the subnet router pings it fine (0.2 ms).
+- **`10.224.11.0/24` was added then found DEAD** — the HQ host has no route to it (`ip route` shows only
+  `10.224.10.0/24` + default via `10.224.10.1`); `ping 10.224.11.1` = 100% loss. **Remove it** to keep
+  tidy: `tailscale up --advertise-routes=10.224.10.0/24,10.224.13.0/24,10.224.20.0/24 --accept-dns=false
+  --hostname=hq-subnet-router` then un-approve `.11.0/24` in the console.
+- ⏳ **OPEN:** `https://10.224.10.1` (ASA web) **times out** over Tailscale even though Proxmox loads →
+  almost certainly the **ASA refusing management from the Tailscale source** (`10.224.10.10`). Fix
+  (guide-only, on the ASA): confirm `http server enable` + add `http 10.224.10.10 255.255.255.255 <inside>`
+  (and/or `ssh 10.224.10.10 255.255.255.255 <inside>`). Minda to test laptop Proxmox-vs-ASA to confirm,
+  then apply. The 3850 is reachable at `10.224.10.4` (web/SSH).
+
 ---
 
 ## Part 0 — Account (do first)
