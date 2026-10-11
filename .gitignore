@@ -1,0 +1,9 @@
+# Secrets — never commit real environment files (charter §3: Eugene never holds/commits secrets)
+.env
+*.env
+!*.env.example
+!.env.example
+
+# Local scratch
+*.pyc
+__pycache__/
