@@ -119,10 +119,21 @@ layout with no manual field placement.**
   check the account's **plan/billing page** (Trial vs Pro) + any "Pro only" badges. If DOCX-tags needs Pro
   → **Option B (~£16/mo)** for the fully-automated route, or **Option A** (hand-build a fixed template on
   free) if RAMS fit one shape.
-- **Still to finish in Phase 0:** assign the 3 roles to emails → Send → sign on phone (no account) →
-  download **signed PDF + audit trail**. Confirms email + signing + output end-to-end.
+- **Phase 0 COMPLETE (2026-10-11) — full loop proven end-to-end.** Minda assigned the 3 roles to real
+  mailboxes (minda@, irina@fishboneproperties, info@fishboneconstruction), sent, and signed. Confirmed
+  from Gmail (`info@docuseal.com`):
+  - **Signing invites delivered** to all 3 signers ("You are invited to sign a document"). ✅ email path.
+  - **"Your document copy"** (to all parties) with **two attachments**: `Sample-RAMS-DocuSeal-Phase0.pdf`
+    (completed, **signed**) + **`Audit Log - RAMS.pdf`** (audit trail). ✅ signed PDF + audit trail returned.
+  - **Verdict:** the entire Anna loop — DOCX+tags → auto-detect → send → collect → signed PDF + audit —
+    works on DocuSeal Cloud. Mechanism fully validated.
+  - Footer says "Sent using DocuSeal free document signing" (suggestive, not proof — trials bundle Pro).
 
 ## Open question still to settle
-- Free-vs-Pro (above) — pending the billing-page check + the rest of the Phase 0 end-to-end run.
+- **Free-vs-Pro** — the ONLY thing left before self-host: check the DocuSeal account's **billing/plan
+  page** (Trial vs Pro) + any "Pro only" badges on DOCX-upload/API/webhooks. Decides A (free + fixed
+  template) vs B (Pro ~£16/mo for DOCX-field-tags).
 - Then: draft the **self-host deploy kit** (compose, `.env.example`, Caddyfile, Anna template + Composio
   call) for the recovered Proxmox. Unattended-vs-go already decided (approval gate → unattended).
+- **Graduation is close:** Phase 0 proved the whole flow. Once free-vs-Pro is known, this is ready to put
+  to Minda for graduation → self-host pilot runbook + a Hub task, and Anna wiring via her `Raw/`.
