@@ -42,6 +42,23 @@ DocuSeal is the automated future.
   before relying on "free". AGPL copyleft only bites if we embed DocuSeal code in a proprietary product —
   we won't; we just run it.
 
+### ⚠️ RESOLVED 2026-10-11 (from DocuSeal's own GitHub README) — the DOCX-tags API is **Pro**
+Checked the official README directly. The split that matters for us:
+- **FREE (self-hosted):** basic **REST API + webhooks**, PDF form-field builder, multiple signers, SMTP,
+  automatic PDF eSignature + verification, user management. → Anna **can** create submissions against an
+  **already-built template** and get the signed PDF back by webhook, for £0.
+- **PRO:** **"Template creation with PDF or DOCX and field-tags API"**, HTML-API template creation,
+  embedded signing form, SSO, bulk-send, reminders, white-label.
+**Impact:** Anna's planned flow (generate a fresh RAMS DOCX with `{{Signature}}` text-tags → push via the
+DOCX-tags API → auto-detect fields) relies on the **Pro** DOCX-field-tags API. The **basic** submit-against-
+an-existing-template API is free. So the decision is now:
+- **A — Free + fixed template:** build one RAMS template in the UI, Anna fills `[[variables]]` + fires
+  submissions (£0; only if RAMS fit a reusable template shape).
+- **B — Pro (~$20/user/mo ≈ £16/mo):** unlocks DOCX-field-tags → Anna's fresh-RAMS-every-time vision.
+- **C — Phase 0 cloud trial (recommended):** empirically test what the free/trial API does with a DOCX+tags
+  before committing to A or B. Don't guess from the README — prove it.
+Pricing page to confirm per-user/per-doc figures: https://www.docuseal.com/pricing
+
 ## Integrating with Anna (the easy, exciting part)
 Composio already exposes DocuSeal tools — `DOCUSEAL_CREATE_SUBMISSION_FROM_DOCX`, `..._FROM_PDF`,
 `..._FROM_HTML`, `DOCUSEAL_GET_SUBMISSION`, `..._GET_SUBMISSION_DOCUMENTS`, `..._UPDATE_SUBMITTER`. So Anna
