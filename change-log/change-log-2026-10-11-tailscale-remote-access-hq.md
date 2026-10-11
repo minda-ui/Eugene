@@ -25,7 +25,17 @@ on the live Proxmox host and holds the Tailscale account + keys. No secret held 
 - **Split-tunnel** — only `10.224.x.x` over the tunnel; internet stays local. No repeat of the old VPN.
 - Tailscale now; **self-hosted Headscale (sovereign, RND-5)** kept as the later migration.
 
-## Beverley — pending, on-site
+## Beverley — DONE (on-site, later same day) ✅
+Minda returned to Beverley and we set it up on-site (the right call — the box has no out-of-band).
+- Tailscale **1.104.1** on the Beverley Proxmox host (`10.224.111.199`, **PVE 9.1.1 / Debian 13 trixie**).
+  Internet + DNS confirmed first (`ping 1.1.1.1` ok, `nameserver 1.0.0.1`), so no DNS hiccup. Install one-shot
+  (`curl install.sh | sh` then `apt-get install -y tailscale` to cover the enterprise-repo abort).
+- IP forwarding on; brought up as **`bev-subnet-router`** advertising **`10.224.110.0/24,10.224.111.0/24`**.
+- Routes **approved** + **key expiry disabled** in the console.
+- **Verified from 4G: `10.224.111.199:8006` (Beverley Proxmox) loads.** ✅
+- **BOTH SITES NOW LIVE** — full remote admin into HQ + Beverley before the ~3-week absence.
+
+## (superseded) Beverley remote-from-HQ attempt — pending, on-site
 Tried to set Beverley up **remotely from the HQ host** over the inter-site airFiber/IPsec link —
 **`ping 10.224.111.199` = 100% loss**, so the link does not carry Beverley's management subnet to this
 host (only the phone path). Not pursued remotely (the Beverley Proxmox has **no out-of-band console** —
