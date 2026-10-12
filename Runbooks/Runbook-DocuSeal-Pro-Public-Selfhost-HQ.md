@@ -137,3 +137,46 @@ docker compose logs -f caddy   # watch Caddy obtain the Let's Encrypt cert (need
 ---
 _Created 2026-10-11. Pairs with `R&D/docuseal-anna/deploy-kit/` (the earlier internal free kit — its hand-rolled
 Caddyfile is superseded by the vendor's `HOST=` bundled-Caddy approach here)._
+
+---
+
+## ✅ AS-BUILT (2026-10-12) — LIVE. Read this; it supersedes the planned Route-A/HOST= steps above.
+Public RAMS signing went live at **`https://sign.fishbonegroup.co.uk`** via **Route B** (direct NAT to
+DocuSeal's own Caddy), not Route A (the existing `public-proxy` couldn't reach mgmt). Key realities:
+
+1. **DNS (IONOS):** A record `sign` → `62.105.119.118` (FTTB static). Verified global before touching the ASA.
+2. **Read the ASA NAT first (Rule C).** `:80/:443` on FTTB were already forwarded to `proxy`
+   (`10.224.30.30` = VM 102 `public-proxy`, Alpine+Caddy, only an ACME-forwarder for the dead
+   `vpn.fishboneholdings.co.uk` VPN). Those FTTB proxy rules were removed; bt/vf proxy rules left alone.
+3. **DocuSeal is on `mgmt`** (`10.224.10.0/24`), not `inside`. NAT uses `(mgmt,outside_fttb)`.
+4. **⚠️ NAT ORDERING IS THE GOTCHA.** A plain add lands in Section 2 (Auto NAT) / end of Section 1 and is
+   **shadowed by the Section-1 dynamic PAT** `(mgmt→outside_fttb) source dynamic mgmt_network interface`
+   → packet-tracer shows no `UN-NAT`, drops to "identity". **Insert the static at the TOP of Section 1:**
+   ```
+   configure terminal
+   object network DOCUSEAL
+    host 10.224.10.60
+   exit
+   no nat (dmz,outside_fttb) source static proxy interface service SVC_TCP_443 SVC_TCP_443
+   no nat (dmz,outside_fttb) source static proxy interface service SVC_TCP_80  SVC_TCP_80
+   nat (mgmt,outside_fttb) 1 source static DOCUSEAL interface service SVC_TCP_443 SVC_TCP_443
+   nat (mgmt,outside_fttb) 2 source static DOCUSEAL interface service SVC_TCP_80  SVC_TCP_80
+   end
+   packet-tracer input outside_fttb tcp 8.8.8.8 40000 62.105.119.118 443   ! expect UN-NAT → 10.224.10.60
+   write memory                                                           ! after 4G verify
+   ```
+   (ACL already ends `permit ip any any`, so no ACL change. The same shadow explains OI-8's dead inbound
+   SIP — `PBX-SIP-FTTB` has untranslate_hits=0; fix it the same way.)
+5. **VM 106 TLS:** the EE image does **not** auto-run Caddy from `HOST` (only Puma :3000). Add a dedicated
+   Caddy container instead:
+   - `Caddyfile`: `sign.fishbonegroup.co.uk { reverse_proxy docuseal:3000 }`
+   - `docker-compose.override.yml`: a `caddy:2` service publishing `80:80`+`443:443`, volumes
+     `./Caddyfile:/etc/caddy/Caddyfile:ro`, `caddy_data:/data`, `caddy_config:/config`; remove `:80/:443`
+     from the docuseal service (keep `:3000`). `docker compose up -d`. Caddy gets the cert via TLS-ALPN-01.
+6. **Licence:** register the EE instance (DocuSeal Console → On-premises) to **`https://sign.fishbonegroup.co.uk`**.
+7. **Two separate logins:** DocuSeal.com Console (licence) ≠ the self-host admin (local account). Different pws.
+8. **Internal access:** office PCs can't reach the public URL (no NAT hairpin) — use `http://10.224.10.60:3000`
+   internally, or add hairpin / split-DNS (nice-to-have). Test the public URL from **4G**, not the office LAN.
+9. **Still open (OI-21):** SMTP on the self-host (send signing links) → wire Anna via her `Raw/`.
+
+Ledger 102; `change-log/change-log-2026-10-12-docuseal-pro-public-live.md`.
