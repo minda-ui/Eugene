@@ -46,3 +46,17 @@ Minda approved the pilot and created `minda-ui/Fishbone-Skills`. Eugene ran the 
   public / C env-secret token). Eugene can't configure environments/secrets (§3).
 - **No other KB/hook/charter changed.** Report: `Proposals/Report-Shared-Skills-Library-Pilot-2026-10-13.md`;
   AWT-0635 → In Progress, awaiting Minda's A/B/C. Ledger 108.
+
+## Update ~13:15 — shared skills library: PRODUCTION DISTRIBUTION PROVEN (option A, no token)
+Minda chose option B (public) to test, then we hardened to private:
+- Public test: made the repo public (sanitized to a smoke-test skill only — no ids ever exposed), added the
+  clone+stage snippet to the env setup script → a fresh session loaded the skill. Mechanism proven.
+- Hardened to **private**: Minda flipped the repo private (verified via GitHub API — caught one attempt that
+  hadn't saved); Eugene restored the 2 real skills + kept the smoke-test as a load-marker.
+- **Production test = PASS:** a fresh session with the repo **PRIVATE** still loaded the shared skill — the
+  env's GitHub integration served the private clone, **no token/secret needed** = distribution **option A**
+  works cleanly (private, no secret, loads at session start).
+- Tidied: removed the smoke-test marker; the library now holds `raw-handoff-to-employee` + `drive-sync-verified`.
+- **Remaining:** Alex (AWT-0636) genericizes the 2 seeds; roll the setup-script snippet to other employees'
+  envs one at a time, verifying each can reach the private repo (a read-only token env-secret only if one
+  can't). Eugene's env is wired + verified. AWT-0635 updated.
