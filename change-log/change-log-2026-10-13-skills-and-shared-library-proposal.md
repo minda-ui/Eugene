@@ -35,3 +35,14 @@ ledger 107.
 
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01CpGucX3hhykKcyhW2tf43c
+
+## Update ~12:40 — shared skills library PILOT run (AWT-0635) = PASS
+Minda approved the pilot and created `minda-ui/Fishbone-Skills`. Eugene ran the feasibility test:
+- **Access PROVEN** — from Eugene's session (scoped to `minda-ui/eugene`) `add_repo minda-ui/Fishbone-Skills`
+  + `git clone` succeeded with **no secret held**; seeded README + 2 estate-general skills
+  (`raw-handoff-to-employee`, `drive-sync-verified`) and pushed to `main`.
+- **Finding:** that's MID-SESSION access via `add_repo`; **automatic-at-start** needs the repo present in the
+  environment before the agent runs → one decision for Minda (A attach as an env source [recommended] / B
+  public / C env-secret token). Eugene can't configure environments/secrets (§3).
+- **No other KB/hook/charter changed.** Report: `Proposals/Report-Shared-Skills-Library-Pilot-2026-10-13.md`;
+  AWT-0635 → In Progress, awaiting Minda's A/B/C. Ledger 108.
