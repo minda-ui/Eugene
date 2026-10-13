@@ -45,6 +45,20 @@ is asking for. **Leave `external_rtp_ip` = `62.105.119.118` (public) as it is** 
   confirm `register = true`, `expire-seconds` ≈ 120–300 (shorter refresh also keeps the pinhole fresh).
   Save.
 
+## 2b. Widen the FusionPBX "providers" ACL to ALL WebMate SIP IPs (important)
+WebMate sends SIP from **several** source IPs (Charlie, 2026-10-13), but our `providers` ACL (Advanced →
+Access Controls, default **deny**) currently allows only `52.28.7.189`. Add the rest or a call from another
+IP gets 403'd even after the register fix. Add these (UDP 5060 signalling), then **SIP Status → Reload ACL**:
+```
+52.28.7.189/32        (proxy — already present)
+185.109.104.73/32     (SIP)
+185.109.104.74/32     (SIP)
+217.119.137.252/32    (SIP)
+217.119.137.253/32    (SIP)
+```
+RTP/audio sources (no SIP-ACL entry needed; ASA is already `permit ip any any`): **`46.31.171.144`** and
+**`185.109.104.111`**, UDP 20000–50000. (Note `.111`, correcting the earlier `185.109.104.11`.)
+
 ## 3. Restart the external profile only
 - **Status → SIP Status → `external` → Restart** (NOT internal). Wait for the gateway to show **REGED**.
 

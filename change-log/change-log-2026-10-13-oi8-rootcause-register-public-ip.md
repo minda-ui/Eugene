@@ -54,3 +54,14 @@ cause: the PBX's SIP **Contact** advertises `10.224.13.9` (private), so WebMate 
 
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01CpGucX3hhykKcyhW2tf43c
+
+## Update ~11:05 — WebMate confirmed no further action their side + full whitelist
+Charlie replied (Minda sent our draft): *"there should [be nothing] else required to get the calls working…
+once the IP changes have been made the calls will start reaching your PBX."* Plus the full IP whitelist:
+- **SIP (UDP 5060):** `52.28.7.189` (proxy), `185.109.104.73`, `185.109.104.74`, `217.119.137.252`, `217.119.137.253`
+- **RTP (UDP 20000–50000):** `46.31.171.144`, `185.109.104.111`  *(the `.111` corrects our earlier `185.109.104.11`)*
+
+**Key action folded into the runbook (new Step 2b):** our FusionPBX `providers` ACL is default-deny with only
+`52.28.7.189` allowed — widen it to **all five SIP IPs** + Reload ACL, or an inbound call arriving from one of
+the other proxies would be 403'd even after the register-public-IP fix. **ASA unchanged** (already
+`permit ip any any`). OI-8 updated; runbook Step 2b added.
