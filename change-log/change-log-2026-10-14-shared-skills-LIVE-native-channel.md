@@ -53,5 +53,31 @@ zips the skills and verifies. No secret in any skill.
 `Runbooks/Runbook-Shared-Skills-Rollout.md`, `minda-ui/Fishbone-Skills` (main a43fb42),
 `.claude/skills/raw-handoff-to-employee/SKILL.md`, Hub AWT-0635 (Done) / AWT-0687 (Alex), ledger 111.
 
+## Update (same day, evening) — v2 genericized skills landed; curation loop closed
+
+Alex (curator) and Victoria (estate-fit) both turned their parts around within the hour of the
+notifications (AWT-0703/0704), handing back through Eugene's `Raw/`:
+- **Victoria (AWT-0709 to Eugene / AWT-0708 to Alex):** estate fit OK with 4 fixes; told Eugene to HOLD
+  re-upload until Alex's revised files, and to **dry-run the new `sync.sh`** (explicit `--account`/`--archive`)
+  first because nobody had run it.
+- **Alex (v2, AWT-0708):** applied all 4 fixes, handed back `raw-handoff-to-employee`,
+  `drive-sync-verified`, `sync.sh`, `INDEX.md`.
+
+Eugene processed it (Minda: "Process it now"):
+1. Downloaded the 4 v2 files byte-exact; confirmed descriptions have no XML tags.
+2. **Dry-ran the generic `sync.sh`** — explicit `--account eugene-googledrive --archive <Eugene Archive>`
+   against `current-state.md` → OK (parsed flags, found live copy, "nothing to do", no crash). The generic
+   script now has **no defaults** for `--account`/`--archive` (must be explicit — can't silently write to
+   the wrong Drive).
+3. **Committed to `minda-ui/Fishbone-Skills` (main 624b961):** the 2 v2 skills + `sync.sh` + `INDEX.md`.
+4. **Kept Eugene's OWN `drive-sync-verified` copy (with its `eugene-googledrive`/Archive defaults) intact**
+   so Eugene's own tooling keeps working — only the *shared* copy is the no-default generic.
+5. **Zipped both v2 skills → handed to Minda** to re-upload (same names → versions swap everywhere).
+6. Closed **AWT-0709** (Done) and **AWT-0686** (moot — native upload needs no per-env wiring). Alex closes
+   AWT-0685/0687/0703.
+
+Curation loop now proven end-to-end: **propose → Victoria estate-fit → Alex genericize/index → Eugene
+commit+zip → Minda upload**. Ledger 112. Remaining: Minda re-uploads the 2 v2 zips.
+
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01CpGucX3hhykKcyhW2tf43c
