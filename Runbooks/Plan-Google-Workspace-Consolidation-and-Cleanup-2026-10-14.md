@@ -11,6 +11,20 @@
 
 ---
 
+## 0. Decisions — confirmed by Minda (2026-10-14, this session)
+
+| # | Decision | Ruling |
+|---|---|---|
+| 1 | **Consolidation depth** | **Fold Waste into Construction only.** Properties **and** Amfa stay standalone (governance + sale-readiness outweigh the ~£70/mo Properties saving; revisit Properties later). |
+| 2 | **invoice@fishboneconstruction** | **Keep as a mailbox** — do not convert (protects the Dext→QuickBooks + ops@ invoice path). |
+| 3 | **andrej@fishboneproperties** | **Collapse** — delete the paid Properties seat, re-add the address as a free alias/forward into his Construction mailbox with **send-as**; export his mail first; give Andrejus a heads-up. |
+| 4 | **Break-glass admin (OI-5)** | **Set up a dedicated admin account + enforced 2FA** per tenant (Construction first, then Properties/Amfa). Demote the shared `info@` mailboxes from super-admin. Check whether a free Cloud Identity admin account applies vs a seat. |
+| 5 | **Groups + go-ahead** | **Convert `info@fishboneholdings` and `commercial@fishboneproperties` to Groups/aliases** (confirmed). **Green light to execute Workstreams F + A first** (guide-only; Minda clicks, Eugene guides & verifies). |
+
+Still needed from Minda/Rachel before execution: **exact per-seat prices** (each Billing page) and a **confirm the 13-Oct user list still holds**.
+
+---
+
 ## 1. Where we are (current, from Rachel's 13-Oct export)
 
 **Four paid Google Workspace subscriptions** (Rachel costed three; **Amfa is a 4th — confirm its billing**):
