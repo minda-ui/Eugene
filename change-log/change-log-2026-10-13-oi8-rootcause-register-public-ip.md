@@ -65,3 +65,11 @@ once the IP changes have been made the calls will start reaching your PBX."* Plu
 `52.28.7.189` allowed — widen it to **all five SIP IPs** + Reload ACL, or an inbound call arriving from one of
 the other proxies would be 403'd even after the register-public-IP fix. **ASA unchanged** (already
 `permit ip any any`). OI-8 updated; runbook Step 2b added.
+
+## Update — end of session: OI-8 window prepped, NOT executed
+Minda chose to run the OI-8 register-public-IP fix, so we went through **pre-flight** (phones-free check,
+snapshot VM 105, baseline, SSH/sngrep ready) — then she called good-night **before any change**. So **no PBX
+change was made tonight**; internal/outbound unaffected, inbound still the known-broken state. The runbook
+(`Runbook-OI8-Register-Public-IP-Fix.md`, incl. the 5-IP providers-ACL whitelist) is ready to run in the next
+phones-free window: snapshot → `external_sip_ip`→public → providers ACL → keep-alive → restart external →
+`sngrep` test.
