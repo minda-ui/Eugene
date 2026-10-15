@@ -37,9 +37,21 @@ Eugene to progress the outstanding AWT items that don't need her. This covers th
 - **Non-Construction rows** await Rachel's QuickBooks numbering answer (decision B) — not a build blocker.
 - Built the shared sheets only on **Anna's documented column design** (estate "build on her design" rule).
 
-## Remaining self-directed item
-- **AWT-0118** — reconcile the group KB master files (Drive ↔ git drift: 64 KB group CLAUDE.md + 00_INDEX
-  Nadia line). Delicate (editing the group master on Drive) — to do as a careful dedicated pass.
+## AWT-0118 (group KB master reconcile) — investigated, premise inverted, closed WITHOUT writing
+On Minda's go, checked both sides read-only before touching anything (attached `minda-ui/fishbone-group`
+**read-only**). The row (~2026-09-27) assumed Drive was *missing* content git had and said "reconcile
+Drive→git". **The opposite is now true:** the **Drive master `CLAUDE.md` (modified 2026-10-13)** is ahead of
+git — it already holds the John unattended Smartsheet+Drive grant (24/09), Nadia's standalone KB (count →15),
+**plus Sarah + Rule F**; **git HEAD (37a15c8, ~30/09) is the stale side** (13 systems, no Nadia, John
+"building", no Sarah/Rule F). Running AWT-0118 literally would have **deleted Nadia/John-grant/Sarah/Rule F
+from the master index** — a Rule-C-class regression. So **nothing was written to the master** (charter: Drive
+is master). Drive `Wiki/00_INDEX` already has a Nadia line; it misses a Sarah line.
+**AWT-0118 closed as superseded.** The two real residual drifts were flagged to **Victoria** (index keeper,
+her Raw): (1) refresh the stale git mirror to match Drive; (2) add a Sarah line to the index. Also relayed
+GA4-live to Helen (AWT-0748). Ledger 116.
+
+_Lesson: a 3-week-old "reconcile A→B" instruction can invert as the master moves on — always diff both sides
+before writing a master file; the charter's "Drive is master" + Rule C caught this._
 
 ## Artefacts
 7 Smartsheet sheets (ids above), Victoria Raw/ (Drive 1Qmc6IZhjCaq0ogDyjhkmcle1CyOA6UZ4), Anna Raw/ (Drive
