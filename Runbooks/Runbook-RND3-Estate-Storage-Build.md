@@ -11,7 +11,7 @@
 | **Dell PowerEdge R710** | Storage host: 2× Xeon X5650 (12c/24t), **24 GB ECC DDR3**, 8× 2.5" bays, 2× PCIe risers | ✅ owned |
 | **Fujitsu PSAS CP400e** | External SAS HBA = LSI **SAS3008**, 12 Gb, 2× **SFF-8644** — must be **IT mode** | ✅ owned |
 | **SFF-8644 → QSFP (SFF-8436) cable** | Host HBA → shelf IOM6. ~£20–40. ×2 for multipath | ⬜ **buy** |
-| **DS2246 2.5" caddies** | NetApp carriers (`111-00-xxx`) | ✅ owned |
+| **DS2246 2.5" caddies** | NetApp carriers (`111-00-xxx`) — **24, fills the shelf** | ✅ owned |
 | **2.5" SFF SSDs** | Enterprise SAS, 512-byte, PLP. e.g. 8× 1.92 TB (bare drives) | ⬜ **buy** |
 
 Why the R710 (not the DL380): keeps the DL380 free for the RND-2 GPU build. Clean separation of concerns.
