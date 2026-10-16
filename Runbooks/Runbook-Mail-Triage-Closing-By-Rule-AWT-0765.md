@@ -1,6 +1,7 @@
-# Draft v0.1 — Mail-triage "closing by rule" prompt changes + weekly closed list (AWT-0765)
+# v0.2 — Mail-triage "closing by rule" prompt changes + weekly closed list (AWT-0765)
 
-> **Status: DRAFT for dry-run + Victoria review (2026-10-16).** Guide-only (§3): **Minda pastes the prompt
+> **Status: v0.2 — rule FINAL (Minda approved R1–R3, 2026-10-16), ready for hand-off.** Dry-run 1 done
+> (`...-DryRun-2026-10-15.md`). Guide-only (§3): **Minda pastes the prompt
 > changes** into the routine form; Eugene drafts/verifies and never edits the routines or another KB
 > directly. Source of truth = group Raw owner note `2026-10-15_owner-note_closing-by-rule-and-90-day-plan.md`
 > (Minda "Yes, accept that rule", 15 Oct). Hub: **AWT-0765**, due **22 Oct** (moved earlier via AWT-0805).
@@ -40,13 +41,14 @@ CLOSE BY RULE only when BOTH are true:
 
 NEVER CLOSE BY RULE — always escalate or route, even if it looks like a class above:
   - MONEY: payments, invoices, failed/declined payments, loans, HMRC or tax deadlines, or anything stating
-    an amount owed, due, paid or refunded.
+    an amount owed, due, paid or refunded. (Includes finance-service notices, e.g. GoCardless/direct-debit.)
   - REAL correspondence to/from OUTSIDE the group: a person outside the group writing in, or a message
-    going out of the group (see tie-break 1 — bulk marketing is Class 1, not "real correspondence").
+    going out of the group (see tie-break 1 — bulk marketing is Class 1; and R1 — a colleague's own
+    outbound FYI).
   - SHARING / PERMISSIONS / SECURITY alerts: new sign-in, password, MFA, access granted or requested,
     file/calendar sharing.
-  - AUTHORITY, LEGAL or CONTRACT matters.
-  - UNKNOWN SENDER asking for any action.
+  - AUTHORITY, LEGAL or CONTRACT matters — including anything involving a solicitor (see R2).
+  - UNKNOWN SENDER asking for any action (see R3).
   - ANYTHING you are not sure about. In doubt = escalate.
 
 TIE-BREAKS:
@@ -56,6 +58,14 @@ TIE-BREAKS:
   2. Mixed signals: if an item fits a class BUT also touches money / security / legal / authority / an
      external reply → NEVER close; escalate.
   3. Seat mail: if it belongs to a seat, route it to the seat; do not close it.
+
+APPROVED REFINEMENTS (Minda, 2026-10-16 — part of the rule):
+  R1. A message that is an INTERNAL colleague's OWN outbound email, or a copy/FYI of it, with no question
+      to Minda, no deadline and no money, MAY close as Class 4 even though a recipient is external —
+      UNLESS it touches money, legal/contract, authority, or security (then escalate).
+  R2. LEGAL / CONTRACT / SOLICITOR matters stay NEVER-CLOSE regardless of who sent them (always escalate).
+  R3. "Unknown sender asking for action" escalates UNLESS a seat has ALREADY actioned/replied and nothing
+      remains for Minda — only "already fully handled, nothing outstanding" may close (Class 4).
 
 WHEN YOU CLOSE BY RULE:
   - Mark the row closed (resolved), with a one-line reason naming the class (e.g. "Closed by rule — Class 1
@@ -114,9 +124,11 @@ After the dry-run is signed off:
 ## Dry-run 1 done (2026-10-16)
 Applied this rule to Victoria's 15 Oct hand-closures (28 rows):
 `Runbook-Mail-Triage-Closing-By-Rule-DryRun-2026-10-15.md`. Result: **23 agree, 5 the rule would escalate
-(safer), 0 over-close.** It surfaced two policy gaps → proposed rule refinements **R1–R3** (internal
-colleague's own outbound/FYI; legal stays never-close; "unknown sender" closes only once a seat has fully
-handled it). **Minda/Victoria to rule on R1–R3 + the 5 flagged rows**, then this §1 becomes v0.2.
+(safer), 0 over-close.** It surfaced two policy gaps → rule refinements **R1–R3**
+(internal colleague's own outbound/FYI; legal stays never-close; "unknown sender" closes only once a seat
+has fully handled it). **Minda APPROVED R1–R3 on 2026-10-16** — now folded into §1 above (v0.2). Net effect
+on the 5 flagged rows: **AWT-0730 and 0749 now close** (match Victoria); **AWT-0745 (money), 0750 & 0758
+(legal) stay escalated** (safer).
 
 ## Open points for Victoria/Minda (surface at the dry-run)
 - **Tie-break 1** (external bulk marketing = close; external real correspondence = never close) — confirm the
