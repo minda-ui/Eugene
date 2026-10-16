@@ -43,6 +43,26 @@ Both carry the GPU power connector, so the mechanical GPU side is complete bar t
 - Double-wide heatsink **overhangs/blocks the neighbouring x8 slot** on each riser → confirm the P840/NICs
   don't need Slot 1/5 or the blocked neighbours. P40 bracket end marked "P40"; fits cleanly.
 
+### Storage controller & the 2-GPU slot decision (confirmed 2026-10-16)
+- The card occupying a GPU-needed slot is **not a spare NIC — it's the Smart Array P840** (`761880-001`),
+  the **sole** storage controller (lspci `0b:00.0`, subsystem `103c:21cb`, driver **hpsa**), and it runs
+  the **internal drives** (Minda confirmed).
+- **P840 is in hardware-RAID mode:** it presents a single 3.5 TB **LOGICAL VOLUME** (`sda`, serial
+  `PDNNF0ARH88104`), and **ZFS `rpool` sits on top of that one RAID LD** (not raw disks / not HBA).
+  So there is **no ZFS-level redundancy** — redundancy is the P840's hardware RAID. `rpool` ONLINE,
+  scrub 11 Oct clean.
+- **Therefore a P840→P440ar controller swap = a hardware-array migration** (array-roaming), on the box
+  that runs the production PBX — **not advised.** Keep the P840.
+- **Plan for a 2× P40 (48 GB) build — CHOSEN (2026-10-16):** **relocate the same P840** to the spare
+  secondary-riser slot (Slot 4 or 6, whichever the double-wide P40 in Slot 5 doesn't block) — array/LD/ZFS
+  unchanged, only the PCIe slot moves (near-zero data risk). **SAS cables confirmed long enough to reach
+  the secondary riser (Minda, 2026-10-16).** Remaining = confirm the P840 (x8) physically seats in that
+  free slot and its bracket clears the P40 heatsink. → **2× P40 + P840 is feasible.** (Fallback if the
+  seat doesn't work: 1× P40 + P840.)
+- Any controller change later → planned window + **verified off-box backup first** (OI-17: backups thin).
+- Note 2026-10-16: box was powered down to dry-fit (brief PBX outage); came back clean, pool imported,
+  VMs (incl. PBX VM 105) back online.
+
 ## Host baseline confirmed 2026-10-16 (iLO/IPMI readout; no reboot, no secret held)
 Read via `ipmitool` on the running host (the box = HQ Proxmox `pve` @ `10.224.10.10`). Full detail filed in
 `Infra-Inventory/Fishbone-HQ-Physical-Network-Inventory.md` (Server hardware baseline 2026-10-16).
