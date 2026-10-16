@@ -30,6 +30,16 @@
    - Then browse to `https://<idrac-ip>` from the HQ LAN → Virtual Console + Virtual Media (lets us mount
      the installer ISO and drive the box remotely without standing at it). *iDRAC6 virtual console is
      Java-based and fiddly — a physical monitor is fine for the install if iDRAC KVM won't cooperate.*
+4b. **Network wiring (HQ).** Segments: `10.224.10.x` = mgmt/servers (Proxmox `.10`, DL380 iLO `.50`,
+   Cisco `.4`, + `.9/.51/.52`); `10.224.13.x` = phones; `10.224.20.x` = WiFi. Switch = Cisco 3850 stack.
+   - **Data NIC:** patch **onboard Gb1 → a 3850 access port on the `10.224.10.x` server/mgmt VLAN** (same
+     segment as Proxmox `.10` → keeps PBS backups same-subnet/fast; office PCs reach the SMB share via the
+     3850's inter-VLAN routing). TrueNAS **static IP** — candidate **`10.224.10.20`** (ping-check it's free
+     first).
+   - **iDRAC:** if **iDRAC6 Enterprise** (dedicated RJ45) → second cable to a 3850 port on `10.224.10.x`,
+     IP **`10.224.10.21`**. If **Express** → iDRAC shares Gb1, just set its IP (no extra cable).
+   - ⚠️ **Static IPs or DHCP reservations only** — the DL380 iLO drifted `.78`→`.50` on plain DHCP; a NAS
+     that moves IP breaks every mapped `Z:` and every PBS job. Pin both addresses.
 5. **Have ready for the OS install (next phase):**
    - **TrueNAS SCALE ISO** on an **8 GB+ USB stick** (write with Rufus/balenaEtcher), **or** mount it via
      iDRAC Virtual Media.
