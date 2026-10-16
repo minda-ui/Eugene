@@ -16,11 +16,27 @@ Confirmed from the order emails in minda@'s Gmail:
 - ✅ **2× HP NVIDIA Tesla P40 24 GB (SKU 872323-001)** — **Bytestock £390.00 total (≈£195 each)**,
   order **#000006986**, card payment, DHL Domestic Express, free delivery (referral code). Both cards
   for the dual-P40 build. (Email says "GDDR5X" — the P40 is actually GDDR5; vendor typo, same card.)
-- **Still to source for the full 2× build:** a **2nd power cable** (805123-001/728539-B21); **1400 W
-  PSUs — HPE 720620-B21** (two cards ≈ 1400 W); **perf fan kit + GPU baffles**; then the **"Above 4G
+- ✅ **2nd GPU power cable (eMagTech 8-pin, 805123-001)** — Amazon, **ordered 2026-10-16** (powers P40 #2).
+- ✅ **2× 1400 W PSU — HPE 720620-B21** — **ordered from Techbuyer 2026-10-16** (awaiting their confirmation
+  email at sign-off). Replaces the fitted 2× 500 W.
+- **Still to source for the full 2× build:** **GPU baffle/shroud**; **high-perf fan kit (HP 747598-001)**
+  *if* the fitted fans turn out to be standard (unconfirmed — see baseline below); then the **"Above 4G
   Decoding"** BIOS toggle on fit day.
-- **GPU side now complete:** 2× P40 + both risers + 1 power cable all ordered. Remaining = power/cooling
-  (2nd cable, 1400 W PSUs, fans/baffles) + the BIOS toggle.
+- **Status 2026-10-16:** GPU (2× P40) + both risers + **both** power cables + **1400 W PSUs** all ordered.
+  Remaining buy = **GPU baffle** (+ high-perf fans if needed). Open check = **GPU-riser slot availability**.
+
+## Host baseline confirmed 2026-10-16 (iLO/IPMI readout; no reboot, no secret held)
+Read via `ipmitool` on the running host (the box = HQ Proxmox `pve` @ `10.224.10.10`). Full detail filed in
+`Infra-Inventory/Fishbone-HQ-Physical-Network-Inventory.md` (Server hardware baseline 2026-10-16).
+- **DL380 Gen9 `CZJ64905NP`**, board **843556-425**, **BIOS P89 08/29/2024** (Above-4G present ✅),
+  **2× E5-2695 v4** (CPU2 populated ✅), **128 GB** (4× 32 GB `809083-091`; 10 DIMM slots free).
+- **PSUs** 2× present → *Fully Redundant*, ~140 W idle (rated 500 W → 1400 W on order).
+- **Fans** 6× present → *Fully Redundant*, cool. Kit type (perf vs standard) **not yet confirmed**.
+- **Smart Array P840** (`761880-001`); NICs **562SFP+** (`727055-B21`), **366FLR** (`665240-B21`),
+  **331T** (`649871-001`), embedded **331i**; Smart Storage Battery (`875242-B21`).
+- **iLO4** now at **`10.224.10.50`** (DHCP, drifted from `.78`; reserve it). Password in Minda's 1Password.
+- ⚠️ **Pre-fit check:** box is card-heavy (P840 + 3 NICs) — confirm the primary+secondary GPU-riser slots
+  are free before fitting two double-wide P40s; a spare NIC may need to move.
 
 ## GPU options considered & rejected
 - **NVIDIA Tesla M10 (HP Q0J62A), "32 GB"** — ❌ **rejected 2026-10-10.** It's **4× Maxwell GM107 GPUs,

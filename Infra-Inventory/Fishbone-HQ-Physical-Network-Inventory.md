@@ -37,7 +37,7 @@ _Discovery and recovery 2026-10-01, Minda executing with Eugene guiding; no cred
 | Item | Detail |
 |---|---|
 | Hardware | **HPE ProLiant DL380 Gen9**, serial CZJ64905NP, System ROM P89 v3.40 (2024-08-29) |
-| iLO | **iLO 4**, firmware 2.82, Standard licence, `10.224.10.78`. Default tag password worked; **Minda changed it 2026-10-01** (password manager). iLO clock shows 2001 (fix later, NTP). |
+| iLO | **iLO 4**, firmware 2.82, Standard licence. **Live address `10.224.10.50`** (read from the BMC via `ipmitool lan print 2` on the host, 2026-10-16; MAC `94:18:82:02:ac:02`). ⚠️ **Was recorded `.78` on 2026-10-01 — it is on DHCP and the lease has drifted to `.50`; set a DHCP reservation so it stops moving.** Password: **Minda changed it 2026-10-01, stored in the password manager** (1Password, HQ iLO / ProLiant DL380 entry). iLO clock shows 2001 (fix later, NTP). |
 | Hypervisor | **Proxmox VE 8.2.2** on ZFS (`rpool/ROOT/pve-1`, systemd-boot), host `pve` at **`10.224.10.10:8006`** |
 | Root access | **Regained 2026-10-01**: console `init=/bin/bash` root reset, new password in Minda's password manager; web UI login verified |
 
@@ -51,7 +51,22 @@ _Discovery and recovery 2026-10-01, Minda executing with Eugene guiding; no cred
 | 104 | ssh-gateway | running | Likely the contractor's remote access route in; **security review** |
 | 105 | PBX | running | FusionPBX (`10.224.13.9`) |
 
-**Network segments found:** `10.224.10.x` management (iLO `.78`, Proxmox `.10`, a Cisco web login at `.4` (probably the 3850 stack), plus `.9`, `.50`–`.52` with no web UI); `10.224.13.x` phones (PBX `.9`, Yealink T48S `.10`, `.11`); `10.224.20.x` WiFi `FSG0218`.
+**Network segments found:** `10.224.10.x` management (**iLO now `.50`** — DHCP, was `.78` on 2026-10-01; Proxmox `.10`, a Cisco web login at `.4` (probably the 3850 stack), plus `.9`, `.51`–`.52`); `10.224.13.x` phones (PBX `.9`, Yealink T48S `.10`, `.11`); `10.224.20.x` WiFi `FSG0218`.
+
+#### Server hardware baseline — 2026-10-16 (iLO/IPMI readout, GPU-upgrade prep RND-2)
+_Read non-intrusively via `ipmitool` on the running host (`fru print`, `sdr`); no reboot, no credential held. For the DL380 Gen9 `CZJ64905NP`._
+| Item | Detail |
+|---|---|
+| Model | ProLiant **DL380 Gen9**, product/board **843556-425**, S/N **CZJ64905NP** |
+| BIOS | **P89, 08/29/2024** — recent enough that "Above 4G Decoding" is present for the P40 |
+| CPUs | 2× **Intel Xeon E5-2695 v4** @ 2.10 GHz (both sockets populated — GPU riser needs CPU2 ✅) |
+| RAM | **128 GB** = 4× **32 GB** DDR4-2400 RDIMM (HP `809083-091`), in DIMM 9 & 12 of each CPU; **DIMM banks 1–6 empty (10 slots free)** |
+| PSUs | **2× present → Fully Redundant**; live draw ~140 W idle. **Rated 500 W** (physical check 2026-10-11); **2× 1400 W (720620-B21) on order** for the dual-P40 build. (IPMI FRU does not expose PSU wattage on this box.) |
+| Fans | **6× present → Fully Redundant**, running cool (CPUs 40 °C, inlet 21 °C). High-perf kit (HP `747598-001`) **vs standard not yet confirmed** — read a fan label or let the IML warn after GPU fit. |
+| Storage ctrl | **Smart Array P840** (`761880-001`) |
+| NICs | 10 Gb 2-port **562SFP+** (`727055-B21`); 1 Gb 4-port **366FLR** (`665240-B21`); 1 Gb 4-port **331T** (`649871-001`); embedded 1 Gb 4-port **331i**; Smart Storage Battery (`875242-B21`) |
+| ⚠️ Pre-GPU-fit check | Box is heavily populated (P840 + 3 add-in NICs). Two Tesla P40s are double-wide and need the **primary + secondary GPU risers** — **confirm those slots are free** (a NIC/the P840 may be in the way; iLO → System Information → Device Inventory, or physical). More 1 GbE ports than needed → a spare NIC could move/come out. |
+| Open follow-ups | (1) **DHCP-reserve iLO `.50`**; (2) confirm fan-kit type; (3) buy GPU baffle (+ high-perf fans if standard); (4) GPU-riser slot availability. |
 **Firewalls:** confirmed **Cisco ASA 5550** pair (end of support), bottom unit active, top standby (2026-10-01).
 
 #### Earlier record (2026-09-17)
