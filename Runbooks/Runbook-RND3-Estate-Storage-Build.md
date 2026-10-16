@@ -11,7 +11,8 @@
 | **Dell PowerEdge R710** | Storage host: 2× Xeon X5650 (12c/24t), **24 GB ECC DDR3**, 8× 2.5" bays, 2× PCIe risers | ✅ owned |
 | **Fujitsu PSAS CP400e** | External SAS HBA = LSI **SAS3008**, 12 Gb, 2× **SFF-8644** — must be **IT mode** | ✅ owned |
 | **SFF-8644 → QSFP (SFF-8436) cable** | Host HBA → shelf IOM6. ~£20–40. ×2 for multipath | ⬜ **buy** |
-| **2.5" SFF SSDs + DS2246 caddies** | Enterprise SAS, 512-byte, PLP. e.g. 8× 1.92 TB + 8 caddies | ⬜ **buy** |
+| **DS2246 2.5" caddies** | NetApp carriers (`111-00-xxx`) | ✅ owned |
+| **2.5" SFF SSDs** | Enterprise SAS, 512-byte, PLP. e.g. 8× 1.92 TB (bare drives) | ⬜ **buy** |
 
 Why the R710 (not the DL380): keeps the DL380 free for the RND-2 GPU build. Clean separation of concerns.
 
@@ -22,10 +23,10 @@ Why the R710 (not the DL380): keeps the DL380 free for the RND-2 GPU build. Clea
    consumer. Suggested first pool **8× 1.92 TB → RAIDZ2 ≈ ~10 TB usable** (add vdevs later). Match sizes
    within a vdev. **Avoid NetApp-firmware (520-byte) SSDs** — buy Dell/HP/generic 512-byte to skip the
    reformat. Used enterprise on eBay = best value.
-3. **Caddies:** an empty NetApp shelf has **no drive trays** — buy **DS2246 2.5" caddies** (×the drive
-   count), or buy **drive+caddy bundles**. Confirm the exact tray fits this NAJ-1001 before ordering.
+3. **Caddies:** ✅ **owned** (NetApp DS2246 carriers). Buy **bare drives** (or bundles if cheaper per-TB).
+   Confirm how many caddies you have vs the pool size you want.
 
-No RAM, no HBA to buy (both in-hand).
+No RAM, no HBA, no caddies to buy — just the cable + SSDs.
 
 ## Phase 0 — Pre-flight
 1. R710 **not** carrying anything live (it's a fresh storage box). Rack space + UPS outlet + the shelf

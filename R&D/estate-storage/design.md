@@ -71,9 +71,9 @@ SFF-8436 (QSFP) external SAS cable, 1–2 m."*
   first pool; add vdevs later. (All drives in a vdev should match size — ZFS uses the smallest.)
 - **Sector size:** **avoid NetApp-firmware SSDs** (520-byte, need `sg_format` to 512 + sometimes won't
   reformat). Buy **standard 512-byte enterprise SSDs** (Dell/HP/generic LSI) and skip that whole step.
-- **⚠️ Caddies/trays:** an empty NetApp shelf ships **without drive caddies**. 2.5" SSDs need **DS2246
-  trays** (NetApp X-series 2.5" caddy) — budget ~£5–10 each ×8. Confirm the exact caddy that locks into
-  this NAJ-1001 before buying drives (some sellers bundle drive+caddy — cheapest route).
+- **Caddies/trays:** ✅ **owned** (confirmed 2026-10-16 — NetApp DS2246 2.5" carriers, `111-00-xxx` P/N).
+  So the SSD buy is **bare 2.5" drives** (or drive+caddy bundles if cheaper per-TB) — no separate caddy
+  spend. Confirm count of caddies in hand vs the pool size you want.
 
 ### Heads-ups
 - If any drives do report **520-byte sectors** → one-time **`sg_format --format --size=512`** per disk
