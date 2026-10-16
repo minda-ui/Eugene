@@ -37,6 +37,12 @@ Both GPU risers physically confirmed from their labels:
 Both carry the GPU power connector, so the mechanical GPU side is complete bar the **baffle** + the
 **slot-availability** check.
 
+**P40s received + dry-fitted 2026-10-16** (both cards in hand, mechanically confirmed):
+- **Primary riser** → P40 in **Slot 1 PCIe Gen3 x16** (+ Slot 2 x8 below).
+- **Secondary riser** → P40 in **Slot 5 PCIe Gen3 x16** (+ Slot 4/6).
+- Double-wide heatsink **overhangs/blocks the neighbouring x8 slot** on each riser → confirm the P840/NICs
+  don't need Slot 1/5 or the blocked neighbours. P40 bracket end marked "P40"; fits cleanly.
+
 ## Host baseline confirmed 2026-10-16 (iLO/IPMI readout; no reboot, no secret held)
 Read via `ipmitool` on the running host (the box = HQ Proxmox `pve` @ `10.224.10.10`). Full detail filed in
 `Infra-Inventory/Fishbone-HQ-Physical-Network-Inventory.md` (Server hardware baseline 2026-10-16).
