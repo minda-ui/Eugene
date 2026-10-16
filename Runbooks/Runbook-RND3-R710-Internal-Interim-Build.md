@@ -11,7 +11,35 @@
   target essentially on its own, so backups + Nextcloud + Drive copy can all start now.
 - Later: add the DS2246 (12+ drives) as a **second vdev/pool** for capacity once the QSFP cable lands.
 
-## ⚠️ Two things to confirm at the box FIRST
+## Phase 0 — Bring the R710 to life (it has no OS yet)
+**Goal:** get it POSTing, sane in BIOS, reachable on iDRAC, with install media ready. Nothing destructive.
+1. **Power + console.** Both PSUs to mains (redundant). Monitor on the **VGA** port + USB keyboard (or use
+   iDRAC once it's up). Press power.
+2. **Watch POST.** It should pass memory + CPU and reach a boot prompt (there's no OS, so it'll end at
+   "No boot device"/PXE — that's expected and fine). **Note the banners as they flash:** BIOS version,
+   **iDRAC6**, and the **PERC/SAS controller** (H200/H310/H700/6iR). Snap a photo of the storage-controller
+   line — that decides the IT-mode path.
+3. **BIOS sanity (F2 → System Setup):**
+   - **Processor Settings → Virtualization Technology = Enabled** (and **VT for Direct I/O / IOMMU** if
+     present) — needed if you ever run VMs/PBS on this box.
+   - **Date/Time** correct.
+   - **Boot order:** we'll point it at USB/the new boot disk when installing.
+4. **iDRAC for remote management (F10 Lifecycle Controller, or Ctrl+E at post → iDRAC Settings):**
+   - Set **iDRAC IPv4** — DHCP, or a static in the HQ mgmt range. Note the IP + MAC.
+   - Set an iDRAC **admin password** (Minda holds it — §3, Eugene never records it).
+   - Then browse to `https://<idrac-ip>` from the HQ LAN → Virtual Console + Virtual Media (lets us mount
+     the installer ISO and drive the box remotely without standing at it). *iDRAC6 virtual console is
+     Java-based and fiddly — a physical monitor is fine for the install if iDRAC KVM won't cooperate.*
+5. **Have ready for the OS install (next phase):**
+   - **TrueNAS SCALE ISO** on an **8 GB+ USB stick** (write with Rufus/balenaEtcher), **or** mount it via
+     iDRAC Virtual Media.
+   - A **boot device for the OS**, separate from the pool: a small **SSD** (on an internal SATA port or a
+     spare bay) is best — TrueNAS SCALE no longer recommends USB-stick boot. ~120 GB is plenty.
+   - A **network cable** into an HQ switch port.
+6. **Report back:** POST clean? Controller model? RAM seen (should be 24 GB)? iDRAC reachable? Then we pick
+   the IT-mode path and install.
+
+## ⚠️ Two things to confirm at the box FIRST (gathered during Phase 0)
 1. **Which storage controller?** (decides IT-mode path — the only real gotcha.)
    - See it at **POST** (the PERC/SAS banner as the R710 boots), or **iDRAC → Storage**, or the
      **Lifecycle Controller → Hardware Config**.
