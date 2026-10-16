@@ -4,6 +4,14 @@ _R&D working note, 2026-10-16. Sizes the ZFS pool for the DS2246 build (`design.
 `Runbooks/Runbook-RND3-Estate-Storage-Build.md`). **Measured** where possible; **estimated** elsewhere —
 Minda corrects the estimates and the recommendation firms up._
 
+## ⏩ INTERIM PLAN (2026-10-16): build in the R710's internal bays first
+The SFF-8644→QSFP cable is 2–3 wks out / scarce in the UK (confirmed by live search). So **don't wait on
+the shelf** — build **1× 8-wide RAIDZ2 (~4.3 TB usable) in the R710's 8 internal bays now** (covers the
+target), start PBS/backups this week, and add the DS2246 as a 2nd vdev when the cable arrives. Module swap
+(IOM6→IOM12) is a dead end: IOM12 is for the DS224C chassis, not the DS2246, and 12 G is wasted on HDDs.
+Build steps: `Runbooks/Runbook-RND3-R710-Internal-Interim-Build.md`. First checks: R710 controller model
+(H200/H310 → crossflash IT; H700 → cheap internal HBA) + Dell R710 2.5" caddies (≠ NetApp shelf caddies).
+
 ## The one measured anchor (2026-10-16)
 Google Drive `about` for **minda@fishboneconstruction.co.uk** (Composio `GOOGLEDRIVE_GET_ABOUT`):
 - **Drive files: ~61 GB** (≈ 50 GB live + 15 GB trash).
