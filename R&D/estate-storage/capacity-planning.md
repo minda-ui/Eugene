@@ -50,10 +50,27 @@ add on top (not measurable without Workspace Admin; estimate below).
 
 ## Recommendation (firmed up 2026-10-16)
 With no file server to absorb (drawings stay on Drive), the 3-yr working set is **~3.7 TB**. Target usable
-≈ 3.7 ÷ 0.8 ≈ **~4.6 TB**.
-**8× 1.92 TB enterprise SAS SSD in RAIDZ2 ≈ ~9 TB usable** comfortably covers it with room to spare — and
-24 caddies mean a second vdev drops in later if AI/evidence growth outruns the estimate. **This is the buy.**
-(960 GB drives → 6×960 GB RZ2 ≈ 3.6 TB usable would be tight; 1.92 TB is the right size.)
+≈ 3.7 ÷ 0.8 ≈ **~4.6 TB** (today's need ~1 TB — the pool just can't run near full).
+
+### Two ways to get there — fewer big drives, or more small/cheap ones (Minda, 2026-10-16)
+24 bays means we can hit the target with **cheap smaller SSDs** instead of a few big ones. ZFS best practice:
+keep RAIDZ2 vdevs **6 wide** and stripe several vdevs (better resilver + IOPS than one wide vdev).
+
+| Drives | Layout | ~Usable | Bays used | £/TB | Notes |
+|---|---|---|---|---|---|
+| 12× **480 GB** | 2× 6-wide RZ2 | ~3.0 TB | 12/24 | low | covers **today**; tight for 3-yr — grow later |
+| 18× **480 GB** | 3× 6-wide RZ2 | ~4.6 TB | 18/24 | low | hits target with cheapest small drives |
+| 12× **800/960 GB** | 2× 6-wide RZ2 | ~5 TB | 12/24 | low–mid | **good small-drive pick** — half the bays free to grow |
+| **8× 1.92 TB** | 1× 8-wide RZ2 | ~9 TB | 8/24 | mid | fewest drives, most headroom (earlier rec) |
+| 24× **480 GB** | 4× 6-wide RZ2 | ~6 TB | 24/24 | low | fill the shelf with cheap drives, max small-drive |
+
+**Smaller-drive trade-offs:** cheaper per drive and often cheaper per TB, but **more drives = more power,
+more heat, more failure points**, and **a full shelf leaves no bays to grow**. Sweet spot for value +
+headroom: **12× 800–960 GB in 2× 6-wide RAIDZ2 (~5 TB usable, 12 bays free).** If the budget is the driver
+and growth can wait, **12× 480 GB (~3 TB)** covers everything today and you add a vdev when AI/evidence grow.
+
+> ⚠️ Start a pool with drives of **one size** per vdev. You can mix vdev sizes in the same pool (e.g. a
+> 480 GB vdev now + an 800 GB vdev later), so buying small now never blocks a bigger vdev later.
 
 ## Numbers that would still refine it (not blocking the buy)
 1. **What PBS should back up** — just the VMs, or also large data volumes (category 5)? Only matters if
