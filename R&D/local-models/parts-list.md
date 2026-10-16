@@ -19,11 +19,14 @@ Confirmed from the order emails in minda@'s Gmail:
 - ✅ **2nd GPU power cable (eMagTech 8-pin, 805123-001)** — Amazon, **ordered 2026-10-16** (powers P40 #2).
 - ✅ **2× 1400 W PSU — HPE 720620-B21** — **ordered from Techbuyer 2026-10-16** (awaiting their confirmation
   email at sign-off). Replaces the fitted 2× 500 W.
-- **Still to source for the full 2× build:** **GPU baffle/shroud**; **high-perf fan kit (HP 747598-001)**
-  *if* the fitted fans turn out to be standard (unconfirmed — see baseline below); then the **"Above 4G
-  Decoding"** BIOS toggle on fit day.
-- **Status 2026-10-16:** GPU (2× P40) + both risers + **both** power cables + **1400 W PSUs** all ordered.
-  Remaining buy = **GPU baffle** (+ high-perf fans if needed). Open check = **GPU-riser slot availability**.
+- ✅ **High-performance fans already fitted** — confirmed 2026-10-16 by the physical label: GPN
+  **747597-001** / HPE 796850-001 / **SPS 777285-001**, fan = **Delta PFR0612XHE DC12V 3.30A** (the
+  high-static-pressure rotor). All 6 bays, Fully Redundant. **The fan kit is NOT needed.**
+- **Still to source for the full 2× build:** **GPU baffle/shroud** — the only outstanding buy; then the
+  **"Above 4G Decoding"** BIOS toggle on fit day.
+- **Status 2026-10-16:** GPU (2× P40) + both risers + **both** power cables + **1400 W PSUs** all ordered;
+  **high-perf fans already fitted**. **Only remaining buy = the GPU baffle.** Open check = **GPU-riser
+  slot availability** vs the P840/NICs.
 
 ## Host baseline confirmed 2026-10-16 (iLO/IPMI readout; no reboot, no secret held)
 Read via `ipmitool` on the running host (the box = HQ Proxmox `pve` @ `10.224.10.10`). Full detail filed in
@@ -57,7 +60,7 @@ starve the phones (model work stays in a resource-capped LXC/VM).
 | 1 | **NVIDIA Tesla P40, 24 GB** (datacenter, passive) | HP **872323-001** | The GPU itself — 24 GB runs up to ~32B / Mixtral 8×7B fast, live site-photo vision | £150–250 | ✅ **ORDERED ×2** (2026-10-10, Bytestock £390 total, order #000006986) |
 | 2 | **Secondary 3-slot GPU-ready riser kit** | HPE **719073-B21** (spare **777283-001**) | DL380 Gen9 GPU riser (2× FL x16 + 1× x8) the P40 mounts into; installs in the **secondary** slot, **needs CPU2** (✅). ⚠️ **NOT** the standard primary riser 777281-001 / 719072-001 / 729804-001 — those are x8 expansion risers, wrong for a GPU. | £40–90 | ✅ **GOT IT** (2026-10-10, Amazon Renewed, refurb "Excellent") |
 | 3 | **GPU power cable** (10-pin → 8-pin) | HPE **805123-001** (or **728539-B21** = 10→6+8) | P40 needs an 8-pin PCIe power feed from the board | £10–25 | ✅ **ORDERED ×1** (2026-10-10, Amazon £10.39, payment sorted; need a 2nd for P40 #2) |
-| 4 | **High-performance fan kit** (all 6 bays) | HPE Gen9 perf fans | P40 is **passive** — it relies entirely on server airflow; needs the high-static-pressure fans | £30–80 | ⬜ |
+| 4 | **High-performance fan kit** (all 6 bays) | GPN **747597-001** / SPS **777285-001** (Delta PFR0612XHE 12V 3.30A) | P40 is **passive** — it relies entirely on server airflow; needs the high-static-pressure fans | £30–80 | ✅ **ALREADY FITTED** (confirmed by label 2026-10-16; all 6 bays, redundant) |
 | 5 | **GPU air baffle / shroud** | HPE Gen9 GPU baffle | Ducts the airflow through the passive card; without it the P40 cooks | £10–30 | ⬜ |
 | 6 | **PSUs — 2× 1400 W matched pair** | HPE **720620-B21** (spare **754382-001**) | Dual-P40 peak ~950 W; redundant mode = each PSU carries it alone, so 800 W won't do. 2× for 1+1 redundancy on the PBX box. Check what's fitted first. | ~£40–70 each | ⬜ (need 2) |
 

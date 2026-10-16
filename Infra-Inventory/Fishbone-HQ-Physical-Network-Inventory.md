@@ -62,11 +62,11 @@ _Read non-intrusively via `ipmitool` on the running host (`fru print`, `sdr`); n
 | CPUs | 2× **Intel Xeon E5-2695 v4** @ 2.10 GHz (both sockets populated — GPU riser needs CPU2 ✅) |
 | RAM | **128 GB** = 4× **32 GB** DDR4-2400 RDIMM (HP `809083-091`), in DIMM 9 & 12 of each CPU; **DIMM banks 1–6 empty (10 slots free)** |
 | PSUs | **2× present → Fully Redundant**; live draw ~140 W idle. **Rated 500 W** (physical check 2026-10-11); **2× 1400 W (720620-B21) on order** for the dual-P40 build. (IPMI FRU does not expose PSU wattage on this box.) |
-| Fans | **6× present → Fully Redundant**, running cool (CPUs 40 °C, inlet 21 °C). High-perf kit (HP `747598-001`) **vs standard not yet confirmed** — read a fan label or let the IML warn after GPU fit. |
+| Fans | **6× present → Fully Redundant**, running cool (CPUs 40 °C, inlet 21 °C). **High-performance kit — CONFIRMED by label 2026-10-16:** GPN `747597-001` / HPE `796850-001` / SPS `777285-001`, fan = Delta **PFR0612XHE DC12V 3.30A**. ✅ **No fan purchase needed for the GPU build.** |
 | Storage ctrl | **Smart Array P840** (`761880-001`) |
 | NICs | 10 Gb 2-port **562SFP+** (`727055-B21`); 1 Gb 4-port **366FLR** (`665240-B21`); 1 Gb 4-port **331T** (`649871-001`); embedded 1 Gb 4-port **331i**; Smart Storage Battery (`875242-B21`) |
 | ⚠️ Pre-GPU-fit check | Box is heavily populated (P840 + 3 add-in NICs). Two Tesla P40s are double-wide and need the **primary + secondary GPU risers** — **confirm those slots are free** (a NIC/the P840 may be in the way; iLO → System Information → Device Inventory, or physical). More 1 GbE ports than needed → a spare NIC could move/come out. |
-| Open follow-ups | (1) **DHCP-reserve iLO `.50`**; (2) confirm fan-kit type; (3) buy GPU baffle (+ high-perf fans if standard); (4) GPU-riser slot availability. |
+| Open follow-ups | (1) **DHCP-reserve iLO `.50`**; (2) **buy GPU baffle** (only outstanding part — fans confirmed high-perf); (3) **GPU-riser slot availability** vs P840/NICs; (4) iLO NTP (clock showed 2001). |
 **Firewalls:** confirmed **Cisco ASA 5550** pair (end of support), bottom unit active, top standby (2026-10-01).
 
 #### Earlier record (2026-09-17)
