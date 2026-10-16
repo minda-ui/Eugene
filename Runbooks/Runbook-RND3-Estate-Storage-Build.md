@@ -7,18 +7,25 @@
 ## Confirmed hardware (2026-10-16) — the whole stack is owned
 | Part | What it is | Status |
 |---|---|---|
-| **NetApp DS2246** (NAJ-1001) | 2U JBOD shelf, 24× 2.5" SAS SSD (~5–7 TB raw), dual **IOM6** (6 Gb, **QSFP/SFF-8436** ports), dual PSU | ✅ owned |
+| **NetApp DS2246** (NAJ-1001) | 2U JBOD shelf, 24× 2.5" bays (**EMPTY**), dual **IOM6** (6 Gb, **QSFP/SFF-8436** ports), dual PSU | ✅ owned (no drives) |
 | **Dell PowerEdge R710** | Storage host: 2× Xeon X5650 (12c/24t), **24 GB ECC DDR3**, 8× 2.5" bays, 2× PCIe risers | ✅ owned |
 | **Fujitsu PSAS CP400e** | External SAS HBA = LSI **SAS3008**, 12 Gb, 2× **SFF-8644** — must be **IT mode** | ✅ owned |
-| **SFF-8644 → QSFP (SFF-8436) cable** | Host HBA → shelf IOM6. ~£20–40. ×2 for multipath | ⬜ **buy (only purchase)** |
+| **SFF-8644 → QSFP (SFF-8436) cable** | Host HBA → shelf IOM6. ~£20–40. ×2 for multipath | ⬜ **buy** |
+| **2.5" SFF SSDs + DS2246 caddies** | Enterprise SAS, 512-byte, PLP. e.g. 8× 1.92 TB + 8 caddies | ⬜ **buy** |
 
 Why the R710 (not the DL380): keeps the DL380 free for the RND-2 GPU build. Clean separation of concerns.
 
-## The only purchase
-- **1× (or 2×) external mini-SAS HD cable: SFF-8644 ↔ SFF-8436 (QSFP), ~1–2 m.**
-  Search terms: *"SFF-8644 to SFF-8436 QSFP external SAS cable"*. eBay/Amazon/CablesOnline. One works to
-  start; a second cables the redundant IOM B for multipath.
-- Everything else is in-hand. No RAM, no HBA, no drives to buy.
+## Purchases (shelf is empty)
+1. **SAS cable:** 1× (or 2×) external mini-SAS HD **SFF-8644 ↔ SFF-8436 (QSFP)**, ~1–2 m. Search:
+   *"SFF-8644 to SFF-8436 QSFP external SAS cable"*.
+2. **SSDs:** 2.5" **enterprise SAS** (6 Gb+), **512-byte sector**, **with power-loss protection** — NOT
+   consumer. Suggested first pool **8× 1.92 TB → RAIDZ2 ≈ ~10 TB usable** (add vdevs later). Match sizes
+   within a vdev. **Avoid NetApp-firmware (520-byte) SSDs** — buy Dell/HP/generic 512-byte to skip the
+   reformat. Used enterprise on eBay = best value.
+3. **Caddies:** an empty NetApp shelf has **no drive trays** — buy **DS2246 2.5" caddies** (×the drive
+   count), or buy **drive+caddy bundles**. Confirm the exact tray fits this NAJ-1001 before ordering.
+
+No RAM, no HBA to buy (both in-hand).
 
 ## Phase 0 — Pre-flight
 1. R710 **not** carrying anything live (it's a fresh storage box). Rack space + UPS outlet + the shelf
@@ -51,8 +58,9 @@ Why the R710 (not the DL380): keeps the DL380 free for the RND-2 GPU build. Clea
    the shelf), **or** Proxmox + ZFS if you want VMs on the same box.
 2. Confirm the 24 shelf SSDs are listed as individual disks in Storage → Disks.
 
-## Phase 4 — 520→512 reformat (NetApp SSDs)
-NetApp ships SSDs at **520-byte sectors**; ZFS/Linux want **512**. Check one:
+## Phase 4 — 520→512 reformat (ONLY if you bought NetApp-firmware SSDs)
+If you bought standard 512-byte enterprise SSDs (recommended), **skip this phase**. NetApp-firmware SSDs
+ship at **520-byte sectors**; ZFS/Linux want **512**. Check one:
 ```sh
 sg_readcap -l /dev/sdX            # look for "Logical block length=520 bytes"
 ```

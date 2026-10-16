@@ -34,10 +34,10 @@ Two assets most setups lack: a **big server** (DL380 Gen9, 128 GB) and a **secon
 ## Hardware CONFIRMED — the whole stack is owned (Minda, 2026-10-16) ✅
 The storage stack is **physically in-hand** — only **one cable** to buy. Confirmed from photos/BIOS:
 
-### The shelf — NetApp DS2246 (chassis NAJ-1001) ✅
+### The shelf — NetApp DS2246 (chassis NAJ-1001) ✅ (EMPTY)
 - **2U, 24× 2.5" SFF SAS bays**, SAS **6 Gb/s**, **dual IOM6** (multipath), dual hot-swap PSU/fan,
   hot-swap drives/IOMs, ACP. A **"dumb" JBOD shelf — no controller** → ideal for ZFS (raw disks).
-- **Populated:** 24× 2.5" SAS **SSD** (mixed 200/400 GB ≈ **5–7 TB raw**) — a fast all-flash pool.
+- **Populated:** ⚠️ **EMPTY** (corrected 2026-10-16) — **drives + caddies must be bought** (see below).
 - **IOM6 ports are QSFP (SFF-8436)** — NOT SFF-8088. ⚠️ This corrects the earlier "SFF-8088" note; the
   cable to the host must terminate **QSFP** at the shelf end.
 
@@ -56,14 +56,28 @@ Using the **R710, not the DL380**, keeps the DL380 free for the RND-2 GPU build 
   crossflash to **9300-8e IT** firmware if it reports IR. **Key check before building the pool.**
 - Fits an R710 PCIe riser (x8). Backward-compatible 12 Gb HBA ↔ 6 Gb shelf (negotiates to 6 Gb).
 
-### The ONLY purchase — one SAS cable
-- **SFF-8644 (host/CP400e) → QSFP / SFF-8436 (DS2246 IOM6)**, external mini-SAS HD → mini-SAS, ~£20–40.
-  Buy **×2** to cable **both IOM6s** for multipath redundancy (one works to start).
-- Exact spec: *"SFF-8644 to SFF-8436 (QSFP) external SAS cable, 1–2 m."* Common on eBay/Amazon/CablesOnline.
+### Purchases — cable + SSDs + caddies (shelf is empty)
+**1. The SAS cable** — **SFF-8644 (host/CP400e) → QSFP / SFF-8436 (DS2246 IOM6)**, external mini-SAS HD,
+~£20–40. Buy **×2** to cable **both IOM6s** for multipath (one works to start). Spec: *"SFF-8644 to
+SFF-8436 (QSFP) external SAS cable, 1–2 m."*
 
-### Heads-ups (unchanged)
-- NetApp SSDs are almost certainly **520-byte sectors** → one-time **`sg_format --format --size=512`**
-  per disk before ZFS (reformats to 512; wipes the disk — these are spare/blank). Procedure in the runbook.
+**2. The drives — 2.5" SFF SSDs (the shelf is empty).**
+- **Interface:** **SAS 6 Gb+ preferred** (cleanest in a NetApp shelf; 12 Gb SAS negotiates down fine).
+  Enterprise **SATA** 2.5" works too but SAS is the safe default for dual-IOM multipath.
+- **Grade: enterprise/datacentre used**, NOT consumer. Enterprise SSDs have **power-loss protection (PLP)**
+  and high endurance — ZFS hammers drives; consumer SSDs wear fast and risk data on power-cut. Used
+  enterprise SAS SSDs (eBay) are the value sweet-spot.
+- **Capacity/count:** don't fill all 24 to start. **8× 1.92 TB** in RAIDZ2 ≈ **~10 TB usable** is a strong
+  first pool; add vdevs later. (All drives in a vdev should match size — ZFS uses the smallest.)
+- **Sector size:** **avoid NetApp-firmware SSDs** (520-byte, need `sg_format` to 512 + sometimes won't
+  reformat). Buy **standard 512-byte enterprise SSDs** (Dell/HP/generic LSI) and skip that whole step.
+- **⚠️ Caddies/trays:** an empty NetApp shelf ships **without drive caddies**. 2.5" SSDs need **DS2246
+  trays** (NetApp X-series 2.5" caddy) — budget ~£5–10 each ×8. Confirm the exact caddy that locks into
+  this NAJ-1001 before buying drives (some sellers bundle drive+caddy — cheapest route).
+
+### Heads-ups
+- If any drives do report **520-byte sectors** → one-time **`sg_format --format --size=512`** per disk
+  before ZFS (wipes it). Buying 512-byte enterprise SSDs avoids this (above). Procedure in the runbook.
 - 2U + dual PSU → put the shelf + R710 on the **UPS**; mind heat/noise (datacentre-loud).
 
 ## Beverley Place (off-site replica) — still to confirm
