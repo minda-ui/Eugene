@@ -80,7 +80,9 @@ and growth can wait, **12× 480 GB (~3 TB)** covers everything today and you add
 - **Chosen layout: 2× 6-wide RAIDZ2 = ~5.8 TB usable** (each vdev 4 data + 2 parity; survives 2 failures
   per vdev). Covers the 3-yr target (~4.6 TB) with headroom. **12 of 24 bays used → room for a 2nd pool/
   vdev later.** (Alt: 1× 12-wide RAIDZ2 ≈ 7.2 TB usable but wider/slower resilve — 2×6 is the pick.)
-- **Still to buy:** just the **SFF-8644 → QSFP (SFF-8436) cable**. HBA/host/caddies all in hand.
+- **Cable identified (2026-10-16):** MiniSAS HD **SFF-8644 → QSFP (SFF-8436)**, 1 m (10Gtek/Allowish,
+  ~£23.59). "40G" in the title is just the shared QSFP connector — the "MiniSAS HD" prefix = SAS-wired,
+  correct for the DS2246. Buy 1 now (path to IOM A); a 2nd later for multipath. **This is the last buy.**
 - **On arrival:** spot-check one with `sg_readcap -l` (expect 512) → then build the pool.
 - ⚠️ 12× 10K spinners = loud/hot/power — keep the shelf on the UPS in the rack/plant room, not a desk.
 

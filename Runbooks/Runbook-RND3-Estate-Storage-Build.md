@@ -10,7 +10,7 @@
 | **NetApp DS2246** (NAJ-1001) | 2U JBOD shelf, 24× 2.5" bays (**EMPTY**), dual **IOM6** (6 Gb, **QSFP/SFF-8436** ports), dual PSU | ✅ owned (no drives) |
 | **Dell PowerEdge R710** | Storage host: 2× Xeon X5650 (12c/24t), **24 GB ECC DDR3**, 8× 2.5" bays, 2× PCIe risers | ✅ owned |
 | **Fujitsu PSAS CP400e** | External SAS HBA = LSI **SAS3008**, 12 Gb, 2× **SFF-8644** — must be **IT mode** | ✅ owned |
-| **SFF-8644 → QSFP (SFF-8436) cable** | Host HBA → shelf IOM6. ~£20–40. ×2 for multipath | ⬜ **buy** |
+| **SFF-8644 → QSFP (SFF-8436) cable** | MiniSAS HD → QSFP, 1 m (10Gtek/Allowish, ~£23.59). ×2 for multipath later | ⬜ last buy (identified 2026-10-16) |
 | **DS2246 2.5" caddies** | NetApp carriers (`111-00-xxx`) — **24, fills the shelf** | ✅ owned |
 | **2.5" SFF drives** | **12× Seagate Savvio 900 GB 10K SAS (ST900MM0006)** — 2 owned + 10 bought 2026-10-16 | ✅ owned |
 
