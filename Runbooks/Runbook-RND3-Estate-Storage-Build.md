@@ -12,7 +12,7 @@
 | **Fujitsu PSAS CP400e** | External SAS HBA = LSI **SAS3008**, 12 Gb, 2× **SFF-8644** — must be **IT mode** | ✅ owned |
 | **SFF-8644 → QSFP (SFF-8436) cable** | Host HBA → shelf IOM6. ~£20–40. ×2 for multipath | ⬜ **buy** |
 | **DS2246 2.5" caddies** | NetApp carriers (`111-00-xxx`) — **24, fills the shelf** | ✅ owned |
-| **2.5" SFF SSDs** | Enterprise SAS, 512-byte, PLP. e.g. 8× 1.92 TB (bare drives) | ⬜ **buy** |
+| **2.5" SFF drives** | **12× Seagate Savvio 900 GB 10K SAS (ST900MM0006)** — 2 owned + 10 bought 2026-10-16 | ✅ owned |
 
 Why the R710 (not the DL380): keeps the DL380 free for the RND-2 GPU build. Clean separation of concerns.
 
@@ -72,9 +72,10 @@ sg_format --format --size=512 /dev/sdX      # repeat per disk; can take minutes 
 Re-check with `sg_readcap -l` → 512. (Script the loop over all 24 once the device list is confirmed.)
 
 ## Phase 5 — ZFS pool + snapshots
-1. Create the pool across the 24 SSDs. Layout trade-off for all-flash:
-   - **RAIDZ2** (2-drive fault tolerance, ~best capacity) — good default for a backup/NAS pool.
-   - **Mirrors (striped)** — best IOPS/resilver, ~half capacity. Pick RAIDZ2 unless you need the IOPS.
+1. Create the pool from the **12× Seagate 900 GB** drives as **2× 6-wide RAIDZ2 vdevs** (4 data + 2 parity
+   each) → **~5.8 TB usable**, survives 2 failures per vdev. 12 bays stay free for a 2nd vdev later.
+   (TrueNAS: create pool → add two RAIDZ2 vdevs of 6 disks. CLI: `zpool create tank raidz2 <d1..d6>
+   raidz2 <d7..d12>`.)
 2. Enable **compression (lz4)** and **hourly/daily/weekly snapshots** (the delete/ransomware first line).
 3. Name it (e.g. `tank`), confirm `zpool status` healthy.
 

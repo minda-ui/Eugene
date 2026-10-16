@@ -72,6 +72,18 @@ and growth can wait, **12× 480 GB (~3 TB)** covers everything today and you add
 > ⚠️ Start a pool with drives of **one size** per vdev. You can mix vdev sizes in the same pool (e.g. a
 > 480 GB vdev now + an 800 GB vdev later), so buying small now never blocks a bigger vdev later.
 
+## ✅ DRIVES BOUGHT (Minda, 2026-10-16) — 12× Seagate Savvio 10K.6 900 GB SAS
+- **Model:** Seagate **ST900MM0006**, 900 GB, 10K, **6 Gbps SAS, 2.5"**. **2 already owned + 10 bought**
+  = **12 drives** @ ~£10 each (~£120 total). HDD (spinning), not SSD — right call for a backup/NAS pool.
+- **Compatibility confirmed:** 2.5" SFF SAS 6G = native match to the DS2246 IOM6; fits the NetApp caddies
+  (standard 2.5" screw pattern); **512n native → no `sg_format`/520 reformat**; raw disk for ZFS.
+- **Chosen layout: 2× 6-wide RAIDZ2 = ~5.8 TB usable** (each vdev 4 data + 2 parity; survives 2 failures
+  per vdev). Covers the 3-yr target (~4.6 TB) with headroom. **12 of 24 bays used → room for a 2nd pool/
+  vdev later.** (Alt: 1× 12-wide RAIDZ2 ≈ 7.2 TB usable but wider/slower resilve — 2×6 is the pick.)
+- **Still to buy:** just the **SFF-8644 → QSFP (SFF-8436) cable**. HBA/host/caddies all in hand.
+- **On arrival:** spot-check one with `sg_readcap -l` (expect 512) → then build the pool.
+- ⚠️ 12× 10K spinners = loud/hot/power — keep the shelf on the UPS in the rack/plant room, not a desk.
+
 ## Numbers that would still refine it (not blocking the buy)
 1. **What PBS should back up** — just the VMs, or also large data volumes (category 5)? Only matters if
    there's a big non-VM dataset to protect.

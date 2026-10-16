@@ -61,7 +61,12 @@ Using the **R710, not the DL380**, keeps the DL380 free for the RND-2 GPU build 
 ~£20–40. Buy **×2** to cable **both IOM6s** for multipath (one works to start). Spec: *"SFF-8644 to
 SFF-8436 (QSFP) external SAS cable, 1–2 m."*
 
-**2. The drives — 2.5" SFF SSDs (the shelf is empty).**
+**✅ DRIVES BOUGHT (2026-10-16): 12× Seagate Savvio 10K.6 900 GB SAS (ST900MM0006)** — 2 owned + 10 bought,
+~£10 each. 512n (no reformat), 6G SAS, fits the caddies. Layout **2× 6-wide RAIDZ2 ≈ 5.8 TB usable**, 12
+bays free to grow. See `capacity-planning.md`. HDD not SSD — correct for a backup/NAS pool. The guidance
+below is kept for a future fast-tier/second-vdev buy.
+
+**2. The drives — 2.5" SFF SSDs (if buying a fast tier later).**
 - **Interface:** **SAS 6 Gb+ preferred** (cleanest in a NetApp shelf; 12 Gb SAS negotiates down fine).
   Enterprise **SATA** 2.5" works too but SAS is the safe default for dual-IOM multipath.
 - **Grade: enterprise/datacentre used**, NOT consumer. Enterprise SSDs have **power-loss protection (PLP)**
