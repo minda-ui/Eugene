@@ -28,6 +28,15 @@ Confirmed from the order emails in minda@'s Gmail:
   **high-perf fans already fitted**. **Only remaining buy = the GPU baffle.** Open check = **GPU-riser
   slot availability** vs the P840/NICs.
 
+## Risers received + verified in hand (2026-10-16)
+Both GPU risers physically confirmed from their labels:
+- **Secondary GPU riser** (P40 #1) — SPS **777283-001** / PCA **729810-001** = **719073-B21**; 2× x16 FL +
+  x8; on-board 8-pin GPU aux-power connector. ✅ received.
+- **Primary GPU riser** (P40 #2) — SPS **777282-001** / PCA **729806-001** = **719076-B21**; x16 FL + x8;
+  on-board 8-pin GPU aux-power connector. ✅ received.
+Both carry the GPU power connector, so the mechanical GPU side is complete bar the **baffle** + the
+**slot-availability** check.
+
 ## Host baseline confirmed 2026-10-16 (iLO/IPMI readout; no reboot, no secret held)
 Read via `ipmitool` on the running host (the box = HQ Proxmox `pve` @ `10.224.10.10`). Full detail filed in
 `Infra-Inventory/Fishbone-HQ-Physical-Network-Inventory.md` (Server hardware baseline 2026-10-16).
