@@ -96,6 +96,37 @@ Only if you see that: **tighten `webmate_inbound_did` to match ONLY the real DID
 - **Rollback:** set `ext-sip-ip` back to `$${local_ip_v4}` → restart external; or roll back the VM snapshot.
 - Recovery card (phones Forbidden/all-down): **SIP Status → Flush Cache → Reload XML → Restart internal**.
 
+## ✅ RESOLVED 2026-10-16 — what actually landed it (two more steps beyond §1–§5)
+Steps 1–5 above got the **INVITE arriving** (`sngrep`: `52.28.7.189 → 62.105.119.118:5080`) but it then
+**404'd** (`[inbound routes] 404 not found`). Two more things were needed:
+
+**A. The transfer re-route (the real last-mile fix).** WebMate addresses the INVITE's Request-URI to the
+**gateway username `CUP4127366SIP1`**, not the DID — the dialled number is only in the **To header**
+(`sip_to_user=+441916052945`). So FreeSWITCH fetches the dialplan for destination `CUP4127366SIP1` and the
+DID's Destination is never loaded. A plain `set destination_number=…` + `continue` does **not** help
+(the destination entry isn't in the fetched XML). Fix = restructure `webmate_inbound_did` to **transfer**
+so the dialplan is re-fetched for the real DID:
+
+| Tag | Type | Data |
+|---|---|---|
+| condition | `destination_number` | `^CUP4127366SIP1$`  *(loop guard)* |
+| condition | `${sip_to_user}` | `^\+?44(\d{10})$`  *(capture DID)* |
+| action | `set` | `ignore_early_media=true` |
+| action | `transfer` | `0$1 XML public` |
+
+The transfer → re-fetch for `01916052945` → the existing Destination (`→ transfer 1001 XML 10.224.13.9`)
+matches → Ring Group → rings. On re-entry the `^CUP4127366SIP1$` guard fails → entry skipped → no loop.
+`ignore_early_media=true` also fixes the early-media-no-ring.
+
+**B. ⚠️ Flush the FusionPBX cache after the edit.** FusionPBX caches the dialplan **per-destination**
+(`dialplan:public:CUP4127366SIP1`); `reloadxml` alone does NOT pick up a dialplan edit here. After saving,
+do **Status → SIP Status → Flush Cache** (or `rm -f /var/cache/fusionpbx/*`) **then** `reloadxml`.
+
+**Result:** inbound rings 1001 with clean two-way audio (confirmed 2026-10-16). Snapshot
+`oi8-inbound-working-2026-10-16`. Minor residual: hold Destinations in +44 format; test 946/947/948;
+CDR (OI-19); PBX NTP (~2h skew). _Also: a hard power-off scrambled FreeSWITCH's directory cache (registered
+but calls 404'd) → `systemctl restart freeswitch` clears it._
+
 ## Related
 `open-issues.md` OI-8 (Charlie's finding + this fix), OI-19 (CDR), OI-18 (SSH — now available),
 `Runbooks/Runbook-OI8-PBX-SSH-Recovery-and-Diagnosis.md`, WebMate ticket **T02530-15072026**.
