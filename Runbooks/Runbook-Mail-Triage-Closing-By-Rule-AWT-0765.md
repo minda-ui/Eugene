@@ -68,7 +68,9 @@ WHEN YOU CLOSE BY RULE:
 
 ## 2. Weekly closed-list design (the record)
 - **Where:** group **Outputs** folder (confirm exact folder id with Victoria at hand-off).
-- **One file per ISO week**, e.g. `Closed-by-rule-2026-W43.md` (Mon–Sun). New file each Monday.
+- **Name:** match Victoria's existing file pattern **`YYYY-MM-DD_List_Closed-By-Rule_vN.md`** (she's already
+  producing these by hand, e.g. `2026-10-16_List_Closed-By-Rule_v1.md`). Owner note says "weekly"; Victoria
+  is doing per-sweep — **confirm with her: one file per week** under that same name pattern.
 - **One line per closed item**, four fields, pipe-separated, newest at the bottom:
   ```
   | Date | Sender | Subject | Class |
@@ -108,6 +110,13 @@ After the dry-run is signed off:
    delivery convention (whole prompt, not a delta), filed in the owning employee's KB **via a Raw/ note +
    Hub row** (§1 hand-off), for **Minda to paste** into the routines form.
 3. Reply on **AWT-0765** with the dry-run result + the hand-off reference; AWT-0766 then goes Active.
+
+## Dry-run 1 done (2026-10-16)
+Applied this rule to Victoria's 15 Oct hand-closures (28 rows):
+`Runbook-Mail-Triage-Closing-By-Rule-DryRun-2026-10-15.md`. Result: **23 agree, 5 the rule would escalate
+(safer), 0 over-close.** It surfaced two policy gaps → proposed rule refinements **R1–R3** (internal
+colleague's own outbound/FYI; legal stays never-close; "unknown sender" closes only once a seat has fully
+handled it). **Minda/Victoria to rule on R1–R3 + the 5 flagged rows**, then this §1 becomes v0.2.
 
 ## Open points for Victoria/Minda (surface at the dry-run)
 - **Tie-break 1** (external bulk marketing = close; external real correspondence = never close) — confirm the
