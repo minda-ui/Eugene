@@ -6,6 +6,15 @@
 > when the cable arrives. Guide-only (§3): Minda does the hardware/console steps, Eugene guides + verifies.
 > **2026-10-17:** only 2× Seagate 900 GB in hand so far → **go live now on a 2-way mirror** (Option A), rebuild
 > to RAIDZ2 when the other 10 land. The DS2246 remains the later capacity upgrade.
+>
+> **AS-BUILT (2026-10-17, powering up the R710):** Service Tag **3MLS95J**; 2× Xeon X5650, **24 GB** (POST
+> warns **DIMM B3 disabled, MEMBIST failure** → reseat/replace B3 later; not blocking). VT **already
+> Enabled**. **iDRAC6** (fw 1.97.02) present, was on default 192.168.0.130 → set to `10.224.10.21`. Internal
+> storage = **PERC 6/i Integrated** (RAID-only, no passthrough, SMART not passed to ZFS) → made **2× single-
+> disk RAID-0 VDs** (Write-Through, No Read Ahead) for the 2× 900 GB. The **CP400e (SAS3008)** is already
+> fitted (external only; shows no devices until the shelf is cabled). NIC1 MAC `D0:67:E5:F3:D0:A5`, NIC2
+> `…A7`. **No separate OS drive** (only 2 disks + 1 USB) → **OS = Proxmox VE installed on the 2-disk ZFS
+> mirror** (not TrueNAS, which needs a dedicated boot disk); matches the estate's Proxmox stack + native PBS.
 
 ## The plan — two ways in, pick by how many drives are in hand
 **Option A — GO LIVE NOW on a 2-drive mirror (recommended if only 2 drives are here yet).**
@@ -89,8 +98,14 @@ blocker — the bare R710 is** (Phase 0 first). Use **matched ST900MM0006** driv
   confirm all fitted drives enumerate (`lsblk`).
 
 ## Phase 3 — Host OS
-- Install **TrueNAS SCALE** bare-metal on the R710 (OS on a small internal SSD/USB, or a pair of the bays
-  mirrored for boot — but simplest: a USB/SSD for the OS, all 8 bays for the pool).
+**Interim (2026-10-17, 2 disks + 1 USB only): Proxmox VE on a 2-disk ZFS mirror** — no separate OS drive
+needed (TrueNAS would need one). Write the **Proxmox VE ISO** with Balena Etcher (also fixes USB not booting
+on this legacy-BIOS R710). Boot (F11 → USB) → **Install Proxmox VE** → **Target Harddisk → Options →
+Filesystem `zfs (RAID1)` → tick both VDs** → root pw (Minda holds) → network **10.224.10.20/24**, gw as the
+other 10.224.10 kit, hostname set → install → reboot → `https://10.224.10.20:8006`. The rpool mirror holds
+OS + data; PBS runs natively.
+- *(Final shelf build later could use TrueNAS SCALE on a dedicated boot disk; the interim box is rebuilt
+  then anyway — see Phase 8.)*
 
 ## Phase 4 — Sector-size check
 ```sh
