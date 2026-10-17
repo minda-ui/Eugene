@@ -83,6 +83,22 @@ _Read non-intrusively via `ipmitool` on the running host (`fru print`, `sdr`); n
 entire company's phone system for both sites is a genuine single point of failure. OS-level access is
 the current blocker; Eugene drafts the actual backup runbook once that's available.
 
+### Backup server — RND-3 interim, NEW 2026-10-17 (`pve-nas`)
+_Brought up guide-only (Minda hands-on at HQ, then remote; PBS half over Tailscale from Beverley); no
+credential recorded. This is the first off-box backup target the estate has had — closes OI-7/OI-17._
+
+| Item | Detail |
+|---|---|
+| Hardware | **Dell PowerEdge R710**, Service Tag **3MLS95J**; 2× **Xeon X5650** (12c/24t); **24 GB ECC DDR3** (⚠️ POST warns **DIMM B3 disabled, MEMBIST failure** — disabled by BIOS, still 24 GB, **not blocking**; reseat/replace B3 later); 8× 2.5" internal bays |
+| Storage (now) | **PERC 6/i Integrated** (RAID-only, no passthrough) → 2× single-disk RAID-0 VDs from **2× Seagate ST900MM0006 900 GB SAS** → **2-disk ZFS mirror** (`rpool`, ~832 G, ~804 G free, ONLINE). Interim pool — rebuilds to a 2×6 RAIDZ2 when the other 10 drives + the DS2246 QSFP cable arrive. |
+| HBA | Fujitsu **PSAS CP400e** (LSI SAS3008) fitted — external SFF-8644 only; no devices until the DS2246 shelf is cabled |
+| Hypervisor | **Proxmox VE 9.2.2** (Debian 13 trixie) on the ZFS mirror, host **`pve-nas`** at **`10.224.10.20:8006`** |
+| Backup server | **Proxmox Backup Server 4.2.8** installed alongside (no-subscription repos), UI at **`https://10.224.10.20:8007`**; datastore **`store1`** on dataset `rpool/pbs-store`; cert fingerprint `86:63:…:96` (public, not a secret). Added as storage **`pbs-nas`** on the HQ Proxmox (`10.224.10.10`). |
+| iDRAC | **iDRAC6** (fw 1.97.02) at **`10.224.10.21`** (moved off default `192.168.0.130`). Password Minda-held (§3). |
+| Network | `vmbr0` → **`10.224.10.20/24` gw `10.224.10.1`** (the ASA — per-VLAN host gateway, NOT the 3850 SVI `.4`), data NIC `nic0` on 3850 **Gi1/0/44 (vlan 10)**. Reachable over **Tailscale** via the HQ subnet router (no Tailscale on the box itself). NIC1 MAC `D0:67:E5:F3:D0:A5`, NIC2 `…A7`. |
+| Backups proven | **VM 105 (FusionPBX)** backed up (Snapshot, 50 GiB/84 s, TASK OK) + **restore-tested to a new VM 999** (round-trip proven). **Remaining: schedule the nightly vzdump→`pbs-nas` job** to fully close OI-17. |
+| Status | R&D interim (RND-3) until graduation; DS2246 shelf joins later as capacity expansion. |
+
 ### Firewalls
 | Item | Detail |
 |---|---|
@@ -103,6 +119,7 @@ the current blocker; Eugene drafts the actual backup runbook once that's availab
 | 17 | 3850-1, 3850-2 | iLO (ProLiant server) |
 | 18–24 | 3850-1, 3850-2 | IP Telephony |
 | 25–45 | 3850-1, 3850-2 | Computers and Printers |
+| **44** | **Gi1/0/44 + Gi2/0/44** | **Reassigned 2026-10-17 → `switchport access vlan 10` (management/servers) for the `pve-nas` backup server.** `pve-nas` is single-homed on **Gi1/0/44**; **Gi2/0/44** is reserved for a later Proxmox active-backup bond (switch redundancy). |
 | 46–48 | 3850-1, 3850-2 | WiFi AP |
 
 ### WiFi
@@ -179,7 +196,7 @@ than just facts:
 - Inter-site IPsec VPN as a resilient fallback to the wireless bridge
 
 ## Open items
-- **OI-7 (critical)** — FusionPBX server: no backup, no support contract, OS-level access still pending. See `open-issues.md`.
+- **OI-7 (was critical) — backup gap CLOSED 2026-10-17.** The FusionPBX server (VM 105) now has an off-box backup target: **`pve-nas`** (R710) running **Proxmox Backup Server** on VLAN 10 — first backup + restore-test both proven. OS access was regained 2026-10-01. **Remaining:** schedule the nightly backup job (OI-17); decide support-contract-vs-replace. See `open-issues.md`.
 - Beverley Place rack — full device-level inventory still to do.
 - WAN failover mechanism (Openreach/Starlink/Beverley-Place-fibre) — automatic or manual — not yet confirmed.
 - Floor plan's original `(1)` SSID/zone legend — superseded by the confirmed live SSID names above; not worth chasing further.

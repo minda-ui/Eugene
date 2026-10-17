@@ -7,6 +7,16 @@
 > **2026-10-17:** only 2× Seagate 900 GB in hand so far → **go live now on a 2-way mirror** (Option A), rebuild
 > to RAIDZ2 when the other 10 land. The DS2246 remains the later capacity upgrade.
 >
+> **✅ LIVE AS-BUILT (2026-10-17) — stack up, backup gap CLOSED.** `pve-nas` = **Proxmox VE 9.2.2** on a
+> 2-disk ZFS mirror (`rpool`, 832 G/804 G free, ONLINE), **10.224.10.20/24 gw `10.224.10.1`**, on 3850
+> **Gi1/0/44 (vlan 10)**, reachable over **Tailscale**. **Proxmox Backup Server 4.2.8** installed
+> alongside (`:8007`, datastore **`store1`** on `rpool/pbs-store`); added as storage **`pbs-nas`** on the
+> HQ Proxmox (`10.224.10.10`). **First backup of VM 105 (FusionPBX) + restore test to VM 999 both proven**
+> → **OI-7/OI-17 closed** (remaining: schedule the nightly job). ⚠️ **Gateway lesson:** the HQ per-VLAN
+> host gateway is **`.1` (the ASA)**, NOT the 3850 SVI `10.224.10.4` — set `.4` first and the web UI was
+> unreachable cross-VLAN though the box pinged `.10`; `.1` fixed it. See
+> `change-log/change-log-2026-10-17-rnd3-r710-pbs-live.md`.
+>
 > **AS-BUILT (2026-10-17, powering up the R710):** Service Tag **3MLS95J**; 2× Xeon X5650, **24 GB** (POST
 > warns **DIMM B3 disabled, MEMBIST failure** → reseat/replace B3 later; not blocking). VT **already
 > Enabled**. **iDRAC6** (fw 1.97.02) present, was on default 192.168.0.130 → set to `10.224.10.21`. Internal
@@ -101,8 +111,9 @@ blocker — the bare R710 is** (Phase 0 first). Use **matched ST900MM0006** driv
 **Interim (2026-10-17, 2 disks + 1 USB only): Proxmox VE on a 2-disk ZFS mirror** — no separate OS drive
 needed (TrueNAS would need one). Write the **Proxmox VE ISO** with Balena Etcher (also fixes USB not booting
 on this legacy-BIOS R710). Boot (F11 → USB) → **Install Proxmox VE** → **Target Harddisk → Options →
-Filesystem `zfs (RAID1)` → tick both VDs** → root pw (Minda holds) → network **10.224.10.20/24**, gw as the
-other 10.224.10 kit, hostname set → install → reboot → `https://10.224.10.20:8006`. The rpool mirror holds
+Filesystem `zfs (RAID1)` → tick both VDs** → root pw (Minda holds) → network **10.224.10.20/24**, gw
+**`10.224.10.1`** (the ASA — the HQ per-VLAN host gateway, NOT the 3850 SVI `.4`; see the gateway lesson
+in the header), hostname set → install → reboot → `https://10.224.10.20:8006`. The rpool mirror holds
 OS + data; PBS runs natively.
 - *(Final shelf build later could use TrueNAS SCALE on a dedicated boot disk; the interim box is rebuilt
   then anyway — see Phase 8.)*
@@ -127,9 +138,14 @@ sg_readcap -l /dev/sdX      # expect 512 (Seagate Savvio = 512n). If 520: sg_for
 - SMB share (map `Z:` on a PC, test write/read + snapshot restore). Nextcloud app for the Drive/OneDrive
   experience (web, desktop sync, mobile photo-upload, share links).
 
-## Phase 7 — PBS = start backups now (closes OI-7/OI-17)
-- Stand up **Proxmox Backup Server** targeting a dataset here; back up the FusionPBX VM + other VMs.
-  **This is the win — the backup gap closes this week, not in three.**
+## Phase 7 — PBS = start backups now (closes OI-7/OI-17) ✅ DONE 2026-10-17
+- **Done:** PBS 4.2.8 installed on `pve-nas` (no-subscription repos; `:8007`), datastore **`store1`** on
+  `rpool/pbs-store`, added as storage **`pbs-nas`** on the HQ Proxmox (fingerprint
+  `86:63:…:96`). **First backup of VM 105 (FusionPBX) in Snapshot mode — 50 GiB/84 s, TASK OK**; **restore
+  test to a new VM 999** (not started, then removed) proved the round-trip. **Backup gap CLOSED.**
+- **Remaining to fully close OI-17:** add the **scheduled nightly vzdump→`pbs-nas` job with retention**
+  (HQ Proxmox → Datacenter → Backup → Add; VM 105 + ideally 101/102/103). Snapshot mode, keep ~7–14 daily.
+  _Exact no-subscription repo + install commands used: see the change-log entry for 2026-10-17._
 
 ## Phase 8 — later, when the QSFP cable arrives
 - Fit the CP400e in the R710, cable to the DS2246 IOM A, confirm IT mode (`sas3flash -list`).
