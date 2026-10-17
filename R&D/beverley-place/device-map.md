@@ -107,6 +107,23 @@ throughout; Eugene held no credential.
   document running config → back up → reset creds into Minda's 1Password. Guide-only; Minda executes.
 - Delivers the RND-3 off-site replica node (the Proxmox box) too.
 
+## Update 2026-10-17 — inter-site link incident (OI-23): switch + radio facts confirmed
+During a Beverley↔HQ link outage (the Beverley airFiber dish had lost power), consoled into the 3850 and
+nailed down details the recon had left open:
+- **3850 mgmt IP: `Vlan110 = 10.224.110.4`** (also `Vlan10 = 10.224.10.252`, `Vlan11 = 10.224.11.252`).
+- **VLANs 10 & 11 are bridged across the airFiber to HQ** (both sites share those subnets over the radio).
+- **airFiber radio mgmt IPs: Beverley `192.168.5.20`, HQ `192.168.5.21`** (isolated `192.168.5.0/24`).
+- **3850 ASA↔switch uplink = `Po1` (LACP)** on `Gi1/0/1` + `Gi1/0/2` (the "two patch cables ~LACP" from
+  recon, now confirmed as a port-channel).
+- **Port map:** `Gi1/0/3-39` LAN (vlan 111); `Gi1/0/40` WiFi AP (vlan 110); `Gi1/0/44-46` UniFi APs;
+  `Gi1/0/47` UniFi Cloud Key (vlan 110); `Gi1/0/48` BT-router for office (vlan 4); `Gi1/1/1` BT-router
+  (vlan 6); **`Gi1/1/2` AirFiber to office (trunk, SFP)** = the inter-site radio.
+- **Incident:** dish re-powered; its data cable had been mis-plugged into `Gi1/0/2` (an ASA Po1 member)
+  and was moved to `Gi1/1/2`; ASA Po1 verified intact; `Gi1/1/2` UP. **RF link still re-locking at
+  sign-off → HQ unreachable, phone ext 1006 still down** — finish next session (OI-23).
+- **Two fibres on site (business + personal); the BT one is cancelled 27 Oct 2026** → OI-24.
+See `change-log/change-log-2026-10-17-beverley-intersite-link-down-airfiber.md`.
+
 ## Links
-`R&D/beverley-place/recon.md` (RND-4 plan); OI-7 (backups); HQ recovery change-logs 2026-10-01/02;
-HQ ASA = Cisco ASA 5550 (same model).
+`R&D/beverley-place/recon.md` (RND-4 plan); OI-7 (backups); OI-23 (inter-site link); OI-24 (BT fibre);
+HQ recovery change-logs 2026-10-01/02; HQ ASA = Cisco ASA 5550 (same model).

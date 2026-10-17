@@ -171,15 +171,38 @@ Beverley Place also has working IP telephony via the inter-site link.
 
 ## Beverley Place — rack inventory
 
-Documented lightly so far — a small server rack exists but hasn't been walked through device-by-device
-the way HQ's rack was. Known:
-- Its own **1Gb FTTP fibre** connection (independent of HQ's WAN paths)
-- Hosts the **UniFi controller** for the whole site's APs
-- Has **server(s)** that form the IPsec VPN endpoint back to HQ
-- IP telephony works there (via the inter-site link back to HQ's FusionPBX)
+Recovered + partially walked 2026-10-10 (OI-20); more detail added 2026-10-17 from the inter-site link
+incident (OI-23). The HQ stack in miniature: **1× Cisco ASA 5550** (single, serial MX1512L0FD), **1×
+Catalyst 3850-48 + C3850-NM-2-10G** (single, no stack), **Lenovo mini-PC Proxmox** (`10.224.111.199`, no
+iLO), **UniFi Cloud Key Gen2** (`10.224.110.5`), **APC UPS**.
 
-**To confirm next:** full device inventory for this rack, same level of detail as HQ (exact server
-hardware/OS, what else if anything runs there, UPS coverage if any).
+**Two fibres on site:** a **business** fibre and a **personal** fibre. ⚠️ The **BT** fibre is being
+**cancelled 27 Oct 2026** (no replacement) — see **OI-24**. The other fibre remains, so Beverley keeps
+internet (redundancy loss, not outage). At HQ the BT feed is delivered **from Beverley over the airFiber
+radio** and lands on **vlan 4** — it is only a *backup* WAN at HQ (HQ runs on Wavenet FTTB).
+
+**Inter-site link = the airFiber radio** (see the Sites section). **VLANs 10 and 11 are bridged across
+the radio**, so Beverley and HQ share `10.224.10.0/24` + `10.224.11.0/24`; a Beverley host reaches HQ
+`10.224.10.x` natively over the link. **airFiber radio management IPs: Beverley `192.168.5.20`, HQ
+`192.168.5.21`** (own isolated `192.168.5.0/24` mgmt subnet, not routed from the data LAN; Minda holds
+the login). ⚠️ **2026-10-17: the Beverley dish lost power → the whole inter-site link dropped** (OI-23) —
+a reminder the radio is a single point of failure for Beverley↔HQ (the VPN fallback rides each site's
+own internet).
+
+**Beverley Catalyst 3850 (`home-sw`):**
+| Item | Detail |
+|---|---|
+| Mgmt IP | **`Vlan110 = 10.224.110.4`** (SSH here from the Beverley LAN). Also SVIs `Vlan10 = 10.224.10.252`, `Vlan11 = 10.224.11.252` (the bridged VLANs). |
+| Software | IOS-XE 16.09.05 install mode (same as HQ). Minor `SIF_MGR-1-FAULTY_CABLE` StackWise warning — cosmetic on a single switch. |
+| Uplink | `Po1` (LACP) to the ASA = `Gi1/0/1` + `Gi1/0/2` (ASA-Gi0/0 + ASA-Gi0/1). |
+| Port map | `Gi1/0/3`–`39` LAN (access vlan 111); `Gi1/0/40` WiFi AP (vlan 110); `Gi1/0/44`–`46` UniFi APs (UAP trunks); `Gi1/0/47` UniFi Cloud Key (vlan 110); **`Gi1/0/48` BT-router for office (vlan 4)**; **`Gi1/1/1` BT-router (vlan 6)**; **`Gi1/1/2` AirFiber to office (trunk, SFP)** ← the inter-site radio. |
+
+Credentials (ASA, 3850, Proxmox root, airFiber) are all in Minda's 1Password — Eugene holds none (§3).
+**Still not held: the UniFi Cloud Key login** (OI-20) — WiFi runs on cached config; not on the wired
+phone's path.
+
+**To confirm next:** the Beverley ASA WAN interface map (which fibre is the BT one, for the OI-24
+cutover); exact Proxmox mini-PC model; UPS model/coverage.
 
 ---
 
