@@ -73,9 +73,12 @@ shelf remains the later capacity expansion once the SFF-8644→QSFP cable arrive
 ## Result — backup gap CLOSED
 - **OI-7** (critical SPOF — no backup on the company PBX): the off-box backup target now exists and the
   first backup + restore are proven.
-- **OI-17** (no recent/automated Proxmox backup): the off-box PBS target is live; **remaining = add the
-  scheduled nightly vzdump→PBS job with retention** (Datacenter → Backup → Add) to fully automate — a
-  ~2-minute step, offered to Minda as the immediate follow-up.
+- **OI-17** (no recent/automated Proxmox backup): **RESOLVED same day** — created the scheduled job on the
+  HQ Proxmox (Datacenter → Backup): Enabled, all nodes, **`02:00` daily**, Storage `pbs-nas`, Selection
+  **VMs 101/102/103/105/106** (104 ssh-gateway + 100 test excluded), **Snapshot** mode, retention
+  **`keep-daily=14`**, Next Run 2026-10-18 02:00. **"Run now" → all five VMs backed up, prune executed,
+  `TASK OK`.** Nightly automated off-box backup is now live for all production HQ VMs. Backup gap fully
+  closed.
 
 ## Lessons (for the runbook / inventory)
 - HQ per-VLAN host gateway is **`.1` (the ASA)**, not the 3850 SVI `.4` — a box that can ping its own
