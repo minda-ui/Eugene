@@ -4,12 +4,26 @@
 > to source in the UK. This path stands up the whole NAS + backup stack **this week** using the R710's own
 > **8× 2.5" internal bays** — no external shelf, no QSFP cable. The **DS2246 joins later as expansion**
 > when the cable arrives. Guide-only (§3): Minda does the hardware/console steps, Eugene guides + verifies.
+> **2026-10-17:** only 2× Seagate 900 GB in hand so far → **go live now on a 2-way mirror** (Option A), rebuild
+> to RAIDZ2 when the other 10 land. The DS2246 remains the later capacity upgrade.
 
-## The plan
-- Put **8 of the 12 Seagate 900 GB** drives in the R710's internal bays.
-- Pool: **1× 8-wide RAIDZ2 ≈ 4.3 TB usable** (6 data + 2 parity; survives 2 failures). Covers the ~4.6 TB
-  target essentially on its own, so backups + Nextcloud + Drive copy can all start now.
-- Later: add the DS2246 (12+ drives) as a **second vdev/pool** for capacity once the QSFP cable lands.
+## The plan — two ways in, pick by how many drives are in hand
+**Option A — GO LIVE NOW on a 2-drive mirror (recommended if only 2 drives are here yet).**
+- Put **2× Seagate 900 GB** in the R710 as a **2-way mirror** → **~900 GB usable, survives 1 failure.**
+- Enough to prove the whole stack (TrueNAS → pool → PBS → **restore test**) and **start backing up the VMs
+  this week** — the VMs (FusionPBX/DocuSeal/Proxmox guests) are tens of GB, so ~900 GB is ample, with room
+  for a Nextcloud/SMB test. **Closes the backup gap (OI-7/OI-17) now.**
+- ⚠️ **This mirror is a throwaway/interim pool.** ZFS can't reshape a mirror into the final 2×6 RAIDZ2 in
+  place, so when the other 10 drives arrive you **destroy + recreate** as the 12-drive RAIDZ2 and re-run
+  backups (PBS just backs up again, or a quick `zfs send/receive`). On a days-old backup pool that's
+  trivial — nothing of value is lost. **Never stripe the 2** (no redundancy defeats a backup target).
+
+**Option B — wait for all 12, build the final pool once.**
+- Put **8–12 of the Seagate 900 GB** in and build **2× 6-wide RAIDZ2 ≈ 5.8 TB** (or 1× 8-wide ≈ 4.3 TB with
+  8) — no later rebuild, but no backups until the drives land.
+
+Either way the DS2246 joins later as a **second vdev/pool** once the QSFP cable arrives. **Drives are not the
+blocker — the bare R710 is** (Phase 0 first). Use **matched ST900MM0006** drives in any one vdev.
 
 ## Phase 0 — Bring the R710 to life (it has no OS yet)
 **Goal:** get it POSTing, sane in BIOS, reachable on iDRAC, with install media ready. Nothing destructive.
@@ -71,7 +85,8 @@
 - Verify: booted into a Linux/TrueNAS shell, `lsblk` / `sas2flash -list` shows all 8 disks individually.
 
 ## Phase 2 — Fit the drives
-- 8× Seagate ST900MM0006 into the R710 bays (Dell caddies). Power on. Confirm all 8 enumerate.
+- Option A: **2× Seagate ST900MM0006** into the R710 bays (Dell caddies). Option B: 8–12×. Power on,
+  confirm all fitted drives enumerate (`lsblk`).
 
 ## Phase 3 — Host OS
 - Install **TrueNAS SCALE** bare-metal on the R710 (OS on a small internal SSD/USB, or a pair of the bays
@@ -84,9 +99,14 @@ sg_readcap -l /dev/sdX      # expect 512 (Seagate Savvio = 512n). If 520: sg_for
 (These Seagates are 512n, so this should just pass — quick sanity check.)
 
 ## Phase 5 — ZFS pool + snapshots
-- Create **1× 8-wide RAIDZ2** from the 8 drives → ~4.3 TB usable.
-  (TrueNAS: pool → RAIDZ2, 8 disks. CLI: `zpool create tank raidz2 <d1..d8>`.)
+- **Option A (2 drives, go-live now): 2-way MIRROR → ~900 GB usable, 1-disk fault tolerance.**
+  (TrueNAS: pool → Mirror, 2 disks. CLI: `zpool create tank mirror <d1> <d2>`.) **Not** a stripe.
+- **Option B (8–12 drives, final): 2× 6-wide RAIDZ2 ≈ 5.8 TB** (or 1× 8-wide ≈ 4.3 TB with 8).
+  (CLI: `zpool create tank raidz2 <d1..d6> raidz2 <d7..d12>`.)
 - Enable **lz4 compression** + **hourly/daily/weekly snapshots**. `zpool status` healthy.
+- ⚠️ **Mirror → RAIDZ2 is not an in-place reshape.** When the 10 drives arrive: back up / `zfs send` the
+  datasets off (or just let PBS re-backup), **destroy the mirror pool**, recreate as Option B, re-run
+  backups. Trivial on a days-old backup pool. (See Phase 8.)
 
 ## Phase 6 — Shares + Nextcloud
 - SMB share (map `Z:` on a PC, test write/read + snapshot restore). Nextcloud app for the Drive/OneDrive
