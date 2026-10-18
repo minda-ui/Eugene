@@ -1,24 +1,11 @@
 {
   "hooks": {
     "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh\""
-          }
-        ]
-      }
+      { "hooks": [ { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh\"" } ] }
     ],
     "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/end-of-day.sh\""
-          }
-        ]
-      }
+      { "hooks": [ { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/end-of-day.sh\"" } ] },
+      { "hooks": [ { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/creative-mode.sh\"" } ] }
     ]
   },
   "enabledMcpjsonServers": ["composio"],
@@ -26,7 +13,36 @@
     "allow": [
       "Bash(composio execute *)",
       "Bash(composio connections remove *)",
-      "Bash(composio link *)"
+      "Bash(composio link *)",
+      "mcp__Google_Drive__create_file",
+      "mcp__Google_Drive__update_file",
+      "mcp__Google_Drive__copy_file",
+      "mcp__Google_Drive__search_files",
+      "mcp__Google_Drive__read_file_content",
+      "mcp__Google_Drive__download_file_content",
+      "mcp__Google_Drive__get_file_metadata",
+      "mcp__Google_Drive__get_file_permissions",
+      "mcp__Google_Drive__list_recent_files",
+      "mcp__Smartsheet__update_rows",
+      "mcp__Smartsheet__add_rows",
+      "mcp__Smartsheet__get_sheet_summary",
+      "mcp__Smartsheet__get_columns",
+      "mcp__Smartsheet__find_in_sheet"
+    ],
+    "deny": [
+      "Bash(composio execute GMAIL_SEND*)",
+      "Bash(composio execute GMAIL_REPLY*)",
+      "Bash(composio execute GMAIL_FORWARD*)",
+      "Bash(composio execute GMAIL_DELETE_*)",
+      "Bash(composio execute GMAIL_BATCH_DELETE_MESSAGES*)",
+      "Bash(composio execute GMAIL_MOVE_TO_TRASH*)",
+      "Bash(composio execute GMAIL_MOVE_THREAD_TO_TRASH*)",
+      "Bash(composio execute GOOGLEDRIVE_DELETE_*)",
+      "Bash(composio execute GOOGLEDRIVE_GOOGLE_DRIVE_DELETE_FOLDER_OR_FILE_ACTION*)",
+      "mcp__Gmail__send_message",
+      "mcp__Gmail__reply",
+      "mcp__Gmail__forward",
+      "mcp__Google_Drive__trash_file"
     ]
   }
 }
