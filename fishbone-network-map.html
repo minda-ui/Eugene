@@ -101,7 +101,7 @@
       <div class="row"><div class="k">FusionPBX<small>VM 105 · phone system (both sites)</small></div><div class="v">10.224.13.9</div></div>
       <div class="row"><div class="k">Backup — Dell R710<small>pve-nas · Proxmox Backup Server</small></div><div class="v">10.224.10.20</div></div>
       <div class="row"><div class="k">Desk phones<small>Yealink T48S — ext 1001 / 1002</small></div><div class="v">.13.14 / .13.13</div></div>
-      <div class="row"><div class="k">WiFi<small>UniFi — 6 APs (5 in + 1 out)</small></div><div class="v">cached config</div></div>
+      <div class="row"><div class="k">WiFi<small>UniFi — 3 APs (2 in + 1 out)</small></div><div class="v">cached config</div></div>
       <div class="row"><div class="k">CCTV<small>Hikvision NVR + 16 cams</small></div><div class="v"><span class="tag t-iso">isolated</span></div></div>
     </div>
 
@@ -160,7 +160,7 @@
     hq_pve :{x:20 ,y:316,w:234,title:"Server — DL380 Gen9",lines:["Proxmox  ·  10.224.10.10","VM105 FusionPBX → 10.224.13.9","+ FW / proxy / ssh-gw VMs"],cls:"op"},
     hq_nas :{x:20 ,y:470,w:234,title:"Backup — Dell R710",lines:["pve-nas · 10.224.10.20","Proxmox Backup Server"],cls:"op"},
     hq_ph  :{x:300,y:316,w:190,title:"HQ phones ×2",lines:["Yealink T48S","ext 1001 / 1002"],cls:"op"},
-    hq_ap  :{x:300,y:420,w:190,title:"HQ WiFi · UniFi",lines:["6 APs (5 in + 1 out)"],cls:"op"},
+    hq_ap  :{x:300,y:420,w:190,title:"HQ WiFi · UniFi",lines:["3 APs (2 in + 1 out)"],cls:"op"},
     hq_cctv:{x:300,y:506,w:190,title:"CCTV",lines:["Hikvision NVR + 16 cams"],cls:"iso"},
     hq_dish:{x:520,y:196,w:150,title:"airFiber (Master)",lines:["HQ mast · 192.168.5.21"],cls:"radio"},
     bv_dish:{x:720,y:196,w:150,title:"airFiber (Slave)",lines:["Beverley · 192.168.5.20"],cls:"radio"},
@@ -220,8 +220,8 @@
   conn(anchor(N.hq_dish,"b",0.5),anchor(N.bv_dish,"b",0.5),"v",{color:C("--muted"),w:1.4,dash:"2 5"});
   // Beverley
   conn(anchor(N.bv_dish,"r"),anchor(N.bv_sw,"l"),"h",{color:L});
-  conn(anchor(N.bv_w1,"l"),anchor(N.bv_asa,"r",0.35),"h",{color:L});
-  conn(anchor(N.bv_w2,"l"),anchor(N.bv_asa,"r",0.65),"h",{color:L});
+  conn(anchor(N.bv_w1,"b",0.3),anchor(N.bv_sw,"t",0.78),"v",{color:C("--warn")});
+  conn(anchor(N.bv_w2,"b",0.3),anchor(N.bv_sw,"t",0.92),"v",{color:L});
   conn(anchor(N.bv_asa,"b"),anchor(N.bv_sw,"t"),"v",{color:AC,w:4});
   conn(anchor(N.bv_sw,"b",0.35),anchor(N.bv_pve,"t"),"v",{color:L});
   conn(anchor(N.bv_pve,"b"),anchor(N.bv_ph,"t"),"v",{color:L});
@@ -234,6 +234,7 @@
   elabel(695,172,"FISHBONE radio · 566 m",RA);
   elabel(695,152,"+ carries BT Business WAN → HQ (vlan 4)",C("--warn"));
   elabel(695,262,"IPsec VPN fallback",C("--muted"));
+  elabel(1118,178,"BT-routers → 3850 · vlan 4 / 6",C("--muted"));
 
   // ---- nodes on top ----
   function node(n){

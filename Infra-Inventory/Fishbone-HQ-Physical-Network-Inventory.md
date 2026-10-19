@@ -125,7 +125,7 @@ credential recorded. This is the first off-box backup target the estate has had 
 ### WiFi
 | Item | Detail |
 |---|---|
-| Access points | Ubiquiti UniFi — **5 indoor** (workshop/office areas, per the site's floor plan) + **1 outdoor** (loading-bay area) |
+| Access points | Ubiquiti UniFi — **2 indoor** + **1 outdoor** (loading-bay area) — 3 APs total (confirmed by Minda 2026-10-19; an earlier floor-plan read said 5 indoor) |
 | Controller | Hosted at **Beverley Place**, not HQ (means HQ's APs depend on the inter-site link for central management/config changes — see Resilience note above; APs keep running on cached config if that link drops, just can't be reconfigured until it's back) |
 | SSIDs | **`FSG0218`** — full local-network access, restricted to Minda and Andrejus only. **`Fishbone`** — limited local-network access, general use. (The site's printed floor plan legend implied a third zone; treat the two SSIDs above as current ground truth over that older planning document.) |
 
@@ -136,7 +136,7 @@ _Corrected 2026-10-19 (Minda): the "Openreach leased line" previously recorded h
 | Path | Detail |
 |---|---|
 | **Wavenet FTTB** (primary) | HQ's own fibre — what HQ actually runs on (phones, DocuSeal, primary internet) |
-| **BT Business via Beverley** (backup) | The BT **Business** fibre at Beverley, backhauled to HQ over the airFiber radio on **vlan 4**. ⚠️ **Ending 27 Oct 2026 (OI-24).** Was mis-recorded as an HQ "Openreach leased line"; the **ADVA FSP150-GE1xxPro** NID role/location to re-confirm (likely terminates the BT line at Beverley). |
+| **BT Business via Beverley** (backup) | The BT **Business** fibre at Beverley, backhauled to HQ over the airFiber radio on **vlan 4** (comes in via a BT-router into the Beverley 3850 `Gi1/0/48` — it does **not** pass through the Beverley ASA; the ASA only connects to the switch via `Po1`). ⚠️ **Ending 27 Oct 2026 (OI-24).** Was mis-recorded as an HQ "Openreach leased line"; the **ADVA FSP150-GE1xxPro** NID role/location to re-confirm (likely terminates the BT line at Beverley). |
 | **Starlink** (backup) | Dish on the HQ roofline (satellite) |
 
 After the 27 Oct BT cut, HQ keeps **two paths of its own** — **Wavenet FTTB** (primary) + **Starlink** (backup). The BT Business backhaul rides the Beverley radio, so it was never a truly independent third path. Failover mechanism (automatic multi-WAN vs manual) not yet confirmed.
