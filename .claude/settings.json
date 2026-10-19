@@ -1,3 +1,4 @@
+```json
 {
   "hooks": {
     "SessionStart": [
@@ -50,7 +51,13 @@
       "mcp__Smartsheet__add_rows",
       "mcp__Smartsheet__get_sheet_summary",
       "mcp__Smartsheet__get_columns",
-      "mcp__Smartsheet__find_in_sheet"
+      "mcp__Smartsheet__find_in_sheet",
+      "mcp__composio__COMPOSIO_MULTI_EXECUTE_TOOL",
+      "mcp__composio__COMPOSIO_SEARCH_TOOLS",
+      "mcp__composio__COMPOSIO_GET_TOOL_SCHEMAS",
+      "mcp__composio__COMPOSIO_MANAGE_CONNECTIONS",
+      "mcp__composio__COMPOSIO_WAIT_FOR_CONNECTIONS",
+      "mcp__composio__COMPOSIO_REMOTE_WORKBENCH"
     ],
     "deny": [
       "Bash(composio execute GMAIL_SEND*)",
@@ -69,3 +76,4 @@
     ]
   }
 }
+```
