@@ -132,12 +132,14 @@ credential recorded. This is the first off-box backup target the estate has had 
 ### WAN
 | Path | Detail |
 |---|---|
-| **Openreach leased line** (primary) | 1Gb/1Gb symmetric, terminated on an **ADVA FSP150-GE1xxPro** NID |
-| **Beverley Place fibre** (via the airFiber bridge / IPsec VPN) | 1Gb FTTP at the Beverley Place end, shared back to HQ |
-| **Starlink** (backup) | Dish visible on the HQ roofline |
+_Corrected 2026-10-19 (Minda): the "Openreach leased line" previously recorded here is **not** an independent HQ line — it is the **BT Business fibre from Beverley, carried to HQ over the airFiber radio** (lands on **vlan 4**). HQ's own primary WAN is **Wavenet FTTB**._
+| Path | Detail |
+|---|---|
+| **Wavenet FTTB** (primary) | HQ's own fibre — what HQ actually runs on (phones, DocuSeal, primary internet) |
+| **BT Business via Beverley** (backup) | The BT **Business** fibre at Beverley, backhauled to HQ over the airFiber radio on **vlan 4**. ⚠️ **Ending 27 Oct 2026 (OI-24).** Was mis-recorded as an HQ "Openreach leased line"; the **ADVA FSP150-GE1xxPro** NID role/location to re-confirm (likely terminates the BT line at Beverley). |
+| **Starlink** (backup) | Dish on the HQ roofline (satellite) |
 
-Three genuinely independent physical paths (leased line, separate residential fibre, satellite) — solid
-redundancy for a site this size. Failover mechanism (automatic multi-WAN vs manual) not yet confirmed.
+After the 27 Oct BT cut, HQ keeps **two paths of its own** — **Wavenet FTTB** (primary) + **Starlink** (backup). The BT Business backhaul rides the Beverley radio, so it was never a truly independent third path. Failover mechanism (automatic multi-WAN vs manual) not yet confirmed.
 
 ### Cellular signal repeater
 Multi-band (800/900/1800/2100/2600MHz) indoor GSM/LTE repeater with an outdoor donor antenna mounted on
@@ -211,7 +213,7 @@ cutover); exact Proxmox mini-PC model; UPS model/coverage.
 Several deliberate, sound choices observed across this walkthrough, worth recording as strengths rather
 than just facts:
 - Active/standby HA firewall pair, not a single point of failure
-- Three independent WAN paths (leased line, separate-site fibre, satellite)
+- Two independent HQ WAN paths (Wavenet FTTB + Starlink), plus a BT Business backhaul from Beverley over the radio (ending 27 Oct)
 - CCTV on an isolated VLAN with no local-network access
 - CCTV remote access gated behind VPN, never exposed directly to the internet
 - A restricted, small-membership full-access WiFi SSID kept separate from the general-use one

@@ -94,7 +94,7 @@
     <div class="panel card">
       <h2>Fishbone HQ <span class="tag t-ok">core site</span></h2>
       <p class="sub">Unit 30–31, Point Pleasant, Wallsend — office, workshop &amp; network core</p>
-      <div class="row"><div class="k">WAN<small>three independent paths</small></div><div class="v">Wavenet FTTB<br>Openreach 1Gb<br>Starlink</div></div>
+      <div class="row"><div class="k">WAN<small>HQ's own + BT via radio</small></div><div class="v">Wavenet FTTB<br>Starlink<br><span class="tag t-warn">+ BT Business (radio)</span></div></div>
       <div class="row"><div class="k">Firewalls<small>Cisco ASA 5550 ×2</small></div><div class="v">active / standby</div></div>
       <div class="row"><div class="k">Core switch<small>Catalyst 3850 ×2 (stack)</small></div><div class="v">10.224.x</div></div>
       <div class="row"><div class="k">Server — DL380 Gen9<small>Proxmox host (pve)</small></div><div class="v">10.224.10.10</div></div>
@@ -153,9 +153,8 @@
 
   // ---- node model: x,y = top-left; lines drawn under the title; cls sets the accent colour ----
   const N={
-    hq_w1 :{x:20 ,y:64 ,w:200,title:"Wavenet FTTB",lines:["primary WAN"],cls:"op"},
-    hq_w2 :{x:20 ,y:128,w:200,title:"Openreach line",lines:["1Gb leased · backup"],cls:"op"},
-    hq_w3 :{x:20 ,y:192,w:200,title:"Starlink",lines:["satellite · backup"],cls:"op"},
+    hq_w1 :{x:20 ,y:100,w:200,title:"Wavenet FTTB",lines:["HQ primary WAN"],cls:"op"},
+    hq_w3 :{x:20 ,y:166,w:200,title:"Starlink",lines:["satellite · backup"],cls:"op"},
     hq_asa :{x:270,y:92 ,w:214,title:"ASA 5550 ×2", lines:["firewalls · active/standby"],cls:"op"},
     hq_sw  :{x:270,y:196,w:214,title:"Catalyst 3850 ×2",lines:["core switch (stacked)"],cls:"op"},
     hq_pve :{x:20 ,y:316,w:234,title:"Server — DL380 Gen9",lines:["Proxmox  ·  10.224.10.10","VM105 FusionPBX → 10.224.13.9","+ FW / proxy / ssh-gw VMs"],cls:"op"},
@@ -165,7 +164,7 @@
     hq_cctv:{x:300,y:506,w:190,title:"CCTV",lines:["Hikvision NVR + 16 cams"],cls:"iso"},
     hq_dish:{x:520,y:196,w:150,title:"airFiber (Master)",lines:["HQ mast · 192.168.5.21"],cls:"radio"},
     bv_dish:{x:720,y:196,w:150,title:"airFiber (Slave)",lines:["Beverley · 192.168.5.20"],cls:"radio"},
-    bv_w1 :{x:1148,y:70 ,w:192,title:"BT Business fibre",lines:["ends 27 Oct · OI-24"],cls:"warn"},
+    bv_w1 :{x:1148,y:64 ,w:192,title:"BT Business fibre",lines:["ends 27 Oct · OI-24","→ HQ WAN via radio"],cls:"warn"},
     bv_w2 :{x:1148,y:134,w:192,title:"BT Personal fibre",lines:["stays · keeps internet"],cls:"op"},
     bv_asa :{x:910,y:92 ,w:200,title:"ASA 5550",lines:["home-asa · firewall (single)"],cls:"op"},
     bv_sw  :{x:910,y:196,w:200,title:"Catalyst 3850",lines:["home-sw · 10.224.110.4","Gi1/1/2 = airFiber"],cls:"op"},
@@ -207,9 +206,8 @@
 
   const L=C("--line"), AC=C("--accent"), RA=C("--radio");
   // HQ
-  conn(anchor(N.hq_w1,"r"),anchor(N.hq_asa,"l",0.3),"h",{color:L});
-  conn(anchor(N.hq_w2,"r"),anchor(N.hq_asa,"l",0.5),"h",{color:L});
-  conn(anchor(N.hq_w3,"r"),anchor(N.hq_asa,"l",0.7),"h",{color:L});
+  conn(anchor(N.hq_w1,"r"),anchor(N.hq_asa,"l",0.35),"h",{color:L});
+  conn(anchor(N.hq_w3,"r"),anchor(N.hq_asa,"l",0.65),"h",{color:L});
   conn(anchor(N.hq_asa,"b"),anchor(N.hq_sw,"t"),"v",{color:AC,w:4});
   conn(anchor(N.hq_sw,"b",0.32),anchor(N.hq_pve,"t",0.62),"v",{color:L});
   conn(anchor(N.hq_pve,"b"),anchor(N.hq_nas,"t"),"v",{color:L});
@@ -233,7 +231,8 @@
   // edge labels
   elabel(252,143,"LACP",AC); elabel(892,143,"LACP",AC);
   elabel(695,210,"Gi1/1/2",C("--muted"));
-  elabel(695,180,"FISHBONE radio · 566 m",RA);
+  elabel(695,172,"FISHBONE radio · 566 m",RA);
+  elabel(695,152,"+ carries BT Business WAN → HQ (vlan 4)",C("--warn"));
   elabel(695,262,"IPsec VPN fallback",C("--muted"));
 
   // ---- nodes on top ----
