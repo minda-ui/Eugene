@@ -108,7 +108,7 @@
     <div class="panel card">
       <h2>Beverley Place <span class="tag t-ok">second site</span></h2>
       <p class="sub">6 Beverley Place, Wallsend — small rack + the UniFi controller + its own fibre</p>
-      <div class="row"><div class="k">WAN<small>two fibres</small></div><div class="v">Business FTTP<br><span class="tag t-warn">BT ends 27 Oct</span></div></div>
+      <div class="row"><div class="k">WAN<small>two BT fibres</small></div><div class="v"><span class="tag t-warn">BT Business — 27 Oct</span><br>BT Personal (stays)</div></div>
       <div class="row"><div class="k">Firewall<small>Cisco ASA 5550 (single)</small></div><div class="v">home-asa</div></div>
       <div class="row"><div class="k">Switch<small>Catalyst 3850 (single)</small></div><div class="v">10.224.110.4</div></div>
       <div class="row"><div class="k">Server<small>Proxmox mini-PC (off-site node)</small></div><div class="v">10.224.111.199</div></div>
@@ -135,7 +135,7 @@
       <li><b>One controller, two sites.</b> The UniFi Cloud Key lives at Beverley and manages the WiFi APs at <em>both</em> sites — if the radio link drops, HQ's APs keep running on cached config but can't be reconfigured until it's back.</li>
       <li><b>The phones are centralised.</b> All three desk phones register to the one FusionPBX at HQ (<code>10.224.13.9</code>); Beverley's ext 1006 reaches it across the link (UDP-NAT) — tested with two-way audio 19 Oct.</li>
       <li><b>Single points of failure to keep in mind.</b> The airFiber radio is the only native path between sites (the VPN fallback rides the internet). The FusionPBX is one box — now protected by the new off-box backup (<code>pve-nas</code>).</li>
-      <li><b>Action by 27 Oct — OI-24.</b> The <b>BT fibre at Beverley is being cancelled</b> (no replacement). The business fibre stays, so Beverley keeps internet, but at HQ the BT feed arrives from Beverley over the radio on <code>vlan 4</code> as a backup WAN — re-point anything that depends on it first.</li>
+      <li><b>Action by 27 Oct — OI-24.</b> Beverley has <b>two BT fibres</b> — the <b>BT Business</b> line is being cancelled (no replacement) and the <b>personal BT</b> line stays, so Beverley keeps internet. The cancelled line also feeds HQ's backup WAN from Beverley over the radio on <code>vlan 4</code> — re-point anything depending on it before the 27th.</li>
       <li><b>Open — OI-20.</b> The UniFi Cloud Key login isn't held yet; WiFi runs fine on cached config, so it's not urgent and never factory-reset it.</li>
       <li><b>Minor.</b> The airFiber dashboard clock is wrong (no NTP on the mgmt subnet) and offers a v4.1.0 update — leave firmware alone on a live link.</li>
     </ul>
@@ -153,7 +153,9 @@
 
   // ---- node model: x,y = top-left; lines drawn under the title; cls sets the accent colour ----
   const N={
-    hq_wan :{x:20 ,y:70 ,w:214,title:"HQ WAN",      lines:["Wavenet FTTB · primary","Openreach 1Gb leased","Starlink · backup"],cls:"op"},
+    hq_w1 :{x:20 ,y:64 ,w:200,title:"Wavenet FTTB",lines:["primary WAN"],cls:"op"},
+    hq_w2 :{x:20 ,y:128,w:200,title:"Openreach line",lines:["1Gb leased · backup"],cls:"op"},
+    hq_w3 :{x:20 ,y:192,w:200,title:"Starlink",lines:["satellite · backup"],cls:"op"},
     hq_asa :{x:270,y:92 ,w:214,title:"ASA 5550 ×2", lines:["firewalls · active/standby"],cls:"op"},
     hq_sw  :{x:270,y:196,w:214,title:"Catalyst 3850 ×2",lines:["core switch (stacked)"],cls:"op"},
     hq_pve :{x:20 ,y:316,w:234,title:"Server — DL380 Gen9",lines:["Proxmox  ·  10.224.10.10","VM105 FusionPBX → 10.224.13.9","+ FW / proxy / ssh-gw VMs"],cls:"op"},
@@ -163,7 +165,8 @@
     hq_cctv:{x:300,y:506,w:190,title:"CCTV",lines:["Hikvision NVR + 16 cams"],cls:"iso"},
     hq_dish:{x:520,y:196,w:150,title:"airFiber (Master)",lines:["HQ mast · 192.168.5.21"],cls:"radio"},
     bv_dish:{x:720,y:196,w:150,title:"airFiber (Slave)",lines:["Beverley · 192.168.5.20"],cls:"radio"},
-    bv_wan :{x:1120,y:70,w:214,title:"Beverley WAN",lines:["Business fibre (FTTP 1Gb)","BT fibre — ends 27 Oct"],cls:"warn"},
+    bv_w1 :{x:1148,y:70 ,w:192,title:"BT Business fibre",lines:["ends 27 Oct · OI-24"],cls:"warn"},
+    bv_w2 :{x:1148,y:134,w:192,title:"BT Personal fibre",lines:["stays · keeps internet"],cls:"op"},
     bv_asa :{x:910,y:92 ,w:200,title:"ASA 5550",lines:["home-asa · firewall (single)"],cls:"op"},
     bv_sw  :{x:910,y:196,w:200,title:"Catalyst 3850",lines:["home-sw · 10.224.110.4","Gi1/1/2 = airFiber"],cls:"op"},
     bv_pve :{x:910,y:330,w:200,title:"Proxmox mini-PC",lines:["10.224.111.199"],cls:"op"},
@@ -204,7 +207,9 @@
 
   const L=C("--line"), AC=C("--accent"), RA=C("--radio");
   // HQ
-  conn(anchor(N.hq_wan,"r"),anchor(N.hq_asa,"l"),"h",{color:L});
+  conn(anchor(N.hq_w1,"r"),anchor(N.hq_asa,"l",0.3),"h",{color:L});
+  conn(anchor(N.hq_w2,"r"),anchor(N.hq_asa,"l",0.5),"h",{color:L});
+  conn(anchor(N.hq_w3,"r"),anchor(N.hq_asa,"l",0.7),"h",{color:L});
   conn(anchor(N.hq_asa,"b"),anchor(N.hq_sw,"t"),"v",{color:AC,w:4});
   conn(anchor(N.hq_sw,"b",0.32),anchor(N.hq_pve,"t",0.62),"v",{color:L});
   conn(anchor(N.hq_pve,"b"),anchor(N.hq_nas,"t"),"v",{color:L});
@@ -217,7 +222,8 @@
   conn(anchor(N.hq_dish,"b",0.5),anchor(N.bv_dish,"b",0.5),"v",{color:C("--muted"),w:1.4,dash:"2 5"});
   // Beverley
   conn(anchor(N.bv_dish,"r"),anchor(N.bv_sw,"l"),"h",{color:L});
-  conn(anchor(N.bv_wan,"l"),anchor(N.bv_asa,"r"),"h",{color:L});
+  conn(anchor(N.bv_w1,"l"),anchor(N.bv_asa,"r",0.35),"h",{color:L});
+  conn(anchor(N.bv_w2,"l"),anchor(N.bv_asa,"r",0.65),"h",{color:L});
   conn(anchor(N.bv_asa,"b"),anchor(N.bv_sw,"t"),"v",{color:AC,w:4});
   conn(anchor(N.bv_sw,"b",0.35),anchor(N.bv_pve,"t"),"v",{color:L});
   conn(anchor(N.bv_pve,"b"),anchor(N.bv_ph,"t"),"v",{color:L});

@@ -121,7 +121,7 @@ nailed down details the recon had left open:
 - **Incident:** dish re-powered; its data cable had been mis-plugged into `Gi1/0/2` (an ASA Po1 member)
   and was moved to `Gi1/1/2`; ASA Po1 verified intact; `Gi1/1/2` UP. **RF link still re-locking at
   sign-off → HQ unreachable, phone ext 1006 still down** — finish next session (OI-23).
-- **Two fibres on site (business + personal); the BT one is cancelled 27 Oct 2026** → OI-24.
+- **Two fibres on site, both BT (BT Business + personal BT); the BT Business one is cancelled 27 Oct 2026** → OI-24.
 See `change-log/change-log-2026-10-17-beverley-intersite-link-down-airfiber.md`.
 
 ## Links
