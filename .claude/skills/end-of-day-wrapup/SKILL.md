@@ -42,9 +42,27 @@ If nothing is missing: say so in one line and go to step 5.
 
 ## 4. Sync and hand over
 
-- Sync each changed file to Drive with the **drive-sync-verified** skill (`--baseline origin/main`).
-- Commit on the session branch and open a PR to `main` (Eugene can't merge; Minda does). Watch it if
-  the session will continue; otherwise note it's waiting for her.
+- Sync each changed file to Drive with the **drive-sync-verified** skill. Use `--baseline origin/main`
+  normally; if that guard fails only because `main` is stale (the live Drive copy is this branch's own
+  earlier snapshot), verify by diff that the Drive copy is a strict subset of local before overwriting,
+  then re-run without the baseline — never overwrite Drive content you haven't accounted for (Rule C).
+- Commit everything on the session branch and **push** it (`git push -u origin <branch>`, retry on
+  network error).
+- **Always open — or update — a PR to `main` and hand Minda the link to merge. This is a required step,
+  not optional; a day's work that only lives on a session branch is not handed over.** Eugene **cannot
+  merge** (and never self-approves) — Minda does.
+  - Load the GitHub MCP tools if needed (`ToolSearch`), then `mcp__github__create_pull_request`
+    (`owner: minda-ui`, `repo: Eugene`, `head: <session branch>`, `base: main`).
+  - If a PR from this branch is already open, don't open a second one — reuse it (its commits update
+    automatically on push) and just re-surface its link.
+  - **Title:** `Good night <date> — <short summary of the day>`. **Body:** what the day changed
+    (ledger rows, change-log, current-state, Drive sync, Hub), plus the attribution footer the session
+    requires. End the body with the PR attribution lines (`🤖 Generated with Claude Code` + session
+    link) per the session's standing instruction.
+  - Capture the PR number and URL; carry it into step 6.
+  - If the push or PR call is **blocked or fails** (e.g. the cloud guard on a settings-bearing diff, or
+    a network error that survives retries), say so plainly in step 6 with the exact blocker — never
+    report a PR as open when it isn't.
 
 ## 5. Propose the day's skill candidates (Minda chooses)
 
@@ -68,6 +86,7 @@ Here, at Good Night, he hands the list to Minda to decide.
 Short reply, in this shape:
 - **Documented tonight:** what was added (or "already up to date").
 - **Skill candidates:** the numbered list for her to adopt/delete (or "none today").
-- **Waiting on you:** PRs to merge, settings steps, decisions.
+- **Waiting on you:** **lead with the PR to merge — its number and URL** (or the exact blocker if it
+  couldn't be opened), then any settings steps or decisions.
 - **Tomorrow:** the first thing on the list.
 Then good night.
