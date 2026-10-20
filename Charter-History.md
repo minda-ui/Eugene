@@ -5,6 +5,40 @@ convention as `change-log/`. Created 2026-09-23 when the single-file charter was
 
 ---
 
+**2026-10-09 — Charter-Rules: Rule G added — name the project; the Project Register is the spine
+(estate-wide, via Victoria's Raw/ hand-off AWT-0493).** Minda's 2026-10-09 ruling, folded in per the §1
+Raw/-process: every job has a row in the Project Register (Smartsheet `5250912102778756`), extending
+estate-wide once Anna confirms the layout (AWT-0497). For Eugene: prefix the job number on every Hub
+request / Raw note and fill the Tasks & Requests Project column; read a job's register row before acting;
+one lead per job (own-row writes only); money references to Rachel. Eugene's build role recorded: the
+"beyond the register" sheets (materials, operatives, risks, programme, comms log) are designed by Anna,
+built by Eugene in the "Project Delivery" workspace — on her design, not before. No sheet changes asked of
+Eugene. See `change-log/change-log-2026-10-09-adopt-project-way-of-working.md`.
+
+---
+
+**2026-10-08 — §5: skill-candidate collection + "Good Night" proposal added (Minda's instruction).**
+New standing habit: through the day Eugene appends repeatable workflows worth a reusable skill to
+`.claude/skill-candidates.md` as `proposed` rows (he does not build them); at **"Good Night"** the
+`end-of-day-wrapup` skill shows Minda the list and she chooses which to **adopt** (built next session via
+skill-creator) and which to **delete** (row marked, line kept). Implemented in §5 "How Eugene runs", the
+`end-of-day-wrapup` SKILL.md (new step 5), and the new `.claude/skill-candidates.md`. §3 safety unchanged;
+building a skill is ordinary KB/config work (§2b). See
+`change-log/change-log-2026-10-08-skill-candidate-flow.md`.
+
+---
+
+**2026-10-04 — §5: Creative / R&D mode added (Minda's idea).** New standing capability — an **R&D pool**
+(`R&D/`) for creative/speculative work, triggered by **"Creative mode"** (ended by **"Normal mode"**)
+via a `UserPromptSubmit` hook (`.claude/hooks/creative-mode.sh`). Note added to §5 "How Eugene runs".
+Creative mode loosens **scope/formality only** — §3 safety is explicitly unchanged (no live changes,
+no secrets, archive-never-trash, cross-KB via Raw/, irreversible actions flagged). Scope: Eugene's own
+to start (estate-wide would go via Victoria/Alex); ideas become real only on Minda's approval. Built and
+authorized by Minda the same session. See `R&D/README.md` and
+`change-log/change-log-2026-10-04-rd-pool-creative-mode.md`.
+
+---
+
 **2026-09-27 — Rule F added: shared-space changes are broadcast and registered.** Owner ruling (Minda,
 2026-09-27, via Alex's Raw/ hand-off): "make it as rule across estate, if someone make a changed in
 shared space (Smartsheet's or similiar) need to notify everyone and register it." Added to the Hub
@@ -125,3 +159,11 @@ employee's KB. Owner preference (Minda).
 
 **2026-09-12 — created.** Reach set by owner to "edit code/repos/KB directly; guide-only for live
 systems; never holds secrets"; absorbs the workforce plan's IT/ops slot. Owner-authorised (Minda).
+
+**2026-10-08 — Gmail draft-only capability added (owner-authorised, Minda).** §1 "Connectors / tools"
+changed from "No Gmail connector — Eugene is not an email agent" to a **draft-only Gmail** capability: a
+Composio connection `eugene-gmail`, OAuth'd by Minda to **minda@fishboneconstruction.co.uk**, lets Eugene
+**read and create drafts** for Minda to send herself. **§3 unchanged** — Eugene still never *sends* external
+email (drafting is prepare-for-a-human, not sending); enforced belt-and-braces by a `GMAIL_SEND_*`/reply/
+forward **deny-rule** in `.claude/settings.json` (deny > allow, so it overrides the broad `composio execute *`
+allow). Still not an autonomous email agent. Requested and authorised by Minda, 2026-10-08.

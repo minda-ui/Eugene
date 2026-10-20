@@ -1,0 +1,271 @@
+<title>Fishbone Network Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: a header strip, one wide scrollable topology diagram (HQ | airFiber bridge | Beverley),
+     a legend, then per-site reference cards + open-items. Technical/infra treatment. */
+  :root{
+    --bg:#eef1f5; --surface:#ffffff; --surface-2:#f5f7fa; --border:#cdd6e0; --border-strong:#b2bfcd;
+    --fg:#1f2a37; --muted:#5b6b7d; --faint:#8a99ab;
+    --accent:#2563eb; --radio:#0ea5e9; --good:#15803d; --good-bg:#e7f6ec;
+    --warn:#b45309; --warn-bg:#fdf1e0; --iso:#64748b; --iso-bg:#eef1f5; --ctrl:#7c3aed; --ctrl-bg:#f1ecfd;
+    --line:#94a3b8; --shadow:0 1px 2px rgba(20,30,45,.06),0 2px 8px rgba(20,30,45,.05);
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#0e141b; --surface:#19212b; --surface-2:#141b23; --border:#2b3744; --border-strong:#3a4857;
+    --fg:#e4eaf1; --muted:#9fb0c2; --faint:#6c7d90;
+    --accent:#60a5fa; --radio:#38bdf8; --good:#4ade80; --good-bg:#15271b;
+    --warn:#fbbf24; --warn-bg:#2a2112; --iso:#8595a6; --iso-bg:#1b232c; --ctrl:#a78bfa; --ctrl-bg:#21193a;
+    --line:#5a6b7d; --shadow:0 1px 2px rgba(0,0,0,.3),0 2px 10px rgba(0,0,0,.25); color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0e141b; --surface:#19212b; --surface-2:#141b23; --border:#2b3744; --border-strong:#3a4857;
+    --fg:#e4eaf1; --muted:#9fb0c2; --faint:#6c7d90;
+    --accent:#60a5fa; --radio:#38bdf8; --good:#4ade80; --good-bg:#15271b;
+    --warn:#fbbf24; --warn-bg:#2a2112; --iso:#8595a6; --iso-bg:#1b232c; --ctrl:#a78bfa; --ctrl-bg:#21193a;
+    --line:#5a6b7d; --shadow:0 1px 2px rgba(0,0,0,.3),0 2px 10px rgba(0,0,0,.25); color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.45}
+  .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+        padding-block:22px;max-width:1380px;margin:0 auto}
+  header h1{font-size:clamp(1.4rem,3.4vw,2rem);font-weight:700;letter-spacing:-.02em;text-wrap:balance;margin:0 0 6px}
+  header p{margin:0;color:var(--muted);font-size:.95rem}
+  .status{display:inline-flex;align-items:center;gap:8px;margin-top:12px;background:var(--good-bg);color:var(--good);
+    border:1px solid color-mix(in srgb,var(--good) 35%,transparent);border-radius:999px;padding:5px 12px;font-size:.84rem;font-weight:600}
+  .status .dot{width:9px;height:9px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px color-mix(in srgb,var(--good) 25%,transparent)}
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow)}
+  .diagram{margin-top:18px;padding:10px}
+  .scroll{overflow-x:auto}
+  svg.map{display:block;min-width:960px;width:100%;height:auto;font-family:var(--sans)}
+  .legend{display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:14px;padding:14px 16px;font-size:.82rem;color:var(--muted)}
+  .legend b{color:var(--fg);font-weight:600}
+  .legend .it{display:inline-flex;align-items:center;gap:8px}
+  .sw{width:26px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+  .chip{display:inline-block;width:13px;height:13px;border-radius:4px;border:1.5px solid}
+  .ref{margin-top:26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+  .card{padding:16px 18px}
+  .card h2{margin:0 0 2px;font-size:1.05rem;font-weight:700;display:flex;align-items:center;gap:9px}
+  .card .sub{color:var(--muted);font-size:.84rem;margin:0 0 12px}
+  .row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-top:1px solid var(--border)}
+  .row:first-of-type{border-top:0}
+  .row .k{font-weight:600;font-size:.9rem}
+  .row .k small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+  .row .v{font-family:var(--mono);font-size:.82rem;color:var(--muted);text-align:right;white-space:nowrap}
+  .tag{font-family:var(--sans);font-size:.7rem;font-weight:600;padding:2px 7px;border-radius:999px;white-space:nowrap}
+  .t-ok{background:var(--good-bg);color:var(--good)} .t-warn{background:var(--warn-bg);color:var(--warn)}
+  .t-iso{background:var(--iso-bg);color:var(--iso)} .t-ctrl{background:var(--ctrl-bg);color:var(--ctrl)}
+  .notes{margin-top:20px;padding:16px 18px}
+  .notes h2{margin:0 0 10px;font-size:1.05rem;font-weight:700}
+  .notes ul{margin:0;padding-left:20px} .notes li{margin:6px 0;font-size:.9rem}
+  .notes code{font-family:var(--mono);font-size:.82em;background:var(--surface-2);padding:1px 5px;border-radius:5px}
+  footer{margin-top:22px;color:var(--faint);font-size:.78rem}
+  @media (max-width:520px){.wrap{padding-block:16px}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Fishbone Network Map</h1>
+    <p>Two sites — Fishbone HQ (Wallsend) and Beverley Place — joined into one network by a point-to-point airFiber radio. As of 19 Oct 2026.</p>
+    <span class="status"><span class="dot"></span>Inter-site link UP · all phones registered (1001, 1002, 1006)</span>
+  </header>
+
+  <div class="panel diagram">
+    <div class="scroll"><svg class="map" id="map" viewBox="0 0 1360 640" role="img"
+      aria-label="Network topology: HQ on the left, Beverley on the right, joined by the airFiber radio bridge in the middle."></svg></div>
+  </div>
+
+  <div class="panel legend" aria-hidden="true">
+    <span class="it"><span class="sw" style="border-top-color:var(--line)"></span><b>Wired</b></span>
+    <span class="it"><span class="sw" style="border-top-color:var(--accent);border-top-width:4px"></span><b>LACP bundle</b> (firewall↔switch)</span>
+    <span class="it"><span class="sw" style="border-top-color:var(--radio);border-top-style:dashed"></span><b>airFiber radio</b> (inter-site)</span>
+    <span class="it"><span class="sw" style="border-top-color:var(--muted);border-top-style:dotted"></span><b>IPsec VPN</b> fallback</span>
+    <span class="it"><span class="chip" style="border-color:var(--good);background:var(--good-bg)"></span><b>Operational</b></span>
+    <span class="it"><span class="chip" style="border-color:var(--warn);background:var(--warn-bg)"></span><b>Needs attention</b></span>
+    <span class="it"><span class="chip" style="border-color:var(--iso);background:var(--iso-bg)"></span><b>Isolated VLAN</b></span>
+    <span class="it"><span class="chip" style="border-color:var(--ctrl);background:var(--ctrl-bg)"></span><b>Controller</b></span>
+  </div>
+
+  <div class="ref">
+    <div class="panel card">
+      <h2>Fishbone HQ <span class="tag t-ok">core site</span></h2>
+      <p class="sub">Unit 30–31, Point Pleasant, Wallsend — office, workshop &amp; network core</p>
+      <div class="row"><div class="k">WAN<small>HQ's own + BT via radio</small></div><div class="v">Wavenet FTTB<br>Starlink<br><span class="tag t-warn">+ BT Business (radio)</span></div></div>
+      <div class="row"><div class="k">Firewalls<small>Cisco ASA 5550 ×2</small></div><div class="v">active / standby</div></div>
+      <div class="row"><div class="k">Core switch<small>Catalyst 3850 ×2 (stack)</small></div><div class="v">10.224.x</div></div>
+      <div class="row"><div class="k">Server — DL380 Gen9<small>Proxmox host (pve)</small></div><div class="v">10.224.10.10</div></div>
+      <div class="row"><div class="k">FusionPBX<small>VM 105 · phone system (both sites)</small></div><div class="v">10.224.13.9</div></div>
+      <div class="row"><div class="k">Backup — Dell R710<small>pve-nas · Proxmox Backup Server</small></div><div class="v">10.224.10.20</div></div>
+      <div class="row"><div class="k">Desk phones<small>Yealink T48S — ext 1001 / 1002</small></div><div class="v">.13.14 / .13.13</div></div>
+      <div class="row"><div class="k">WiFi<small>UniFi — 3 APs (2 in + 1 out)</small></div><div class="v">cached config</div></div>
+      <div class="row"><div class="k">CCTV<small>Hikvision NVR + 16 cams</small></div><div class="v"><span class="tag t-iso">isolated</span></div></div>
+    </div>
+
+    <div class="panel card">
+      <h2>Beverley Place <span class="tag t-ok">second site</span></h2>
+      <p class="sub">6 Beverley Place, Wallsend — small rack + the UniFi controller + its own fibre</p>
+      <div class="row"><div class="k">WAN<small>two BT fibres</small></div><div class="v"><span class="tag t-warn">BT Business — 27 Oct</span><br>BT Personal (stays)</div></div>
+      <div class="row"><div class="k">Firewall<small>Cisco ASA 5550 (single)</small></div><div class="v">home-asa</div></div>
+      <div class="row"><div class="k">Switch<small>Catalyst 3850 (single)</small></div><div class="v">10.224.110.4</div></div>
+      <div class="row"><div class="k">Server<small>Proxmox mini-PC (off-site node)</small></div><div class="v">10.224.111.199</div></div>
+      <div class="row"><div class="k">UniFi Cloud Key<small>controller — manages BOTH sites' APs</small></div><div class="v"><span class="tag t-ctrl">10.224.110.5</span></div></div>
+      <div class="row"><div class="k">WiFi<small>UniFi UAPs (Gi1/0/44–46)</small></div><div class="v">—</div></div>
+      <div class="row"><div class="k">Desk phone<small>ext 1006 → registers to HQ PBX</small></div><div class="v">10.224.111.10</div></div>
+    </div>
+
+    <div class="panel card">
+      <h2>The link between them <span class="tag t-ok">UP</span></h2>
+      <p class="sub">How HQ and Beverley act as one network</p>
+      <div class="row"><div class="k">airFiber radio<small>Ubiquiti AF-5 · link “FISHBONE”</small></div><div class="v">566 m · 5 GHz</div></div>
+      <div class="row"><div class="k">Performance<small>9x 512QAM MIMO · signal −55/−59 dBm</small></div><div class="v">415/437 Mbps</div></div>
+      <div class="row"><div class="k">What rides it<small>VLANs 10 &amp; 11 bridged across</small></div><div class="v">10.224.10/11.x</div></div>
+      <div class="row"><div class="k">Radio management<small>own isolated subnet</small></div><div class="v">192.168.5.20/.21</div></div>
+      <div class="row"><div class="k">Fallback path<small>IPsec VPN over each site's internet</small></div><div class="v">site-to-site</div></div>
+      <div class="row"><div class="k">Spare radio<small>2nd AF-5 on HQ mast</small></div><div class="v">standby</div></div>
+    </div>
+  </div>
+
+  <div class="panel notes">
+    <h2>Worth knowing</h2>
+    <ul>
+      <li><b>One controller, two sites.</b> The UniFi Cloud Key lives at Beverley and manages the WiFi APs at <em>both</em> sites — if the radio link drops, HQ's APs keep running on cached config but can't be reconfigured until it's back.</li>
+      <li><b>The phones are centralised.</b> All three desk phones register to the one FusionPBX at HQ (<code>10.224.13.9</code>); Beverley's ext 1006 reaches it across the link (UDP-NAT) — tested with two-way audio 19 Oct.</li>
+      <li><b>Single points of failure to keep in mind.</b> The airFiber radio is the only native path between sites (the VPN fallback rides the internet). The FusionPBX is one box — now protected by the new off-box backup (<code>pve-nas</code>).</li>
+      <li><b>Action by 27 Oct — OI-24.</b> Beverley has <b>two BT fibres</b> — the <b>BT Business</b> line is being cancelled (no replacement) and the <b>personal BT</b> line stays, so Beverley keeps internet. The cancelled line also feeds HQ's backup WAN from Beverley over the radio on <code>vlan 4</code> — re-point anything depending on it before the 27th.</li>
+      <li><b>Open — OI-20.</b> The UniFi Cloud Key login isn't held yet; WiFi runs fine on cached config, so it's not urgent and never factory-reset it.</li>
+      <li><b>Minor.</b> The airFiber dashboard clock is wrong (no NTP on the mgmt subnet) and offers a v4.1.0 update — leave firmware alone on a live link.</li>
+    </ul>
+  </div>
+
+  <footer>Built by Eugene from the HQ inventory + Beverley device-map (guide-only; no device credentials held). Cosmetic map — not to scale. Scroll the diagram sideways on a narrow screen.</footer>
+</div>
+
+<script>
+(function(){
+  const SVG="http://www.w3.org/2000/svg";
+  const svg=document.getElementById("map");
+  const css=getComputedStyle(document.documentElement);
+  const C=k=>css.getPropertyValue(k).trim();
+
+  // ---- node model: x,y = top-left; lines drawn under the title; cls sets the accent colour ----
+  const N={
+    hq_w1 :{x:20 ,y:100,w:200,title:"Wavenet FTTB",lines:["HQ primary WAN"],cls:"op"},
+    hq_w3 :{x:20 ,y:166,w:200,title:"Starlink",lines:["satellite · backup"],cls:"op"},
+    hq_asa :{x:270,y:92 ,w:214,title:"ASA 5550 ×2", lines:["firewalls · active/standby"],cls:"op"},
+    hq_sw  :{x:270,y:196,w:214,title:"Catalyst 3850 ×2",lines:["core switch (stacked)"],cls:"op"},
+    hq_pve :{x:20 ,y:316,w:234,title:"Server — DL380 Gen9",lines:["Proxmox  ·  10.224.10.10","VM105 FusionPBX → 10.224.13.9","+ FW / proxy / ssh-gw VMs"],cls:"op"},
+    hq_nas :{x:20 ,y:470,w:234,title:"Backup — Dell R710",lines:["pve-nas · 10.224.10.20","Proxmox Backup Server"],cls:"op"},
+    hq_ph  :{x:300,y:316,w:190,title:"HQ phones ×2",lines:["Yealink T48S","ext 1001 / 1002"],cls:"op"},
+    hq_ap  :{x:300,y:420,w:190,title:"HQ WiFi · UniFi",lines:["3 APs (2 in + 1 out)"],cls:"op"},
+    hq_cctv:{x:300,y:506,w:190,title:"CCTV",lines:["Hikvision NVR + 16 cams"],cls:"iso"},
+    hq_dish:{x:520,y:196,w:150,title:"airFiber (Master)",lines:["HQ mast · 192.168.5.21"],cls:"radio"},
+    bv_dish:{x:720,y:196,w:150,title:"airFiber (Slave)",lines:["Beverley · 192.168.5.20"],cls:"radio"},
+    bv_w1 :{x:1148,y:64 ,w:192,title:"BT Business fibre",lines:["ends 27 Oct · OI-24","→ HQ WAN via radio"],cls:"warn"},
+    bv_w2 :{x:1148,y:134,w:192,title:"BT Personal fibre",lines:["stays · keeps internet"],cls:"op"},
+    bv_asa :{x:910,y:92 ,w:200,title:"ASA 5550",lines:["home-asa · firewall (single)"],cls:"op"},
+    bv_sw  :{x:910,y:196,w:200,title:"Catalyst 3850",lines:["home-sw · 10.224.110.4","Gi1/1/2 = airFiber"],cls:"op"},
+    bv_pve :{x:910,y:330,w:200,title:"Proxmox mini-PC",lines:["10.224.111.199"],cls:"op"},
+    bv_ph  :{x:910,y:430,w:200,title:"Beverley phone",lines:["ext 1006 · 10.224.111.10","→ HQ FusionPBX ✓"],cls:"op"},
+    bv_ck  :{x:1150,y:330,w:184,title:"UniFi Cloud Key",lines:["10.224.110.5 · controller","manages BOTH sites"],cls:"ctrl"},
+    bv_ap  :{x:1150,y:470,w:184,title:"Beverley WiFi",lines:["UAPs Gi1/0/44–46"],cls:"op"}
+  };
+  const TITLE_H=24, LINE_H=15, PAD=12;
+  for(const k in N){const n=N[k]; n.h=TITLE_H+n.lines.length*LINE_H+PAD;}
+  const accent={op:C("--good"),warn:C("--warn"),iso:C("--iso"),radio:C("--radio"),ctrl:C("--ctrl")};
+  const accentBg={op:C("--good-bg"),warn:C("--warn-bg"),iso:C("--iso-bg"),radio:"transparent",ctrl:C("--ctrl-bg")};
+
+  function el(t,a){const e=document.createElementNS(SVG,t);for(const k in a)e.setAttribute(k,a[k]);return e;}
+  function anchor(n,side,f){f=(f==null?0.5:f);
+    if(side=="t")return{x:n.x+n.w*f,y:n.y};
+    if(side=="b")return{x:n.x+n.w*f,y:n.y+n.h};
+    if(side=="l")return{x:n.x,y:n.y+n.h*f};
+    return{x:n.x+n.w,y:n.y+n.h*f};}
+
+  // ---- connectors (draw first, under the nodes) ----
+  function conn(a,b,orient,style){
+    let d;
+    if(orient=="v"){const my=(a.y+b.y)/2; d=`M${a.x},${a.y} V${my} H${b.x} V${b.y}`;}
+    else if(orient=="h"){const mx=(a.x+b.x)/2; d=`M${a.x},${a.y} H${mx} V${b.y} H${b.x}`;}
+    else d=`M${a.x},${a.y} L${b.x},${b.y}`;
+    const p=el("path",{d,fill:"none","stroke-linejoin":"round","stroke-linecap":"round"});
+    p.setAttribute("stroke", style.color||C("--line"));
+    p.setAttribute("stroke-width", style.w||1.6);
+    if(style.dash)p.setAttribute("stroke-dasharray",style.dash);
+    svg.appendChild(p);
+  }
+  function elabel(x,y,txt,color){
+    const w=txt.length*5.6+10;
+    svg.appendChild(el("rect",{x:x-w/2,y:y-9,width:w,height:17,rx:5,fill:C("--surface"),stroke:C("--border")}));
+    const t=el("text",{x,y:y+3,"text-anchor":"middle","font-size":10.5,"font-weight":600,fill:color||C("--muted")});
+    t.textContent=txt; svg.appendChild(t);
+  }
+
+  const L=C("--line"), AC=C("--accent"), RA=C("--radio");
+  // HQ
+  conn(anchor(N.hq_w1,"r"),anchor(N.hq_asa,"l",0.35),"h",{color:L});
+  conn(anchor(N.hq_w3,"r"),anchor(N.hq_asa,"l",0.65),"h",{color:L});
+  conn(anchor(N.hq_asa,"b"),anchor(N.hq_sw,"t"),"v",{color:AC,w:4});
+  conn(anchor(N.hq_sw,"b",0.32),anchor(N.hq_pve,"t",0.62),"v",{color:L});
+  conn(anchor(N.hq_pve,"b"),anchor(N.hq_nas,"t"),"v",{color:L});
+  conn(anchor(N.hq_sw,"b",0.6),anchor(N.hq_ph,"t"),"v",{color:L});
+  conn(anchor(N.hq_ph,"b"),anchor(N.hq_ap,"t"),"v",{color:L});
+  conn(anchor(N.hq_ap,"b"),anchor(N.hq_cctv,"t"),"v",{color:C("--iso"),dash:"4 4"});
+  conn(anchor(N.hq_sw,"r"),anchor(N.hq_dish,"l"),"h",{color:L});
+  // Bridge
+  conn(anchor(N.hq_dish,"r"),anchor(N.bv_dish,"l"),"line",{color:RA,w:3,dash:"7 5"});
+  conn(anchor(N.hq_dish,"b",0.5),anchor(N.bv_dish,"b",0.5),"v",{color:C("--muted"),w:1.4,dash:"2 5"});
+  // Beverley
+  conn(anchor(N.bv_dish,"r"),anchor(N.bv_sw,"l"),"h",{color:L});
+  conn(anchor(N.bv_w1,"b",0.3),anchor(N.bv_sw,"t",0.78),"v",{color:C("--warn")});
+  conn(anchor(N.bv_w2,"b",0.3),anchor(N.bv_sw,"t",0.92),"v",{color:L});
+  conn(anchor(N.bv_asa,"b"),anchor(N.bv_sw,"t"),"v",{color:AC,w:4});
+  conn(anchor(N.bv_sw,"b",0.35),anchor(N.bv_pve,"t"),"v",{color:L});
+  conn(anchor(N.bv_pve,"b"),anchor(N.bv_ph,"t"),"v",{color:L});
+  conn(anchor(N.bv_sw,"b",0.8),anchor(N.bv_ck,"t",0.35),"v",{color:C("--ctrl"),dash:"4 4"});
+  conn(anchor(N.bv_ck,"b"),anchor(N.bv_ap,"t"),"v",{color:C("--ctrl"),dash:"4 4"});
+
+  // edge labels
+  elabel(252,143,"LACP",AC); elabel(892,143,"LACP",AC);
+  elabel(695,210,"Gi1/1/2",C("--muted"));
+  elabel(695,172,"FISHBONE radio · 566 m",RA);
+  elabel(695,152,"+ carries BT Business WAN → HQ (vlan 4)",C("--warn"));
+  elabel(695,262,"IPsec VPN fallback",C("--muted"));
+  elabel(1118,178,"BT-routers → 3850 · vlan 4 / 6",C("--muted"));
+
+  // ---- nodes on top ----
+  function node(n){
+    const g=el("g",{});
+    g.appendChild(el("rect",{x:n.x,y:n.y,width:n.w,height:n.h,rx:11,
+      fill:n.cls=="radio"?C("--surface"):C("--surface"),
+      stroke:accent[n.cls],"stroke-width":n.cls=="radio"||n.cls=="ctrl"||n.cls=="warn"?2:1.5}));
+    g.appendChild(el("rect",{x:n.x,y:n.y,width:5,height:n.h,rx:0,
+      fill:accent[n.cls]}));
+    // round the left accent strip's outer corners by clipping with the card radius
+    const t=el("text",{x:n.x+16,y:n.y+19,"font-size":13.5,"font-weight":700,fill:C("--fg")});
+    t.textContent=n.title; g.appendChild(t);
+    n.lines.forEach((ln,i)=>{
+      const mono=/\d\.\d|10\.224|192\.168|ext |Gi\d|VM\d/.test(ln);
+      const y=n.y+19+TITLE_H-6+i*LINE_H;
+      const tx=el("text",{x:n.x+16,y,"font-size":11,fill:C("--muted")});
+      if(mono)tx.setAttribute("font-family",C("--mono").split(",")[0]||"monospace");
+      tx.textContent=ln; g.appendChild(tx);
+    });
+    svg.appendChild(g);
+  }
+  for(const k in N)node(N[k]);
+
+  // site backdrops + labels (drawn behind everything)
+  function band(x,w,label){
+    const r=el("rect",{x,y:46,width:w,height:560,rx:16,fill:"transparent",
+      stroke:C("--border"),"stroke-width":1.4,"stroke-dasharray":"2 6"});
+    svg.insertBefore(r,svg.firstChild);
+    const t=el("text",{x:x+16,y:66,"font-size":12,"font-weight":700,"letter-spacing":"0.08em",fill:C("--faint")});
+    t.textContent=label; svg.appendChild(t);
+  }
+  band(6,686,"FISHBONE HQ"); band(700,648,"BEVERLEY PLACE");
+})();
+</script>

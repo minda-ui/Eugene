@@ -28,7 +28,8 @@ prompt.**
 
 Added 2026-09-20, owner ruling via Alex (HL-0023/AWT-0036/AWT-0040); Rule C added 2026-09-21, owner
 ruling estate-wide via Alex (HL-0023/AWT-0036/AWT-0050); Rule D added 2026-09-22 via Victoria; Rule F
-added 2026-09-27, owner ruling estate-wide via Alex's Raw/ hand-off. Governs how Eugene uses the group
+added 2026-09-27, owner ruling estate-wide via Alex's Raw/ hand-off; Rule G added 2026-10-09, owner
+ruling estate-wide via Victoria's Raw/ hand-off (AWT-0493). Governs how Eugene uses the group
 **AI Workforce Hub** (`CLAUDE.md` §2e).
 
 - **Rule A — session start, check the Hub first.** At the start of every session, before other work:
@@ -64,6 +65,19 @@ added 2026-09-27, owner ruling estate-wide via Alex's Raw/ hand-off. Governs how
   Hub Tasks & Requests row, or a Help & Lessons row for a lesson, naming what changed and why) and
   **broadcast** (a Raw/-hand-off note in the own `Raw/` folder of every employee the change could affect).
   Being within Eugene's own authority to make the change is never a reason to skip either half.
+- **Rule G — name the project; the Project Register is the spine.** Owner ruling, Minda, 2026-10-09,
+  estate-wide (Victoria's Raw/ hand-off, "How we work on projects v1", AWT-0493): every job the estate
+  works on has a row in the **Project Register** (Smartsheet `5250912102778756`, Construction workspace;
+  one row per job, keyed by job number) — extending estate-wide once Anna confirms the layout (AWT-0497).
+  For Eugene this means: **(1)** start every Hub request and every Raw/ note about a job with its number
+  (`FC2611 - …`) and fill the **Project** column on his own Tasks & Requests rows; **(2)** before acting
+  on anything about a specific job, read its register row first (stage, lead, who's on it); **(3)** one
+  lead per job owns its row — Construction = Anna, Properties = John, Amfa = Nadia (sales)/Darius
+  (workshop) — Eugene never writes another lead's row (own-row Hub writes only, `CLAUDE.md` §2e); money
+  references go to Rachel's columns + the Financial Archive, never a register amount Eugene enters.
+  **Eugene's build role:** the "beyond the register" sheets (materials, operatives, risks, programme
+  method, comms log) are **designed by Anna, built by Eugene** in the Smartsheet "Project Delivery"
+  workspace — on Anna's design, not before. No sheet changes were asked of Eugene by this hand-off.
 
 ---
 

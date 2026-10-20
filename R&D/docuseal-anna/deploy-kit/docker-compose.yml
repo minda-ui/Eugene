@@ -1,0 +1,68 @@
+# RND-8 — DocuSeal self-host stack (HQ DL380 Gen9, dedicated VM)
+# Guide-only draft. Minda deploys; Minda holds every secret (they live in .env, git-ignored).
+# Stack = Caddy (TLS reverse proxy) -> DocuSeal (app) -> Postgres (db). Only Caddy is exposed.
+#
+# Reads secrets from a sibling .env (copy .env.example -> .env and fill). NOTHING real in git.
+# Bring up:  docker compose up -d       Logs:  docker compose logs -f docuseal
+# Version note: pin the DocuSeal image to a specific tag at deploy time (not :latest) once chosen.
+
+services:
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"     # ACME HTTP-01 challenge (needs inbound from internet via ASA)
+      - "443:443"   # the only public entry point to the whole stack
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data        # Let's Encrypt certs persist here
+      - caddy_config:/config
+    depends_on: [ docuseal ]
+    networks: [ dsnet ]
+
+  docuseal:
+    image: docuseal/docuseal:latest    # pin to a real version tag at deploy, e.g. docuseal/docuseal:1.x.x
+    restart: unless-stopped
+    environment:
+      HOST: ${PUBLIC_HOST}                 # e.g. sign.fishboneconstruction.co.uk
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}  # secret: openssl rand -hex 64
+      DATABASE_URL: postgresql://docuseal:${DB_PASSWORD}@postgres:5432/docuseal
+      FORCE_SSL: ${PUBLIC_HOST}            # redirect to https on the public host
+      # --- Option B (Pro) only: add the Pro licence key here (Minda-held). Confirm the exact
+      #     variable name against DocuSeal's self-host Pro docs at deploy time. e.g.:
+      # LICENSE_KEY: ${DOCUSEAL_LICENSE_KEY}
+      # --- SMTP: simplest is to set it in DocuSeal's own Settings -> Email UI after first boot.
+      #     If you prefer env, confirm DocuSeal's current SMTP_* names against their docs first.
+    # NOT exposed to the host — only Caddy reaches it over the internal docker network:
+    expose: [ "3000" ]
+    volumes:
+      - docuseal_data:/data      # uploaded + signed PDFs, audit logs (BACK THIS UP — RND-3/PBS)
+    depends_on: [ postgres ]
+    networks: [ dsnet ]
+    # Belt-and-braces app cap (the VM-level cap is the primary guard; see README):
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 3G
+
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: docuseal
+      POSTGRES_USER: docuseal
+      POSTGRES_PASSWORD: ${DB_PASSWORD}    # secret, from .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data   # the database (BACK THIS UP — RND-3/PBS)
+    expose: [ "5432" ]                      # internal only — never published to the host/LAN
+    networks: [ dsnet ]
+
+volumes:
+  caddy_data: {}
+  caddy_config: {}
+  docuseal_data: {}
+  pg_data: {}
+
+networks:
+  dsnet: {}

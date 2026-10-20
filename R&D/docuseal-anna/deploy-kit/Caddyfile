@@ -1,0 +1,20 @@
+# RND-8 DocuSeal — Caddy reverse proxy. Auto Let's Encrypt TLS on the public host.
+# Caddy terminates HTTPS and proxies to the DocuSeal app on the internal docker network.
+# DocuSeal's :3000 is never exposed directly — only this :443 is public.
+#
+# For ACME to issue the cert, inbound :80 and :443 must reach this host from the internet
+# (DNS A record + the ASA NAT/ACL — see README). Until that's in place, test internally with
+# the ":3000" compose override, or use Caddy's internal CA.
+
+sign.fishboneconstruction.co.uk {
+    encode zstd gzip
+    reverse_proxy docuseal:3000
+
+    # Optional hardening:
+    header {
+        Strict-Transport-Security "max-age=31536000;"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        -Server
+    }
+}
