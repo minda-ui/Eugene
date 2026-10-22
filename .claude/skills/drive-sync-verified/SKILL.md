@@ -66,6 +66,34 @@ The script prints each check and ends with one `RESULT:` line.
 Two uploads raced (seen 2026-09-26). Download both, compare with git, keep the one matching `main` as
 live, archive the other with reason "duplicate of <id>", then re-run.
 
+## MCP fallback — unattended runs, or when the CLI is silent (AWT-0859, from Anna's 18 Oct test)
+
+`sync.sh` needs the Composio **CLI signed in** and a local `--file` path. In an **unattended routine run**
+the CLI only has a `ck_` consumer key, which can't sign the interactive CLI in, so `composio execute`
+prints nothing (exit 0, no output) — do not rely on it there. Use the **Composio MCP** route instead.
+Verify every write by size/bytes, never by eye. (Tested by Anna; `UPLOAD_UPDATE_FILE` and
+`RESUMABLE_UPLOAD` are **untested** — treat as provisional.)
+
+1. **Stage the content.** The MCP sandbox (`COMPOSIO_REMOTE_WORKBENCH`) is separate and **cannot see
+   run-container files**, so the file text must be passed **inside the call**, not referenced by path.
+2. **Upload.** `GOOGLEDRIVE_UPLOAD_FILE` with the Drive folder id. Cap **5 MB**. It **always creates a new
+   file** — it does not replace. Replacing an existing file needs `GOOGLEDRIVE_UPLOAD_UPDATE_FILE`
+   (untested); over 5 MB, `GOOGLEDRIVE_RESUMABLE_UPLOAD` (untested).
+3. **Archive-then-recreate still holds.** Before the new upload, rename+move the old copy to `Archive/`
+   with `GOOGLEDRIVE_UPDATE_FILE_METADATA_PATCH` (title + addParents/removeParents). **Never delete** —
+   delete is denied by repo settings anyway.
+4. **Byte-verify.** `GOOGLEDRIVE_DOWNLOAD_FILE` returns a signed URL; `curl` it to disk and `cmp` against
+   the local/intended content (Anna's test: 13,540 B byte-identical). Check uploaded `size` == expected.
+5. **Per-call account field (multi-account).** When several Drive accounts are connected, put the account
+   **inside each tool entry** (e.g. `"account": "eugene-googledrive"`). A top-level `account_id` is
+   ignored and the call then fails `"Multiple googledrive accounts"`.
+
+**Native Drive as a last resort (small text only).** For markdown up to ~14 KB, native Drive
+`create_file` with `textContent` was byte-exact in three tests. But native Drive has **silently
+truncated files ~31 KB+** (the reason the CLI route exists), so never use it for a large control file —
+MCP upload or the CLI is the rule; native create_file is only a small-text stopgap, always read back by
+size.
+
 ## Reporting
 
 Report per file: live copy archived (title), new size, md5 match, round-trip identical, U+FFFD 0, one

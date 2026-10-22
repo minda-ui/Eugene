@@ -17,8 +17,13 @@ Confirmed from the order emails in minda@'s Gmail:
   order **#000006986**, card payment, DHL Domestic Express, free delivery (referral code). Both cards
   for the dual-P40 build. (Email says "GDDR5X" — the P40 is actually GDDR5; vendor typo, same card.)
 - ✅ **2nd GPU power cable (eMagTech 8-pin, 805123-001)** — Amazon, **ordered 2026-10-16** (powers P40 #2).
-- ✅ **2× 1400 W PSU — HPE 720620-B21** — **ordered from Techbuyer 2026-10-16** (awaiting their confirmation
-  email at sign-off). Replaces the fitted 2× 500 W.
+- ✅ **2× 1400 W PSU — HPE 720620-B21** — **sourced 2026-10-20 from eBay seller `compuwyze_ltd`** (Blackpool),
+  order **10-15321-61086**, item #157912293296, **£26.00 each = £52.00, −£1.56 coupon = £50.44**, **refurbished
+  (1-yr seller guarantee + 30-day returns)**, est. delivery **21–22 Oct to 6 Beverley Place** (bring to HQ).
+  Replaces the fitted 2× 500 W. _(VAT invoice offered by seller — requested.)_
+  - ❌ **Techbuyer order #000065309 (the original 2× 720620-B21) CANCELLED** — Techbuyer emailed 2026-10-20 that
+    the PSUs **failed testing**; account to be **refunded**. Reply sent declining a Techbuyer alternative
+    (sourced elsewhere). So the live PSU order is the eBay/compuwyze one above, not Techbuyer.
 - ✅ **High-performance fans already fitted** — confirmed 2026-10-16 by the physical label: GPN
   **747597-001** / HPE 796850-001 / **SPS 777285-001**, fan = **Delta PFR0612XHE DC12V 3.30A** (the
   high-static-pressure rotor). All 6 bays, Fully Redundant. **The fan kit is NOT needed.**
