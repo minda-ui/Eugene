@@ -1,5 +1,20 @@
 # Change log — 2026-10-22 — Morning Hub blitz + Build Register v1
 
+## Update 2026-10-22 ~09:00 UTC — AWT-0834 closed (all 10 seats)
+After the blitz below, took and **closed AWT-0834**: verified all 10 seats' limits vs the Task Check-in
+prompt's "Gmail OFF / QuickBooks OFF / Drive+Smartsheet only / no git" assumption, and built the 10-seat
+session-start register (standard v0.3 §9). John verified from his Properties-KB `CHARTER.md`
+(`1XafYyCa…`): Gmail read ops@properties + draft-only, QuickBooks read-only, Drive = source of truth.
+**Finding:** the blanket "Gmail/QuickBooks OFF" is wrong — Gmail is off only for Darius; read-only for
+Alex/Sarah; read+draft for Peter/Rachel/Anna/Nadia/Helen/John; QuickBooks is read-only for Rachel + John,
+none for the rest; "no git writes" is right only for the unattended routine. Unattended-safe = Yes for all
+10. Deliverable `Runbooks/Seat-Verification-and-SessionStart-Register-AWT-0834.md` (git + Drive
+`1k6hH4eMohg8…`); prompt corrections handed to Victoria (Raw + Hub **AWT-0946**); Minda pastes. Ledger 133.
+Skill candidate **SC-9 `seat-capability-audit`** proposed from this (for the Quarterly sweep / new seats).
+
+---
+
+
 Session-start Hub check (Rule A) found 18 open Eugene rows; Minda asked to triage and work the actionable
 set, then build the Build Register. Guide-only throughout (§3): Eugene authored prompts/skills/register and
 verified settings; Minda pastes live routine prompts and makes any access/dashboard/backup change.
