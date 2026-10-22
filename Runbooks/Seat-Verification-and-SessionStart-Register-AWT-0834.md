@@ -20,7 +20,7 @@ not the seat's general authority).
 | **Rachel** | ops@ read + **create_draft** + label | **read-only** (not off) | own | own | own mirror | ❌ Gmail & QB both not off (verified 19 Oct) |
 | **Anna** | ops@ read + **create_draft** (never send); Composio anna-gmail | none | read/write own | Project Delivery | own mirror + GitHub connector | ❌ Gmail not off; GitHub present |
 | **Nadia** | enquiries@amfa read + **draft-only** (ops@ pending) | none | read/write own | CRM own + order tracker (read) + Hub own | mirror synced FROM Drive (**no git writes**) | ❌ Gmail not off; ✅ no git writes correct |
-| **John** | *charter in Properties KB (Drive), not git — NOT yet read* | ? | Properties KB | Properties sheets | repo sparse | ⚠ needs Properties-KB charter read |
+| **John** | ops@fishboneproperties read + **draft-only** (never send; money via Rachel) | **read-only** | read Properties KB | property register + Tasks + Document Register (read); Hub own | Drive = source of truth (mirror; routine no git writes) | ❌ Gmail & QB both not off (read+draft / read-only) |
 | **Darius** | **none — no Gmail** (explicit) | none | read/write own | Workshop sheets + Hub | own mirror | ✅ Gmail OFF correct; Drive+Smartsheet right |
 | **Helen** | ops@ read + create_draft + label (verified AWT-0833/0890) | none | own | own | own mirror | ❌ Gmail not off (done earlier) |
 | **Alex** | ops@ **read-only** (never sends) | **never writes QB** | read estate-wide / write own | own Hub/H&L rows | own mirror | ❌ Gmail read-only, not off |
@@ -28,10 +28,10 @@ not the seat's general authority).
 | **Eugene** | draft-only (eugene-gmail) | none | read/write own | Hub own rows | read/write own + seat repos (enablement) | n/a (builder) |
 
 **Correction needed in the Task Check-in prompts:** replace "Gmail OFF" with each seat's real Gmail limit
-(Darius = none; Alex/Sarah = read-only; Peter/Rachel/Anna/Nadia/Helen = read + create_draft, never send),
-and "QuickBooks OFF" with "Rachel = read-only, all others none". "No git writes" is correct **for the
-unattended check-in routine** (it must not push) — keep it, but note each seat's interactive sessions do
-maintain their own mirror. **John still needs his Properties-KB charter read to confirm his Gmail/QB/git.**
+(Darius = none; Alex/Sarah = read-only; Peter/Rachel/Anna/Nadia/Helen = read + create_draft, never send;
+**John = read ops@properties + draft-only**), and "QuickBooks OFF" with "**Rachel & John = read-only**,
+all others none". "No git writes" is correct **for the unattended check-in routine** (it must not push) —
+keep it, but note each seat's interactive sessions do maintain their own mirror.
 
 ## B. Session-start register (standard v0.3 §9) — all ten seats
 
@@ -44,7 +44,7 @@ what the check-in does · who if a human is needed.**
 | Rachel | charter + control files; Hub rows=Rachel | own KB + Hub | every session + work runs 4/day | Yes | finance-doc drafting; Hub rows | money decision, QB write → Minda |
 | Anna | charter + control files; Hub rows=Anna; FG/To-Anna in ops@ | own KB + Hub + ops@ | every session + work runs | Yes | project/RAMS drafting; CRM/registers; drafts | send, sign, decision → Minda |
 | Nadia | charter + Amfa KB live-data rule; Hub rows=Nadia; enquiries@ | Amfa KB + CRM + Hub | every session + work runs | Yes | enquiry triage, quote drafts | send, price approval → Minda |
-| John | charter (Properties KB) + control files; Hub rows=John | Properties KB + Hub | every session + work runs | Yes (confirm) | Properties data/monitor | director decision → Minda |
+| John | charter (Properties KB `CHARTER.md`) + control files; Hub rows=John | Properties KB + Hub + ops@properties | every session + work runs | Yes (read + draft-only) | Properties data/monitor; drafts | director decision, money (→Rachel), send → Minda |
 | Darius | charter (CLAUDE + Rules + Workshop) ; Hub rows=Darius | Workshop KB + Hub | every session + work runs | Yes (no Gmail) | logs/tracks Workshop; registers | purchase, live-machine step → Minda |
 | Helen | charter + control files; Hub rows=Helen; FG/To-Helen | own KB + Hub + ops@ | every session + work runs | Yes | content/marketing drafts | publish, send, ad-spend → Minda |
 | Alex | charter + control files; estate drift scan | all KBs (read) + Hub | every session + housekeeping sweep | Yes (read/tidy only) | drift digest; archive/refresh; own Hub rows | substance change, sharing change → Minda |
@@ -56,8 +56,9 @@ none sends, pays, files, or changes a live system unattended — those stop for 
 check-in/work-run routine must not push git (keep "no git writes" in the routine prompts).
 
 ## Status
-- **Verified:** Peter, Rachel, Anna, Nadia, Darius, Helen, Alex, Sarah (+ Eugene). **9 of 10.**
-- **Outstanding:** **John** — read his Properties-KB charter to confirm Gmail/QuickBooks/git limits.
-- **Hand to Victoria:** the "Gmail OFF / QuickBooks OFF" wording in the Task Check-in prompts needs the
-  per-seat correction above; corrected whole prompts for any seat that needs them go to Victoria's Raw
-  (she owns the prompt set; Minda pastes). This register is the index the prompts refer to.
+- **Verified: all 10** — Peter, Rachel, Anna, Nadia, **John**, Darius, Helen, Alex, Sarah (+ Eugene).
+  John confirmed 2026-10-22 from his Properties-KB `CHARTER.md` (`1XafYyCa…`): Gmail read ops@properties +
+  draft-only, QuickBooks read-only, Drive/Smartsheet read, Drive = source of truth.
+- **Hand to Victoria (done):** the "Gmail OFF / QuickBooks OFF" wording in the Task Check-in prompts needs
+  the per-seat correction above; delivered to Victoria's Raw + Hub AWT-0946 (she owns the prompt set; Minda
+  pastes). This register is the index the prompts refer to. **AWT-0834 verification + register complete.**
