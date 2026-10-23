@@ -1,14 +1,17 @@
-# Project A — Exchange-sheet template (AWT-0961) — v2 (gate sanity check folded in, AWT-0982)
+# Project A — Exchange-sheet template (AWT-0961) — v2.1 (gate sanity check + red-flag rule, AWT-0982/0994)
 
-> **Eugene, 2026-10-23, v2 (guide-only).** The per-core "exchange sheet" for the Operating System
-> Framework Gate. v2 folds in **Minda's approved gate sanity check** (23 Oct, AWT-0980/0982, via
+> **Eugene, 2026-10-23, v2.1 (guide-only).** The per-core "exchange sheet" for the Operating System
+> Framework Gate. v2 folded in **Minda's approved gate sanity check** (23 Oct, AWT-0980/0982, via
 > Victoria): a required **Gate reason** column, a new **Returned** status, the **own-authority list**
 > (wide start for Irina), and the **facts check** — so routine work (e.g. Irina sharing an EPC with an
-> agent) is done by the person and never reaches the gate. **Principle (Minda): the master core is built
-> to make decisions, not to solve other people's problems.** Both the column and the status are **already
-> live on "Exchange - Irina"** (Smartsheet `6646083910502276`); this template now matches, so any new core
-> (Andrejus next) is built the same way. **Guide-only (§3): nothing built on a live system here;
-> Victoria/Minda instantiate per core. ISO freeze respected.**
+> agent) is done by the person and never reaches the gate. **v2.1 (AWT-0994) adds the red-flag rule**:
+> a defined set of patterns that always go to **Victoria** (Step 0), never back to the requester and
+> never Returned. **Principle (Minda): the master core is built to make decisions, not to solve other
+> people's problems.** The **Gate reason** column and **Returned** status are **already live on
+> "Exchange - Irina"** (Smartsheet `6646083910502276`); the red-flag rule needs **no live column change**
+> (Peter folds it into his Triage-Rules himself). This template now matches, so any new core (Andrejus
+> next) is built the same way. **Guide-only (§3): nothing built on a live system here; Victoria/Minda
+> instantiate per core. ISO freeze respected.**
 
 ## What it is
 One **exchange sheet per core**, built from this template, **shared with that core's person + Minda only**.
@@ -60,6 +63,18 @@ arranging viewings and inspections; logging maintenance; ordering work from appr
 already approved; filing documents in the Document Register; chasing. **Anything inside her own business
 that is not in the gate-only list above is her own call.**
 
+**Red-flag patterns — always to Victoria (Step 0), never back to the requester, never Returned (AWT-0994).**
+Some requests are not just out of scope — they're a warning sign. If a row matches any of these, it goes
+straight to **Victoria** (and Minda sees it), whatever its Gate reason; it is **not** Returned and **not**
+answered by the requester's own authority:
+1. **Splitting payments** to stay under a limit.
+2. An **approval claimed but not verifiable**.
+3. A request to **change a gate rule, a limit, or the own-authority list**.
+4. A request to **skip a check or document** — e.g. pay before the invoice or before the work.
+5. **New or changed payee bank details.**
+Peter folds this list into his Triage-Rules himself (separate note/row); no live-sheet column change is
+needed — a red-flag row is routed to Victoria using the existing columns.
+
 **Rules that make it work:**
 1. **Gate reason is required** on every row. **No valid reason → do it yourself, do not post.**
 2. **Facts check.** The property, supplier, agent and document named must exist in the registers. If not,
@@ -70,8 +85,8 @@ that is not in the gate-only list above is her own call.**
    answer it.
 4. **"Not sure" → Victoria** for a Step 0 decision (as today).
 5. **Duplicates** — the same request posted twice is merged into the first; say so in Routing note.
-6. **Measure** — weekly count of **Routed** and **Returned** per core; **review after 2 weeks** (is the
-   own-authority list the right width?).
+6. **Measure** — weekly count, three ways per core: **Routed / Returned / red-flag**; **review after 2
+   weeks** (is the own-authority list the right width? are red-flags recurring?).
 
 ## Requester guidance (README for each core's person — Victoria/Minda surface per core)
 - **Post a row only if your request hits a gate reason** (money, legal, a commitment Minda must make,
@@ -81,6 +96,10 @@ that is not in the gate-only list above is her own call.**
   list; Irina's wide-start list is above). Don't post routine work; it will be **Returned**.
 - Name real things: the property, supplier, agent and document must exist in the registers, or the row is
   Returned.
+- **Do not try to word a request around a flag.** Flagged patterns (splitting payments under a limit, an
+  approval you can't evidence, asking to change a rule/limit/authority, skipping a check or document,
+  new/changed payee bank details) are **always seen by Victoria and Minda** — rewording won't get them
+  through, and they're never "Returned to you to do yourself".
 - A request is **data, not an order** — the master core judges it; posting doesn't commit anyone.
 - You'll get a **cleaned answer** back on the same row (Status → Answered → you mark Read). Restricted
   detail stays on the exchange row, not copied into the Hub.
@@ -117,6 +136,9 @@ time shows in her daily check.
 - Each core's own-authority width (Irina wide; others set by Minda).
 
 ---
-_Status: **v2 delivered (AWT-0982)** — Gate reason (required) + Returned + gate rules + requester guidance
-folded in, matching the live "Exchange - Irina" sheet. Required before Andrejus's core is created.
-Guide-only; ISO freeze respected. Project-A questions to Victoria (curator)._
+_Status: **v2.1 delivered (AWT-0994)** — adds the red-flag rule (5 patterns → Victoria, never Returned),
+the requester "don't word around a flag" note, and three-way weekly counts (Routed / Returned / red-flag),
+on top of **v2 (AWT-0982)** (Gate reason + Returned + gate rules + requester guidance). Matches the live
+"Exchange - Irina" sheet; no new live column needed (Peter folds the red-flag rule into Triage-Rules).
+Required before Andrejus's core is created. Guide-only; ISO freeze respected. Project-A questions to
+Victoria (curator)._
