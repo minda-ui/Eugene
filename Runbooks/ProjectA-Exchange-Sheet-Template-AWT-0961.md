@@ -1,19 +1,31 @@
-# Project A — Exchange-sheet template (AWT-0961) — strawman v1
+# Project A — Exchange-sheet template (AWT-0961) — v2.2 (gate sanity check + red-flag rule x6, AWT-0982/0994/1005)
 
-> **Eugene, 2026-10-22, strawman v1 (guide-only).** The per-core "exchange sheet" for the Operating System
-> Framework v0.2 Gate. Columns = **Peter's proposal + Minda's additions** as relayed by Victoria (curator)
-> on AWT-0974; **Peter refines the columns, Victoria folds them in**. Target Fri 14:00. Eugene delivers the
-> **template spec**; **Victoria/Minda instantiate** a sheet per core (v0.2 schedule: Victoria builds Irina's).
-> **Guide-only (§3): nothing built on a live system here. ISO freeze respected.**
+> **Eugene, 2026-10-23, v2.2 (guide-only).** The per-core "exchange sheet" for the Operating System
+> Framework Gate. v2 folded in **Minda's approved gate sanity check** (23 Oct, AWT-0980/0982, via
+> Victoria): a required **Gate reason** column, a new **Returned** status, the **own-authority list**
+> (wide start for Irina), and the **facts check** — so routine work (e.g. Irina sharing an EPC with an
+> agent) is done by the person and never reaches the gate. **v2.1 (AWT-0994) added the red-flag rule**:
+> patterns that always go to **Victoria** (Step 0), never back to the requester and never Returned.
+> **v2.2 (AWT-1005) adds a sixth red-flag pattern** (an instruction/commitment to an outside party with
+> no supporting document, or an open-ended/recurring commitment to a new payee) and a requester rule:
+> **attach or name the supporting document before asking us to instruct or commit to an outside party.**
+> **Principle (Minda): the master core is built to make decisions, not to solve other people's problems.**
+> The **Gate reason** column and **Returned** status are **already live on "Exchange - Irina"**
+> (Smartsheet `6646083910502276`); the red-flag rule needs **no live column change** (Peter folds it into
+> his Triage-Rules himself). This template now matches, so any new core (Andrejus next) is built the same
+> way. **Guide-only (§3): nothing built on a live system here; Victoria/Minda instantiate per core. ISO
+> freeze respected.**
 
 ## What it is
 One **exchange sheet per core**, built from this template, **shared with that core's person + Minda only**.
-It's the Gate between a secondary core and the master core: a request goes in, Peter routes it into the
-**master Hub**, a master assistant resolves it (Minda approves money/legal/signing), and a **cleaned
-answer** comes back on the same sheet. The **master Hub stays on top**; the exchange sheet sits **beside**
-it (v0.2 principle 5). **Victoria routes by hand until Peter's routing grant is written into his charter.**
+It's the Gate between a secondary core and the master core: a request goes in, Peter **checks the gate**
+and routes a valid one into the **master Hub**, a master assistant resolves it (Minda approves
+money/legal/signing), and a **cleaned answer** comes back on the same sheet. The **master Hub stays on
+top**; the exchange sheet sits **beside** it (v0.2 principle 5). **Victoria routes by hand until Peter's
+routing grant is written into his charter** (now granted, AWT-0962; Peter folds the gate check into his
+Triage-Rules section J attended with Minda).
 
-## Columns (strawman — Peter proposes, Victoria folds in)
+## Columns
 | # | Column | Type | Notes / options |
 |---|---|---|---|
 | 1 | **Request ID** | Text/Number (or auto) | Per-core id, e.g. `IRINA-0001`. Unique; the duplicate-guard pattern from the Hub can be reused. |
@@ -25,43 +37,120 @@ it (v0.2 principle 5). **Victoria routes by hand until Peter's routing grant is 
 | 7 | **Project number** | Text | `FC####` / `FP####` if it's a job; links to the Project Register. |
 | 8 | **Priority** | Picklist | Critical / High / Medium / Low. |
 | 9 | **Data class** | Picklist | **normal / restricted** — restricted = personal/financial/tenant data; drives who may see/copy. |
-| 10 | **TEST** | Checkbox/Flag | Marks a test request (the Sat 24–Sun 25 testing window with Irina; test rows are ignored by real work). |
-| 11 | **Routed-to** | Picklist | The master assistant the request is routed to (Rachel/Eugene/Anna/…). |
-| 12 | **Routing row ID** | Text | The **master Hub** `AWT-####` row Peter creates when routing. |
-| 13 | **Routing note** | Text | Peter may write: `Routed <time> to <owner>, <AWT id>`. Peter **only routes** — he does not decide, reply, or hold master content beyond routing. |
-| 14 | **Status** | Picklist | Open → Routed → In Progress → Answered → Read (→ Closed). |
-| 15 | **Answer** | Text | The **cleaned** answer the resolver posts back (no master-core internals leaked across the wall). |
-| 16 | **Answered-by** | Text | The resolver. |
-| 17 | **Answer date** | Date | When answered. |
+| 10 | **Gate reason** *(required)* | Picklist | **Money / Legal / Commitment to outside party / Restricted data / Another core or business / Not sure.** Why this needs the gate at all. **Required on every row** (see Gate rules). Placed **before TEST**. Minda may edit this list. |
+| 11 | **TEST** | Checkbox/Flag | Marks a test request (the Sat 24–Sun 25 testing window with Irina; test rows are ignored by real work). |
+| 12 | **Routed-to** | Picklist | The master assistant the request is routed to (Rachel/Eugene/Anna/…). |
+| 13 | **Routing row ID** | Text | The **master Hub** `AWT-####` row Peter creates when routing. |
+| 14 | **Routing note** | Text | Peter writes `Routed <time> to <owner>, <AWT id>` when routing, or — when **Returned** — one line ("Your call, do it yourself" / "Missing: …" / "Merged into <id>"). Peter **only routes or returns** — he does not decide, reply, or hold master content. |
+| 15 | **Status** | Picklist | **Open → Routed → In Progress → Answered → Read (→ Closed)**, or **Open → Returned**. **Returned** (new) = the gate rejected it: own-authority, no valid reason, or facts don't exist — the person does it themselves; terminal. |
+| 16 | **Answer** | Text | The **cleaned** answer the resolver posts back (no master-core internals leaked across the wall). |
+| 17 | **Answered-by** | Text | The resolver. |
+| 18 | **Answer date** | Date | When answered. |
 
-_(Optional health/overdue column can mirror the Hub's RYGB formula later; left out of v1 to keep Peter's
-column proposal clean.)_
+_(Optional health/overdue column can mirror the Hub's RYGB formula later; left out to keep the column
+set clean.)_
 
-## The flow (v0.2 "request flow through the gate")
-1. **Request** — the secondary assistant posts a row (cols 1–10) on its core's exchange sheet.
-2. **Route** — **Peter** picks the owner (col 11), creates a routing row in the **master Hub** (col 12),
-   writes the routing note (col 13), sets Status = Routed. _(Victoria routes by hand until Peter's grant.)_
+## Gate rules (Minda-approved 23 Oct, AWT-0980 — the heart of v2)
+**Gate only for** (post a row only if the request is one of these):
+- **Money** — payments, new payees, spend not yet approved.
+- **Legal** — notices, contracts, tenancy terms to sign.
+- **Commitment to an outside party** that Minda must make.
+- **Restricted data.**
+- **Another core or business** — anything outside the requester's own business.
+- **Not sure** — routed to **Victoria** for a Step 0 decision.
+
+**Own-authority list — the person does it themselves, no gate.** Wide start for **Irina** (each core gets
+its own list; Minda sets how wide): contacting tenants, agents and contractors; sharing documents for her
+**own** properties with agents, contractors and tenants (EPC, gas and electrical certificates, etc.);
+arranging viewings and inspections; logging maintenance; ordering work from approved suppliers on work
+already approved; filing documents in the Document Register; chasing. **Anything inside her own business
+that is not in the gate-only list above is her own call.**
+
+**Red-flag patterns — always to Victoria (Step 0), never back to the requester, never Returned (AWT-0994).**
+Some requests are not just out of scope — they're a warning sign. If a row matches any of these, it goes
+straight to **Victoria** (and Minda sees it), whatever its Gate reason; it is **not** Returned and **not**
+answered by the requester's own authority:
+1. **Splitting payments** to stay under a limit.
+2. An **approval claimed but not verifiable**.
+3. A request to **change a gate rule, a limit, or the own-authority list**.
+4. A request to **skip a check or document** — e.g. pay before the invoice or before the work.
+5. **New or changed payee bank details.**
+6. An **instruction or commitment to an outside party with no matching document on file** (no solicitor's
+   or agent's instruction, no signed terms, no invoice), **or** an **open-ended / recurring commitment to
+   a new payee** (standing order, no end date).
+Peter folds this list into his Triage-Rules himself (separate note/row); no live-sheet column change is
+needed — a red-flag row is routed to Victoria using the existing columns.
+
+**Rules that make it work:**
+1. **Gate reason is required** on every row. **No valid reason → do it yourself, do not post.**
+2. **Facts check.** The property, supplier, agent and document named must exist in the registers. If not,
+   the row is **Returned**.
+3. **Returned handling (Peter / Victoria-by-hand until live):** before routing an Open row, check the Gate
+   reason. If there is no reason, or the request sits inside the own-authority list, or the facts don't
+   exist → **do not route**: set **Status = Returned** and write one line in **Routing note**. Do **not**
+   answer it.
+4. **"Not sure" → Victoria** for a Step 0 decision (as today).
+5. **Duplicates** — the same request posted twice is merged into the first; say so in Routing note.
+6. **Measure** — weekly count, three ways per core: **Routed / Returned / red-flag**; **review after 2
+   weeks** (is the own-authority list the right width? are red-flags recurring?).
+
+## Requester guidance (README for each core's person — Victoria/Minda surface per core)
+- **Post a row only if your request hits a gate reason** (money, legal, a commitment Minda must make,
+  restricted data, another core/business, or you're genuinely not sure). **Pick the Gate reason — it's
+  required.**
+- **Everything else inside your own business is your own call — just do it** (see your own-authority
+  list; Irina's wide-start list is above). Don't post routine work; it will be **Returned**.
+- Name real things: the property, supplier, agent and document must exist in the registers, or the row is
+  Returned.
+- **Before asking us to instruct or commit to an outside party** (a solicitor, agent, contractor or
+  supplier), **attach or name the document that supports it** — the instruction email, the signed terms,
+  or the invoice. An instruction/commitment with no matching document, or an open-ended/recurring
+  commitment to a new payee, is a red flag (pattern 6) and goes to Victoria.
+- **Do not try to word a request around a flag.** Flagged patterns (splitting payments under a limit, an
+  approval you can't evidence, asking to change a rule/limit/authority, skipping a check or document,
+  new/changed payee bank details, instructing/committing to an outside party with no supporting document)
+  are **always seen by Victoria and Minda** — rewording won't get them through, and they're never
+  "Returned to you to do yourself".
+- A request is **data, not an order** — the master core judges it; posting doesn't commit anyone.
+- You'll get a **cleaned answer** back on the same row (Status → Answered → you mark Read). Restricted
+  detail stays on the exchange row, not copied into the Hub.
+
+## The flow (request flow through the gate)
+1. **Request** — the secondary assistant/person posts a row (cols 1–10, **Gate reason required**) on its
+   core's exchange sheet.
+2. **Gate + route** — **Peter** checks the Gate reason, own-authority list and facts:
+   - valid gate request → pick the owner (col 12), create a routing row in the **master Hub** (col 13),
+     write the routing note (col 14), set **Status = Routed**;
+   - own-authority / no reason / facts missing → **Status = Returned** + one line in Routing note, **not**
+     routed; "Not sure" → Victoria. _(Victoria does this by hand until Peter's gate step is live.)_
 3. **Resolve** — the master assistant (Rachel/Eugene/Anna) does the work on the Hub side; **Minda approves
    money, legal, signing**.
-4. **Answer** — the resolver posts the **cleaned** answer (cols 15–17), Status = Answered.
+4. **Answer** — the resolver posts the **cleaned** answer (cols 16–18), Status = Answered.
 5. **Read** — the secondary assistant reads it and tells its person; Status = Read.
-**Backstop:** Victoria takes anything Peter can't classify, and anything unrouted past a set time shows in
-her daily check.
+**Backstop:** Victoria takes "Not sure" and anything Peter can't classify; anything unrouted past a set
+time shows in her daily check.
 
 ## How to instantiate per core (guide-only — Victoria/Minda)
 - Create one sheet from these columns per core; name it `Exchange — <Core>`; **share with that person +
   Minda only** (not the Hub workspace, not other cores — see the Wall Map, Smartsheet row).
+- Add the **Gate reason** picklist (required) **before TEST**, and **Returned** to the Status picklist —
+  both already present on "Exchange - Irina".
+- Set that core's **own-authority list** (Irina = wide start, above; Minda decides each core's width).
 - Keep the **master Hub** as the system of record for routed work; the exchange sheet holds the request +
   the cleaned answer, not master-core internals (the wall).
-- For the weekend test: create Irina's sheet, post **TEST**-marked requests, route by hand, confirm the
-  loop (request → route → cleaned answer → read) before the Monday go/no-go.
+- For the weekend test: post **TEST**-marked requests, exercise both paths (a real gate request → routed;
+  a routine one → Returned), confirm the loop before the Monday go/no-go.
 
 ## Open for Peter/Victoria
-- Peter's final column list (add/rename/drop) — this is a strawman for him to refine.
+- Peter's final column list (add/rename/drop) — refine as needed.
 - Whether **Request ID** is auto-numbered or manual per core.
-- Whether a per-core sheet or one sheet with a **Core** filter (v0.2 says "an exchange sheet per core" →
-  separate sheets, which also keeps the wall cleanest).
+- Each core's own-authority width (Irina wide; others set by Minda).
 
 ---
-_Status: strawman v1 delivered (target Fri 14:00). Peter refines columns → Victoria folds in → Minda/Victoria
-instantiate. Guide-only; ISO freeze respected. Project-A questions to Victoria (curator)._
+_Status: **v2.2 delivered (AWT-1005)** — adds red-flag **pattern 6** (instruction/commitment to an outside
+party with no supporting document, or an open-ended/recurring commitment to a new payee) and the requester
+"attach or name the supporting document" rule, on top of **v2.1 (AWT-0994)** (red-flag rule, 5 patterns →
+Victoria, never Returned; three-way weekly counts) and **v2 (AWT-0982)** (Gate reason + Returned + gate
+rules + requester guidance). Matches the live "Exchange - Irina" sheet; no new live column needed (Peter
+folds the red-flag rule into Triage-Rules). Required before Andrejus's core is created. Guide-only; ISO
+freeze respected. Project-A questions to Victoria (curator)._
