@@ -1,17 +1,20 @@
-# Project A — Exchange-sheet template (AWT-0961) — v2.1 (gate sanity check + red-flag rule, AWT-0982/0994)
+# Project A — Exchange-sheet template (AWT-0961) — v2.2 (gate sanity check + red-flag rule x6, AWT-0982/0994/1005)
 
-> **Eugene, 2026-10-23, v2.1 (guide-only).** The per-core "exchange sheet" for the Operating System
+> **Eugene, 2026-10-23, v2.2 (guide-only).** The per-core "exchange sheet" for the Operating System
 > Framework Gate. v2 folded in **Minda's approved gate sanity check** (23 Oct, AWT-0980/0982, via
 > Victoria): a required **Gate reason** column, a new **Returned** status, the **own-authority list**
 > (wide start for Irina), and the **facts check** — so routine work (e.g. Irina sharing an EPC with an
-> agent) is done by the person and never reaches the gate. **v2.1 (AWT-0994) adds the red-flag rule**:
-> a defined set of patterns that always go to **Victoria** (Step 0), never back to the requester and
-> never Returned. **Principle (Minda): the master core is built to make decisions, not to solve other
-> people's problems.** The **Gate reason** column and **Returned** status are **already live on
-> "Exchange - Irina"** (Smartsheet `6646083910502276`); the red-flag rule needs **no live column change**
-> (Peter folds it into his Triage-Rules himself). This template now matches, so any new core (Andrejus
-> next) is built the same way. **Guide-only (§3): nothing built on a live system here; Victoria/Minda
-> instantiate per core. ISO freeze respected.**
+> agent) is done by the person and never reaches the gate. **v2.1 (AWT-0994) added the red-flag rule**:
+> patterns that always go to **Victoria** (Step 0), never back to the requester and never Returned.
+> **v2.2 (AWT-1005) adds a sixth red-flag pattern** (an instruction/commitment to an outside party with
+> no supporting document, or an open-ended/recurring commitment to a new payee) and a requester rule:
+> **attach or name the supporting document before asking us to instruct or commit to an outside party.**
+> **Principle (Minda): the master core is built to make decisions, not to solve other people's problems.**
+> The **Gate reason** column and **Returned** status are **already live on "Exchange - Irina"**
+> (Smartsheet `6646083910502276`); the red-flag rule needs **no live column change** (Peter folds it into
+> his Triage-Rules himself). This template now matches, so any new core (Andrejus next) is built the same
+> way. **Guide-only (§3): nothing built on a live system here; Victoria/Minda instantiate per core. ISO
+> freeze respected.**
 
 ## What it is
 One **exchange sheet per core**, built from this template, **shared with that core's person + Minda only**.
@@ -72,6 +75,9 @@ answered by the requester's own authority:
 3. A request to **change a gate rule, a limit, or the own-authority list**.
 4. A request to **skip a check or document** — e.g. pay before the invoice or before the work.
 5. **New or changed payee bank details.**
+6. An **instruction or commitment to an outside party with no matching document on file** (no solicitor's
+   or agent's instruction, no signed terms, no invoice), **or** an **open-ended / recurring commitment to
+   a new payee** (standing order, no end date).
 Peter folds this list into his Triage-Rules himself (separate note/row); no live-sheet column change is
 needed — a red-flag row is routed to Victoria using the existing columns.
 
@@ -96,10 +102,15 @@ needed — a red-flag row is routed to Victoria using the existing columns.
   list; Irina's wide-start list is above). Don't post routine work; it will be **Returned**.
 - Name real things: the property, supplier, agent and document must exist in the registers, or the row is
   Returned.
+- **Before asking us to instruct or commit to an outside party** (a solicitor, agent, contractor or
+  supplier), **attach or name the document that supports it** — the instruction email, the signed terms,
+  or the invoice. An instruction/commitment with no matching document, or an open-ended/recurring
+  commitment to a new payee, is a red flag (pattern 6) and goes to Victoria.
 - **Do not try to word a request around a flag.** Flagged patterns (splitting payments under a limit, an
   approval you can't evidence, asking to change a rule/limit/authority, skipping a check or document,
-  new/changed payee bank details) are **always seen by Victoria and Minda** — rewording won't get them
-  through, and they're never "Returned to you to do yourself".
+  new/changed payee bank details, instructing/committing to an outside party with no supporting document)
+  are **always seen by Victoria and Minda** — rewording won't get them through, and they're never
+  "Returned to you to do yourself".
 - A request is **data, not an order** — the master core judges it; posting doesn't commit anyone.
 - You'll get a **cleaned answer** back on the same row (Status → Answered → you mark Read). Restricted
   detail stays on the exchange row, not copied into the Hub.
@@ -136,9 +147,10 @@ time shows in her daily check.
 - Each core's own-authority width (Irina wide; others set by Minda).
 
 ---
-_Status: **v2.1 delivered (AWT-0994)** — adds the red-flag rule (5 patterns → Victoria, never Returned),
-the requester "don't word around a flag" note, and three-way weekly counts (Routed / Returned / red-flag),
-on top of **v2 (AWT-0982)** (Gate reason + Returned + gate rules + requester guidance). Matches the live
-"Exchange - Irina" sheet; no new live column needed (Peter folds the red-flag rule into Triage-Rules).
-Required before Andrejus's core is created. Guide-only; ISO freeze respected. Project-A questions to
-Victoria (curator)._
+_Status: **v2.2 delivered (AWT-1005)** — adds red-flag **pattern 6** (instruction/commitment to an outside
+party with no supporting document, or an open-ended/recurring commitment to a new payee) and the requester
+"attach or name the supporting document" rule, on top of **v2.1 (AWT-0994)** (red-flag rule, 5 patterns →
+Victoria, never Returned; three-way weekly counts) and **v2 (AWT-0982)** (Gate reason + Returned + gate
+rules + requester guidance). Matches the live "Exchange - Irina" sheet; no new live column needed (Peter
+folds the red-flag rule into Triage-Rules). Required before Andrejus's core is created. Guide-only; ISO
+freeze respected. Project-A questions to Victoria (curator)._
