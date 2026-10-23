@@ -60,6 +60,7 @@ _Irina = human reviewer (not an AI seat). Minda = owner/human._ Roster of record
 | Financial Archive | Drive folder `1BVk_Rf…` | Rachel | Drive (group estate law v1.4 §7b) | 2026-09 | live | 2026-10-22 |
 | Shared skills library | git repo | Alex (curator) | `minda-ui/Fishbone-skills` | 2026-10 | live | 2026-10-22 |
 | HQ / Beverley physical infra | On-prem inventory | Eugene/Minda | `Infra-Inventory/Fishbone-HQ-Physical-Network-Inventory.md` | 2026-09-17 | live | 2026-10-22 |
+| Seat session-start register | register | Alex (keeper); built by Eugene | `Runbooks/Seat-Verification-and-SessionStart-Register-AWT-0834.md` (Drive `1k6hH4eMohg8F2mbvwS6XcWXvStFvuEPs`) | 2026-10-22 | live (v1, 10/10 seats) | 2026-10-22 |
 
 ## 4. Skills
 
