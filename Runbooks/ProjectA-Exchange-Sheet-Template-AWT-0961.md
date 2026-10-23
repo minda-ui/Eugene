@@ -1,6 +1,6 @@
-# Project A — Exchange-sheet template (AWT-0961) — v2.2 (gate sanity check + red-flag rule x6, AWT-0982/0994/1005)
+# Project A — Exchange-sheet template (AWT-0961) — v2.3 (gate sanity check + red-flag rule x6 + drill-report fixes, AWT-0982/0994/1005/1012)
 
-> **Eugene, 2026-10-23, v2.2 (guide-only).** The per-core "exchange sheet" for the Operating System
+> **Eugene, 2026-10-23, v2.3 (guide-only).** The per-core "exchange sheet" for the Operating System
 > Framework Gate. v2 folded in **Minda's approved gate sanity check** (23 Oct, AWT-0980/0982, via
 > Victoria): a required **Gate reason** column, a new **Returned** status, the **own-authority list**
 > (wide start for Irina), and the **facts check** — so routine work (e.g. Irina sharing an EPC with an
@@ -9,6 +9,11 @@
 > **v2.2 (AWT-1005) adds a sixth red-flag pattern** (an instruction/commitment to an outside party with
 > no supporting document, or an open-ended/recurring commitment to a new payee) and a requester rule:
 > **attach or name the supporting document before asking us to instruct or commit to an outside party.**
+> **v2.3 (AWT-1012, from Sarah's drill report) adds three fixes:** money requests must name the payee and
+> the invoice/quote; a row with **no Gate reason but real content** is judged on content (commitment or
+> restricted data → Victoria; money → treated as Money; only none-of-these is Returned), with an explicit
+> **order of checks**; and **answers carry no internal references** (no Hub ids, master-core links or
+> Drive ids, no mention of the Hub).
 > **Principle (Minda): the master core is built to make decisions, not to solve other people's problems.**
 > The **Gate reason** column and **Returned** status are **already live on "Exchange - Irina"**
 > (Smartsheet `6646083910502276`); the red-flag rule needs **no live column change** (Peter folds it into
@@ -43,7 +48,7 @@ Triage-Rules section J attended with Minda).
 | 13 | **Routing row ID** | Text | The **master Hub** `AWT-####` row Peter creates when routing. |
 | 14 | **Routing note** | Text | Peter writes `Routed <time> to <owner>, <AWT id>` when routing, or — when **Returned** — one line ("Your call, do it yourself" / "Missing: …" / "Merged into <id>"). Peter **only routes or returns** — he does not decide, reply, or hold master content. |
 | 15 | **Status** | Picklist | **Open → Routed → In Progress → Answered → Read (→ Closed)**, or **Open → Returned**. **Returned** (new) = the gate rejected it: own-authority, no valid reason, or facts don't exist — the person does it themselves; terminal. |
-| 16 | **Answer** | Text | The **cleaned** answer the resolver posts back (no master-core internals leaked across the wall). |
+| 16 | **Answer** | Text | The **cleaned** answer the resolver posts back. **No Hub row ids, no master-core links, no Drive ids, and no mention of the Hub** (AWT-1012 note 4) — no master-core internals cross the wall. |
 | 17 | **Answered-by** | Text | The resolver. |
 | 18 | **Answer date** | Date | When answered. |
 
@@ -81,17 +86,35 @@ answered by the requester's own authority:
 Peter folds this list into his Triage-Rules himself (separate note/row); no live-sheet column change is
 needed — a red-flag row is routed to Victoria using the existing columns.
 
+**Order of checks (Peter / Victoria-by-hand until live, AWT-1012 note 3).** Work an Open row in this order,
+stop at the first that applies:
+1. **Red flag** — matches any of the six patterns → **Victoria (Step 0)**, never Returned.
+2. **Content** — judge what the request actually is, not just the Gate reason picked (see "no reason but
+   real content" below).
+3. **Duplicate** — same request already posted → merge into the first; say so in Routing note.
+4. **Reason & own-authority** — no valid reason and inside the own-authority list → **Returned** "your
+   call, do it yourself".
+5. **Facts** — the property, supplier, agent and document named must exist in the registers; if not →
+   **Returned** "Missing: …".
+6. **Route** — otherwise pick the owner, create the Hub routing row, Status = Routed.
+
 **Rules that make it work:**
 1. **Gate reason is required** on every row. **No valid reason → do it yourself, do not post.**
-2. **Facts check.** The property, supplier, agent and document named must exist in the registers. If not,
-   the row is **Returned**.
-3. **Returned handling (Peter / Victoria-by-hand until live):** before routing an Open row, check the Gate
-   reason. If there is no reason, or the request sits inside the own-authority list, or the facts don't
-   exist → **do not route**: set **Status = Returned** and write one line in **Routing note**. Do **not**
-   answer it.
-4. **"Not sure" → Victoria** for a Step 0 decision (as today).
-5. **Duplicates** — the same request posted twice is merged into the first; say so in Routing note.
-6. **Measure** — weekly count, three ways per core: **Routed / Returned / red-flag**; **review after 2
+2. **No Gate reason but real content (AWT-1012 note 3).** Judge the content, not just the picked reason:
+   - no reason **and a commitment to an outside party or restricted data** → **Victoria (Step 0)**, not
+     back to the requester;
+   - no reason **and money** → treated as **Money** (gate it as money);
+   - **only** a request with none of these → **Returned** "your call".
+3. **Money requests (AWT-1012 note 2).** A request for money must **name the payee or supplier and the
+   invoice or quote**. Names neither → Peter **Returns** it "Missing: payee or supplier not named". Asks
+   to **pay first** (before the invoice or the work) → **red flag pattern 4** (to Victoria), not Returned.
+4. **Facts check.** The property, supplier, agent and document named must exist in the registers. If not,
+   the row is **Returned** "Missing: …".
+5. **Returned handling (Peter / Victoria-by-hand until live):** when a row is Returned, set **Status =
+   Returned**, write one line in **Routing note**, and do **not** answer it.
+6. **"Not sure" → Victoria** for a Step 0 decision (as today).
+7. **Duplicates** — the same request posted twice is merged into the first; say so in Routing note.
+8. **Measure** — weekly count, three ways per core: **Routed / Returned / red-flag**; **review after 2
    weeks** (is the own-authority list the right width? are red-flags recurring?).
 
 ## Requester guidance (README for each core's person — Victoria/Minda surface per core)
@@ -102,6 +125,9 @@ needed — a red-flag row is routed to Victoria using the existing columns.
   list; Irina's wide-start list is above). Don't post routine work; it will be **Returned**.
 - Name real things: the property, supplier, agent and document must exist in the registers, or the row is
   Returned.
+- **For money requests, name the payee or supplier and attach or name the invoice or quote.** A money
+  request with no payee is Returned "Missing: payee or supplier not named"; asking to pay before the
+  invoice or the work is a red flag (pattern 4) and goes to Victoria.
 - **Before asking us to instruct or commit to an outside party** (a solicitor, agent, contractor or
   supplier), **attach or name the document that supports it** — the instruction email, the signed terms,
   or the invoice. An instruction/commitment with no matching document, or an open-ended/recurring
@@ -125,7 +151,9 @@ needed — a red-flag row is routed to Victoria using the existing columns.
      routed; "Not sure" → Victoria. _(Victoria does this by hand until Peter's gate step is live.)_
 3. **Resolve** — the master assistant (Rachel/Eugene/Anna) does the work on the Hub side; **Minda approves
    money, legal, signing**.
-4. **Answer** — the resolver posts the **cleaned** answer (cols 16–18), Status = Answered.
+4. **Answer** — the resolver posts the **cleaned** answer (cols 16–18), Status = Answered. **Resolver rule
+   (AWT-1012 note 4): the answer carries no Hub row ids, no master-core links, no Drive ids, and does not
+   mention the Hub** — only what the requester needs, in plain terms.
 5. **Read** — the secondary assistant reads it and tells its person; Status = Read.
 **Backstop:** Victoria takes "Not sure" and anything Peter can't classify; anything unrouted past a set
 time shows in her daily check.
@@ -147,10 +175,10 @@ time shows in her daily check.
 - Each core's own-authority width (Irina wide; others set by Minda).
 
 ---
-_Status: **v2.2 delivered (AWT-1005)** — adds red-flag **pattern 6** (instruction/commitment to an outside
-party with no supporting document, or an open-ended/recurring commitment to a new payee) and the requester
-"attach or name the supporting document" rule, on top of **v2.1 (AWT-0994)** (red-flag rule, 5 patterns →
-Victoria, never Returned; three-way weekly counts) and **v2 (AWT-0982)** (Gate reason + Returned + gate
-rules + requester guidance). Matches the live "Exchange - Irina" sheet; no new live column needed (Peter
-folds the red-flag rule into Triage-Rules). Required before Andrejus's core is created. Guide-only; ISO
+_Status: **v2.3 delivered (AWT-1012)** — adds the three drill-report fixes (money needs payee + invoice/quote;
+no-reason-but-real-content handling + order of checks; no internal references in answers), on top of
+**v2.2 (AWT-1005)** (red-flag pattern 6 + supporting-document rule), **v2.1 (AWT-0994)** (red-flag rule,
+patterns → Victoria, never Returned; three-way weekly counts) and **v2 (AWT-0982)** (Gate reason + Returned
++ gate rules + requester guidance). Matches the live "Exchange - Irina" sheet; no new live column needed
+(Peter folds the gate rules into Triage-Rules). Required before Andrejus's core is created. Guide-only; ISO
 freeze respected. Project-A questions to Victoria (curator)._
