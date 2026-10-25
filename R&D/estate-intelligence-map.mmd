@@ -1,0 +1,61 @@
+%% Fishbone Estate Intelligence — one-page organism map
+%% Creative mode, 2026-10-25. The RND cluster drawn as one private, in-building AI.
+%% Organs: nervous system (RND-14) · eyes (RND-16) · hands (RND-19) · memory (RND-2/3/7)
+%%         conscience (RND-9) · immune (RND-6) · sovereign/failover lane (RND-18) · voice (RND-17)
+flowchart TB
+  MINDA(["👤 Minda — the human review gate"]):::human
+
+  subgraph CLIENTS["CLIENTS — who asks"]
+    direction LR
+    PHONE["📱 Phone chat &amp; voice<br/>RND-17"]
+    WORK["🤖 AI workforce<br/>Peter · Anna · Rachel · …<br/>via Composio"]
+    SENT["👁 Site vision sentinel<br/>RND-16"]
+    FND["🛠 Software foundry<br/>RND-19"]
+  end
+
+  GW{{"🧠 INFERENCE GATEWAY — nervous system · RND-14<br/>LiteLLM · one endpoint · role aliases · per-key policy<br/>= the data-egress wall (RND-18)"}}:::core
+
+  subgraph NODES["MODELS &amp; NODES — who answers (in-building)"]
+    direction LR
+    HQ["HQ · 2× P40 48GB<br/>brain · vision · coder"]
+    BEV["Beverley · 1× P40<br/>failover / fast"]
+    RAM["HQ RAM box<br/>480B coder · batch / night shift RND-15"]
+  end
+  CLOUD["☁ Cloud<br/>opt-in per key · OFF by default"]:::ext
+
+  subgraph MEM["MEMORY — the fuel (RAG)"]
+    direction LR
+    KB["📚 Markdown KB"]
+    PB["🗂 Project brain · RND-7"]
+    STO["💾 Estate storage · RND-3"]
+  end
+
+  subgraph GOV["GOVERNANCE &amp; HEALTH"]
+    direction LR
+    APP["✅ Approvals Desk — conscience · RND-9"]
+    OBS["🚨 Silent-failure alarm — immune · RND-6"]
+  end
+
+  PHONE --> GW
+  WORK --> GW
+  SENT --> GW
+  FND --> GW
+  CLIENTS -. "ask by role, over Tailscale mesh (RND-5)" .-> GW
+
+  GW --> HQ
+  GW --> BEV
+  GW --> RAM
+  GW -. "only if the key's policy allows" .-> CLOUD
+  MEM -. "grounding &amp; citations" .-> GW
+
+  SENT -- "hazard flags / drafts" --> APP
+  FND -- "built tool → staging → PR" --> APP
+  WORK -- "money / irreversible actions" --> APP
+  APP --> MINDA
+  MINDA == "deploy / apply (human, reversible)" ==> NODES
+  GW -- "per-call logs" --> OBS
+  OBS --> MINDA
+
+  classDef core fill:#1d4ed8,stroke:#1e3a8a,color:#ffffff
+  classDef human fill:#047857,stroke:#064e3b,color:#ffffff
+  classDef ext fill:#9ca3af,stroke:#4b5563,color:#111111
