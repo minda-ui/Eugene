@@ -30,17 +30,21 @@ Gen9 QuickSpecs + the label on your existing DIMM before buying** — part numbe
    "unqualified memory" warning — fine for a batch brain; HPE "SmartMemory" avoids the warning at a price.
 
 ## Target configs for the 480B dream (Q4 ≈ ~250 GB resident + context/OS headroom)
-| Total | DIMMs (32 GB RDIMM) | Buy on top of the 4 you have | DPC | Speed | Fits 480B? | Rough used £ (DIMMs only) |
+_Costs updated with a **live used-market check, 2026-10-25** (see the dated section below). Per-module used
+≈ **£80–120** (NOT the ~£12–25 an earlier draft wrongly guessed — that was old/smaller-DIMM pricing; this
+correction matters)._
+
+| Total | DIMMs (32 GB RDIMM) | Buy on top of the 4 you have | DPC | Speed | Fits 480B? | Realistic used £ (DIMMs only) |
 |---|---|---|---|---|---|---|
-| **256 GB** | 8× 32 GB | **+4** | 1 DPC | 2400 (max bw) | yes, **tight** (~250 GB model leaves little for context) | ~£50–100 |
-| **384 GB** | 12× 32 GB | +8 | mixed 1–2 DPC | 2400 | comfortable | ~£100–200 |
-| **512 GB** ⭐ | 16× 32 GB | **+12** | 2 DPC | 2400 | **roomy** — big context + room for other models | ~£150–300 |
-| **768 GB** | 24× 32 GB | +20 | 3 DPC | **1866** | overkill; and speed drops | ~£250–450 |
+| **256 GB** | 8× 32 GB | **+4** | 1 DPC | 2400 (max bw) | yes, **tight** (~250 GB model leaves little for context) | ~£350–480 |
+| **384 GB** | 12× 32 GB | +8 | mixed 1–2 DPC | 2400 | comfortable | ~£700–950 |
+| **512 GB** ⭐ | 16× 32 GB | **+12** | 2 DPC | 2400 | **roomy** — big context + room for other models | ~£1,000–1,450 |
+| **768 GB** | 24× 32 GB | +20 | 3 DPC | **1866** | overkill; and speed drops | ~£1,700–2,400 |
 
 **Recommendation: aim for 512 GB (16× 32 GB RDIMM).** It holds the 480B at Q4 with real headroom for
 long context and a second model, stays at full 2400 speed (2 DPC), and keeps all 8 channels balanced for
-best CPU-inference bandwidth. **256 GB is the cheap entry** if you just want to prove it runs. Avoid 768 GB
-(3 DPC forces 1866 and the extra capacity is wasted on us).
+best CPU-inference bandwidth. **256 GB (~£350–480) is the sensible cheap entry** to prove it runs before
+committing to the full 512 GB. Avoid 768 GB (3 DPC forces 1866 and the extra capacity is wasted on us).
 
 **Density alternative (only if you ever want to free slots):** 64 GB **LRDIMM** 2Rx4 2400 (kit 805358-B21)
 → 512 GB in 8× 64 GB at 1 DPC. Dearer per GB used, and you'd have to pull the existing RDIMMs (no mixing).
@@ -59,11 +63,29 @@ Not worth it for us — 32 GB RDIMMs are cheaper and plentiful.
   the new total in POST/iLO and `free -h` in Proxmox; run a quick memtest pass if paranoid.
 - Trivial power/heat impact vs the GPUs — not a UPS concern.
 
-## Cost reality (the nice bit)
-**512 GB of used DDR4-2400 ECC RDIMM is roughly £150–300** — i.e. a frontier-class *coder* capability for
-the price of a decent laptop's RAM, on a box we already own. Classic recycled-kit economics (like the
-NetApp shelf / the R710). The 480B runs *slow* (CPU batch, overnight) — but for the foundry's night-shift
-job, slow-but-ours is exactly the point.
+## Cost reality (corrected after the live check)
+**512 GB of used DDR4-2400 ECC RDIMM is roughly £1,000–1,450** (12× 32 GB at ~£80–120 each) — more than
+the first draft's flippant "£150–300", so worth being straight: this is a **four-figure** upgrade, not
+pocket money. Still, in context it's a *frontier-class coder* for ~£1k of recycled parts on a box we
+already own — cheap against any commercial equivalent, and the **256 GB entry at ~£350–480** lets you
+prove the whole idea before spending the full amount. The 480B runs *slow* (CPU batch, overnight) — but
+for the foundry's night-shift job, slow-but-ours is the point.
+
+## Live used-market check — 2026-10-25 (asking prices; web search is US-centric)
+Part: **HPE 32 GB 2Rx4 PC4-2400T-R** (805351-B21 / 809083-091 / 819412-001).
+- **Per module, used:** one **confirmed eBay sale at $125**; lower asks **$85–120** (Micron $85 BIN,
+  Samsung ~$120); higher asks $150–285; a **UK eBay used listing ended at £109**; a European refurb seller
+  **€149.95** (on sale from €199.95). → **realistic used ≈ £80–120/module.**
+- **Matched/warranty (dearer):** Origin Storage via a UK retailer **£284.12** per 32 GB module (lifetime
+  warranty, matched) — the "pay for certainty" end.
+- **Bulk:** lots of 2 seen ≈ $170/module — buying a single matched 12–16 lot from one seller is the move
+  (consistency > chasing the cheapest singles).
+- **Techbuyer / Bytestock:** didn't surface in search — **check their sites directly** (we have accounts),
+  they're often good for matched used server RAM and a VAT invoice.
+- **Caveat:** these are mostly *asking* prices and US-centric; for true UK market value use eBay UK's
+  **Sold items** filter on "805351-B21" / "HPE 32GB 2Rx4 PC4-2400T-R", and confirm each stick is
+  **2Rx4, Registered, 2400, 1.2 V, 288-pin ECC**.
+- Sources: eBay listings/sold data; serverando.de (€149.95); avoira.com / Origin Storage (£284.12).
 
 ## Note
 This is the **RAM path** (480B batch coder). It's **independent of the GPU path** — the P40s do the
