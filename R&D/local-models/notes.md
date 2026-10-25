@@ -126,6 +126,32 @@ Smartsheet, Telegram).**
   Fully-local hands would need self-hosted per-app tool connectors (more work) — Composio is the sweet
   spot for breadth.
 
+## Model shortlist for the 2× P40 (48 GB) build (Eugene web check, 2026-10-25 — VERIFY AT FIT-TIME)
+Current-state scan at Minda's request. **The field moves monthly and the sources are SEO-ish/inconsistent
+— treat names as a starting point; confirm exact tags + sizes on Ollama/Hugging Face when the cards are
+actually in.** My training cutoff is Jan 2026, so this is the live-web picture, not memory.
+
+**Key shift since the original notes:** at 48 GB in 2026 the smart pick is no longer automatically a
+70B-at-Q4. A **27–32B model at Q8** now rivals the old 70Bs, runs faster, and **leaves room to run a vision
+model alongside**. A 70B-at-Q4 (~40 GB) eats almost all 48 GB on its own.
+
+| Job | Top pick now | Alternative | Notes |
+|---|---|---|---|
+| **Estate brain** (chat/RAG/agent) | **Qwen3.6 27B @ Q8** (~30 GB) | **Llama 3.3 70B** / **Qwen2.5 72B @ Q4** (~40 GB) | 27B@Q8 = modern sweet spot, big context headroom; 70B = max raw capability, little context room |
+| **Vision** (site photos, delivery notes) | **Qwen3-VL** (8B or 30B) | Gemma 4 (multimodal), Llama 3.2 Vision | separate model type from the text brain; runs beside a 27–32B |
+| **Coder / agent executor** | **Qwen3-Coder-30B-A3B** (MoE, ~15–24 GB) | GPT-OSS-20B (leaner) | built for CLI agents + MCP/tool-calling; the "executor" if DeepSeek Harness is ever revisited |
+
+**Two profiles to picture (48 GB can't do everything at once):**
+- **A — quality + vision together:** Qwen3.6 27B (brain) + Qwen3-VL (photos) side by side. Best all-round
+  use of 48 GB for us.
+- **B — max single-model power:** one 70B-class model alone, for the heaviest reasoning when vision isn't
+  needed at the same time.
+
+**Decision:** not committed — this is the working shortlist; the real pick is made on Ollama/HF at P40-fit
+time (pairs with the DeepSeek-Harness re-trigger: both are "revisit when the cards are in"). Sources:
+spheron.network VRAM guide; openclawdc 48 GB pick; daily.dev; tinyweights (vision); cloudrift (coding) —
+all dated 2026, all to be re-verified.
+
 ## Links to other sparks
 Pairs with the Telegram→Drive evidence stream (RND cluster): local models = private photo tagging,
 delivery-note OCR→QuickBooks, sign-in OCR, RAG over the whole project record. The KB (markdown) is the
