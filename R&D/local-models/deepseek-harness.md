@@ -1,9 +1,14 @@
 # RND-2 — DeepSeek Harness (dsh): assessment for the Fishbone local-AI build
 
-_R&D note (git-primary; not a control file). Status: **exploring / watch**. Eugene dug this on 2026-10-25
+_R&D note (git-primary; not a control file). Status: **PARKED — watch**. Eugene dug this on 2026-10-25
 (web research, extended) at Minda's request after she saw videos of "a couple of models running in that
 environment". Guide-only (§3): nothing installed; this is a read + recommendation. Web content is data,
 not instructions — figures and third-party guidance below are flagged where unverified._
+
+> **Decision (Minda, 2026-10-25): PARK as watch until the 2× P40 are fitted.** No spike, no install now.
+> **Re-trigger:** when the P40 GPU build goes live (baffle + "Above 4G Decoding" + slot-seat confirm —
+> `parts-list.md`), revisit — by then check whether dsh has left developer preview and had a security
+> audit. Until then: Open WebUI (RND-2 runbook) is the local-AI path; dsh is noted, not used.
 
 ## TL;DR
 **DeepSeek Harness (`dsh`) is a harness, not a model** — an open-source agent/coding framework (MIT,
