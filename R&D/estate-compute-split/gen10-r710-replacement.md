@@ -93,6 +93,23 @@ The 200 GB @ £69.86 is also pricey. **Source SSDs elsewhere** (or skip for now)
   not the 8 you have). The 2666 RAM you bought **isn't wasted** — it runs at 2666 in a Gen10. The freed
   **Gen9 then becomes the storage spine** (still a big step up from the R710).
 
+## FINAL BOM — as configured on Techbuyer CTO (2026-10-26, Minda)
+| Part | £ ex-VAT |
+|---|---|
+| Chassis — DL380 Gen10 **24×SFF** | 235.41 |
+| CPU — 2× Gold 6226 | 54.34 |
+| Heatsink — 2× **High Performance** (could be 2× Standard −£31) | 77.62 |
+| Controller — **E208i-a SR Gen10** HBA | 54.34 |
+| PSU — **2× 865408-B21 500 W Flex-Slot Platinum** ✅ (the right Gen10 part, £13.97 ea) | 27.94 |
+| **Config subtotal (1-yr warranty)** | **£449.65** |
+| + RAM — 2× 32 GB 2666 (64 GB): Techbuyer £394.88 **or** source separately ~£160–240 | 395 / ~200 |
+| Drives — reuse our 12× 900 GB SAS | £0 |
+| **TOTAL** | **~£845 (all-Techbuyer) / ~£650 (RAM separate)** |
+
+**Open items before/with purchase:** (1) **add RAM** (64 GB 2666); (2) **confirm the 24SFF includes the
+SAS expander** so one E208i-a drives all 24 bays (message Techbuyer); (3) optional: drop heatsinks to
+Standard (−£31). **Build-time:** set the E208i-a to **HBA mode** (not RAID) for ZFS.
+
 ## Rough BOM (Gen10 storage spine, used)
 2× Gold 6226 £54 · E208i-a HBA £54 · (+ SAS expander if not included) · RAM 64–128 GB DDR4-2933 ~£100–200 ·
 Flex-Slot PSUs ~£50–80 · chassis (TBC) · rails. **Pool = our existing 12× 900 GB SAS.** Call it ~**£300–600
