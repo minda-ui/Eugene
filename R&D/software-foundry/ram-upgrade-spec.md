@@ -6,10 +6,24 @@ grows the box into the 480B "foundry" batch brain (RND-19). Guide-only (§3): Eu
 Gen9 QuickSpecs + the label on your existing DIMM before buying** — part numbers below are from memory
 (cutoff Jan 2026); the platform is 2016-era and stable, but confirm at purchase._
 
+## ✅ ACQUIRED — first step bought (2026-10-26, Minda)
+- **HPE 840758-091 — 4× 32 GB = 128 GB kit** (HPE 32 GB **2Rx4 PC4-2666V-R** SmartMemory, SK hynix),
+  genuine HPE, matched kit, from eBay UK (seller `sakha465`). → **takes the box to 256 GB** (the 480B
+  "prove it runs" tier), **all 8 channels at 1 DPC** (best bandwidth).
+- **It's 2666; the box maxes at 2400 → it down-clocks to 2400.** No problem — just no speed benefit.
+  Genuine HPE ⇒ **no iLO "unqualified memory" warning**.
+- **Mixing note:** the fitted 4× are **809083-091 (2400)**, the new 4× are **840758-091 (2666→2400)** —
+  both HPE, both 32 GB 2Rx4, so they run together fine at **2400**. HPE "prefers matched" but same-size/
+  same-rank mixing is routine and works; if you ever want it perfectly clean, make one set the spares.
+- **Still to do for the foundry build:** (a) **fit** (guide-only; power-down + VM snapshots first — see
+  Fitting below); (b) stand up the **480B-A35B at Q4 on CPU/batch** (RND-19 foundry rehearsal). Next
+  capacity step (if ever): +8 more 32 GB → 512 GB (2 DPC, still 2400).
+
 ## Where we are now
 - **HP ProLiant DL380 Gen9**, 2× Xeon **E5-2695 v4** (both sockets populated ✅).
 - **4× 32 GB = 128 GB** fitted; DIMM assembly **809083-091** (HPE 32 GB 2Rx4 **DDR4-2400** RDIMM).
-- **24 DIMM slots total** (12 per CPU) → **20 slots free.**
+  **+ 4× 32 GB 840758-091 now acquired → 256 GB once fitted** (see Acquired, above).
+- **24 DIMM slots total** (12 per CPU) → **20 slots free** (16 free after this kit is fitted).
 
 ## The platform's limits (DL380 Gen9 + v4 CPUs)
 - **Memory type:** DDR4 **ECC**, **Registered (RDIMM)** or **Load-Reduced (LRDIMM)**. (No unbuffered/UDIMM.)
