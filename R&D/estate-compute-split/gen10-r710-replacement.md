@@ -48,8 +48,14 @@ The 200 GB @ £69.86 is also pricey. **Source SSDs elsewhere** (or skip for now)
 ## NOT in the screenshots — budget for these too
 - **The chassis itself** (DL380 Gen10 24SFF) — price not shown; the biggest line.
 - **RAM:** **DDR4-2933 RDIMM** for Gen10 (64–128 GB is plenty for a storage box — ZFS ARC). ~£100–200 used.
-- **PSUs:** Gen10 uses **Flex Slot** PSUs (500 W/800 W) — **NOT** the Gen9 **Common Slot 1400 W** you bought
-  for the P40s (those stay with the Gen9). A storage box with no GPUs only needs ~500–800 W.
+- **PSUs:** **buy 2× Gen10 Flex-Slot 500 W (`865408-B21`, ~£30–60 ea used).** A GPU-less storage box needs
+  only ~500 W. **Don't gamble on the old Gen9 PSUs** — although Flex Slot is a "common form factor" across
+  Gen9/Gen10 (QuickSpecs) and the 1400 W `720620-B21` *is* Flex Slot, HPE pairs PSU part numbers per gen,
+  **iLO5 can flag an older PSU as unsupported**, and there's a halogen caveat — not worth the risk on the
+  box that runs the phones. **Verified 2026-10-26 (web): conflicting sources, no confirmation the Gen9 part
+  is *supported* in a Gen10 — so buy the right Gen10 PSU.** Keep the **1400 W `720620-B21` in the Gen9
+  brain** (for the P40s); the old Gen9 500 W become spares. **Also check the Techbuyer CTO — the chassis may
+  already include PSUs.**
 - **Rail kit**, and a **10 G switch port** (3850 TenGig uplink) or direct link if you move the 10 G NIC here.
 
 ## ⚠️ Compatibility note — your recent buys are Gen9, they stay with the Gen9
