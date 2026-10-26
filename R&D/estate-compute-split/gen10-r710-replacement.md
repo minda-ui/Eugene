@@ -5,6 +5,11 @@ _R&D build guidance (git-primary; creative mode, 2026-10-26, from Minda's vendor
 purchase. This box = the **storage + backup + production-PBX spine** (the R710's role, done right), **not**
 the brain (that stays the Gen9: RAM + P40s)._
 
+> **DECISION (Minda, 2026-10-26): GO with Gen10 = STORAGE/PRODUCTION SPINE** (replace the R710); the
+> **Gen9 stays the brain** (its RAM + P40s on-plan). The Gen10-as-brain alternative is parked. So this
+> box is spec'd for storage: **cheap CPU + HBA (not RAID) + reuse our 2.5" SAS drives; don't buy the
+> overpriced SSDs.**
+
 ## The role decides everything
 This box does **ZFS storage + PBS backup + the lightweight PBX** — it is **not** a compute box. That means:
 **cheap CPU, lots of RAM-for-ZFS, and an HBA (not a RAID card).** Don't pay for brain-tier parts here.
