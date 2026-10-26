@@ -30,6 +30,25 @@ job instead of a phone-risk one. The relocation is the natural *enabling* step b
 | **Backup topology flips** | PBS lives **on** the R710. If production moves there too, backup-on-the-same-box isn't real 3-2-1. → back the PBX up **off the R710**: to the **Beverley replica** (off-site, RND-3) and/or PBS on the DL380. | needs re-plan |
 | **Both sites keep service** | PBX serves HQ + Beverley; nothing site-specific changes — same VM, same trunk. | no change |
 
+## Bonus Minda spotted: the split also frees the DL380's GPU slots (card redistribution)
+The split isn't just about *workload* — it fixes the DL380's **slot contention** too. The box is
+"card-heavy" (P840 + stand-up NICs), and the one open check on the 2× P40 fit is "are the GPU-riser slots
+clear of the P840/NICs?" (`R&D/local-models/parts-list.md`). As a **pure brain** the DL380 needs far less
+networking, so cards can move **to where they belong**:
+- **10G NIC (562SFP+, 727055-B21)** — a stand-up PCIe card → **move to the R710.** The R710 is now the
+  storage+backup+phones box, where **10G actually earns its keep** (PBS/VM backups, storage throughput).
+  Removing it from the DL380 **frees a riser slot for a P40.** ✅
+- **331T (4× 1GbE, stand-up)** — likely surplus on the brain too → remove/relocate, freeing more slot room.
+- **Embedded 331i LOM + 366FLR (FlexLOM)** — these **don't use riser slots**, and the brain's networking
+  (tailnet/LAN; prompts+answers are tiny) is fine on the **1G LOM**. So the brain keeps networking with
+  **zero riser-slot cost**.
+- **P840 stays** (the DL380's own OS/ZFS + model disks sit on it) but **relocates** to a slot the P40s
+  don't block (slot 4/6 — already the parts-list plan).
+**Net: PBX off + 10G (and 331T) out + P840 relocated = the GPU-riser slots clear → 2× P40 fit resolved,**
+and the 10G lands where it's useful. Two problems, one move.
+_Check at fit-time: which slots the 562SFP+/331T currently occupy, that the R710 has a free slot + a 10G
+switch port (3850 TenGig uplink) or a direct DL380↔R710 10G link to actually use the card at 10G._
+
 ## The wrinkle (my honest flag)
 **The R710 is the oldest box, and this makes it production-critical.** Today the phones run on the Gen9
 (2016); the R710 is ~2009 Westmere, has a **known disabled DIMM (B3 MEMBIST)**, and would be doing
