@@ -62,6 +62,26 @@ The 200 GB @ £69.86 is also pricey. **Source SSDs elsewhere** (or skip for now)
 - My steer: **stick with your plan** (Gen10 = spine) unless you want to go all-in on the AI side, in which
   case we'd talk Gen10-as-brain properly.
 
+### Gen10-as-brain vs Gen9-as-brain — is it more powerful? (the real numbers)
+**Yes, on the CPU side; a wash on the GPU side.**
+- **CPU inference (the 480B RAM-brain / prefill):** Gen10 **Cascade Lake wins ~1.8×.** Memory bandwidth
+  sets CPU token speed, and Gen10 has **6 channels/socket vs Gen9's 4**, at **DDR4-2933 vs 2400**:
+  - Gen9 (2× E5-2695 v4): ~**153 GB/s** total.
+  - Gen10 (2× Gold, 2933): ~**281 GB/s** → **~1.8×** → roughly ~1.8× faster token generation.
+  - (Reusing the 2666 sticks in a Gen10: ~256 GB/s = **~1.7×** — the 6th channel alone is most of the win.)
+  - Plus **AVX-512** (Gen9 Broadwell has none; the Gold 62xx/82xx all have 2× FMA) speeds prefill further.
+  → an 8 h overnight 480B batch becomes ~4–5 h. Real upgrade for the foundry/night-shift dream.
+- **GPU inference (P40s, real-time 27–70B + vision):** **no difference** — both feed the P40s over the same
+  PCIe Gen3 x16. Gen10 buys ~nothing here.
+- **Cores:** Gen9 2×18 = 36c; Gen10 up to 2×24 = 48c (6252/8268) — modest help for batch parallelism.
+- **Verdict:** worth flipping to Gen10-as-brain **only if the 480B CPU brain speed is what you want**; if
+  the brain is mostly P40 GPU work, it's not worth the disruption.
+- **If you flip, the cost/shuffle:** brain-tier CPUs (**2× Gold 6252 24c ≈ £168** = the AVX-512 sweet spot),
+  **move the P40s** into the Gen10, **high-watt Flex-Slot PSUs** for the GPUs (the Gen9 1400 W Common-Slot
+  ones don't fit Gen10), and ideally **12× DIMMs** (Gen10 is **12-channel** — optimal is multiples of 12,
+  not the 8 you have). The 2666 RAM you bought **isn't wasted** — it runs at 2666 in a Gen10. The freed
+  **Gen9 then becomes the storage spine** (still a big step up from the R710).
+
 ## Rough BOM (Gen10 storage spine, used)
 2× Gold 6226 £54 · E208i-a HBA £54 · (+ SAS expander if not included) · RAM 64–128 GB DDR4-2933 ~£100–200 ·
 Flex-Slot PSUs ~£50–80 · chassis (TBC) · rails. **Pool = our existing 12× 900 GB SAS.** Call it ~**£300–600
