@@ -62,16 +62,29 @@ Cadence: **weekly, Mondays, not live.** Fallback today: Minda exports HMRC state
   the tax calendar + the 13-week forecast.
 - **P5 — extend:** PAYE + CIS read (same pattern, different APIs/scopes) once VAT is proven.
 
-## Open questions for Rachel (drive the build)
-1. **Entities/VRNs** — which VAT-registered companies are in scope (Construction / Properties / … )? One
-   OAuth consent + one pull per VRN.
-2. **Reconciliation mapping** — which **QuickBooks control accounts** should tie to which HMRC figures
-   (VAT liability / payments)? (This is what didn't tie on 22 Oct — the mapping is the heart of it.)
-3. **Tax-calendar fields** — exactly what AWT-0804 item 3 wants populated (obligation period, due date,
-   amount, status?).
-4. **13-week forecast inputs** — which HMRC figures feed it, keyed how (by due date)?
-5. **Output format + location** — CSV / a Smartsheet / JSON, and where in Finance's space it should land
-   for her Monday run.
+## Rachel's confirmed inputs (AWT-1031, 2026-10-27) — build to these
+_Full detail in Eugene's Raw: `2026-10-27_Rachel-to-Eugene_HMRC-VAT-build-finance-inputs.md`
+(Drive `1NbwlzFmJtN6tR24zR2K3UBMmgjQJJu0m`); QB account ids are in that note (pull at build time)._
+1. **VRNs in scope:** **Construction `190175216`** (first), **Waste `408853087`**, **Commercial Properties
+   `438278661`**. (Properties and Holdings are **not** VAT-registered.) One OAuth consent + one pull per VRN.
+2. **Reconciliation rules (per VAT file):**
+   - QB **`VAT Control`** (filed, unpaid) ties to **HMRC total outstanding VAT-return liabilities within
+     £1** → tied/not-tied.
+   - QB **`VAT Suspense`** (open period) has **no HMRC figure** → only check the **obligation is Open**.
+   - **HMRC payments** matched to **QB VAT payments by amount within 5 days.**
+   - **Penalties & interest** reported **separately — not** counted as a tie failure.
+3. **Tax-calendar fields** (one row per obligation): period key, dates, status, received, HMRC original +
+   outstanding, penalties/interest, QB figure, tied?, Filed date/ref. **The calendar is Rachel's doc —
+   Eugene does not write to it** (we output data; she maintains the calendar).
+4. **Forecast:** outstanding liabilities **by due date** (a weekend due date moves to the **Friday
+   before**); open periods **estimated from Suspense at period-end + 1 month + 7 days**; **repayments
+   flagged.**
+5. **Output:** **one CSV per Monday** (all 3 VRNs; a `record` column = obligation / liability / payment) +
+   a short **`.md` status**, dropped in **Rachel's Raw**, named **`YYYY-MM-DD_HMRC-VAT-pull`**, **before
+   08:00 UK**. **Not** into a shared Finance workspace — **Minda + Rachel only** (privacy).
+
+**Scope is now complete.** The only gate left is **Minda's go/no-go + the credentialed steps** (register
+the HMRC app, OAuth-consent the 3 VRNs, hold the secrets, approve the egress allowlist).
 
 ## Open items for Minda (the credentialed/outward steps)
 - Go/no-go: **build it**, or stick with the monthly manual export for now?
