@@ -7,6 +7,18 @@
 > Gen10. Part numbers below are from HPE's Gen10 I/O & power docs (2026-10-28) — **verify on HPE PartSurfer/
 > QuickSpecs at purchase.** Pairs with `gen10-r710-replacement.md` (the HQ storage Gen10 base spec) + RND-18._
 
+## Phasing (Minda, 2026-10-28): start with 1× P40, add the 2nd later — end-state 2×
+**Build the chassis 2-GPU-ready from day one** so adding P40 #2 is plug-in (seat card + power cable), no
+re-buy, no rebuild. The only thing to defer is the **2nd P40 card (~£195)** — the scaffolding is cheap and
+is the part that's annoying to source matching later.
+- **Buy now (Phase 1):** chassis · 2× 6226 · High-Perf heatsinks · E208i-a · **2× 1600 W PSU** (covers 1 or
+  2 P40s — don't buy 800 W now then re-buy) · RAM · SSDs · **both GPU risers** · **both GPU power cables** ·
+  **baffling for both GPU positions** · **1× P40** · rails.
+- **Fit now:** 1× P40 (24 GB) → a real failover/local brain today (runs a 27–32 B model + vision), just
+  smaller than HQ's 48 GB until #2 lands.
+- **Buy + fit later (Phase 2):** the **2nd P40** → full HQ-parity 48 GB failover brain. Drops into the
+  already-fitted 2nd riser slot + spare power cable. No downtime beyond the card swap.
+
 ## Role
 - **Off-site storage replica** (SSD) — **pulls** from the HQ primary (OI-26 pull-not-push); a Beverley PBS
   sync job + ZFS receive, Beverley-initiated.
@@ -47,7 +59,7 @@ Start from `gen10-r710-replacement.md`'s base, then **change these lines**:
   site that must be always-ready for failover.
 
 ## Estate-wide knock-ons (to plan separately — not blocking)
-- **P40 tally = 4 total** (HQ 2 + Beverley 2). **Own 2 → buy 2 more.**
+- **P40 tally = 4 total** (HQ 2 + Beverley 2). **Own 2 → buy 1 now (Beverley Phase 1), 1 later (Phase 2).**
 - **The R710 is freed** (Beverley no longer takes it). Options: **cold spare**, a **3rd backup copy**
   (R710 + DS2246 = a true 3-2-1 third tier), or **retire** for power. Minda's call.
 - **Drive logistics:** HQ Gen10 (24 internal) takes the 24 HDDs; Beverley Gen10 runs its own SSDs; the
