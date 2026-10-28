@@ -91,6 +91,46 @@ Together they're the project brain.
 
 ---
 
+## Running projects for other site managers (not just Minda) — the skeleton
+The design above quietly assumed **Minda = the site manager** (she gets the brief, she approves). Fishbone has
+several SMs — **Minda, Sebastian, Nev, Dainius, Andrejus** — and the system must work the same when any of them
+runs a job, with Minda keeping **portfolio oversight**. The good news: this is **not new machinery** — it's the
+estate's existing governance patterns (one-lead-per-job, the gate / per-person own-authority lists, the
+Approvals Desk RND-9) applied **per site manager**.
+
+**1. One responsible SM per project.** Every job names its **human site manager** on the Project Register (the
+"one lead per job" rule, for the human). Everything for that job routes to that SM.
+
+**2. The rhythm follows ownership.** Each SM gets **their** jobs' morning brief, end-of-day digest and urgent
+alerts — their projects only. **Minda gets the portfolio** (every job, worst-first) **plus her own jobs**. So
+Sebastian gets Sebastian's briefs; Minda sees all.
+
+**3. Authority & escalation (the key bit).** Each SM has an **own-authority scope** — what they decide/approve
+themselves (routine site calls, spend ≤ their limit, standard materials/variations) vs what **escalates to
+Minda** (spend over the limit, a new commitment/payee, legal, cross-business, safety-critical, or "not sure").
+The AI proposes → **routed to the SM if in-authority, to Minda if above** — one logged escalation path. This
+**reuses the gate sanity check + per-person own-authority lists** already built (Project-A) + the Approvals
+Desk (RND-9); nothing new to invent, just set per SM.
+
+**4. The SM interface — meet them where they are.** The SMs are **site people, not Claude Code users.** They
+work through the **site chat** (Telegram/WhatsApp): capture photos/voice there, receive the brief/digest/alerts
+there, and **approve by replying** (or a one-tap yes/no). No new tool to learn. An optional dashboard / Open
+WebUI for anyone who wants it. **Anna** is the AI behind it for every SM equally.
+
+**5. Portfolio oversight (Minda).** Minda's view = **all jobs at a glance, worst-first**, with the
+**exceptions that bubble up** — escalations, red flags, slips, overruns across every SM's jobs. She steps in
+where **authority or risk** needs her, not for routine running.
+
+**6. Access & privacy.** Each SM sees **their** jobs' data; Minda sees all; cross-job access is controlled
+(ties to the storage access model).
+
+**What to set / confirm:** each SM's **authority limits** (the own-authority list per person — **Minda's
+call**); each SM's **channel** (WhatsApp / Telegram / email, + dashboard or not — ask the SMs); the
+**project → SM mapping** (the Project Register). Construction specifics stay **Anna's**; this
+routing/authority layer is **Minda's org decision**.
+
+---
+
 ## SOFTWARE to build (construction-specific, priority-marked)
 _Extends the AI-machine build list with the construction angle._
 | Pri | Build | What it does | Depends on |
@@ -104,6 +144,8 @@ _Extends the AI-machine build list with the construction angle._
 | 🟡 **P3** | **Progress vs programme** | compare site reality to the Last-Planner programme → slip/ahead flags | the record, the programme |
 | 🟡 **P3** | **Predictive flags / forecasting** | forecast completion date, material shortfalls, overrun warnings — **grounded (cites evidence), human-gated** | the record, progress + cost + materials data |
 | 🟡 **P3** | **Cross-project lessons KB** | every job's lessons feed a store → surfaced at the right stage of the next job (compounding) | the record, RAG |
+| 🟡 **P3** | **Per-SM routing + approvals/escalation** | route each job's brief/digest/alerts to its SM; AI proposes → **the responsible SM approves in-authority, escalates to Minda above it** → logged | SM profiles, own-authority lists, Approvals Desk (RND-9) |
+| 🟡 **P3** | **SM profiles + authority matrix** | per-SM: their jobs, channel (WhatsApp/Telegram/email), **own-authority limits** (decide vs escalate) | Minda sets authority; Project Register |
 | 🟡 **P3** | **Estate/project RAG** | ask the drawings/RAMS/specs, cited | RAG, NAS |
 | 🟡 **P3** | **RAMS + compliance hooks** | RAMS issue/sign (DocuSeal) + competence/expiry tracking | DocuSeal, Sarah |
 | 🔵 **P4** | **Handover pack assembler** | gather as-builts, O&M, sign-offs, photo record into the pack | the full record |
