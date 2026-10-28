@@ -25,14 +25,24 @@
 ---
 
 ## PART 1 — R710 storage pool (zero phone risk) — do first
-Full detail in `Runbook-RND3-Estate-Storage-Build.md`. Order that matters:
+**32 drives, all in hand:** 24 in the DS2246 shelf + 8 in the R710 internal bays. Full detail in
+`Runbook-RND3-Estate-Storage-Build.md`. Order that matters:
+- [ ] **PRE-BUY CHECK — internal HBA for the 8 internal bays.** The R710 has a **PERC 6/i (RAID-only, no IT
+      mode)**, so the internal bays need a **cheap internal HBA (LSI 9211-8i IT / crossflashed H200, ~£15–25)**
+      to join ZFS cleanly. **If it's here:** fit it, move the internal backplane cable to it. **If not:** build
+      the **shelf only** Saturday (it's already ~3× the need) and add the internal bays once the HBA lands —
+      don't fall back to single-disk RAID-0 VDs. (Minda's decision — see RND-3 design.)
 1. [ ] **Fit the CP400e HBA → boot → confirm IT mode FIRST:** `sas3flash -list`. If it reports **IR/RAID**,
        crossflash to **9300-8e IT** firmware *before* building any pool. This is the check that can stop the
        day — do it before cabling the shelf.
 2. [ ] **Cable SFF-8644 (HBA) → QSFP/SFF-8436 (DS2246 IOM A).** (Second cable to IOM B later for multipath.)
-3. [ ] **Boot the storage OS → confirm all 24 bays enumerate.** Your drives are Seagate ST900MM0006 **512n**,
-       so **skip the `sg_format` 520→512 step** — not needed.
-4. [ ] **Build the pool: 2× 6-wide RAIDZ2 ≈ 5.8 TB** + enable **ZFS snapshots** (hourly/daily/weekly).
+3. [ ] **Boot the storage OS → confirm all bays enumerate** (24 shelf + 8 internal). Drives are Seagate
+       ST900MM0006 **512n**, so **skip the `sg_format` 520→512 step** — not needed.
+4. [ ] **Build the pools (two, split by controller — never mix shelf + internal in one vdev):**
+       - **`tank` (shelf, CP400e):** **4× 6-wide RAIDZ2 ≈ 11.6 TB** — bulk store.
+       - **Boot:** 2× internal mirror (`rpool`) — already built.
+       - **Internal data (new HBA):** remaining 6 → **1× 6-wide RAIDZ2 ≈ 2.9 TB** (or all 8 ≈ 4.3 TB if boot
+         moves to an SSD). **Total ≈ 14.5 TB.** Enable **ZFS snapshots** (hourly/daily/weekly) on both.
 5. [ ] **SMB/NFS share → map a test drive** from an office PC, write a test file.
 6. [ ] **Stand up PBS** on the box — and wire it **append-only from the start** (don't retrofit OI-26):
        - PBS token for the HQ Proxmox = **`DatastoreBackup` only** (no Prune/Modify).
