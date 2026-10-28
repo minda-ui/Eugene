@@ -1,7 +1,9 @@
 # RND-3 — Estate self-hosted storage + backup foundation
 
-_R&D working notes (git-primary). Status: **prototyped** (hardware all in-hand 2026-10-16; one cable to
-buy). Guide-only — Minda executes at the console/hardware; Eugene designs/specs/verifies. §3 unchanged;
+_R&D working notes (git-primary). Status: **prototyped — ALL hardware now in-hand** (the SFF-8644→QSFP SAS
+cable, "Allowish MiniSAS HD", ×2, £31.20, **delivered 2026-10-28** — the last part; drives/caddies/HBA/host
+all owned since 2026-10-16). **Build day: Saturday.** Guide-only — Minda executes at the console/hardware;
+Eugene designs/specs/verifies. §3 unchanged;
 production PBX never put at risk. Diagram: `architecture.mmd` (rendered to Minda 2026-10-04).
 Build runbook: `Runbooks/Runbook-RND3-Estate-Storage-Build.md`._
 
