@@ -27,11 +27,19 @@
 ## PART 1 — R710 storage pool (zero phone risk) — do first
 **32 drives, all in hand:** 24 in the DS2246 shelf + 8 in the R710 internal bays. Full detail in
 `Runbook-RND3-Estate-Storage-Build.md`. Order that matters:
-- [ ] **PRE-BUY CHECK — internal HBA for the 8 internal bays.** The R710 has a **PERC 6/i (RAID-only, no IT
-      mode)**, so the internal bays need a **cheap internal HBA (LSI 9211-8i IT / crossflashed H200, ~£15–25)**
-      to join ZFS cleanly. **If it's here:** fit it, move the internal backplane cable to it. **If not:** build
-      the **shelf only** Saturday (it's already ~3× the need) and add the internal bays once the HBA lands —
-      don't fall back to single-disk RAID-0 VDs. (Minda's decision — see RND-3 design.)
+- [ ] **Internal HBA for the 8 internal bays (DECIDED — adding it).** The R710 has a **PERC 6/i (RAID-only,
+      no IT mode)**, so the internal bays need a **cheap internal HBA to join ZFS cleanly.**
+      - **Buy it pre-flashed to IT mode** — "**LSI 9211-8i IT mode**" (or a Dell H200/H310 sold "IT-mode
+        flashed"), ~£15–25, next-day eBay UK, **internal SFF-8087** ports. Pre-flashed = **no flashing on
+        the day**, just fit it in a riser and move the internal backplane SAS cable to it. **This is the
+        easy, safe path — get the pre-flashed one.**
+      - **Only if it arrives as a RAID card** (H200/H310/9240 in IR firmware): it must be crossflashed to
+        **9211-8i IT** before use. **Don't run a generic flash blind** — at the box, read the current
+        firmware (`sas2flash -list`), **back up the SAS address first**, then Eugene gives the exact
+        per-card `megarec`/`sas2flash` sequence for *that* card (a wrong .bin can brick it). Single-disk
+        RAID-0 VDs are a last resort only — **not recommended** (hides SMART from ZFS).
+      - **If the HBA isn't here by Saturday:** build the **shelf only** (already ~3× the need) and add the
+        internal 8 once it lands — no rework.
 1. [ ] **Fit the CP400e HBA → boot → confirm IT mode FIRST:** `sas3flash -list`. If it reports **IR/RAID**,
        crossflash to **9300-8e IT** firmware *before* building any pool. This is the check that can stop the
        day — do it before cabling the shelf.
