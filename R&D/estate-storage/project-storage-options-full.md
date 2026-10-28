@@ -21,6 +21,11 @@ makes "drop Drive entirely" a real project, not a setting.
 
 ---
 
+> **DECIDED (Minda, 2026-10-28): A1 now → D1 goal.** Start Drive-primary (zero disruption, reversible,
+> immediate off-Google backup + local brain files); move stage-by-stage to full sovereignty (drop Drive, AI on
+> a custom connector). The staged path, long-poles and D1 go/no-go checklist are in
+> `storage-sovereignty-roadmap-A1-to-D1.md`.
+
 ## The options (by where the source of truth lives)
 
 ### A. Google Drive = main store (least change)
