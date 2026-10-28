@@ -121,8 +121,13 @@ Flex-Slot PSUs ~£50–80 · chassis (TBC) · rails. **Pool = our existing 12× 
 - **Beverley = a 2nd DL380 Gen10** (SSD storage replica + **2× P40 full failover brain**) — **not** the R710.
   The P40 requirement rules the R710 out (poor GPU host, PCIe Gen2) → Gen10. Spec: `beverley-node-spec.md`.
   Identical platform both sites = identical spares, one runbook, swappable roles.
-- **The R710 is freed** (no longer going to Beverley): cold spare, a 3rd backup copy (R710 + DS2246 = a true
-  3-2-1 third tier), or retire for power. Minda's call.
+- **R710 stays in the HQ rack as the 3rd backup copy** (DECIDED, Minda 2026-10-28) → a true **3-2-1(-1)**:
+  Copy 1 HQ Gen10 primary (online, append-only PBS) · Copy 2 Beverley Gen10 (off-site, pulls) · **Copy 3
+  R710 at HQ**. To be worth having it must be **pull + powered-off between pulls (Wake-on-LAN)** = a
+  near-air-gapped local copy that primary-side ransomware/bad-prune can't reach when it's dark; defends
+  against primary-PBS failure/corruption + gives a fast local restore (Beverley still covers site disaster).
+  Drive allocation (which HDDs stay with the R710 vs move into the Gen10 primary) = resolve when Gen10 #1
+  lands; the backup set is small (~3.7 TB, PBS-deduped) so Copy 3 needs no large pool.
 Each box doing the one thing it's best at.
 
 ### Backup direction — build it pull, not push (Minda, 2026-10-28)

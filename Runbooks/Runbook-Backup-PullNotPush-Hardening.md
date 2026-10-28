@@ -92,6 +92,18 @@ _The genuine pull tier: the far end reaches in and pulls; the source has no cred
 4. **Verify:** confirm snapshots appear on the offsite via the **pull** job (not a push), and test a
    **restore from the offsite copy** (a backup isn't real until a restore works).
 
+## Phase B2 — Local 3rd copy on the R710 (near-air-gapped, HQ)
+_The R710 stays in the HQ rack as **Copy 3** (Minda 2026-10-28) → a true 3-2-1(-1)._
+1. The R710 runs its own PBS (or ZFS receive target) and **pulls from the HQ primary** — a sync job /
+   `zfs recv` **initiated by the R710**, so the primary holds no credential to it (same pull principle as
+   Beverley).
+2. **Power it off between pulls (Wake-on-LAN → pull → shutdown).** Dark and isolated most of the time =
+   near-air-gapped: primary-side ransomware or a bad prune can't reach it. Also cuts its running cost ~80–90%.
+3. **Verify:** confirm the pull lands, and **test a restore from the R710 copy**.
+4. Sizing: the backup set is small (~3.7 TB, PBS-deduped) so Copy 3 fits comfortably on the R710's own
+   bays — no large pool needed. Finalise which HDDs stay with the R710 vs move into the Gen10 primary when
+   Gen10 #1 lands.
+
 ## Phase C — Immutable offline (disaster tier)
 The encrypted cloud/USB copy (RND-3 step 5) with **object-lock / immutability** (e.g. B2/S3 Object Lock)
 or **rotate-and-detach** USB, so the source never has standing delete rights to the last-resort copy.
@@ -99,8 +111,10 @@ Encryption key is Minda's (Eugene never holds it).
 
 ## Sequence
 - **Now:** Phase A on the current R710 PBS — append-only + PBS-side prune/GC/verify + ZFS snapshots.
-- **With RND-20:** Phase B — Gen10 = append-only primary PBS, Beverley = the puller.
+- **With RND-20:** Phase B — Gen10 = append-only primary PBS, Beverley = the off-site puller; **Phase B2 —
+  R710 stays at HQ as the near-air-gapped local 3rd copy (pull + WoL)**.
 - **When convenient:** Phase C — immutable offline.
+_Result = **3-2-1(-1)**: HQ primary · Beverley off-site · R710 local 3rd · (encrypted offline)._
 
 ---
 _Guide-only (§3): Minda executes at the console and holds the token/keys (1Password); Eugene guides +

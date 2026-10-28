@@ -51,8 +51,11 @@ cheapest first (the hardening runbook is `Runbooks/Runbook-Backup-PullNotPush-Ha
    initiated from Beverley, receive-only key) over the HQ box pushing.
 3. **Immutable offline.** The encrypted cloud/USB copy with object-lock / rotate-and-detach — the source
    never has standing delete rights.
-**Where it lands in the build:** the Gen10 storage spine (RND-20) becomes the **append-only primary PBS**;
-**Beverley (old R710 / a replica) is the pulling offsite** — so this is designed in, not retrofitted.
+**Where it lands in the build (3-2-1(-1), decided 2026-10-28):** the Gen10 storage spine (RND-20) = the
+**append-only primary PBS** (Copy 1); **Beverley = a 2nd Gen10 that pulls** (Copy 2, off-site); the **R710
+stays in the HQ rack as Copy 3** — pull + powered-off-between-pulls (WoL) = a near-air-gapped local copy;
+(+ the encrypted offline disaster copy = the "-1"). All copies pull/append-only, so no source can delete
+them. See `Runbooks/Runbook-Backup-PullNotPush-Hardening.md` + `R&D/estate-compute-split/beverley-node-spec.md`.
 
 ## Hardware CONFIRMED — the whole stack is owned (Minda, 2026-10-16) ✅
 The storage stack is **physically in-hand** — only **one cable** to buy. Confirmed from photos/BIOS:
