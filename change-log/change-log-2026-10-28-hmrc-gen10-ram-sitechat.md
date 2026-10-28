@@ -7,6 +7,37 @@ work that had not yet been written into the change-log/ledger/current-state._
 
 ---
 
+## 2026-10-28 (evening) — estate + construction-vision design marathon (guide-only, R&D)
+
+A long interactive design session with Minda (all guide-only §3; everything committed to git + synced to
+Drive; nothing installed/filed). In order:
+- **SC-10 built:** adopted skill `integration-scope-with-owner` (`.claude/skills/`).
+- **Three estate diagrams** (Mermaid + PNG + self-contained HTML, published as cross-linked artifact pages):
+  **network map** (`fishbone-estate-map`), **operating model** (`fishbone-operating-model`), **construction
+  vision** (`fishbone-construction-vision`). Rendered locally via npm `mermaid` + Chromium (cdnjs blocked by
+  egress).
+- **Estate hardware shopping list** (`Infra-Inventory/Estate-Hardware-Shopping-List.md`) — priority-marked,
+  ~£2,370–3,020 to complete; P1 before Sat = GPU baffle + R710 internal HBA.
+- **AI-machine software build list** (`R&D/estate-intelligence-software-buildlist.md`) + **4 P1 test runbooks**
+  (vision/Qwen3-VL, speech/Whisper-int8-on-P40, text/Qwen3, code/Qwen3-Coder) — each self-contained,
+  self-verifying, local-only, human-gated. Added Whisper across the pipeline.
+- **Storage sovereignty A1→D1:** decided **A1 now** (Drive primary, NAS backup+brain-cache) → **D1 goal**
+  (sovereign, drop Drive, custom AI connector). Docs: options-full, two-way sync proposals (robust 3-layer),
+  migration+operating-model, A1→D1 roadmap, **A1 runbook** (`Runbook-A1-Drive-to-NAS-Sync.md`). Key finding:
+  no off-the-shelf Composio Nextcloud/WebDAV connector → cloud AI tied to Drive (shapes the whole path).
+- **Beverley node (RND-20):** decided 2nd Gen10 = SSD replica + **2× P40 failover brain** (phased 1 now, 1
+  later), full BOM; verified P40 needs CPU ≤160 W (6226 ✓); R710 stays HQ as near-air-gapped 3rd backup copy;
+  2nd HQ Tailscale anchor runbook (pve-nas); reconciled PBX → Gen10 spine (not R710).
+- **RND-22 construction project vision** — full end-to-end design: the capture→understand→draft/flag→human-
+  gate→record loop, lifecycle, **daily rhythm + intelligence layer** (predictive flags + cross-project
+  learning), **multi-SM operation** (Sebastian/Nev/Dainius/Andrejus + Minda; routing + authority/escalation),
+  **starter authority matrix**, **per-person views**, **future SM app** (chat→PWA→native), and the **business
+  case** (data sharing / SM assistant / institutional learning). Diagram published. **Scoped with 4 owners**
+  via Raw + Hub: **Anna AWT-1037** (domain), **Helen AWT-1038** (marketing-from-cameras), **Rachel AWT-1039**
+  (cost intelligence), **Peter AWT-1040** (project-email → SM routing).
+
+All on branch `claude/lucid-mayer-nsoili` (56 ahead of main), PR #28 open. Drive sync live (CLI signed in).
+
 ## 2026-10-28 (end) — Drive sync completed (CLI re-authorised)
 
 Minda re-authorised the Composio CLI (`composio login` → `whoami` = minda@fishboneconstruction.co.uk), so
