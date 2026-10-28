@@ -122,6 +122,18 @@ Flex-Slot PSUs ~£50–80 · chassis (TBC) · rails. **Pool = our existing 12× 
   off-site box, or be retired.)
 Each box doing the one thing it's best at.
 
+### Backup direction — build it pull, not push (Minda, 2026-10-28)
+Making the Gen10 the storage spine is the moment to fix the backup *direction*, not just the capacity. The
+rule (full rationale in `R&D/estate-storage/design.md` → "Pull, not push", and OI-26): **the backup store
+must not be deletable by the machine it protects.** So spec the spine's backup role as:
+- **Gen10 = append-only primary PBS.** Production hosts get a PBS token with **`Datastore.Backup` only**
+  (no Prune/Modify); **prune + GC + verify run on the Gen10 itself**; **ZFS snapshots of the PBS datastore**
+  for rollback. A ransomwared production host can write but can't erase history.
+- **Beverley (old R710 / replica) = the puller.** A **PBS sync job on Beverley pulls** from the Gen10, and
+  the ZFS replica is **received at Beverley** (Beverley initiates), so the HQ side holds no credentials to
+  the offsite copy. True pull = the genuine offsite tier.
+This is a design choice, not extra hardware — it's how the spine's PBS and the Beverley replica are wired.
+
 ---
 _Guide-only; prices are the vendor's 2026-10-26 (verify). Storage-tier CPU + HBA(not RAID) + reuse our SAS
 drives; don't buy the overpriced SSDs. Gen9-specific RAM/PSUs stay with the Gen9 brain. Pairs with RND-20

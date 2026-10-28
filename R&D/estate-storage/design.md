@@ -31,6 +31,27 @@ Two assets most setups lack: a **big server** (DL380 Gen9, 128 GB) and a **secon
 5. **Disaster/offline:** **encrypted** copy to cloud (Backblaze B2 / Wasabi) or rotating USB kept
    off-site. Encryption key is Minda's (a secret Eugene never holds).
 
+### Pull, not push — the backup must be unreachable by the machine it protects (Minda, 2026-10-28)
+**The principle:** the layers above are only real backups if a **compromised source can't destroy them**.
+The weakness to design out is the one the live estate already has: the HQ Proxmox pushes to PBS using its
+own credentials and runs the prune itself, so ransomware on that host could delete the backups with the
+same keys (see OI-26). Both default flows here are source-initiated pushes — PBS (the PVE host writes) and
+`zfs send/recv` to Beverley (the HQ box sends) — so the fix applies across the board. Three defences,
+cheapest first (the hardening runbook is `Runbooks/Runbook-Backup-PullNotPush-Hardening.md`):
+1. **Append-only PBS.** The production host's PBS token gets **`Datastore.Backup` only** — never Prune or
+   Modify — and **prune + GC + verify run on the PBS box itself**, on its own schedule. A ransomwared
+   source can then write a backup but **cannot delete or prune the history**. Add **ZFS snapshots of the
+   PBS datastore** (`rpool/pbs-store`) for rollback even against someone who does hold prune rights.
+2. **True pull to a second/offsite PBS.** A **PBS sync job pulls** from the primary — the puller holds the
+   credentials, the primary has none to it. **Beverley** is the natural puller (second site, already on
+   Tailscale/IPsec): even if the HQ host *and* the primary PBS are both compromised, the pulled copy is
+   untouchable. For the ZFS replica, prefer the **Beverley box pulling** (`ssh … zfs send | zfs recv`
+   initiated from Beverley, receive-only key) over the HQ box pushing.
+3. **Immutable offline.** The encrypted cloud/USB copy with object-lock / rotate-and-detach — the source
+   never has standing delete rights.
+**Where it lands in the build:** the Gen10 storage spine (RND-20) becomes the **append-only primary PBS**;
+**Beverley (old R710 / a replica) is the pulling offsite** — so this is designed in, not retrofitted.
+
 ## Hardware CONFIRMED — the whole stack is owned (Minda, 2026-10-16) ✅
 The storage stack is **physically in-hand** — only **one cable** to buy. Confirmed from photos/BIOS:
 

@@ -7,6 +7,29 @@ work that had not yet been written into the change-log/ledger/current-state._
 
 ---
 
+## 2026-10-28 (later) — OI-26: backups made pull-not-push (append-only PBS + pull offsite)
+
+**Minda's principle:** "backups should be pulling, not pushing." Checked the live wiring — the nightly
+02:00 job runs **on the HQ Proxmox** (production), which mounts `pbs-nas` as a target, initiates the
+backup **and runs the prune itself** → the production host holds credentials that can delete the backups,
+so ransomware on it could wipe the history. `zfs send/recv` to Beverley is source-push for the same
+reason. Minda's right; design-level fix. **Wrote it up (guide-only, nothing changed on live boxes):**
+- **Raised OI-26** (`open-issues.md`) — the principle + the three-defence fix + the sequence.
+- **RND-3 design** (`R&D/estate-storage/design.md`) — new "Pull, not push" subsection in the backup plan.
+- **RND-20 storage note** (`R&D/estate-compute-split/gen10-r710-replacement.md`) — "Backup direction"
+  section: Gen10 = **append-only primary PBS**, Beverley = **the puller** (designed in, not retrofitted).
+- **Hardening runbook** `Runbooks/Runbook-Backup-PullNotPush-Hardening.md` — Phase A (append-only on the
+  current R710 PBS now: `DatastoreBackup`-only token, prune/GC/verify moved onto PBS, ZFS snapshots of the
+  datastore, + a negative test that the source is *denied* prune), Phase B (true pull: a PBS sync job on an
+  offsite/Beverley PBS pulls from the primary; ZFS replica Beverley-initiated), Phase C (immutable offline).
+
+The threat defeated: a compromised source can **add** a backup but **never delete** one; deletion lives
+only on the backup side; the offsite copy is **pulled**, so the source holds no credential to it. Guide-only
+(§3) — Minda executes at the console and holds the token/keys; Eugene holds no credential. Sequence: Phase A
+now on the R710 PBS, Phase B/C with the Gen10 spine.
+
+---
+
 ## 2026-10-28 — RND-21: site-chat bridge → Anna, Telegram-first pilot scoped
 
 **Minda's ask:** site teams post construction updates — **photos + requests** — in **WhatsApp** and
