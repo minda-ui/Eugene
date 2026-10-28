@@ -35,16 +35,75 @@ The core loop, repeated all day, per job:
 
 ---
 
+## The daily rhythm (the heartbeat)
+The vision isn't a filing cabinet — it runs on a **cadence**: scheduled "brains" + continuous event-driven
+processing, every output a **draft/alert for a human**.
+
+**Continuous (all day) — capture + triage.** Photos/voice/messages arrive → vision tags · Whisper transcribes
+· requests extracted → the live per-job record updates. **Anything urgent surfaces immediately** — an H&S
+hazard on a photo, an urgent request — pushed to Anna/the PM *now*, not at end of day.
+
+**Morning brief** (before site starts) — Anna drafts, for the PM + Minda:
+- **Per job:** where it is vs programme · what's scheduled today · materials/deliveries due · open H&S flags ·
+  who's on site · (weather if it matters).
+- **At risk today:** material not arrived, a slip, an open risk.
+- **Needs you today:** the decisions/approvals the PM or Minda must make.
+- **Portfolio line:** every job at a glance, **worst-first**.
+
+**End-of-day digest** (after site) — per job: "what happened on \<job\> today" (progress · decisions ·
+requests raised · H&S flags · photos) → **registers updated** (materials/operatives/risks/progress %) →
+**tomorrow look-ahead** (scheduled · needed · at risk).
+
+**Weekly review** (Mon/Fri) — per job + portfolio: progress vs programme + trend · **cost position** (Rachel)
+· materials forecast · risks/variations · **lessons captured** · next-week Last-Planner look-ahead.
+
+**Event-driven (off the clock):** urgent H&S → immediate alert · delivery note read → materials log · request
+→ procurement flag. The rhythm **surfaces**; the human **decides**.
+
+## The intelligence layer (insight, not just records)
+The record is the input; the intelligence is the payoff — the system doesn't just store **what happened**, it
+tells you **what it means and what's coming**.
+- **Progress** — site reality vs programme → "on track / N days behind / ahead", trend, **forecast completion
+  date**; flag slip early.
+- **Materials / procurement** — requests + usage + lead times → "boards run out Thu, order by Tue"; predict
+  shortfalls before they bite.
+- **Cost** (with Rachel) — actual vs budget trend, variation impact, **early overrun warning**.
+- **H&S** — recurring hazard patterns, near-miss trends, which crews/sites flag more → proactive safety focus.
+- **Risk** — patterns that bit before, likelihood from history.
+- **Quality / defects** — vision spots snags early → the snag list builds; recurring defects flagged.
+- **Cross-project learning (the compounding bit)** — every job's lessons feed a knowledge base → *"last time
+  we did a job like this, X went wrong"* surfaced at the right stage of the next one. **The estate gets
+  smarter every project.**
+
+**Headline output = predictive flags:** *"this job will finish ~2 weeks late at current rate"*, *"trending over
+budget"*, *"material shortfall predicted"* — early enough to act.
+
+**Design principles (non-negotiable):**
+- **Grounded** — every flag/prediction **cites its evidence** (which photos/updates/numbers), never a black box.
+- **Human-gated** — flags are alerts/drafts; the AI **never acts** on a prediction (§3).
+- **Learns from outcomes** — right/wrong predictions feed back and sharpen over time.
+- **Local/sovereign** — runs on the estate brain over estate data; nothing leaves.
+
+**How they connect:** the intelligence runs on the **record** (registers + RAG + history) + the brain's
+models, and **feeds the daily rhythm** — the morning brief surfaces today's predictions; the weekly review
+shows the trends. Rhythm without intelligence is a diary; intelligence without rhythm is a report nobody reads.
+Together they're the project brain.
+
+---
+
 ## SOFTWARE to build (construction-specific, priority-marked)
 _Extends the AI-machine build list with the construction angle._
 | Pri | Build | What it does | Depends on |
 |---|---|---|---|
 | 🔴 **P1** | **Site-chat + voice + photo ingest** (one job) | messages/voice/photos → the brain → Anna's feed | RND-21 bridge, Whisper, storage |
 | 🔴 **P1** | **Site-vision sentinel** (construction-tuned) | progress tags · **H&S checklist** (PPE/height/access/exits) · read **delivery notes** · spot obvious defects | P1 vision model |
-| 🟠 **P2** | **Daily job digest** | "what happened on \<job\> today" + open requests + flags, drafted for the PM | summariser |
+| 🟠 **P2** | **Daily job digest** (end-of-day) | "what happened on \<job\> today" + open requests + flags, drafted for the PM | summariser |
+| 🟠 **P2** | **Morning brief + portfolio line** | per-job state / at-risk / needs-you, worst-first across all jobs, before site starts | the record, summariser |
 | 🟠 **P2** | **Request / materials extractor** | spoken/typed "need 20 boards Thu" → a structured request → procurement + cost flag | extractor, Rachel (cost) |
 | 🟠 **P2** | **Per-project record writer** (RND-7) | folds the day's photos/updates/requests/flags into the job's file + registers | the above, storage |
 | 🟡 **P3** | **Progress vs programme** | compare site reality to the Last-Planner programme → slip/ahead flags | the record, the programme |
+| 🟡 **P3** | **Predictive flags / forecasting** | forecast completion date, material shortfalls, overrun warnings — **grounded (cites evidence), human-gated** | the record, progress + cost + materials data |
+| 🟡 **P3** | **Cross-project lessons KB** | every job's lessons feed a store → surfaced at the right stage of the next job (compounding) | the record, RAG |
 | 🟡 **P3** | **Estate/project RAG** | ask the drawings/RAMS/specs, cited | RAG, NAS |
 | 🟡 **P3** | **RAMS + compliance hooks** | RAMS issue/sign (DocuSeal) + competence/expiry tracking | DocuSeal, Sarah |
 | 🔵 **P4** | **Handover pack assembler** | gather as-builts, O&M, sign-offs, photo record into the pack | the full record |
