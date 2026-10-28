@@ -46,6 +46,11 @@ Drive bridge; Nextcloud/SMB is the human access layer, rclone is the Drive mirro
 _Decide this from one question: **do the cloud AI employees / remote staff ever save files *into* the project
 folders, or only read them?** Read-only → Option A. They write → hybrid or B._
 
+> **DECIDED (Minda, 2026-10-28): two-way.** Robustness design + proposals in
+> `project-sync-design-proposals.md` (the three-layer robust model: partition conflicts away + never-lose on
+> the sync + roll back via ZFS/PBS). Recommended backbone = **partitioned single-writer (B) run with hardened
+> rclone (A)**, add Nextcloud (C) for human UX later.
+
 ## 3. Migration plan (phased, no data loss, Drive stays intact until verified)
 - **P0 — inventory + decide (now):** list the current Drive project folders + sizes (`rclone size`/`lsd`);
   decide the **NAS folder layout** (mirror the Drive structure, or tidy it); decide the **sync direction**
