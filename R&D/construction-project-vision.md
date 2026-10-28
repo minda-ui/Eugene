@@ -143,7 +143,8 @@ channel that suits each person. Each sees what they need to **act**, nothing mor
   who's on site · open risks/snags · requests · the look-ahead.
 - **Do:** approve/decline (in authority) · raise a request · flag something · add a note/photo.
 - **Channel:** the **site chat first** (brief/digest/alerts pushed there, reply to act — mobile, where they
-  already are) + an **optional simple dashboard** for anyone who wants the fuller view.
+  already are) + an **optional simple dashboard** for anyone who wants the fuller view. **Future:** a
+  dedicated **SM app** (site chat → PWA → native) — `construction-sm-app-future.md`.
 
 **Minda's portfolio view** — **all jobs**
 - **At a glance, worst-first:** a line per job — SM owner · RAG status · progress % · cost position · open
