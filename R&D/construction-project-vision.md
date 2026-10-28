@@ -63,6 +63,14 @@ items this vision adds._
 | 🔵 **P4** | **PTZ / time-lapse camera** (optional) | wide coverage + a proper progress/marketing time-lapse | ~£200–600 |
 | 🔵 **P4** | **Edge box at a big site** (optional) | local pre-processing if upload is a bottleneck | ~£150–300 |
 
+## Marketing bonus — the same cameras feed Helen (Minda, 2026-10-28)
+The fixed site cameras go in for progress/H&S, but the **same footage is near-free marketing material** —
+**time-lapse build videos, progress reels, finished-project showcases, social clips**. Getting **Helen** (AI
+Content & Marketing) in **before** the cameras are placed means the capture (angles, resolution, interval,
+retention) serves marketing too, not just monitoring. ⚠️ **Marketing use needs a different consent basis** than
+internal monitoring — **client permission** for the site + people's consent to appear — so that's a
+Minda/Victoria + client-agreement check, flagged to Helen. Scoped to Helen via her Raw (AWT below).
+
 ## Governance + privacy (before any of it goes live)
 Site photos + voice = **personal data** (staff + subbies + people on site). Running them through AI =
 workplace monitoring + data processing. **Lawful basis + a notice to the people on site + a retention rule =
