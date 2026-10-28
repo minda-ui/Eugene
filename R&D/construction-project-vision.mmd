@@ -1,0 +1,49 @@
+%% RND-22 construction project vision — 2026-10-28 (Eugene, guide-only, §3).
+%% The loop: capture -> understand -> draft/flag -> human gate -> record -> intelligence -> rhythm -> views.
+flowchart TB
+  classDef cap fill:#eef1f4,stroke:#6c757d,color:#212529;
+  classDef brain fill:#e6f4ea,stroke:#1e7e34,color:#14532d;
+  classDef gate fill:#f3e8ff,stroke:#7e22ce,color:#4a1072;
+  classDef rec fill:#e7f0ff,stroke:#2b6cb0,color:#1a365d;
+  classDef intel fill:#fff4e5,stroke:#c77700,color:#7a4b00;
+  classDef view fill:#fde8ef,stroke:#b4216a,color:#6b1140;
+
+  subgraph CAPTURE["1 · CAPTURE (on site)"]
+    direction LR
+    PH["photos"]:::cap
+    VO["voice notes"]:::cap
+    MSG["site messages"]:::cap
+    DOC["docs / delivery notes"]:::cap
+  end
+
+  BRAIN["2 · UNDERSTAND — the on-site brain (local, sovereign)<br/>vision · Whisper transcribe · summarise · extract"]:::brain
+  DRAFT["3 · DRAFT / FLAG<br/>record entry · H&S flag · materials request · progress update"]:::gate
+
+  subgraph GATE["4 · THE GATE — a human decides (per authority)"]
+    direction LR
+    SM["Responsible SM<br/>approves in-authority<br/>(Sebastian/Nev/Dainius/Andrejus/Minda)"]:::gate
+    ESC["Minda<br/>decides escalations<br/>(above the SM's limit)"]:::gate
+  end
+
+  RECORD["5 · RECORD builds itself<br/>job file + registers (materials · operatives · risks · progress · comms · permits)"]:::rec
+  INTEL["INTELLIGENCE<br/>progress · materials · cost · H&S · defects<br/>+ predictive flags + cross-project lessons"]:::intel
+  RHYTHM["DAILY RHYTHM<br/>morning brief · end-of-day digest · weekly review"]:::intel
+
+  subgraph VIEWS["VIEWS — one source, many cuts"]
+    direction LR
+    VSM["SM view<br/>their jobs (site chat)"]:::view
+    VMIN["Minda portfolio<br/>all jobs + escalations"]:::view
+    VCLI["Client view<br/>curated · gated"]:::view
+  end
+
+  CAPTURE --> BRAIN --> DRAFT --> GATE --> RECORD
+  RECORD --> INTEL
+  RECORD -. RAG .-> BRAIN
+  INTEL --> RHYTHM
+  RECORD --> RHYTHM
+  RHYTHM --> VIEWS
+  INTEL --> VIEWS
+  GATE --> VIEWS
+  VIEWS -. humans act, new updates .-> CAPTURE
+
+  NOTE["Every output is a draft / alert for a human (§3). Local + sovereign.<br/>One set of eyes + ears on site → one self-building record → many role-shaped views.<br/>Same cameras serve 3 ways: operations (Anna) · the record · marketing (Helen)."]:::gate
