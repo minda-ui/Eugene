@@ -118,8 +118,11 @@ Flex-Slot PSUs ~£50–80 · chassis (TBC) · rails. **Pool = our existing 12× 
 ## The resulting estate shape
 - **Gen10 (new) = storage + backup + PBX spine** (24SFF, ZFS on HBA, 10 G, reliable, iLO5).
 - **Gen9 = the unconstrained brain** (RAM + 2× P40, slots freed by the compute-split).
-- **Beverley R710 or a replica = off-site backup.** (The old HQ R710 could even cascade to Beverley as the
-  off-site box, or be retired.)
+- **Beverley = a 2nd DL380 Gen10** (SSD storage replica + **2× P40 full failover brain**) — **not** the R710.
+  The P40 requirement rules the R710 out (poor GPU host, PCIe Gen2) → Gen10. Spec: `beverley-node-spec.md`.
+  Identical platform both sites = identical spares, one runbook, swappable roles.
+- **The R710 is freed** (no longer going to Beverley): cold spare, a 3rd backup copy (R710 + DS2246 = a true
+  3-2-1 third tier), or retire for power. Minda's call.
 Each box doing the one thing it's best at.
 
 ### Backup direction — build it pull, not push (Minda, 2026-10-28)
