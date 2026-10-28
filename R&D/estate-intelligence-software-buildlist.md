@@ -7,9 +7,9 @@
 > local — the data-egress wall (RND-14/18) means site photos + estate docs never leave the estate.
 >
 > **Models (RND-2 shortlist):** real-time on the **P40s (48 GB)** — **Qwen3.6 27B** (general),
-> **Qwen3-VL** (vision), **Qwen3-Coder-30B** (code); batch on **CPU + 256 GB RAM** — **480B-A35B Q4** (the
-> foundry brain). **Priority:** 🔴 P1 first proofs · 🟠 P2 the "couple of tests" · 🟡 P3 knowledge+records ·
-> 🔵 P4 heavy/later.
+> **Qwen3-VL** (vision), **Qwen3-Coder-30B** (code), **Whisper large-v3** (speech-to-text — faster-whisper /
+> whisper.cpp, CUDA, runs on Pascal); batch on **CPU + 256 GB RAM** — **480B-A35B Q4** (the foundry brain).
+> **Priority:** 🔴 P1 first proofs · 🟠 P2 the "couple of tests" · 🟡 P3 knowledge+records · 🔵 P4 heavy/later.
 
 ---
 
@@ -27,6 +27,7 @@ _Point a model at one input, read the answer. Prove the GPU + each model before 
 | ⬜ | **Photo describe + H&S flag** | Qwen3-VL | one site photo → "what's here? any hazard (no hard hat, blocked exit)?" | vision on the P40 works | 16 |
 | ⬜ | **Text summarise** | Qwen3.6 27B | a pasted chat log → 3-line summary | the LLM + the 48 GB fit | 21 |
 | ⬜ | **Code task** | Qwen3-Coder-30B | a small script request → working code | the coder model + dev loop | 19 |
+| ⬜ | **Transcribe a voice note** | Whisper large-v3 | one audio clip (site voice note / voicemail) → text | speech-to-text on the P40, local | 17/21 |
 
 ## 🟠 P2 — the "couple of tests" (the Telegram pilot pipeline, RND-21)
 _Wire P1 into a real feed on one project group. This is the pilot Minda green-lit._
@@ -35,7 +36,8 @@ _Wire P1 into a real feed on one project group. This is the pilot Minda green-li
 | ⬜ | **Telegram ingest bridge** | read one project group → mirror messages + **photos** to storage → Anna's feed | storage (RND-3), Anna's inputs (AWT-1035), privacy sign-off (AWT-1036) | 21 |
 | ⬜ | **Site-vision sentinel** | run each photo through vision → progress tags, H&S flags, read delivery notes | P1 vision, the bridge | 16 |
 | ⬜ | **Daily update summariser** | "what happened on FC2611 today" from the message stream | the bridge | 21 |
-| ⬜ | **Request extractor** | "need 20 boards Thursday" → a structured action for Anna (draft, human-approved) | the bridge | 21 |
+| ⬜ | **Voice-note transcription** (Whisper) | site **voice notes** in the chat → text → fed to the summariser + request extractor (lots of site updates are voice, not typed) | the bridge, Whisper | 17/21 |
+| ⬜ | **Request extractor** | "need 20 boards Thursday" → a structured action for Anna (draft, human-approved) | the bridge (text **and** transcribed voice) | 21 |
 
 ## 🟡 P3 — knowledge + records (the machine becomes useful daily)
 | ✓ | Build | What it does | Depends on | RND |
@@ -49,7 +51,8 @@ _Wire P1 into a real feed on one project group. This is the pilot Minda green-li
 |---|---|---|---|---|
 | ⬜ | **Software foundry** | overnight batch code-gen / refactor on the big model | 480B-A35B on CPU+256 GB (RAM fitted Sat) | 19 |
 | ⬜ | **Night-shift batch** | scheduled estate analysis (summaries, flags, digests) while idle | foundry/gateway | 15 |
-| ⬜ | **Voice interface** | speak to the estate brain (STT + TTS local) | serving layer | 17 |
+| ⬜ | **Voice interface** | speak to the estate brain — **Whisper (STT)** + a local **TTS** for replies | serving layer, Whisper | 17 |
+| ⬜ | **Voicemail / call + meeting transcription** | Whisper transcribes PBX voicemails/calls + meeting-room audio → searchable, actionable | Whisper, PBX access | 17 |
 | ⬜ | **Failover drill** | prove Beverley's node can run the full brain if HQ is down | Beverley Gen10 + 2× P40 | 18 |
 
 ---
