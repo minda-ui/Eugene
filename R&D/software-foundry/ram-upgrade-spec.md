@@ -22,7 +22,9 @@ Gen9 QuickSpecs + the label on your existing DIMM before buying** — part numbe
 ## Where we are now
 - **HP ProLiant DL380 Gen9**, 2× Xeon **E5-2695 v4** (both sockets populated ✅).
 - **4× 32 GB = 128 GB** fitted; DIMM assembly **809083-091** (HPE 32 GB 2Rx4 **DDR4-2400** RDIMM).
-  **+ 4× 32 GB 840758-091 now acquired → 256 GB once fitted** (see Acquired, above).
+  **+ 4× 32 GB 840758-091 now acquired → 256 GB once fitted** (see Acquired, above). **Delivery: arriving
+  tomorrow/Fri — to be fitted Saturday in the one Gen9 power-down window alongside the P40s + 1400 W PSU
+  (see `Runbooks/Runbook-HQ-BuildDay-Storage-and-Brain-Saturday.md`).**
 - **24 DIMM slots total** (12 per CPU) → **20 slots free** (16 free after this kit is fitted).
 
 ## The platform's limits (DL380 Gen9 + v4 CPUs)
