@@ -7,6 +7,21 @@ work that had not yet been written into the change-log/ledger/current-state._
 
 ---
 
+## 2026-10-28 (end) — Drive sync completed (CLI re-authorised)
+
+Minda re-authorised the Composio CLI (`composio login` → `whoami` = minda@fishboneconstruction.co.uk), so
+the whole 2026-10-28 batch was synced to Drive — byte-verified, archive-then-recreate (`drive-sync-verified`):
+control files (current-state, processed-items-ledger, open-issues), this change-log, 6 runbooks (2 HMRC
+already present from 27 Oct), the R&D specs (beverley-node-spec, estate-compute-split design +
+gen10-r710-replacement, site-chat-bridge/design → **new Drive folder created**, software-foundry/ram-upgrade-spec,
+estate-storage/design, ideas-log; parts-list already current), and the estate map (`.mmd`/`.png`/`.html`).
+**Cross-KB Raw delivered:** Anna (AWT-1035) + Victoria (AWT-1036); Rachel's 2 HMRC notes confirmed already
+on her Raw. **Rule C guard** fired on 3 files (open-issues, estate-storage/design, ideas-log) where the
+live Drive copy was ahead of the un-merged `main` — each verified byte-for-byte as Eugene's own earlier
+sync (own lineage) before overwriting, not a foreign write. `.claude/` skill files stay git/native-channel
+only (not Drive). Also: CLI login needed Minda's one-click browser auth (the `cliKey` URL) — the re-auth
+is per-container, so a future container re-provision will drop it again (expected).
+
 ## 2026-10-28 (later) — OI-26: backups made pull-not-push (append-only PBS + pull offsite)
 
 **Minda's principle:** "backups should be pulling, not pushing." Checked the live wiring — the nightly
