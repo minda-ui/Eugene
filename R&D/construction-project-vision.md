@@ -125,9 +125,46 @@ where **authority or risk** needs her, not for routine running.
 (ties to the storage access model).
 
 **What to set / confirm:** each SM's **authority limits** (the own-authority list per person — **Minda's
-call**); each SM's **channel** (WhatsApp / Telegram / email, + dashboard or not — ask the SMs); the
-**project → SM mapping** (the Project Register). Construction specifics stay **Anna's**; this
-routing/authority layer is **Minda's org decision**.
+call**, starter in `construction-sm-authority-matrix.md`); each SM's **channel** (WhatsApp / Telegram / email,
++ dashboard or not — ask the SMs); the **project → SM mapping** (the Project Register). Construction specifics
+stay **Anna's**; this routing/authority layer is **Minda's org decision**.
+
+---
+
+## Per-person views (one source, many cuts)
+Everyone works off the **same record + intelligence** — the views are just **role-shaped cuts** of it, on the
+channel that suits each person. Each sees what they need to **act**, nothing more (access follows job-ownership
++ authority).
+
+**The site manager's view** (Sebastian / Nev / Dainius / Andrejus / Minda-as-SM) — **their jobs only**
+- **Today (the default):** their active jobs, each with status vs programme · what's on today · deliveries due
+  · open H&S flags · **"needs you today"** (their in-authority decisions) · anything urgent.
+- **Drill into a job:** the live record — recent photos/updates · progress % · materials (ordered/needed/due) ·
+  who's on site · open risks/snags · requests · the look-ahead.
+- **Do:** approve/decline (in authority) · raise a request · flag something · add a note/photo.
+- **Channel:** the **site chat first** (brief/digest/alerts pushed there, reply to act — mobile, where they
+  already are) + an **optional simple dashboard** for anyone who wants the fuller view.
+
+**Minda's portfolio view** — **all jobs**
+- **At a glance, worst-first:** a line per job — SM owner · RAG status · progress % · cost position · open
+  escalations · red flags.
+- **The "needs Minda" queue:** escalations awaiting her across *all* SMs' jobs — over-limit spend, new
+  commitments, completion-date changes, safety events.
+- **Drill into any job** (she sees all) + **portfolio trends** (which jobs trending late/over; materials/
+  resource across jobs).
+- **Channel:** a proper **dashboard** + her morning brief (portfolio summary) + escalation alerts.
+
+**The client view** (optional, per project) — **outward, human-gated**
+- A curated, plain-English **progress update**: progress photos/time-lapse · milestones hit · status — **not**
+  internal data (no costs, no internal flags). Drafted by Anna, **approved by the SM/Minda before it's sent**
+  (§3 + photo consent). The polished/marketing version pairs with Helen.
+
+**Other role slices** (same source): **Rachel (finance)** — cost position per job, variations, overrun flags
+(ties to QuickBooks); **Anna (the AI)** — the working queue across all jobs + drafts awaiting approval.
+
+**Principles:** one source → many cuts (not separate systems) · role-shaped + access-controlled (you see your
+jobs; Minda sees all) · exception-led (worst-first, surfaced not hunted) · channel-appropriate (chat for site,
+dashboard for Minda, curated update for clients) · **outward views human-gated**.
 
 ---
 
@@ -146,6 +183,8 @@ _Extends the AI-machine build list with the construction angle._
 | 🟡 **P3** | **Cross-project lessons KB** | every job's lessons feed a store → surfaced at the right stage of the next job (compounding) | the record, RAG |
 | 🟡 **P3** | **Per-SM routing + approvals/escalation** | route each job's brief/digest/alerts to its SM; AI proposes → **the responsible SM approves in-authority, escalates to Minda above it** → logged | SM profiles, own-authority lists, Approvals Desk (RND-9) |
 | 🟡 **P3** | **SM profiles + authority matrix** | per-SM: their jobs, channel (WhatsApp/Telegram/email), **own-authority limits** (decide vs escalate) | Minda sets authority; Project Register |
+| 🟡 **P3** | **Portfolio dashboard** (Minda) | all jobs worst-first (RAG/progress/cost/escalations) + the "needs Minda" queue + trends | the record across jobs, routing |
+| 🔵 **P4** | **Client progress-update generator** | curated plain-English update + photos/time-lapse per project — **drafted, human-approved before sending** (§3 + consent) | the record, Helen, consent sign-off |
 | 🟡 **P3** | **Estate/project RAG** | ask the drawings/RAMS/specs, cited | RAG, NAS |
 | 🟡 **P3** | **RAMS + compliance hooks** | RAMS issue/sign (DocuSeal) + competence/expiry tracking | DocuSeal, Sarah |
 | 🔵 **P4** | **Handover pack assembler** | gather as-builts, O&M, sign-offs, photo record into the pack | the full record |
