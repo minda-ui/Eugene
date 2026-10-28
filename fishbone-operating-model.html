@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fishbone Operating Model</title>
+<style>
+  :root{--bg:#ffffff;--fg:#1a1f24;--muted:#5b6670;--card:#f6f8fa;--line:#d7dde3;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  header{padding:18px 20px 6px}
+  h1{margin:0 0 2px;font-size:20px}
+  .sub{color:var(--muted);font-size:13px}
+  .wrap{padding:8px 16px 40px}
+  .diagram{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px}
+  .notes{margin:18px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+  .note{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .note h3{margin:0 0 6px;font-size:14px}
+  .note ul{margin:0;padding-left:18px}
+  .note li{margin:2px 0;font-size:13px;color:#2a333b}
+  footer{color:var(--muted);font-size:12px;padding:0 20px 24px}
+  code{background:#eef1f4;padding:1px 5px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Fishbone Estate — operating model</h1>
+  <div class="sub">How it all works: people + two AI brains + the governance spine + the data plane · 2026-10-28 · guide-only (§3)</div>
+  <div class="sub">↔ <a href="https://claude.ai/artifact/ACFKTZMEZJSRxDmt7qz9zD">See the network map →</a> (the kit and how it's wired)</div>
+</header>
+<div class="wrap">
+  <div class="diagram">
+    <pre class="mermaid">
+flowchart TB
+  classDef human fill:#fff4e5,stroke:#c77700,color:#7a4b00;
+  classDef cloud fill:#e7f0ff,stroke:#2b6cb0,color:#1a365d;
+  classDef local fill:#e6f4ea,stroke:#1e7e34,color:#14532d;
+  classDef data fill:#eef1f4,stroke:#6c757d,color:#212529;
+  classDef gate fill:#f3e8ff,stroke:#7e22ce,color:#4a1072;
+
+  HUMAN["HUMANS — Minda + staff + site teams<br/>decide · author CAD/docs · approve · run every live/outward change<br/><b>the decision-maker AND the gate</b>"]:::human
+
+  subgraph BRAINS["The two AI brains — complement, not compete"]
+    CLOUD["CLOUD AI WORKFORCE<br/>Anna · Peter · Rachel · Victoria · Eugene · John · Helen …<br/>read · draft · reconcile · triage · coordinate<br/>(office + coordination; runs in the cloud)"]:::cloud
+    LOCAL["ON-SITE BRAIN — local AI<br/>photo vision · doc RAG · summaries · overnight code<br/>(private · sovereign · never leaves the estate)"]:::local
+  end
+
+  subgraph GOV["Governance spine — nothing irreversible or outward without a human (§3)"]
+    direction LR
+    P["1 · AI proposes / drafts"]:::gate --> AP["2 · Human approves"]:::gate --> EX["3 · Executed"]:::gate --> LG["4 · Logged"]:::gate
+  end
+
+  subgraph DATA["Where things live — the data plane"]
+    DRIVE["Google Drive<br/>shared file surface (today)"]:::data
+    HUB["Smartsheet Hub<br/>tasks · roster · coordination"]:::data
+    KB["KBs (Drive + git)<br/>each employee's memory + rules"]:::data
+    NAS["NAS — estate storage<br/>project files · brain data · backups"]:::data
+  end
+
+  HUMAN -->|briefs / approves| CLOUD
+  HUMAN -->|asks| LOCAL
+  CLOUD -->|proposes| P
+  LOCAL -->|flags / tags| P
+  AP -->|human acts| HUMAN
+  LG -->|writes record| HUB
+  LG -->|updates memory| KB
+
+  CLOUD <--> DRIVE
+  CLOUD <--> HUB
+  CLOUD <--> KB
+  DRIVE -->|mirror A1| NAS
+  NAS -->|local files| LOCAL
+  LOCAL -->|outputs| NAS
+
+  NOTE["Rule of thumb: office / coordination → a cloud employee;<br/>private / photo / file-heavy → the local brain.<br/>Direction of travel: more work shifts local over time (A1 → D1 sovereignty)."]:::gate
+    </pre>
+  </div>
+
+  <div class="notes">
+    <div class="note">
+      <h3>The two brains</h3>
+      <ul>
+        <li><b>Cloud workforce</b> — office + coordination + drafting (broad knowledge, web, connectors).</li>
+        <li><b>Local brain</b> — private, sovereign, photo/file-heavy work on estate data.</li>
+        <li>Office task → cloud; private/heavy → local. More shifts local over time.</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h3>The governance spine</h3>
+      <ul>
+        <li>AI <b>proposes/drafts</b> → human <b>approves</b> → <b>executed</b> → <b>logged</b>.</li>
+        <li>No AI sends email, pays, files or changes a live system on its own (§3).</li>
+        <li>The human is the gate on anything irreversible or outward.</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h3>Where things live</h3>
+      <ul>
+        <li><b>Google Drive</b> — shared file surface (today) → mirrored to the NAS.</li>
+        <li><b>Smartsheet Hub</b> — tasks + coordination between employees.</li>
+        <li><b>KBs</b> (Drive + git) — each employee's memory + rules.</li>
+        <li><b>NAS</b> — estate storage; feeds the local brain.</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h3>Direction of travel</h3>
+      <ul>
+        <li>From cloud-dependent → sovereign (A1 → D1).</li>
+        <li>The local brain takes on more; storage moves on-estate.</li>
+        <li>End state: run your own compute/storage/backups/phones — cloud by choice.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<footer>
+  Eugene, Fishbone AI IT Assistant — guide-only (§3). Source: <code>R&amp;D/estate-operating-model.mmd</code> · narrative: <code>R&amp;D/estate-operating-model.md</code>. Companion to the network map.
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.3/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,securityLevel:'loose',flowchart:{useMaxWidth:true,htmlLabels:true}});</script>
+</body>
+</html>

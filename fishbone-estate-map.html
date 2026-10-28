@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fishbone Estate Map</title>
+<style>
+  :root{--bg:#ffffff;--fg:#1a1f24;--muted:#5b6670;--card:#f6f8fa;--line:#d7dde3;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  header{padding:18px 20px 6px}
+  h1{margin:0 0 2px;font-size:20px}
+  .sub{color:var(--muted);font-size:13px}
+  .wrap{padding:8px 16px 40px}
+  .diagram{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px}
+  .notes{margin:18px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+  .note{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .note h3{margin:0 0 6px;font-size:14px}
+  .note ul{margin:0;padding-left:18px}
+  .note li{margin:2px 0;font-size:13px;color:#2a333b}
+  footer{color:var(--muted);font-size:12px;padding:0 20px 24px}
+  code{background:#eef1f4;padding:1px 5px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Fishbone Estate — network, compute &amp; backup map</h1>
+  <div class="sub">Target architecture with current reality noted · 2026-10-28 · guide-only (§3) · IPs from Infra-Inventory — verify at build</div>
+  <div class="sub">↔ <a href="https://claude.ai/artifact/WCC68CAh4gim3LmxmSH8HQ">See the operating-model view →</a> (how people + the two AI brains run on this kit)</div>
+</header>
+<div class="wrap">
+  <div class="diagram">
+    <pre class="mermaid">
+flowchart TB
+  classDef live fill:#e6f4ea,stroke:#1e7e34,color:#14532d;
+  classDef up fill:#fff4e5,stroke:#c77700,color:#7a4b00;
+  classDef plan fill:#e7f0ff,stroke:#2b6cb0,color:#1a365d,stroke-dasharray:5 4;
+  classDef net fill:#eef1f4,stroke:#6c757d,color:#212529;
+  classDef bk fill:#f3e8ff,stroke:#7e22ce,color:#4a1072;
+
+  subgraph CLOUD["Internet / Overlay"]
+    WAVE["Wavenet FTTB — HQ primary WAN"]:::net
+    STAR["Starlink — HQ backup WAN"]:::net
+    BTP["Personal BT — Beverley WAN"]:::net
+    BTB["BT Business @ Beverley — backhaul to HQ vlan4<br/>ENDING 27 Oct (OI-24)"]:::net
+    TS["Tailscale overlay — remote admin, split-tunnel"]:::live
+    OFF["Encrypted offline copy — cloud / USB (the -1)<br/>PLANNED"]:::plan
+  end
+
+  subgraph HQ["Fishbone HQ, Wallsend — core site"]
+    HASA["Cisco ASA 5550 x2 — active/standby HA"]:::live
+    HSW["Catalyst 3850 x2, stacked — core .4<br/>VLANs 10 mgmt / 11 / 13 phones / 20 wifi / CCTV"]:::live
+    GEN9["DL380 Gen9 — THE BRAIN<br/>2x E5-2695v4 - 256GB (Sat) - 2x P40 48GB (Sat)<br/>Proxmox .10 - iLO4 .50"]:::up
+    GEN10["DL380 Gen10 — STORAGE SPINE<br/>ZFS + primary PBS (append-only) + PBX + 10G<br/>Copy 1 - PLANNED (Fri order)"]:::plan
+    R710["Dell R710 — 3rd BACKUP COPY<br/>pull + Wake-on-LAN (near-air-gapped)<br/>pve-nas .20 - PBS :8007 - iDRAC .21"]:::live
+    SHELF["NetApp DS2246 — 24-bay SAS shelf"]:::live
+    PBX["FusionPBX VM105 — 10.224.13.9<br/>phones both sites - on Gen9 now, moves to Gen10"]:::up
+    HWIFI["UniFi WiFi x3 — FSG0218 / Fishbone"]:::live
+    CCTV["Hikvision NVR + 16 cams — isolated VLAN"]:::live
+    HUPS["2x APC UPS 2200 — whole rack"]:::live
+  end
+
+  subgraph BEV["Beverley Place — 2nd site / failover (Minda's home)"]
+    BASA["Cisco ASA 5550 — single"]:::live
+    BSW["Catalyst 3850 home-sw — 10.224.110.4<br/>VLANs 10 / 11 / 110 / 111"]:::live
+    BGEN10["DL380 Gen10 — FAILOVER BRAIN + REPLICA<br/>SSD storage + 2x P40 (1 now, 1 later)<br/>Copy 2 off-site - PLANNED"]:::plan
+    LENOVO["Lenovo mini-PC — Proxmox 10.224.111.199"]:::live
+    CK["UniFi Cloud Key Gen2 — 10.224.110.5<br/>WiFi controller (both sites)"]:::live
+    BUPS["APC UPS"]:::live
+  end
+
+  WAVE --> HASA
+  STAR --> HASA
+  BTP --> BASA
+  BTB -. backhaul .-> HSW
+  TS -. admin .-> HSW
+  TS -. admin .-> BSW
+
+  HASA --- HSW
+  HSW --- GEN9
+  HSW --- GEN10
+  HSW --- R710
+  HSW --- HWIFI
+  HSW --- CCTV
+  GEN9 -. hosts PBX now .- PBX
+  GEN10 -. hosts PBX later .- PBX
+  R710 === SHELF
+  HUPS -. UPS .- HSW
+
+  BASA --- BSW
+  BSW --- BGEN10
+  BSW --- LENOVO
+  BSW --- CK
+  BUPS -. UPS .- BSW
+
+  HSW == airFiber AF-5 583m, VLANs 10/11 bridged ==> BSW
+  HASA -. IPsec VPN fallback .- BASA
+
+  GEN10 -. pulled by Beverley, off-site .-> BGEN10
+  GEN10 -. pulled by R710, local air-gap .-> R710
+  GEN10 -. encrypted offline .-> OFF
+
+  subgraph LEGEND["Legend"]
+    L1["live / in place"]:::live
+    L2["upgrading Saturday"]:::up
+    L3["planned / to buy-build"]:::plan
+    L4["backup pull flow (dotted)"]:::bk
+  end
+    </pre>
+  </div>
+
+  <div class="notes">
+    <div class="note">
+      <h3>Two-site compute</h3>
+      <ul>
+        <li><b>HQ Gen9</b> = the brain (256 GB + 2× P40).</li>
+        <li><b>HQ Gen10</b> = storage spine + primary PBS + PBX.</li>
+        <li><b>Beverley Gen10</b> = SSD replica + failover brain (2× P40).</li>
+        <li>Same Gen10 both sites → shared spares, one runbook.</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h3>Backup = 3-2-1(-1), all pull</h3>
+      <ul>
+        <li>Copy 1: HQ Gen10 (primary, append-only PBS).</li>
+        <li>Copy 2: Beverley (off-site, pulls).</li>
+        <li>Copy 3: R710 at HQ (local, pull + Wake-on-LAN, near-air-gapped).</li>
+        <li>−1: encrypted offline (cloud/USB).</li>
+        <li>Every copy <b>pulls</b> → no source can delete a backup (OI-26).</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h3>Links &amp; resilience</h3>
+      <ul>
+        <li>Inter-site: airFiber AF-5 (583 m, VLANs 10/11 bridged) + spare radio.</li>
+        <li>IPsec VPN fallback over each site's own internet.</li>
+        <li>Tailscale for remote admin (split-tunnel).</li>
+        <li>HQ WAN: Wavenet FTTB (primary) + Starlink. BT Business backhaul ends 27 Oct (OI-24).</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h3>Status key</h3>
+      <ul>
+        <li><b>Live</b> — in place now.</li>
+        <li><b>Upgrading Saturday</b> — Gen9 RAM+P40; PBX still on Gen9 until the Gen10 is up.</li>
+        <li><b>Planned</b> — Gen10 #1 (Fri order), Beverley Gen10, offline copy.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<footer>
+  Eugene, Fishbone AI IT Assistant — guide-only (§3); Minda executes all live changes and holds all credentials.
+  Source: <code>Infra-Inventory/fishbone-estate-map.mmd</code>. Diagram renders via Mermaid.
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.3/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,securityLevel:'loose',flowchart:{useMaxWidth:true,htmlLabels:true}});</script>
+</body>
+</html>

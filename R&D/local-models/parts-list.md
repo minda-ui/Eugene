@@ -32,6 +32,14 @@ Confirmed from the order emails in minda@'s Gmail:
 - **Status 2026-10-16:** GPU (2× P40) + both risers + **both** power cables + **1400 W PSUs** all ordered;
   **high-perf fans already fitted**. **Only remaining buy = the GPU baffle.** Open check = **GPU-riser
   slot availability** vs the P840/NICs.
+- **UPDATE 2026-10-26 (RND-20 compute-split, Minda):** the open slot check is **largely resolved by the
+  compute-split plan.** Moving the PBX off → DL380 = pure brain → it needs far less networking, so the
+  **stand-up NICs move out**: the **10G 562SFP+ → the R710** (where 10G earns its keep for storage/backup)
+  and the **331T** removed — **freeing riser slots for the P40s**. Brain networking stays on the **1G LOM
+  (331i) + FlexLOM (366FLR)** which use **no riser slot**. **P840 stays** (DL380's own disks) but relocates
+  to a non-GPU slot (slot 4/6, as planned). → **PBX off + 10G/331T out + P840 relocated = GPU slots clear.**
+  See `R&D/estate-compute-split/design.md`. Confirm at fit-time which slots the NICs occupy + that the R710
+  has a free slot and a 10G switch port (3850 TenGig uplink) or a direct DL380↔R710 10G link.
 
 ## Risers received + verified in hand (2026-10-16)
 Both GPU risers physically confirmed from their labels:

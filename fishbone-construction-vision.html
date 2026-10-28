@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Construction Project Vision</title>
+<style>
+  :root{--bg:#ffffff;--fg:#1a1f24;--muted:#5b6670;--card:#f6f8fa;--line:#d7dde3;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  header{padding:18px 20px 6px}
+  h1{margin:0 0 2px;font-size:20px}
+  .sub{color:var(--muted);font-size:13px}
+  .wrap{padding:8px 16px 40px}
+  .diagram{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px}
+  .notes{margin:18px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+  .note{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .note h3{margin:0 0 6px;font-size:14px}
+  .note ul{margin:0;padding-left:18px}
+  .note li{margin:2px 0;font-size:13px;color:#2a333b}
+  footer{color:var(--muted);font-size:12px;padding:0 20px 24px}
+  code{background:#eef1f4;padding:1px 5px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Construction Project Vision (RND-22)</h1>
+  <div class="sub">The AI-augmented construction project, end to end · 2026-10-28 · guide-only (§3)</div>
+  <div class="sub">↔ <a href="https://claude.ai/artifact/ACFKTZMEZJSRxDmt7qz9zD">Network map</a> · <a href="https://claude.ai/artifact/WCC68CAh4gim3LmxmSH8HQ">Operating model</a></div>
+</header>
+<div class="wrap">
+  <div class="diagram">
+    <pre class="mermaid">
+flowchart TB
+  classDef cap fill:#eef1f4,stroke:#6c757d,color:#212529;
+  classDef brain fill:#e6f4ea,stroke:#1e7e34,color:#14532d;
+  classDef gate fill:#f3e8ff,stroke:#7e22ce,color:#4a1072;
+  classDef rec fill:#e7f0ff,stroke:#2b6cb0,color:#1a365d;
+  classDef intel fill:#fff4e5,stroke:#c77700,color:#7a4b00;
+  classDef view fill:#fde8ef,stroke:#b4216a,color:#6b1140;
+
+  subgraph CAPTURE["1 · CAPTURE (on site)"]
+    direction LR
+    PH["photos"]:::cap
+    VO["voice notes"]:::cap
+    MSG["site messages"]:::cap
+    DOC["docs / delivery notes"]:::cap
+  end
+
+  BRAIN["2 · UNDERSTAND — the on-site brain (local, sovereign)<br/>vision · Whisper transcribe · summarise · extract"]:::brain
+  DRAFT["3 · DRAFT / FLAG<br/>record entry · H&S flag · materials request · progress update"]:::gate
+
+  subgraph GATE["4 · THE GATE — a human decides (per authority)"]
+    direction LR
+    SM["Responsible SM<br/>approves in-authority<br/>(Sebastian/Nev/Dainius/Andrejus/Minda)"]:::gate
+    ESC["Minda<br/>decides escalations<br/>(above the SM's limit)"]:::gate
+  end
+
+  RECORD["5 · RECORD builds itself<br/>job file + registers (materials · operatives · risks · progress · comms · permits)"]:::rec
+  INTEL["INTELLIGENCE<br/>progress · materials · cost · H&S · defects<br/>+ predictive flags + cross-project lessons"]:::intel
+  RHYTHM["DAILY RHYTHM<br/>morning brief · end-of-day digest · weekly review"]:::intel
+
+  subgraph VIEWS["VIEWS — one source, many cuts"]
+    direction LR
+    VSM["SM view<br/>their jobs (site chat)"]:::view
+    VMIN["Minda portfolio<br/>all jobs + escalations"]:::view
+    VCLI["Client view<br/>curated · gated"]:::view
+  end
+
+  CAPTURE --> BRAIN --> DRAFT --> GATE --> RECORD
+  RECORD --> INTEL
+  RECORD -. RAG .-> BRAIN
+  INTEL --> RHYTHM
+  RECORD --> RHYTHM
+  RHYTHM --> VIEWS
+  INTEL --> VIEWS
+  GATE --> VIEWS
+  VIEWS -. humans act, new updates .-> CAPTURE
+
+  NOTE["Every output is a draft / alert for a human (§3). Local + sovereign.<br/>One set of eyes + ears on site → one self-building record → many role-shaped views.<br/>Same cameras serve 3 ways: operations (Anna) · the record · marketing (Helen)."]:::gate
+    </pre>
+  </div>
+
+  <div class="notes">
+    <div class="note">
+      <h3>The loop</h3>
+      <ul>
+        <li>capture → understand → draft/flag → <b>human decides</b> → record.</li>
+        <li>the record feeds the brain (RAG) + the intelligence.</li>
+        <li>views send people back to act → new capture. It's a cycle.</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h3>The gate (multi-SM)</h3>
+      <ul>
+        <li>Each job has one responsible SM.</li>
+        <li>In-authority → the SM approves; above → Minda.</li>
+        <li>Authority limits = <code>construction-sm-authority-matrix.md</code>.</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h3>Intelligence + rhythm</h3>
+      <ul>
+        <li>Not just a record — <b>predictive flags</b> (slip / overrun / shortfall).</li>
+        <li>Cross-project lessons compound each job.</li>
+        <li>Surfaced on a cadence: morning brief · EOD digest · weekly review.</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h3>Views — one source, many cuts</h3>
+      <ul>
+        <li><b>SM</b> — their jobs, in the site chat (mobile).</li>
+        <li><b>Minda</b> — all jobs worst-first + the escalation queue.</li>
+        <li><b>Client</b> — curated, outward, human-gated.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<footer>
+  Eugene, Fishbone AI IT Assistant — guide-only (§3). Source: <code>R&amp;D/construction-project-vision.mmd</code> · narrative: <code>R&amp;D/construction-project-vision.md</code>.
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.3/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,securityLevel:'loose',flowchart:{useMaxWidth:true,htmlLabels:true}});</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+%% Fishbone estate operating model — 2026-10-28 (Eugene, guide-only, §3).
+%% Companion to fishbone-estate-map (network). Conceptual: actors, 2 brains, governance loop, data plane.
+flowchart TB
+  classDef human fill:#fff4e5,stroke:#c77700,color:#7a4b00;
+  classDef cloud fill:#e7f0ff,stroke:#2b6cb0,color:#1a365d;
+  classDef local fill:#e6f4ea,stroke:#1e7e34,color:#14532d;
+  classDef data fill:#eef1f4,stroke:#6c757d,color:#212529;
+  classDef gate fill:#f3e8ff,stroke:#7e22ce,color:#4a1072;
+
+  HUMAN["HUMANS — Minda + staff + site teams<br/>decide · author CAD/docs · approve · run every live/outward change<br/><b>the decision-maker AND the gate</b>"]:::human
+
+  subgraph BRAINS["The two AI brains — complement, not compete"]
+    CLOUD["CLOUD AI WORKFORCE<br/>Anna · Peter · Rachel · Victoria · Eugene · John · Helen …<br/>read · draft · reconcile · triage · coordinate<br/>(office + coordination; runs in the cloud)"]:::cloud
+    LOCAL["ON-SITE BRAIN — local AI<br/>photo vision · doc RAG · summaries · overnight code<br/>(private · sovereign · never leaves the estate)"]:::local
+  end
+
+  subgraph GOV["Governance spine — nothing irreversible or outward without a human (§3)"]
+    direction LR
+    P["1 · AI proposes / drafts"]:::gate --> AP["2 · Human approves"]:::gate --> EX["3 · Executed"]:::gate --> LG["4 · Logged"]:::gate
+  end
+
+  subgraph DATA["Where things live — the data plane"]
+    DRIVE["Google Drive<br/>shared file surface (today)"]:::data
+    HUB["Smartsheet Hub<br/>tasks · roster · coordination"]:::data
+    KB["KBs (Drive + git)<br/>each employee's memory + rules"]:::data
+    NAS["NAS — estate storage<br/>project files · brain data · backups"]:::data
+  end
+
+  HUMAN -->|briefs / approves| CLOUD
+  HUMAN -->|asks| LOCAL
+  CLOUD -->|proposes| P
+  LOCAL -->|flags / tags| P
+  AP -->|human acts| HUMAN
+  LG -->|writes record| HUB
+  LG -->|updates memory| KB
+
+  CLOUD <--> DRIVE
+  CLOUD <--> HUB
+  CLOUD <--> KB
+  DRIVE -->|mirror A1| NAS
+  NAS -->|local files| LOCAL
+  LOCAL -->|outputs| NAS
+
+  NOTE["Rule of thumb: office / coordination → a cloud employee;<br/>private / photo / file-heavy → the local brain.<br/>Direction of travel: more work shifts local over time (A1 → D1 sovereignty)."]:::gate

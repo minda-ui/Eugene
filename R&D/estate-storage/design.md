@@ -1,7 +1,9 @@
 # RND-3 — Estate self-hosted storage + backup foundation
 
-_R&D working notes (git-primary). Status: **prototyped** (hardware all in-hand 2026-10-16; one cable to
-buy). Guide-only — Minda executes at the console/hardware; Eugene designs/specs/verifies. §3 unchanged;
+_R&D working notes (git-primary). Status: **prototyped — ALL hardware now in-hand** (the SFF-8644→QSFP SAS
+cable, "Allowish MiniSAS HD", ×2, £31.20, **delivered 2026-10-28** — the last part; drives/caddies/HBA/host
+all owned since 2026-10-16). **Build day: Saturday.** Guide-only — Minda executes at the console/hardware;
+Eugene designs/specs/verifies. §3 unchanged;
 production PBX never put at risk. Diagram: `architecture.mmd` (rendered to Minda 2026-10-04).
 Build runbook: `Runbooks/Runbook-RND3-Estate-Storage-Build.md`._
 
@@ -30,6 +32,30 @@ Two assets most setups lack: a **big server** (DL380 Gen9, 128 GB) and a **secon
    (incremental, automatic).
 5. **Disaster/offline:** **encrypted** copy to cloud (Backblaze B2 / Wasabi) or rotating USB kept
    off-site. Encryption key is Minda's (a secret Eugene never holds).
+
+### Pull, not push — the backup must be unreachable by the machine it protects (Minda, 2026-10-28)
+**The principle:** the layers above are only real backups if a **compromised source can't destroy them**.
+The weakness to design out is the one the live estate already has: the HQ Proxmox pushes to PBS using its
+own credentials and runs the prune itself, so ransomware on that host could delete the backups with the
+same keys (see OI-26). Both default flows here are source-initiated pushes — PBS (the PVE host writes) and
+`zfs send/recv` to Beverley (the HQ box sends) — so the fix applies across the board. Three defences,
+cheapest first (the hardening runbook is `Runbooks/Runbook-Backup-PullNotPush-Hardening.md`):
+1. **Append-only PBS.** The production host's PBS token gets **`Datastore.Backup` only** — never Prune or
+   Modify — and **prune + GC + verify run on the PBS box itself**, on its own schedule. A ransomwared
+   source can then write a backup but **cannot delete or prune the history**. Add **ZFS snapshots of the
+   PBS datastore** (`rpool/pbs-store`) for rollback even against someone who does hold prune rights.
+2. **True pull to a second/offsite PBS.** A **PBS sync job pulls** from the primary — the puller holds the
+   credentials, the primary has none to it. **Beverley** is the natural puller (second site, already on
+   Tailscale/IPsec): even if the HQ host *and* the primary PBS are both compromised, the pulled copy is
+   untouchable. For the ZFS replica, prefer the **Beverley box pulling** (`ssh … zfs send | zfs recv`
+   initiated from Beverley, receive-only key) over the HQ box pushing.
+3. **Immutable offline.** The encrypted cloud/USB copy with object-lock / rotate-and-detach — the source
+   never has standing delete rights.
+**Where it lands in the build (3-2-1(-1), decided 2026-10-28):** the Gen10 storage spine (RND-20) = the
+**append-only primary PBS** (Copy 1); **Beverley = a 2nd Gen10 that pulls** (Copy 2, off-site); the **R710
+stays in the HQ rack as Copy 3** — pull + powered-off-between-pulls (WoL) = a near-air-gapped local copy;
+(+ the encrypted offline disaster copy = the "-1"). All copies pull/append-only, so no source can delete
+them. See `Runbooks/Runbook-Backup-PullNotPush-Hardening.md` + `R&D/estate-compute-split/beverley-node-spec.md`.
 
 ## Hardware CONFIRMED — the whole stack is owned (Minda, 2026-10-16) ✅
 The storage stack is **physically in-hand** — only **one cable** to buy. Confirmed from photos/BIOS:
@@ -61,10 +87,29 @@ Using the **R710, not the DL380**, keeps the DL380 free for the RND-2 GPU build 
 ~£20–40. Buy **×2** to cable **both IOM6s** for multipath (one works to start). Spec: *"SFF-8644 to
 SFF-8436 (QSFP) external SAS cable, 1–2 m."*
 
-**✅ DRIVES BOUGHT (2026-10-16): 12× Seagate Savvio 10K.6 900 GB SAS (ST900MM0006)** — 2 owned + 10 bought,
-~£10 each. 512n (no reformat), 6G SAS, fits the caddies. Layout **2× 6-wide RAIDZ2 ≈ 5.8 TB usable**, 12
-bays free to grow. See `capacity-planning.md`. HDD not SSD — correct for a backup/NAS pool. The guidance
-below is kept for a future fast-tier/second-vdev buy.
+**✅ DRIVES — ALL IN HAND (updated 2026-10-28): 32× Seagate Savvio 10K.6 900 GB SAS (ST900MM0006)** to fill
+**every bay — 24 in the DS2246 shelf + 8 in the R710's internal bays** (Minda, 2026-10-28). 512n (no
+reformat), 6G SAS, fit the NetApp caddies (shelf) / Dell caddies (R710 internal). HDD not SSD — correct for
+a backup/NAS pool.
+
+**Layout (32 drives, recommended) — two pools, split by controller:**
+- **`tank` — the 24-bay shelf on the CP400e (IT-mode HBA):** **4× 6-wide RAIDZ2 ≈ 11.6 TB usable.** Matched
+  vdevs, clean HBA — the bulk store (model weights, Nextcloud, media, PBS datastore). *This alone is ~3× the
+  3-yr need.*
+- **Boot:** 2× internal disks, ZFS mirror (`rpool`) — as built 2026-10-17.
+- **Internal data pool — the other 6 internal bays:** **1× 6-wide RAIDZ2 ≈ 2.9 TB** (or all 8 ≈ 4.3 TB if
+  boot moves to a small SSD). Scratch / fast-access / extra PBS space. **Total ≈ 14.5 TB usable.**
+- **Never put shelf + internal drives in the same vdev** — different controllers = separate failure domains.
+
+**⚠️ GATING BUY for the internal 8 — the R710 has a PERC 6/i (RAID-only, NO IT mode, can't crossflash).** To
+put the internal bays into ZFS properly, **add a cheap internal HBA — LSI 9211-8i IT (or a crossflashed Dell
+H200), ~£15–25, next-day eBay UK** — and move the internal backplane cable to it so all 8 bays present raw.
+Without it, the fallback is single-disk RAID-0 VDs per drive = **not recommended** (hides SMART from ZFS).
+The **shelf build is unaffected** either way (CP400e is already a proper HBA). **Decision (Minda): add the
+internal HBA (recommended), or run the shelf only and leave the internal bays boot-only for now.** See
+`Runbooks/Runbook-RND3-R710-Internal-Interim-Build.md` Phase 1 for the controller/IT-mode detail.
+
+_(The SSD fast-tier guidance below is kept for a future SLOG/L2ARC/special-vdev buy.)_
 
 **2. The drives — 2.5" SFF SSDs (if buying a fast tier later).**
 - **Interface:** **SAS 6 Gb+ preferred** (cleanest in a NetApp shelf; 12 Gb SAS negotiates down fine).
