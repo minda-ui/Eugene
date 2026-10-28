@@ -18,6 +18,29 @@ The core loop, repeated all day, per job:
 **DRAFT/FLAG** (a record entry, an H&S flag, a materials request, a progress update) → **HUMAN DECIDES** →
 **RECORD** (the per-project file + the registers build automatically).
 
+## Why this matters — the idea behind it (the business case)
+Three problems it solves, and they're the real point:
+
+**1. Data sharing — the right info to the right person.** Today a lot of project information — **emails**, docs,
+delivery notes, updates — lands with **Minda as the single point**, not the SM actually running the job. That's
+a bottleneck *and* a single point of failure. The system becomes the hub that **routes project data to the
+responsible SM by job ownership**: project **emails** (via Peter's inbox triage) → the right SM; docs/updates/
+deliveries → their feed. Minda stops being the inbox everything funnels through — she keeps **oversight**, the
+SM gets **what they need to run the job.**
+
+**2. An AI assistant for each site manager.** Not just Minda having Anna — **each SM gets an assistant for their
+jobs**: ask questions about their project (RAG over the record + docs), draft their updates/requests, reminders,
+"what needs you today". It **levels up every SM** — and helps a newer SM run a job like an experienced one.
+
+**3. The data compounds into institutional knowledge.** Every project feeds a **learning engine** — what
+sequencing worked, which suppliers deliver, which approaches avoid problems, what the best jobs did → **captured
+good practices**, standardised and shared across all SMs and jobs. **The company gets better at building, not
+just better at recording it** — and the more jobs run through it, the smarter it gets.
+
+**The net:** break the information bottleneck · give every SM an assistant · turn every project into company-wide
+learning — with Minda keeping oversight and the gate. *(The email-routing leans on **Peter** (inbox AI); scope
+with him when ready.)*
+
 ## The project lifecycle — where the AI helps at each stage
 | Stage | What happens | AI help (drafts for a human) |
 |---|---|---|
@@ -179,6 +202,7 @@ _Extends the AI-machine build list with the construction angle._
 | 🟠 **P2** | **Morning brief + portfolio line** | per-job state / at-risk / needs-you, worst-first across all jobs, before site starts | the record, summariser |
 | 🟠 **P2** | **Request / materials extractor** | spoken/typed "need 20 boards Thu" → a structured request → procurement + cost flag | extractor, Rachel (cost) |
 | 🟠 **P2** | **Per-project record writer** (RND-7) | folds the day's photos/updates/requests/flags into the job's file + registers | the above, storage |
+| 🟠 **P2** | **Project email/doc → SM routing** (with Peter) | classify project mail/docs by job → route to the **responsible SM** (not just Minda), into their feed | Peter (inbox AI), project→SM map |
 | 🟡 **P3** | **Progress vs programme** | compare site reality to the Last-Planner programme → slip/ahead flags | the record, the programme |
 | 🟡 **P3** | **Predictive flags / forecasting** | forecast completion date, material shortfalls, overrun warnings — **grounded (cites evidence), human-gated** | the record, progress + cost + materials data |
 | 🟡 **P3** | **Cross-project lessons KB** | every job's lessons feed a store → surfaced at the right stage of the next job (compounding) | the record, RAG |
@@ -187,6 +211,8 @@ _Extends the AI-machine build list with the construction angle._
 | 🟡 **P3** | **Portfolio dashboard** (Minda) | all jobs worst-first (RAG/progress/cost/escalations) + the "needs Minda" queue + trends | the record across jobs, routing |
 | 🔵 **P4** | **Client progress-update generator** | curated plain-English update + photos/time-lapse per project — **drafted, human-approved before sending** (§3 + consent) | the record, Helen, consent sign-off |
 | 🟡 **P3** | **Estate/project RAG** | ask the drawings/RAMS/specs, cited | RAG, NAS |
+| 🟡 **P3** | **Per-SM assistant** (ask-your-jobs) | each SM asks about their jobs, drafts updates/requests, gets reminders — scoped to their jobs | RAG, the record, routing |
+| 🟡 **P3** | **Good-practice / standardisation engine** | surface "how the best jobs did this" at the right moment; standardise + share across SMs | cross-project lessons KB |
 | 🟡 **P3** | **RAMS + compliance hooks** | RAMS issue/sign (DocuSeal) + competence/expiry tracking | DocuSeal, Sarah |
 | 🔵 **P4** | **Handover pack assembler** | gather as-builts, O&M, sign-offs, photo record into the pack | the full record |
 | 🔵 **P4** | **Time-lapse / progress video** | assemble fixed-camera stills into a progress/marketing time-lapse | site cameras |
