@@ -1,0 +1,82 @@
+%% Fishbone estate network + compute + backup map — 2026-10-28 (Eugene, guide-only, §3).
+%% Target architecture with current reality noted. IPs from Infra-Inventory; verify at build.
+flowchart TB
+  classDef live fill:#e6f4ea,stroke:#1e7e34,color:#14532d;
+  classDef up fill:#fff4e5,stroke:#c77700,color:#7a4b00;
+  classDef plan fill:#e7f0ff,stroke:#2b6cb0,color:#1a365d,stroke-dasharray:5 4;
+  classDef net fill:#eef1f4,stroke:#6c757d,color:#212529;
+  classDef bk fill:#f3e8ff,stroke:#7e22ce,color:#4a1072;
+
+  subgraph CLOUD["Internet / Overlay"]
+    WAVE["Wavenet FTTB — HQ primary WAN"]:::net
+    STAR["Starlink — HQ backup WAN"]:::net
+    BTP["Personal BT — Beverley WAN"]:::net
+    BTB["BT Business @ Beverley — backhaul to HQ vlan4<br/>ENDING 27 Oct (OI-24)"]:::net
+    TS["Tailscale overlay — remote admin, split-tunnel"]:::live
+    OFF["Encrypted offline copy — cloud / USB (the -1)<br/>PLANNED"]:::plan
+  end
+
+  subgraph HQ["Fishbone HQ, Wallsend — core site"]
+    HASA["Cisco ASA 5550 x2 — active/standby HA"]:::live
+    HSW["Catalyst 3850 x2, stacked — core .4<br/>VLANs 10 mgmt / 11 / 13 phones / 20 wifi / CCTV"]:::live
+    GEN9["DL380 Gen9 — THE BRAIN<br/>2x E5-2695v4 - 256GB (Sat) - 2x P40 48GB (Sat)<br/>Proxmox .10 - iLO4 .50"]:::up
+    GEN10["DL380 Gen10 — STORAGE SPINE<br/>ZFS + primary PBS (append-only) + PBX + 10G<br/>Copy 1 - PLANNED (Fri order)"]:::plan
+    R710["Dell R710 — 3rd BACKUP COPY<br/>pull + Wake-on-LAN (near-air-gapped)<br/>pve-nas .20 - PBS :8007 - iDRAC .21"]:::live
+    SHELF["NetApp DS2246 — 24-bay SAS shelf"]:::live
+    PBX["FusionPBX VM105 — 10.224.13.9<br/>phones both sites - on Gen9 now, moves to Gen10"]:::up
+    HWIFI["UniFi WiFi x3 — FSG0218 / Fishbone"]:::live
+    CCTV["Hikvision NVR + 16 cams — isolated VLAN"]:::live
+    HUPS["2x APC UPS 2200 — whole rack"]:::live
+  end
+
+  subgraph BEV["Beverley Place — 2nd site / failover (Minda's home)"]
+    BASA["Cisco ASA 5550 — single"]:::live
+    BSW["Catalyst 3850 home-sw — 10.224.110.4<br/>VLANs 10 / 11 / 110 / 111"]:::live
+    BGEN10["DL380 Gen10 — FAILOVER BRAIN + REPLICA<br/>SSD storage + 2x P40 (1 now, 1 later)<br/>Copy 2 off-site - PLANNED"]:::plan
+    LENOVO["Lenovo mini-PC — Proxmox 10.224.111.199"]:::live
+    CK["UniFi Cloud Key Gen2 — 10.224.110.5<br/>WiFi controller (both sites)"]:::live
+    BUPS["APC UPS"]:::live
+  end
+
+  %% WAN
+  WAVE --> HASA
+  STAR --> HASA
+  BTP --> BASA
+  BTB -. backhaul .-> HSW
+  TS -. admin .-> HSW
+  TS -. admin .-> BSW
+
+  %% HQ internal
+  HASA --- HSW
+  HSW --- GEN9
+  HSW --- GEN10
+  HSW --- R710
+  HSW --- HWIFI
+  HSW --- CCTV
+  GEN9 -. hosts PBX now .- PBX
+  GEN10 -. hosts PBX later .- PBX
+  R710 === SHELF
+  HUPS -. UPS .- HSW
+
+  %% Beverley internal
+  BASA --- BSW
+  BSW --- BGEN10
+  BSW --- LENOVO
+  BSW --- CK
+  BUPS -. UPS .- BSW
+
+  %% inter-site
+  HSW == airFiber AF-5 583m, VLANs 10/11 bridged ==> BSW
+  HASA -. IPsec VPN fallback .- BASA
+
+  %% backup flows — 3-2-1(-1), all PULL so no source can delete a copy
+  GEN10 -. pulled by Beverley, off-site .-> BGEN10
+  GEN10 -. pulled by R710, local air-gap .-> R710
+  GEN10 -. encrypted offline .-> OFF
+
+  subgraph LEGEND["Legend"]
+    L1["live / in place"]:::live
+    L2["upgrading Saturday"]:::up
+    L3["planned / to buy-build"]:::plan
+    L4["backup pull flow (dotted)"]:::bk
+  end

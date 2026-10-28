@@ -5,6 +5,16 @@ Touches **production** (the PBX serves both sites' phones), so this is **guide-o
 nothing moved until decided, planned into a maintenance window, and proven with the old copy still intact.
 §3 unchanged._
 
+> **⚠️ SUPERSEDED on the PBX destination (updated 2026-10-28).** This note's original idea was "PBX → the
+> R710." Later decisions evolved the plan and this is **no longer where the PBX goes:** (1) the **Gen10**
+> became the **storage + PBS + production-PBX spine** (`gen10-r710-replacement.md`); (2) the **R710** is now
+> the **near-air-gapped 3rd backup copy** — pull + powered-off between pulls (OI-26) — which **can't host the
+> live phones.** So the **PBX moves to the always-on Gen10 spine** (not the R710), the **Gen9 becomes the
+> pure brain**, and the **R710 = Copy 3**. The *reasoning* below (removing the PBX frees the Gen9 for
+> flat-out models + free power-cycles) still stands — only the PBX's new home changed from R710 → Gen10.
+> Until the Gen10 is up, the PBX stays on the Gen9 (hence Saturday's power-down window is still a phones
+> window). Left as-is below for the honest record.
+
 ## The idea (Minda, overnight)
 Move **FusionPBX (VM 105)** off the **HP DL380 Gen9** onto the **Dell R710 (`pve-nas`)**, and leave the
 **DL380 as a pure AI brain** (P40s + the 256 GB RAM + models).
