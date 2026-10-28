@@ -58,7 +58,7 @@ items this vision adds._
 | 🔴 **P1** | **nothing** — phone cameras + the site chat | the ingest pilot runs on what people already carry | £0 |
 | 🟠 **P2** | **NAS capacity headroom for photos/video** | site photo/video volume is large — size the pool for it | in the storage BOM |
 | 🟡 **P3** | **Fixed site camera(s)** per active job — **4G/solar or PoE+NVR** | progress monitoring + time-lapse + security without site infrastructure | ~£150–500 /site |
-| 🟡 **P3** | **Site connectivity** — 4G/5G router (or Starlink) per active site | upload photos/video + run the cameras + site chat | ~£50–300 /site |
+| ✅ **have** | **Site connectivity** — 4G router + SIM, **large monthly data bundle already owned** (Minda, 2026-10-28) | upload photos/video + run the cameras + site chat | **£0** (reuse) — extra router only if several sites run at once |
 | 🟡 **P3** | **Rugged tablet/phone** for the site team (optional) | capture + Anna access on site | ~£150–400 |
 | 🔵 **P4** | **PTZ / time-lapse camera** (optional) | wide coverage + a proper progress/marketing time-lapse | ~£200–600 |
 | 🔵 **P4** | **Edge box at a big site** (optional) | local pre-processing if upload is a bottleneck | ~£150–300 |
