@@ -15,7 +15,7 @@
 | ✓ | Qty | Item | Part / spec | ~£ | Why / blocks |
 |---|---|---|---|---|---|
 | ⬜ | 1 | **GPU baffle / shroud** (Gen9 brain) | **HPE 719082-B21** (Graphics Enablement Kit — baffle retention + high-perf heatsinks + cables) | 30–80 | P40s are passively cooled → **without it, no GPU load test**. The HPE-correct part (no standalone baffle); also covers the GPU heatsinks. |
-| ⬜ | 1 | **Internal HBA** (R710) | **LSI 9211-8i IT mode** (or Dell H200/H310 **pre-flashed IT**), internal SFF-8087 | 15–25 | The R710's PERC 6/i has no IT mode → needed to put the **8 internal bays** into ZFS. Buy **pre-flashed** (no flashing on the day). |
+| ⬜ | 1 | **Internal HBA** (R710) | **LSI 9211-8i IT mode** (⚠️ **8i = TWO SFF-8087 = all 8 bays; NOT the 4i** which is one port / 4 drives) — or Dell H200/H310 **pre-flashed IT** | 20–35 | The R710's PERC 6/i has no IT mode → needed to put the **8 internal bays** into ZFS. Buy **pre-flashed**; reuse the R710's 2 existing SFF-8087 cables (move from the PERC). |
 
 _P1 subtotal ≈ **£25–55**. Without these, Saturday still works (shelf pool + mechanical GPU fit) — you just can't load-test the GPUs or use the 8 internal bays yet._
 
