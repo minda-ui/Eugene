@@ -25,32 +25,21 @@
 ---
 
 ## PART 1 — R710 storage pool (zero phone risk) — do first
-**32 drives, all in hand:** 24 in the DS2246 shelf + 8 in the R710 internal bays. Full detail in
+**SHELF-ONLY build (DECIDED, Minda 2026-10-29):** the 24 DS2246 shelf drives on the CP400e (both in hand).
+**No internal HBA** — the R710's 8 internal bays are **not** used for data this build; **those drives are kept
+for the Gen10** (which has its own E208i-a HBA). So nothing to buy for Saturday's storage. Full detail in
 `Runbook-RND3-Estate-Storage-Build.md`. Order that matters:
-- [ ] **Internal HBA for the 8 internal bays (DECIDED — adding it).** The R710 has a **PERC 6/i (RAID-only,
-      no IT mode)**, so the internal bays need a **cheap internal HBA to join ZFS cleanly.**
-      - **Buy it pre-flashed to IT mode** — "**LSI 9211-8i IT mode**" (or a Dell H200/H310 sold "IT-mode
-        flashed"), ~£15–25, next-day eBay UK, **internal SFF-8087** ports. Pre-flashed = **no flashing on
-        the day**, just fit it in a riser and move the internal backplane SAS cable to it. **This is the
-        easy, safe path — get the pre-flashed one.**
-      - **Only if it arrives as a RAID card** (H200/H310/9240 in IR firmware): it must be crossflashed to
-        **9211-8i IT** before use. **Don't run a generic flash blind** — at the box, read the current
-        firmware (`sas2flash -list`), **back up the SAS address first**, then Eugene gives the exact
-        per-card `megarec`/`sas2flash` sequence for *that* card (a wrong .bin can brick it). Single-disk
-        RAID-0 VDs are a last resort only — **not recommended** (hides SMART from ZFS).
-      - **If the HBA isn't here by Saturday:** build the **shelf only** (already ~3× the need) and add the
-        internal 8 once it lands — no rework.
 1. [ ] **Fit the CP400e HBA → boot → confirm IT mode FIRST:** `sas3flash -list`. If it reports **IR/RAID**,
        crossflash to **9300-8e IT** firmware *before* building any pool. This is the check that can stop the
        day — do it before cabling the shelf.
 2. [ ] **Cable SFF-8644 (HBA) → QSFP/SFF-8436 (DS2246 IOM A).** (Second cable to IOM B later for multipath.)
-3. [ ] **Boot the storage OS → confirm all bays enumerate** (24 shelf + 8 internal). Drives are Seagate
-       ST900MM0006 **512n**, so **skip the `sg_format` 520→512 step** — not needed.
-4. [ ] **Build the pools (two, split by controller — never mix shelf + internal in one vdev):**
-       - **`tank` (shelf, CP400e):** **4× 6-wide RAIDZ2 ≈ 11.6 TB** — bulk store.
-       - **Boot:** 2× internal mirror (`rpool`) — already built.
-       - **Internal data (new HBA):** remaining 6 → **1× 6-wide RAIDZ2 ≈ 2.9 TB** (or all 8 ≈ 4.3 TB if boot
-         moves to an SSD). **Total ≈ 14.5 TB.** Enable **ZFS snapshots** (hourly/daily/weekly) on both.
+3. [ ] **Boot the storage OS → confirm all 24 shelf bays enumerate.** Drives are Seagate ST900MM0006 **512n**,
+       so **skip the `sg_format` 520→512 step** — not needed.
+4. [ ] **Build the pool:**
+       - **`tank` (shelf, CP400e):** **4× 6-wide RAIDZ2 ≈ 11.6 TB** — the whole store (~3× the 3-yr need).
+       - **Boot:** 2× internal mirror (`rpool`) — already built (stays on the PERC as-is).
+       - Enable **ZFS snapshots** (hourly/daily/weekly). _(The other 6 internal bays stay empty — those
+         drives go to the Gen10.)_
 5. [ ] **SMB/NFS share → map a test drive** from an office PC, write a test file.
 6. [ ] **Stand up PBS** on the box — and wire it **append-only from the start** (don't retrofit OI-26):
        - PBS token for the HQ Proxmox = **`DatastoreBackup` only** (no Prune/Modify).
