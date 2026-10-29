@@ -15,7 +15,7 @@
 | ✓ | Qty | Item | Part / spec | ~£ | Why / blocks |
 |---|---|---|---|---|---|
 | ⬜ | 1 | **GPU baffle / shroud** (Gen9 brain) | **HPE 719082-B21** (Graphics Enablement Kit — baffle retention + high-perf heatsinks + cables) | 30–80 | P40s are passively cooled → **without it, no GPU load test**. The HPE-correct part (no standalone baffle); also covers the GPU heatsinks. |
-| ⬜ | 1 | **Internal HBA** (R710) | **LSI 9211-8i IT mode** (⚠️ **8i = TWO SFF-8087 = all 8 bays; NOT the 4i** which is one port / 4 drives) — or Dell H200/H310 **pre-flashed IT** | 20–35 | The R710's PERC 6/i has no IT mode → needed to put the **8 internal bays** into ZFS. Buy **pre-flashed**; reuse the R710's 2 existing SFF-8087 cables (move from the PERC). |
+| ⬜ | 1 | **Internal HBA** (R710) | **LSI 9211-8i IT mode** (⚠️ **8i = TWO ports = all 8 bays; NOT the 4i**). **Native SFF-8087 = reuse the R710's existing cables (zero extra).** _Alt: a **9300-8i** (SAS3008, IT) works too but is **SFF-8643** → also buy **2× SFF-8643→SFF-8087 cables** (~£10–15 ea); its 12G is wasted on 6G drives._ | 20–35 (+cables if 9300) | PERC 6/i has no IT mode → needed to get the **8 internal bays** into ZFS. Buy **pre-flashed**. **Never buy the card without matching cables to the SFF-8087 backplane.** |
 
 _P1 subtotal ≈ **£25–55**. Without these, Saturday still works (shelf pool + mechanical GPU fit) — you just can't load-test the GPUs or use the 8 internal bays yet._
 
