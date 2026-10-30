@@ -220,17 +220,20 @@ call**, starter in `construction-sm-authority-matrix.md`); each SM's **channel**
 stay **Anna's**; this routing/authority layer is **Minda's org decision**.
 
 ### Project email → SM routing (Peter's design, 2026-10-29)
+**Label naming (Minda, 2026-10-30):** job labels use the **FC job number** (e.g. `FC2614`), not an `FG/Job/`
+wrapper, and SM labels are `SM/<name>`. `FG/` is the shared estate mail-label standard (Peter's Gmail,
+Victoria's convention), so this is applied **by Peter/Victoria inside that standard**, not rewired from here.
 Peter's inbox triage already does part of this: an **`FC####` job number** in a thread routes it to Anna, and
 he **never guesses**. To route to the **responsible SM**:
 - **Classify by job** on signals, in reliability order: (1) our job number `FC####` · (2) the client's own
   job code (the Register already records some in Notes) · (3) the thread (a reply in a job's thread) — these
   **automatically**; (4) sender + site or (5) site/address **only when exactly one live job at Set-up / On
-  site / Handover / Snagging fits**, else **not tagged** (`FG/Job/unclear`). Needs a **new label family
-  `FG/Job/<FC####>`** — a §2e grant for Peter.
+  site / Handover / Snagging fits**, else **not tagged** (`FC/unclear`). Needs a **new label family keyed by
+  the FC job number** — a §2e grant for Peter.
 - **Find the SM:** the Project Register has **no site-manager column today** — the gap. Add a **"Site manager"
   picklist** (Sebastian / Nev / Dainius / Andrejus / Minda), **Anna fills it at Set-up**, Peter reads it live
   each pass (never from memory). *(This is the same project→SM map the multi-SM model above needs.)*
-- **Mechanism (Peter can label + draft, cannot send/forward)** — **phase 1** = label `FG/SM/<name>` + a
+- **Mechanism (Peter can label + draft, cannot send/forward)** — **phase 1** = label `SM/<name>` + a
   **daily digest draft per SM** in ops@ (job · sender · subject · date · one-line summary · thread link),
   released by a human; **phase 2** (optional) = each SM gets **read access to ops@ filtered to their label**
   (Eugene builds, Minda's access decision). **Not** a Hub row per email, **not** auto-forwarding.
@@ -338,8 +341,9 @@ marketing too, not just monitoring. Her inputs:
   Peloton, Sofa.com, Sushi Bar) — **which are live is Minda/Victoria's to say**. Cadence: one finished
   time-lapse per project at handover; stills at start/mid/end.
 - **Where clips land:** `Marketing-Footage/<project>/` in the Collaboration Space (raw stills · cleared clips
-  · a one-line clearance note per project) — **Eugene/Minda create it + set write access**. Helen holds no
-  camera links or credentials.
+  · a one-line clearance note per project) — **created 2026-10-30** (folder id `1KnnqHqDkGyby4dThbvGV2tkFJ8E3FZGD`,
+  pilot `FC2614/` id `1zyy9Cjk0tA9dfKAqfQuxU9c_zUo_qQjV`); **write-access is Minda's to set** (sharing =
+  guide-only, §3). Helen holds no camera links or credentials.
 
 ⚠️ **Marketing use needs a different consent basis** than internal monitoring — **client permission** for the
 site + people's consent to appear + **release of anything public** — **Minda + Victoria's call** (with the
@@ -363,16 +367,24 @@ duties. Local-only processing (nothing leaves the estate) is the privacy-friendl
   daily digest drafts · attachments via Anna's Raw.
 - **Helen** (AWT-1038) — the marketing capture spec + the `Marketing-Footage/` folder.
 
-**What Minda must now decide (nobody below her can):**
-1. **Pilot job** (Anna: the next job starting after privacy is settled) + confirm phone+chat for the pilot.
-2. **Privacy / lawful basis + DPIA + site notice + retention** (with Victoria, AWT-1036) — **the build stays
-   parked until this is settled.**
-3. **Cost-flag + request rule** (Rachel's proposal — it's a spending control) + the **one QB job-coding rule**.
-4. **Peter's grants:** the `FG/Job/` + `FG/SM/` label families (§2e extension) + the digest-vs-filtered-access
-   mechanism + whether attachments stay with Anna (Peter's rec) or Peter gets a filing grant.
-5. **SM authority £ limits** per SM (`construction-sm-authority-matrix.md`) + each SM's channel.
-6. The **Site-manager column** in the Project Register + the **`Marketing-Footage/`** folder (Eugene builds
-   once Minda says go).
+**Decided by Minda (2026-10-30):**
+- **Pilot = FC2614** (Macdonald) — **phone + chat, no fixed cameras** for the pilot (Anna). *The capture build
+  still waits on privacy, below.*
+- **SM authority = £500 start** for every SM (`construction-sm-authority-matrix.md`); tune per person/job later.
+- **Job labels use the FC job number** (e.g. `FC2614`, `SM/<name>`), not an `FG/Job/` wrapper — applied by
+  **Peter/Victoria** inside the shared mail-label standard.
+- **Created (2026-10-30):** the **"Site manager" column** in the Project Register (picklist Sebastian/Nev/
+  Dainius/Andrejus/Minda, id `4239425787266948`; **Anna** fills it from Set-up) + **`Marketing-Footage/`** in
+  the Collaboration Space (id `1KnnqHqDkGyby4dThbvGV2tkFJ8E3FZGD`) with an **`FC2614/`** pilot subfolder (id
+  `1zyy9Cjk0tA9dfKAqfQuxU9c_zUo_qQjV`). *(Folder write-access = Minda; sharing is guide-only, §3.)*
+
+**Still open (Minda, several with Victoria):**
+- **Privacy / lawful basis + DPIA + site notice + retention** (with Victoria, AWT-1036) — **the capture build
+  stays parked until this is settled.**
+- **Cost-flag + request rule** (Rachel's proposal — it's a spending control) + the **one QB job-coding rule**.
+- **Peter's remaining grants:** the FC-keyed label families (§2e extension) + the digest-vs-filtered-access
+  mechanism + whether attachments stay with Anna (his rec) or Peter gets a filing grant.
+- Each SM's **channel** (WhatsApp / Telegram / email).
 
 **Still-missing data an owner must create** (flagged, not design blockers): a **commitments list** (Anna/SM),
 **plan phasing + % complete** source (Anna), **payroll cost per job** allocation (cf. AWT-1037).

@@ -1,9 +1,10 @@
-# Site-manager authority matrix — STARTER DRAFT (Minda to set the limits)
+# Site-manager authority matrix — starting limits set by Minda (2026-10-30)
 
-> **Eugene, 2026-10-28 (guide-only, §3).** A starting template for who can decide what on a project, so the
+> **Eugene, 2026-10-28; limits set 2026-10-30 (guide-only, §3).** Who can decide what on a project, so the
 > system routes approvals to the right person and escalates the rest to Minda (RND-22, the multi-SM skeleton).
-> **These are DRAFT placeholders — Minda sets the real limits** (it's an org/authority call, hers alone). The
-> *types* of decision (Table A) are the same for every SM; only the **£ limits** (Table B) vary by person.
+> **Minda set the starting limit at £500 per SM (2026-10-30)** — the real org/authority call, hers alone;
+> raise/lower per person or per job as experience shows. The *types* of decision (Table A) are the same for
+> every SM; only the **£ limits** (Table B) vary by person.
 > SMs = **Minda, Sebastian, Nev, Dainius, Andrejus.** This feeds the "SM profiles + authority matrix" build
 > and the per-SM routing/escalation. Reuses the Project-A gate / own-authority pattern + the Approvals Desk.
 
@@ -30,17 +31,18 @@
 | **Payments** | — | **all payments = Minda / Rachel** |
 | **Anything unusual / "not sure"** | — | **always escalate** |
 
-## Table B — per-SM limits (⚠️ DRAFT placeholders — Minda to set the real numbers)
+## Table B — per-SM limits (Minda set the £500 start on 2026-10-30)
 | Site manager | Spend / order limit | Variation limit | Channel | Notes |
 |---|---|---|---|---|
 | **Minda** | full / no limit | full | (owner) | portfolio owner; sets everyone's limits; all escalations land here |
-| **Sebastian** | £1,000 *(draft)* | £500 *(draft)* | ? | set to taste |
-| **Nev** | £1,000 *(draft)* | £500 *(draft)* | ? | set to taste |
-| **Dainius** | £1,000 *(draft)* | £500 *(draft)* | ? | set to taste |
-| **Andrejus** | £1,000 *(draft)* | £500 *(draft)* | ? | set to taste |
+| **Sebastian** | **£500** | **£500** | TBC | starting limit (Minda 2026-10-30) |
+| **Nev** | **£500** | **£500** | TBC | starting limit (Minda 2026-10-30) |
+| **Dainius** | **£500** | **£500** | TBC | starting limit (Minda 2026-10-30) |
+| **Andrejus** | **£500** | **£500** | TBC | starting limit (Minda 2026-10-30) |
 
-*(The £1,000 / £500 are conservative starting figures to react to — raise/lower per person; experienced SMs
-often get higher. "Channel" = how they get briefs/approvals: WhatsApp / Telegram / email.)*
+*(£500 is the agreed conservative **start** for every SM — raise/lower per person or per job as experience
+shows (a big/complex job can carry a higher limit for that job, Minda's call). "Channel" = how they get
+briefs/approvals: WhatsApp / Telegram / email — still to pick per SM.)*
 
 ## How the system uses this
 - **Routing:** each job's brief/digest/alerts go to its **responsible SM** (Project Register); Minda gets the
@@ -51,9 +53,9 @@ often get higher. "Channel" = how they get briefs/approvals: WhatsApp / Telegram
   Minda's brief adds the escalated ones from across all jobs.
 
 ## To finalise (Minda)
-1. Set the **£ limits per SM** (Table B) — the one real decision.
+1. ✅ **£ limits per SM set** — £500 start for every SM (2026-10-30). Tune per person/job later.
 2. Confirm **Table A's split** matches how Fishbone actually delegates (move any row either way).
-3. Pick each SM's **channel**.
+3. Pick each SM's **channel** (WhatsApp / Telegram / email) — still TBC.
 4. Where it lives: alongside the **Project Register / Authority Register** so it's the live source the routing
    reads. (Eugene builds the routing to whatever you set.)
 

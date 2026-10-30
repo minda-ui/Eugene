@@ -69,8 +69,42 @@ Guide-only throughout. Design/record work in Eugene's own KB; no other KB edited
 from Eugene's own Raw, where the owners filed them under §1); no live system touched; no secret held. The
 build itself stays parked until Minda settles the decisions above — privacy (AWT-1036) first.
 
+## Minda's decisions on the fold-in list (same session, 2026-10-30)
+Minda answered the closing decision list:
+1. **Pilot = FC2614** (Macdonald) — not FC2611 (whose programme ends 29 Oct, Anna's caution). Phone + chat,
+   no fixed cameras for the pilot.
+4. **Label naming:** job labels should key off the **FC job number** (e.g. `FC2614`, `SM/<name>`), not Peter's
+   `FG/Job/` wrapper. Recorded as her steer; flagged that `FG/` is the shared estate mail-label standard
+   (Peter's Gmail + Victoria's convention), so the change is applied **by Peter/Victoria inside that standard**
+   — Eugene does not rewire Peter's label scheme, and no labels are built before privacy is settled anyway.
+5. **SM authority = £500 start** for every SM.
+6. **Create** the Register Site-manager column + the Marketing-Footage folder.
+
+## What was created (structure only; guide-only §3)
+- **Project Register `5250912102778756`** — added a **"Site manager" PICKLIST** column (options Sebastian /
+  Nev / Dainius / Andrejus / Minda) at index 27, **col id `4239425787266948`**. It's the responsible *human*
+  SM (distinct from "Lead assistant", the AI); **Anna fills/keeps it from Set-up**, Peter reads it live to
+  route project mail. Structure only — Eugene built the sibling delivery registers (ledger 115), so this is
+  build-work, not a system-of-record data write; no row data touched.
+- **Collaboration Space** — created **`Marketing-Footage/`** (id `1KnnqHqDkGyby4dThbvGV2tkFJ8E3FZGD`, parent
+  `1YNj5BIpKVzcmI4U1DRkgu7kcnSDizGEi`) with a pilot **`FC2614/`** subfolder (id
+  `1zyy9Cjk0tA9dfKAqfQuxU9c_zUo_qQjV`). Empty structure only; **write-access / sharing left to Minda**
+  (sharing is guide-only, §3).
+
+## Docs updated
+- `construction-sm-authority-matrix.md` — Table B set to **£500 start** for every SM (spend + variation),
+  title/notes de-drafted, "To finalise" #1 ticked; channels still TBC.
+- `construction-project-vision.md` — pilot = **FC2614**; Peter routing subsection re-labelled to the **FC**
+  job-number scheme; closing section split into **Decided (2026-10-30)** vs **Still open**, with the created
+  column + folder ids.
+
+## Still parked / open after today
+- **Privacy / DPIA / notice / retention** (Minda + Victoria, AWT-1036) — the capture build stays parked.
+- **Cost-flag + request rule** + the **one QB job-coding rule** (Rachel's gaps).
+- **Peter's label grants** (§2e, FC-keyed) + digest-vs-filtered-access + attachments decision.
+- Each SM's **channel**; the Marketing-Footage **write-access** (Minda sets sharing).
+
 ## Next
-- Minda's decisions (the closing section).
-- Commit + push `claude/lucid-mayer-nsoili`; Drive-sync the vision doc + this log (byte-verified).
-- When Minda says go: build the Register Site-manager column + the Marketing-Footage folder; then the P1
-  construction builds once the brain hardware (Saturday) is in.
+- Commit + push `claude/lucid-mayer-nsoili`; Drive-sync the two R&D docs + this log + ledger + current-state
+  (byte-verified).
+- When Minda settles privacy (AWT-1036): unpark the FC2614 capture pilot build.
