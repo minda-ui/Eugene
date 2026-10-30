@@ -1,5 +1,14 @@
 # Runbook — HQ build day (Saturday): storage pool + Gen9 brain, in the safe order
 
+> **✅ EXECUTED 2026-10-30 (guided live).** PART 1 (storage pool `tank`, 12.9 TB) ✅ · PART 2 (all 6 Gen9 VMs
+> backed up + local snapshots) ✅ · PART 3/4 (256 GB + 2× P40 + PSU; phones verified) ✅. **Deviations:**
+> drives were NetApp **X423, 512n** (no reformat); the **10 G NIC was KEPT in the brain** (both P40s fit —
+> decision reversed); fitting the P40s **renamed the 10 G NIC → broke the OVS bond** (fixed, reboot-proven,
+> OI-28); the R710 **PERC 6/i threw a transient fault** (cleared by cold boot — watch, no recurrence yet).
+> **Still open:** pve-nas network-isolated (cable in wrong port, OI-27, Minda finishing); **PART 5 DocuSeal
+> not started** (needs the Workspace SMTP relay first). Full record:
+> `change-log/change-log-2026-10-30-hq-buildday-storage-brain-live.md`.
+
 > **Eugene, 2026-10-28 (guide-only, §3).** One checklist for Saturday's HQ build. **Minda does the
 > hands-on; Eugene guides + verifies; holds no credential.** Two builds in one day, deliberately ordered
 > so the **zero-risk** work (R710 storage) comes first and its PBS then **protects** the **phones-risk**
