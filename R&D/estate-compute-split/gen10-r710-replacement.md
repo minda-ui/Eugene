@@ -56,7 +56,12 @@ The 200 GB @ £69.86 is also pricey. **Source SSDs elsewhere** (or skip for now)
   is *supported* in a Gen10 — so buy the right Gen10 PSU.** Keep the **1400 W `720620-B21` in the Gen9
   brain** (for the P40s); the old Gen9 500 W become spares. **Also check the Techbuyer CTO — the chassis may
   already include PSUs.**
-- **Rail kit**, and a **10 G switch port** (3850 TenGig uplink) or direct link if you move the 10 G NIC here.
+- **Rail kit.**
+- **Networking — buy the Gen10 its OWN 10 G NIC (AS-BUILT correction, 2026-10-30).** The earlier plan was to
+  move the brain's 562SFP+ here; at the HQ build **both P40s fit with the 10 G left in the brain**, so the
+  **brain kept its 2× 10 G** (3850 **Po4**, cross-stack LACP) and **nothing moved.** The 3850 stack's only
+  2× 10 G are now the brain's, so the Gen10 needs its own 10 G card (+ a 10 G port freed/added on the stack),
+  or it runs on 1 G until then. (Reverses the former "inherit the brain's 10 G" note + PR #30.)
 
 ## ⚠️ Compatibility note — your recent buys are Gen9, they stay with the Gen9
 - The **DDR4-2666 RAM** (840758-091) and the **1400 W Common-Slot PSUs** you just bought are **Gen9** parts

@@ -45,19 +45,19 @@ The split isn't just about *workload* — it fixes the DL380's **slot contention
 "card-heavy" (P840 + stand-up NICs), and the one open check on the 2× P40 fit is "are the GPU-riser slots
 clear of the P840/NICs?" (`R&D/local-models/parts-list.md`). As a **pure brain** the DL380 needs far less
 networking, so cards can move **to where they belong**:
-- **10G NIC (562SFP+, 727055-B21)** — a stand-up PCIe card → **move to the R710.** The R710 is now the
-  storage+backup+phones box, where **10G actually earns its keep** (PBS/VM backups, storage throughput).
-  Removing it from the DL380 **frees a riser slot for a P40.** ✅
-- **331T (4× 1GbE, stand-up)** — likely surplus on the brain too → remove/relocate, freeing more slot room.
-- **Embedded 331i LOM + 366FLR (FlexLOM)** — these **don't use riser slots**, and the brain's networking
-  (tailnet/LAN; prompts+answers are tiny) is fine on the **1G LOM**. So the brain keeps networking with
-  **zero riser-slot cost**.
-- **P840 stays** (the DL380's own OS/ZFS + model disks sit on it) but **relocates** to a slot the P40s
-  don't block (slot 4/6 — already the parts-list plan).
-**Net: PBX off + 10G (and 331T) out + P840 relocated = the GPU-riser slots clear → 2× P40 fit resolved,**
-and the 10G lands where it's useful. Two problems, one move.
-_Check at fit-time: which slots the 562SFP+/331T currently occupy, that the R710 has a free slot + a 10G
-switch port (3850 TenGig uplink) or a direct DL380↔R710 10G link to actually use the card at 10G._
+- **10G NIC (562SFP+, 727055-B21) — STAYS in the brain. AS-BUILT 2026-10-30:** at the build, **both P40s fit
+  with the 10G card left in place** — **no slot contention** after all, so no need to move it. The brain
+  **keeps its 2× 10G** (cross-stack LACP, HQ 3850 **Po4 "SERVER-DL380"**) — better for it (model pulls,
+  host/VM traffic). ~~Earlier plan: move it to the storage box to free a GPU slot~~ — unnecessary,
+  **reversed** (this is the correction to the former "move to R710/Gen10" plan + PR #30).
+- **Consequence:** the **Gen10 storage spine needs its OWN 10G NIC** later — the 3850 stack's only 2× 10G
+  ports are now the brain's.
+- **331i LOM + 366FLR (FlexLOM) + 331T** — spare on the brain; not needed (the 10G carries it).
+- **P840 stays** (the DL380's own OS/ZFS + model disks), in a slot clear of the P40s.
+**Net (as built): PBX off + 2× P40 + 256 GB + PSU in, 10G kept — the riser slots were clear enough for both
+P40s alongside the 10G. One opening did it all.**
+_⚠️ Gotcha hit at the build: adding the P40s **renamed the 10G NIC** (ens3f*→ens6f*), which broke the OVS
+bond — see `change-log/change-log-2026-10-30-hq-buildday-storage-brain-live.md` + OI-28._
 
 ## The wrinkle (my honest flag)
 **The R710 is the oldest box, and this makes it production-critical.** Today the phones run on the Gen9
