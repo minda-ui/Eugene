@@ -104,7 +104,23 @@ Minda answered the closing decision list:
 - **Peter's label grants** (§2e, FC-keyed) + digest-vs-filtered-access + attachments decision.
 - Each SM's **channel**; the Marketing-Footage **write-access** (Minda sets sharing).
 
+## Saturday: finish DocuSeal (Minda's add, 2026-10-30)
+Minda: "one more thing for Saturday — finish with DocuSeal." The SMTP + wire-Anna steps were already written
+and READY (`Runbook-DocuSeal-SMTP-and-Wire-Anna.md`, OI-21 a+c, since 2026-10-12); added them to the Saturday
+day-plan as **PART 5** with the build-day ordering + two Saturday-specific risks:
+- **DocuSeal is VM 106 on the Gen9** being opened Saturday → it's **down during the PART-3 power window**. So
+  PART 2's backup now names **VM 106** explicitly, and PART 5 runs **while DocuSeal is up** — ideally in the
+  morning alongside PART 1 (storage, zero phone risk), or else after PART 4 restores the Gen9.
+- **The Workspace SMTP-relay admin change can take up to ~24h to propagate** → flagged to do the relay config
+  + app password (Part A1/A2) **the day before**, so Saturday is just point-DocuSeal-at-relay → sign test →
+  wire Anna.
+PART 5 steps: Workspace relay (Fri) → DocuSeal SMTP + Send-test → full internal sign test on our box (tagged
+Sample-RAMS .docx → signed PDF + audit) → wire Anna (API token + env; Anna self-wires per AWT-0589) → verify
+from an Anna session → **graduate RND-8 + close OI-21 (a)+(c)**. Secrets Minda-held in 1Password (§3). Ledger
+146.
+
 ## Next
-- Commit + push `claude/lucid-mayer-nsoili`; Drive-sync the two R&D docs + this log + ledger + current-state
-  (byte-verified).
+- Commit + push `claude/lucid-mayer-nsoili`; Drive-sync the R&D docs + the Saturday runbook + this log + ledger
+  + current-state (byte-verified).
 - When Minda settles privacy (AWT-1036): unpark the FC2614 capture pilot build.
+- **Saturday:** storage pool + Gen9 brain + **finish DocuSeal (PART 5)**.
