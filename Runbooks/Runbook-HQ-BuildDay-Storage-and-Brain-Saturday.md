@@ -3,9 +3,11 @@
 > **Eugene, 2026-10-28 (guide-only, §3).** One checklist for Saturday's HQ build. **Minda does the
 > hands-on; Eugene guides + verifies; holds no credential.** Two builds in one day, deliberately ordered
 > so the **zero-risk** work (R710 storage) comes first and its PBS then **protects** the **phones-risk**
-> work (opening the live PBX host). Sources: `R&D/estate-storage/design.md` + `Runbook-RND3-Estate-Storage-Build.md`
-> (storage), `R&D/local-models/parts-list.md` (P40 fit), `R&D/software-foundry/ram-upgrade-spec.md` (RAM),
-> `Runbook-Backup-PullNotPush-Hardening.md` (append-only PBS, OI-26).
+> work (opening the live PBX host) — **plus PART 5, finishing DocuSeal** (SMTP + wire Anna, OI-21), done
+> while DocuSeal is up (it's a VM on this Gen9). Sources: `R&D/estate-storage/design.md` +
+> `Runbook-RND3-Estate-Storage-Build.md` (storage), `R&D/local-models/parts-list.md` (P40 fit),
+> `R&D/software-foundry/ram-upgrade-spec.md` (RAM), `Runbook-Backup-PullNotPush-Hardening.md` (append-only
+> PBS, OI-26), `Runbook-DocuSeal-SMTP-and-Wire-Anna.md` (DocuSeal finish, OI-21 a+c).
 
 ## ⚠️ The one difference that sets the order
 - **R710 storage = separate box, phones untouched → zero risk.** Do it first.
@@ -25,32 +27,21 @@
 ---
 
 ## PART 1 — R710 storage pool (zero phone risk) — do first
-**32 drives, all in hand:** 24 in the DS2246 shelf + 8 in the R710 internal bays. Full detail in
+**SHELF-ONLY build (DECIDED, Minda 2026-10-29):** the 24 DS2246 shelf drives on the CP400e (both in hand).
+**No internal HBA** — the R710's 8 internal bays are **not** used for data this build; **those drives are kept
+for the Gen10** (which has its own E208i-a HBA). So nothing to buy for Saturday's storage. Full detail in
 `Runbook-RND3-Estate-Storage-Build.md`. Order that matters:
-- [ ] **Internal HBA for the 8 internal bays (DECIDED — adding it).** The R710 has a **PERC 6/i (RAID-only,
-      no IT mode)**, so the internal bays need a **cheap internal HBA to join ZFS cleanly.**
-      - **Buy it pre-flashed to IT mode** — "**LSI 9211-8i IT mode**" (or a Dell H200/H310 sold "IT-mode
-        flashed"), ~£15–25, next-day eBay UK, **internal SFF-8087** ports. Pre-flashed = **no flashing on
-        the day**, just fit it in a riser and move the internal backplane SAS cable to it. **This is the
-        easy, safe path — get the pre-flashed one.**
-      - **Only if it arrives as a RAID card** (H200/H310/9240 in IR firmware): it must be crossflashed to
-        **9211-8i IT** before use. **Don't run a generic flash blind** — at the box, read the current
-        firmware (`sas2flash -list`), **back up the SAS address first**, then Eugene gives the exact
-        per-card `megarec`/`sas2flash` sequence for *that* card (a wrong .bin can brick it). Single-disk
-        RAID-0 VDs are a last resort only — **not recommended** (hides SMART from ZFS).
-      - **If the HBA isn't here by Saturday:** build the **shelf only** (already ~3× the need) and add the
-        internal 8 once it lands — no rework.
 1. [ ] **Fit the CP400e HBA → boot → confirm IT mode FIRST:** `sas3flash -list`. If it reports **IR/RAID**,
        crossflash to **9300-8e IT** firmware *before* building any pool. This is the check that can stop the
        day — do it before cabling the shelf.
 2. [ ] **Cable SFF-8644 (HBA) → QSFP/SFF-8436 (DS2246 IOM A).** (Second cable to IOM B later for multipath.)
-3. [ ] **Boot the storage OS → confirm all bays enumerate** (24 shelf + 8 internal). Drives are Seagate
-       ST900MM0006 **512n**, so **skip the `sg_format` 520→512 step** — not needed.
-4. [ ] **Build the pools (two, split by controller — never mix shelf + internal in one vdev):**
-       - **`tank` (shelf, CP400e):** **4× 6-wide RAIDZ2 ≈ 11.6 TB** — bulk store.
-       - **Boot:** 2× internal mirror (`rpool`) — already built.
-       - **Internal data (new HBA):** remaining 6 → **1× 6-wide RAIDZ2 ≈ 2.9 TB** (or all 8 ≈ 4.3 TB if boot
-         moves to an SSD). **Total ≈ 14.5 TB.** Enable **ZFS snapshots** (hourly/daily/weekly) on both.
+3. [ ] **Boot the storage OS → confirm all 24 shelf bays enumerate.** Drives are Seagate ST900MM0006 **512n**,
+       so **skip the `sg_format` 520→512 step** — not needed.
+4. [ ] **Build the pool:**
+       - **`tank` (shelf, CP400e):** **4× 6-wide RAIDZ2 ≈ 11.6 TB** — the whole store (~3× the 3-yr need).
+       - **Boot:** 2× internal mirror (`rpool`) — already built (stays on the PERC as-is).
+       - Enable **ZFS snapshots** (hourly/daily/weekly). _(The other 6 internal bays stay empty — those
+         drives go to the Gen10.)_
 5. [ ] **SMB/NFS share → map a test drive** from an office PC, write a test file.
 6. [ ] **Stand up PBS** on the box — and wire it **append-only from the start** (don't retrofit OI-26):
        - PBS token for the HQ Proxmox = **`DatastoreBackup` only** (no Prune/Modify).
@@ -62,8 +53,9 @@
 
 ## PART 2 — Back up the Gen9 production VMs to the new PBS (the safety net)
 Before touching the Gen9 hardware, get a fresh backup of what's on it — so the "brain surgery" is reversible.
-1. [ ] On the HQ Proxmox, **run a backup now** of **VM 105 (FusionPBX)** + the other production VMs to the new
-       `pbs-nas` datastore → **TASK OK** on each.
+1. [ ] On the HQ Proxmox, **run a backup now** of **VM 105 (FusionPBX)**, **VM 106 (DocuSeal self-host)** +
+       the other production VMs to the new `pbs-nas` datastore → **TASK OK** on each. _(VM 106 runs on this
+       Gen9, so it goes down in PART 3 too — the backup covers it; the DocuSeal finish work is PART 5.)_
 2. [ ] (Belt-and-braces) take a **Proxmox snapshot** of VM 105 as well.
 This is the synergy of doing storage first: the pool you built this morning now protects the phone server.
 
@@ -94,9 +86,34 @@ Open the DL380 **once** — fit RAM **and** P40s **and** the PSU together, not t
 4. [ ] **Only if the baffle is in:** a short load test (watch `nvidia-smi` temps). Otherwise defer.
 5. [ ] If anything's wrong with the PBX after boot → you have the PART-2 backup + snapshot to restore from.
 
+## PART 5 — Finish DocuSeal (close OI-21 a+c; DocuSeal must be UP)
+The DocuSeal self-host (**VM 106**, `10.224.10.60:3000`, public `sign.fishbonegroup.co.uk`) runs on **this
+Gen9**, so it's **down during the PART-3 window**. Do this part while it's up — **best in the morning
+alongside PART 1** (storage, zero phone risk, DocuSeal still live), or else **after PART 4** once the Gen9 is
+back. Full detail + exact fields in **`Runbook-DocuSeal-SMTP-and-Wire-Anna.md`** — this is just the Saturday
+checklist and order.
+
+- [ ] ⚠️ **Day before (de-risks propagation):** configure the **Workspace SMTP relay** (`admin.google.com` →
+      Apps → Gmail → Routing → **SMTP relay service**: in-domain senders, **Require SMTP Auth + TLS**) and
+      generate the **App password** for `info@fishboneconstruction.co.uk` (1Password). Admin-console changes
+      can take **up to ~24h** — doing this Friday means it's live for Saturday's test. (Runbook Part A1/A2.)
+- [ ] **Point DocuSeal at the relay** — admin UI `http://10.224.10.60:3000` (over Tailscale) → Settings →
+      Email/SMTP: host `smtp-relay.gmail.com`, port `587`, STARTTLS, user `info@fishboneconstruction.co.uk`,
+      the app password (Minda pastes), FROM `info@fishboneconstruction.co.uk` → **Send test email**. (Part A3.)
+- [ ] **Full internal sign test on our own box:** create a submission from the tagged
+      `Sample-RAMS-DocuSeal-Phase0.docx` → signing-link email **lands** → sign → DocuSeal returns the
+      **signed PDF + audit log**. This is the gate that proves the box is ready for Anna. (Part A4.)
+- [ ] **Wire Anna:** generate the DocuSeal **API token** (Settings → API → 1Password); Minda sets
+      `DOCUSEAL_API_BASE_URL=https://sign.fishbonegroup.co.uk` + `DOCUSEAL_API_KEY` in Anna's env. Eugene's
+      Raw/ hand-off (AWT-0589) already tells Anna the flow; **Anna wires herself**. (Part B.)
+- [ ] **Verify from an Anna session:** `DOCUSEAL_CREATE_SUBMISSION_FROM_DOCX` succeeds → signer emailed →
+      Anna retrieves the signed PDF + audit log. Then **graduate RND-8** and mark **OI-21 (a)+(c) done**.
+- [ ] Secrets (app password, API token, admin/DB creds) are **Minda-held in 1Password, never in git/KB** (§3).
+
 ## After the day
 - Update `Infra-Inventory/` (256 GB, 2× P40, the storage pool + PBS), the change-log + ledger, and
-  `R&D/` statuses (RND-2 brain hardware in; RND-3 storage live; RND-19 RAM fitted). Mark OI-7 context.
+  `R&D/` statuses (RND-2 brain hardware in; RND-3 storage live; RND-19 RAM fitted; **RND-8 DocuSeal graduated**).
+  Mark OI-7 context and **close OI-21 (a)+(c)**.
 - **Friday's Gen10 order** is separate (confirm the 24SFF SAS expander, add 64 GB 2933 RAM, 865408-B21 PSUs).
 
 ---
