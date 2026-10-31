@@ -111,3 +111,7 @@ outside 10 °C → ~18 °C ✅ · 18 °C → ~26 °C ✅ · **25 °C → ~33 °C
   Both of these have ~1-year-old batteries (2-yr warranty to Oct/Nov 2027). Both 2U models are believed to take the same pack (RBC43) — check the label.
 - **To confirm (Minda):** which unit is where (HQ ×2 / Beverley ×1) and the third unit's model + age (front display/rear label).
   If the 3000 VA is at HQ, HQ has 1,980 + 2,700 W — plenty for the AI server.
+- **Confirmed (Minda, 2026-10-31): both UPS Centre units are at HQ** → HQ = **1× SUA2200RMI2U (1,980 W) + 1× SUA3000RMI2U (2,700 W)
+  ≈ 4.7 kW**, batteries ~1 yr old. Beverley = the third unit (model/age to read off its display). For A/B balancing (AWT-1064): put
+  the heavier side (incl. the new AI server's 2nd PSU) on the **3000 VA**. Note: the **3000 VA draws up to ~13 A at full load** — fine
+  on a 13 A plug at today's loads, but it's the first thing to check before adding much more (16 A circuit option).
