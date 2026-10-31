@@ -105,6 +105,22 @@ Gives us the VM list, storage and network names for moving the AI work to the ne
 
 ---
 
+## Block 5b — Wi-Fi signal map (≈ 30–40 min) — are the 3 UniFi APs in the right places?
+**Tool:** free **WiFiman** app (Ubiquiti) on your phone — shows signal (dBm), which AP you're on, and has a speed test.
+**You need:** the HQ floor plan (printed or a photo you can draw on).
+1. Note where each AP is (2 indoor + 1 outdoor at the loading bay) — mark them on the plan, photo of each AP's position.
+2. Walk the building on the **`Fishbone`** SSID. At each spot — every desk area, meeting room, kitchen/break area,
+   corridors, stairs, toilets, loading bay, yard/car park edge — stand still ~10 s and write on the plan:
+   **signal (dBm)** + **which AP** you're connected to. Aim for ~20–30 spots.
+3. Run a **speed test** in WiFiman at 4–5 key spots (your desk, the furthest office, loading bay).
+4. Screenshot WiFiman's **channel / nearby networks** view once (neighbours on the same channels).
+**How to read it:** −30 to −60 dBm great · **−67 dBm** = good for calls/video · −70 to −75 = OK for basic use ·
+worse than **−75** = weak spot (that's where an AP is too far or blocked).
+Send me the marked plan + screenshots → I'll make the coverage map and say whether to move an AP, change power/channels, or add one.
+(If the UniFi controller login works, a screenshot of each AP's **channel + transmit power** helps too — optional.)
+
+---
+
 ## Block 6 — ☎️ Optional, only if quiet (≈ 45 min) — lid-off checks
 Sunday is the best time. **Phones go down while the Gen9 is off.** Do a clean shutdown from Proxmox (not the power button).
 ### ☐ 6a. Gen9 lid off (photos only — no changes)
