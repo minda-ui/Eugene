@@ -61,3 +61,4 @@ from a session with the CLI signed in, or by Minda dropping the PDF into `Infra-
 - **Draft to Bargain Hardware (order 002022046):** reply-threaded draft in minda@'s Drafts (not sent — §3) asking for 6× HP fans per server, GPU-ready risers + baffle confirmation, a quote for 826700-B21 / 871829-B21, and the Gen10 rail fit.
 - **Sent by Minda** 19:27 UTC (from ops@, in the order thread). Awaiting BH answers on fans / GPU risers + baffle / rails before the build.
 - **V100 price:** Minda reports ~£700 each for 32 GB (estimate was £520–600). Steer: P40s into the HQ Gen10 first, decide on V100 after measuring.
+- **Decision:** P40 first, V100 later — RAM (12 sticks) before any new cards; V100 only if pilot testing shows it's needed. Map updated.

@@ -106,3 +106,8 @@ covers Volta (verify at install).
   3 ≈ £2,100. P40 ≈ £195. Steer: both servers arrive 9 Nov — **fit our 2× P40 in the HQ AI server first** (genuine Gen10 cables),
   run the staff pilot, measure real speed, **then** decide V100 (the 480B's speed depends on RAM, not the GPUs; V100 mainly speeds
   up the smaller staff-chat models). Beverley node runs on CPU until then, or gets 2 more P40s (~£390). No V100 bought yet.
+- **DECISION (Minda, 2026-10-31): P40 first, V100 later.** Order of spend: (1) the other **6× P03052-091** → 12 sticks / 384 GB in the
+  HQ server (RAM sets the 480B's speed); (2) Gen10 GPU power cables for the **2× P40 into the HQ Gen10** (confirm the exact P40 kit
+  in the Gen10 QuickSpecs; one-probe check, HL-0110); (3) run the staff pilot and time it; (4) **V100s (~£700 each) only if** staff
+  chat or long documents feel slow. Beverley Gen10 starts CPU-only (RAM to size). Rough 480B speed: 6 sticks ~3–4 words/s, 12 sticks
+  ~6–8, 12 + V100 ~7–9 (estimates, to measure).
