@@ -114,3 +114,14 @@ installed on what drive (add a 2.5" SSD); tested + console cable; PSU (single �
 **Avoid:** Intel **Atom C2000** units (ASA 5506/5508/5516-X, Supermicro A1SRi-2758 — early-failure chip fault) · FortiGate /
 Juniper SRX (not standard x86) · Core 2/Pentium-era · "for parts".
 **Pick:** Sophos SG/XG 330 (cheap, 8 Intel ports, 10G later via FleXi); Supermicro E300-8D for built-in 10G.
+
+## DECISION (Minda, 2026-10-31): **4× Cisco ASA 5525-X ordered** → HQ pair + Beverley + 1 spare (graduated — see graduation register)
+1G only (8× GE each) — fits Step A (2× 1G LACP + sync) and Step B (2 WAN + spare). 10G later = a separate upgrade if ever needed.
+**On arrival (bench, before anything touches the network):**
+1. Check each: model label (5525-X), RAM (8 GB), storage, power-on, all ports link, fans; note serials.
+2. Console access: RJ45 Cisco console cable (USB-to-serial) — **all four on the same OPNsense version**.
+3. **Wipe + fresh-install OPNsense from the official image** (checksum-verified) — never trust a seller's pre-installed copy.
+   Storage: the 5525-X has small internal flash + an SSD bay — fit/confirm a 2.5" SSD (check the bay's carrier) for logs/updates.
+4. Burn-in 24 h each; update to latest; set admin 2FA; store credentials in 1Password (Minda).
+5. Then: Beverley build (pilot) → HQ pair (CARP) → spare kept configured as a cold standby.
+**Still needed:** ASA config exports (HQ + Beverley, `show running-config`, secrets masked) → Eugene's translation.
