@@ -66,3 +66,16 @@ and short battery runtime. Heat ≈ power: **~2.5 kW ≈ 8,500 BTU/h** into the 
 1. Fits with P1+P2+P5? → no purchase, just config + rules.
 2. Doesn't fit → P7 (own UPS for the AI server) or P8 (bigger UPS) ± P9 (circuit).
 3. Room too warm → C2.
+
+## Step 1 results (Minda, 2026-10-31) + rebalancing plan
+- UPS 1: **1 of 5 load LEDs lit**; UPS 2: **none lit** → almost all load on UPS 1. On battery, **UPS 1 runs flat first**. Devices were plugged in with no balancing. Feeds: **13 A plugs**; an upgrade (bigger circuit) is possible.
+- iLO power meter (item 3) and `show power inline` (item 4): still to do.
+
+**A/B rule 1 — dual-PSU kit: one PSU on each UPS:** Gen9, R710, 3850 #1, 3850 #2, future AI server.
+**A/B rule 2 — single-PSU kit split so a UPS failure never takes both halves of a pair:**
+ASA-1 → A, **ASA-2 → B**; Wavenet router → A, **Starlink → B**; NVR → B.
+**Method:** dual-PSU = move one cable at a time, wait for PSU healthy (no outage). Single-PSU = brief power-off →
+standby ASA-2 first + verify failover; the rest in a phones-free window. Target: both UPS load gauges roughly equal.
+**Also:** UPS self-test + battery date/replace light (UPS 1's fast drain may also be ageing batteries); each UPS on its
+own wall socket (ideally separate circuits), never a shared extension lead. 16 A dedicated circuit = later, if the AI
+server gets its own 3 kVA UPS (electrician).
