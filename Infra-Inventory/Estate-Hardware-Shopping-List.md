@@ -9,10 +9,11 @@
 | 🔴 | 12 | High Performance fans (6 per server) | `867810-B21` (single-fan spare no. — confirm before buying) | 0–240 | **waiting on BH reply** |
 | 🔴 | 2 | GPU-ready risers + baffle | P38515-B21 / GPU baffle | 0–150 | **waiting on BH reply** |
 | 🟠 | 4 | Power leads C13–C14 | 1 m, for the UPS | ~15 | check stock first |
-| 🟠 | 1 | Cisco console cable (RJ45→USB) | for the ASA 5525-X / OPNsense installs | ~10 | if none in hand |
+| ✅ | — | Cisco console cable (RJ45→USB) | for the ASA 5525-X / OPNsense installs | 0 | **2 in hand (Minda, 2026-10-31)** |
 | 🟠 | 0–4 | SSDs for the 5525-X | 2.5" SATA, only if the units arrive without | 0–80 | on arrival |
 | 🟡 | — | iLO Advanced licence | only if not already on the boxes | 0–40 | check at arrival |
-| 🔵 | 1–2 | 10G cards for the server triangle (R710, maybe Gen9 2nd) | 2-port SFP+; 2 Cisco DACs in hand | 55–85 | after lid-off checks |
+| 🔵 | 2 | 10G cards for the server triangle (R710 + Gen9) | **HPE 546SFP+ `779793-B21`** (ConnectX-3 Pro, HPE-branded = no iLO fan ramp; fine in the R710 too) | 40–70 | Gen9 slot: lid-off check |
+| 🔵 | 1 | SFP+ passive DAC, 1–3 m | Cisco `SFP-H10GB-CU1M`/`CU3M` or compatible (2 spare in hand → 3 total) | 10–15 | to buy |
 | 🔵 | — | Tertiary riser `826700-B21` + `P38517-B21` | only for a 3rd card | 50–120 | later |
 | 🔵 | 2 | V100 32 GB | ~£700 each | ~1,400 | **only if pilot testing says so** |
 | ⚪ | — | UPS batteries / AI-server UPS / 16 A circuit / cooling | only if AWT-1065/1066 readings say so | 0–4,000 | measurements |
