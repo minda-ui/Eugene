@@ -5,18 +5,19 @@
 | Pri | Qty | Item | Part / spec | ~£ | Status |
 |---|---|---|---|---|---|
 | 🔴 | 6 | RAM, HQ server | HPE 32 GB 2Rx4 DDR4-2933 RDIMM `P03052-091` | ~900 | Minda searching |
-| 🔴 | 4 | Boot SSDs (2 per server, mirrored) | enterprise SATA 2.5" 240–480 GB (e.g. Intel S4510 / Samsung PM883 / HPE RI) — fits BH's caddies | 100–160 | to buy |
+| ✅ | 4 | Boot SSDs (2 per server, mirrored) | **HPE 240 GB SATA RI 789135-B21** (eBay 27-15338-03502, 4× £48) | 192 | ordered 2026-10-31, due 2–3 Nov |
 | 🔴 | 12 | High Performance fans (6 per server) | `867810-B21` (single-fan spare no. — confirm before buying) | 0–240 | **waiting on BH reply** |
 | 🔴 | 2 | GPU-ready risers + baffle | P38515-B21 / GPU baffle | 0–150 | **waiting on BH reply** |
 | 🟠 | 4 | Power leads C13–C14 | 1 m, for the UPS | ~15 | check stock first |
 | ✅ | — | Cisco console cable (RJ45→USB) | for the ASA 5525-X / OPNsense installs | 0 | **2 in hand (Minda, 2026-10-31)** |
 | 🟠 | 0–4 | SSDs for the 5525-X | 2.5" SATA, only if the units arrive without | 0–80 | on arrival |
-| 🟡 | — | iLO Advanced licence | only if not already on the boxes | 0–40 | check at arrival |
+| ✅ | 3 | iLO Advanced licence | eBay 'lifetime' keys 3× £6.99 (27-15338-03501) — ⚠️ cheap resold keys; usually activate, but licensing legitimacy not guaranteed | 23 | ordered 2026-10-31 |
 | ✅ | 1 | 10G card, R710 | **Mellanox MCX312B-XCCT** full-height, £39 (eBay 09-15371-31144, due 2–3 Nov) | 39 | ordered 2026-10-31 |
 | ⚠️ | 1 | 10G card, Gen9 | ordered **HP 530T** (eBay 09-15371-31143, £21.60) = **10GBASE-T RJ45, not SFP+ → won't take a DAC**. Swap to **530SFP+ / 546SFP+** (same listing has options) or cancel before dispatch | 22 | **seller messaged 2026-10-31 (swap to 530SFP+/546SFP+ or cancel) — awaiting reply** |
 | ✅ | 1 | SFP+ DAC 3 m | Cisco `SFP-H10GB-CU3M`, £7.99 (eBay 09-15371-31142) → 3 DACs total | 8 | ordered 2026-10-31 |
 | 🔵 | — | Tertiary riser `826700-B21` + `P38517-B21` | only for a 3rd card | 50–120 | later |
 | 🔵 | 2 | V100 32 GB | ~£700 each | ~1,400 | **only if pilot testing says so** |
+| ✅ | 2 | APC AP9631 UPS network cards (HQ, one per UPS) | eBay 27-15338-03500 £43.10 + 27-15338-03503 £39.00 | 82 | ordered 2026-10-31 |
 | ⚪ | — | UPS batteries / AI-server UPS / 16 A circuit / cooling | only if AWT-1065/1066 readings say so | 0–4,000 | measurements |
 
 **Free (reuse):** Beverley RAM = 4 spare Gen9 sticks (128 GB) · Beverley data drives = spare 900 GB SAS (we have 32) · HQ model library = Minda's 6× 900 GB SAS · P40s → HQ Gen10.

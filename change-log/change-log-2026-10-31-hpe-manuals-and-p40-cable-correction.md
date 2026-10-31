@@ -69,3 +69,4 @@ from a session with the CLI signed in, or by Minda dropping the PDF into `Infra-
 - UPS model confirmed: 3× APC SUA2200RMI2U (2 HQ, 1 Beverley); one bought 10 Oct 2025. Power plan updated.
 - UPS purchase history found in minda@ (UPS Centre): 1× SUA2200RMI2U delivered ~22 Oct 2025, 1× **SUA3000RMI2U** delivered ~9 Nov 2025; third UPS source unknown.
 - Beverley UPS found: UPS Centre 36438 (24 Oct 2024), SUA2200RMI2U refurb with new batteries, 2-yr warranty ends ~Nov 2026 → self-test now.
+- Ordered (22:22): 2× AP9631 (HQ UPSs), 3× iLO Advanced keys (cheap resold — flagged), 4× HPE 240 GB SSD 789135-B21 (boot). £303.54. Note: earlier ASA order includes item 373877034175 '2× ASA5525-X VPN Premium license' — confirm these are appliances, not licence-only.
