@@ -3,6 +3,17 @@
 _Fresh session after the `*.hp.com` network allow (the morning session ended "log + restart" for it).
 Interactive with Minda; guide-only, no credential held (§3)._
 
+
+## Update 2026-10-31 ~23:00 UTC — evening wrap-up (procurement day)
+| Area | End state |
+|---|---|
+| Ordered | 2× DL380 Gen10 · 12× RAM · 4× GPU cable · 4× boot SSD · 2× AP9631 · Mellanox + DAC · 3× iLO keys · (earlier) 4× ASA 5525-X |
+| Waiting | BH reply (fans/risers/baffle/rails) · 530T swap reply |
+| Decided | P40 first; sovereign list; logs 1 yr; cloud £100/mo; R580; pilot Minda-only, HQ-only |
+| Open | Step B public IPs (check 1 Nov) · HQ refurb UPS self-test before warranty ends |
+| Next | HQ visit 1 Nov — `Runbooks/HQ-Visit-2026-11-01-Prep-Checklist.md` |
+Details are in the lines appended below §4 (chronological). Ledger row 154.
+
 ## 1. Network check
 `www.hp.com`, `partsurfer.hp.com`, `partsurfer.hpe.com`, `support.hpe.com` reachable. Bare `hp.com` is
 still refused (a `*.hp.com` wildcard doesn't cover the apex; add `hp.com` separately if ever needed).
