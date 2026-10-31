@@ -36,7 +36,7 @@ BEV (planned Gen10 + 2 NEW P40s)        BEV Gen10            = replica + failove
 | 3rd-card riser | **x16 Tertiary Riser `826700-B21`** (FH/FL, slot 7, needs CPU 2) + retainer-less cages **`P38515-B21`** (primary) and **`P38517-B21`** (secondary+tertiary butterfly) | Gen10's **third riser position** (rear-left, over the PSUs) — the Gen9 has no third riser, which is why it tops out at 2 cards. Costs the rear-drive option | 50–120 |
 | GPU power | **`871829-B21`** keyed 8-pin kit, one per card | V100 PCIe = EPS-style 8-pin (same family as the P40) — **one-probe check before plugging (HL-0110)** | 20–60 |
 | GPU baffle | Gen10 GPU air baffle | passive cards — mandatory under load | 20–60 |
-| Network | **10 G FlexibleLOM** (e.g. 562FLR-SFP+ — confirm part) | keeps PCIe slots free for GPUs; needs a free 10 G port on the 3850 stack | 30–60 |
+| Network | **10 G FlexibleLOM** — **switch side ready:** 2 free 10G slots (one per 3850, NM-2-10G) + **Cisco SFP+ DAC cables already on hand** (Minda, 2026-10-31) → cross-stack 10G bundle like the Gen9 |
 | Boot | 2× SATA SSD (mirror) on the onboard controller | Proxmox boot; models load from the Gen9 pool over 10 G or a local SSD | 100–200 |
 | Rails | | | ~30 |
 | **Subtotal (no GPUs)** | | | **~£1,200–1,900** |
