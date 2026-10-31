@@ -79,3 +79,15 @@ Internet ─ Wavenet / Starlink                 Internet ─ Wavenet / Starlink
 ## Safety rules
 - Config backups contain secrets → encrypted, held by Minda; Eugene reviews **redacted** diffs only.
 - Backup → change → test → change-log, every time. Updates monthly, HQ secondary node first.
+
+## Hardware research (2026-10-31) — need ≥5 ports per box (2 switch LACP + 1 HA sync + 2 WAN for Step B)
+| Option | Ports | Throughput (vendor) | Form | Price each | 3 boxes |
+|---|---|---|---|---|---|
+| **Deciso DEC2750 v2** | 3× 2.5G + 2× 10G SFP+ (5) | ~8–10 Gb/s | 1U | **€999** (shop.opnsense.com) | ~£2.6k |
+| Deciso DEC2752 | same, higher spec | ~8.5–10 Gb/s | 1U | €1,178 | ~£3.0k |
+| Deciso DEC3852 | 4× 2.5G + 2× SFP+ (6) | ~17 Gb/s | 1U | quote | — |
+| Protectli VP6600 series (VP6670 i7) | 4× 2.5G i226 + 2× SFP+ (6) | multi-gig | desktop + shelf | ~£1k+ (one UK listing £2.3k w/ 64 GB) | ~£3k+ |
+| Supermicro SYS-5019D-FN8TP (Xeon D-2146NT, QAT, IPMI) | 4× 1G + 2× 10GBASE-T + 2× SFP+ (8) | plenty | 1U | ~$1.9–2.3k new | ££ |
+| Generic N100/N305 appliance (Intel 82599 SFP+ + i226) | 4× 2.5G + 2× SFP+ (6) | multi-gig | desktop + shelf | ~£250–400 | ~£0.8–1.2k |
+Note: Deciso warns not to mix 2.5/5G and 10G SFP+ modules on one box. Earlier "£0.9–1.8k for 3" assumed generic boxes.
+**Steer:** HQ pair = 2× DEC2750 (official, HA-tested, rack, optional support); Beverley = DEC2750 (one platform + common spare) or generic (~£600 less). ≈ £2.6k all-Deciso / ≈ £2.0k mixed. Awaiting Minda's pick.
