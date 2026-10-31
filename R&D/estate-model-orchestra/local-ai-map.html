@@ -447,6 +447,34 @@ footer{color:var(--muted);font-size:12.5px}
   </section>
 
   <section>
+    <h2>Buying plan</h2>
+    <div class="scroll">
+    <table>
+      <thead><tr><th>Phase</th><th>What</th><th>Rough cost</th><th>Gate</th></tr></thead>
+      <tbody>
+        <tr><td>0 · Fix + firewall</td><td>4× ASA 5525-X for OPNsense (ordered), console cable, SSDs, UPS rebalancing</td><td>£270–350 (+ batteries only if old)</td><td><span class="st st-ready">Ordered</span></td></tr>
+        <tr><td>1 · Server triangle</td><td>10G cards for Gen9 and R710, one more cable</td><td>£55–85</td><td>Lid-off slot checks</td></tr>
+        <tr><td>2 · Staff pilot</td><td>Nothing new; runs on the Gen9</td><td>£0</td><td>Pick staff and folders</td></tr>
+        <tr><td>3 · HQ AI server</td><td>DL380 Gen10 8-bay build + 2× V100 (3rd later)</td><td>£2,300–3,300</td><td>V100 choice and budget</td></tr>
+        <tr><td>4 · Beverley node</td><td>Gen10 replica, reusing the HQ P40s</td><td>£1,350–1,850</td><td>After the AI server</td></tr>
+        <tr><td>If needed</td><td>Own UPS for the AI server, cooling, new circuit</td><td>£0–4,000+</td><td>Power and temperature readings</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Dropped from earlier plans: the separate HQ storage Gen10 (about £650–845), two new Beverley P40s (about £390) and new switch modules (about £160–260). The Gen9 P40 cables (about £50) can be skipped if the AI server is coming soon.</p>
+  </section>
+
+  <section>
+    <h2>Decisions and gaps</h2>
+    <div class="hw">
+      <div class="box"><span class="chip c-human" style="justify-self:start">Your decisions</span><b>Waiting on you</b><p>V100 or V100S and a GPU budget · skip the Gen9 P40 cables? · pilot staff and folders · what never leaves the building · monthly cloud-AI spend limit · public IPs for firewall Step B.</p></div>
+      <div class="box"><span class="chip c-ctrl" style="justify-self:start">Not planned yet</span><b>Security of the AI setup</b><p>Staff logins and roles, audit logs, Composio limits per worker.</p></div>
+      <div class="box"><span class="chip c-ctrl" style="justify-self:start">Not planned yet</span><b>Monitoring</b><p>Alerts for model servers, the radio link, UPS on battery, temperatures and backups.</p></div>
+      <div class="box"><span class="chip c-ctrl" style="justify-self:start">Not planned yet</span><b>Software and rack space</b><p>A driver line covering V100 and P40 long term, the container layout, updates; confirm 2U for the AI server and 3×1U for the firewalls.</p></div>
+    </div>
+  </section>
+
+  <section>
     <h2>Where each piece stands</h2>
     <div class="scroll">
     <table>
