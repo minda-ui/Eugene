@@ -68,3 +68,4 @@ from a session with the CLI signed in, or by Minda dropping the PDF into `Infra-
 - Minda messaged the 530T seller (swap or cancel); awaiting reply.
 - UPS model confirmed: 3× APC SUA2200RMI2U (2 HQ, 1 Beverley); one bought 10 Oct 2025. Power plan updated.
 - UPS purchase history found in minda@ (UPS Centre): 1× SUA2200RMI2U delivered ~22 Oct 2025, 1× **SUA3000RMI2U** delivered ~9 Nov 2025; third UPS source unknown.
+- Beverley UPS found: UPS Centre 36438 (24 Oct 2024), SUA2200RMI2U refurb with new batteries, 2-yr warranty ends ~Nov 2026 → self-test now.

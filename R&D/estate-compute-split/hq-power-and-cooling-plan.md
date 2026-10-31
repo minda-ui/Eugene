@@ -115,3 +115,12 @@ outside 10 °C → ~18 °C ✅ · 18 °C → ~26 °C ✅ · **25 °C → ~33 °C
   ≈ 4.7 kW**, batteries ~1 yr old. Beverley = the third unit (model/age to read off its display). For A/B balancing (AWT-1064): put
   the heavier side (incl. the new AI server's 2nd PSU) on the **3000 VA**. Note: the **3000 VA draws up to ~13 A at full load** — fine
   on a 13 A plug at today's loads, but it's the first thing to check before adding much more (16 A circuit option).
+- **Third UPS found (minda@fishbonedrylining, UPS Centre order 36438, 24 Oct 2024):** **SUA2200RMI2U, refurbished with
+  brand-new batteries, 2-yr return-to-base warranty**; Minda accepted 31 Oct 2024, delivered early Nov 2024 → **Beverley**.
+  Batteries ~2 yr old. ⚠️ **Warranty ends ~early Nov 2026** — run a self-test/runtime check at Beverley **now**, so any fault is
+  claimed in time. All three units: SUA 2U family, believed RBC43 packs.
+  | Site | Model | Delivered | Batteries | Warranty to |
+  |---|---|---|---|---|
+  | HQ | SUA2200RMI2U | ~22 Oct 2025 | ~1 yr | ~Oct 2027 |
+  | HQ | SUA3000RMI2U | ~9 Nov 2025 | ~1 yr | ~Nov 2027 |
+  | Beverley | SUA2200RMI2U (refurb, new batteries) | ~early Nov 2024 | ~2 yr | **~Nov 2026** |
