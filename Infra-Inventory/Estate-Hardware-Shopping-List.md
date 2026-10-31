@@ -6,7 +6,7 @@
 |---|---|---|---|---|---|
 | 🔴 | 6 | RAM, HQ server | HPE 32 GB 2Rx4 DDR4-2933 RDIMM `P03052-091` | ~900 | Minda searching |
 | 🔴 | 4 | Boot SSDs (2 per server, mirrored) | enterprise SATA 2.5" 240–480 GB (e.g. Intel S4510 / Samsung PM883 / HPE RI) — fits BH's caddies | 100–160 | to buy |
-| 🔴 | 12 | High Performance fans (6 per server) | `867810-B21` (single fans `875075-001`) | 0–240 | **waiting on BH reply** |
+| 🔴 | 12 | High Performance fans (6 per server) | `867810-B21` (single-fan spare no. — confirm before buying) | 0–240 | **waiting on BH reply** |
 | 🔴 | 2 | GPU-ready risers + baffle | P38515-B21 / GPU baffle | 0–150 | **waiting on BH reply** |
 | 🟠 | 4 | Power leads C13–C14 | 1 m, for the UPS | ~15 | check stock first |
 | 🟠 | 1 | Cisco console cable (RJ45→USB) | for the ASA 5525-X / OPNsense installs | ~10 | if none in hand |
