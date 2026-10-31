@@ -79,3 +79,16 @@ standby ASA-2 first + verify failover; the rest in a phones-free window. Target:
 **Also:** UPS self-test + battery date/replace light (UPS 1's fast drain may also be ageing batteries); each UPS on its
 own wall socket (ideally separate circuits), never a shared extension lead. 16 A dedicated circuit = later, if the AI
 server gets its own 3 kVA UPS (electrician).
+
+## Cooling — what HQ has (Minda, 2026-10-31)
+**Daikin VAM1000J** ducted heat-recovery ventilator, 1,000 m³/h, 240 V — **ventilation, not air-con**: it can only
+bring the room *towards outside temperature*. Rough capacity if all the air reached the rack: ≈ 1.2 kg/m³ × 1,005 J/kg·K ×
+0.278 m³/s ≈ **335 W per °C** (room minus outside) → 2.5 kW needs the room ~7–8 °C above outside:
+outside 10 °C → ~18 °C ✅ · 18 °C → ~26 °C ✅ · **25 °C → ~33 °C ❌** (V100 limit 30 °C). Real figure worse — the
+1,000 m³/h serves the whole building.
+- **Winter bonus:** in heat-recovery mode the server heat pre-warms the office's fresh air (free heating).
+- **Summer:** needs **bypass / free-cooling mode** (VAM auto mode) or it recycles server heat.
+- **Check:** rack-area supply/extract grilles + share of airflow · VAM mode (Auto/Heat-exchange/Bypass) · filters · iLO inlet temp on a warm afternoon.
+- **Options:** night/cool-hours heavy jobs + V100 power cap (£0) → rack-area extract fan/duct to outside (~£100–400 + installer)
+  → portable AC for summer peaks (~£300–500) → split AC (~£1.5–3k) → shift summer load to Beverley (£0).
+- **Read:** VAM likely fine autumn–spring; **summer is the gap** — measure a warm day before buying.
