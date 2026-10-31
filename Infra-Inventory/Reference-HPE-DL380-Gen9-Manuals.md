@@ -11,6 +11,8 @@ Charter §1 "External binary documents" rule. Box: DL380 Gen9, S/N `CZJ64905NP`,
 | **DL380 Gen9 Server User Guide** (2018-04 rev.) | `c04436966` | https://support.hpe.com/hpesc/public/api/document/c04436966 | 228 | 16,349,434 | `08caa12639e53770ea0a0b24df7190ac771007dbfaad2db1c64e1aea41b32a57` |
 | **DL380 Gen9 QuickSpecs** (options, part numbers, GPU support rules) | `c04346247` | https://support.hpe.com/hpesc/public/api/document/c04346247 | 57 | 1,211,442 | `dd76f95acb9d1d0c47f58444e6558fa22199fcb31be929819a51d1846a2838ca` |
 
+**Drive copy (User Guide):** uploaded by Minda 2026-10-31 → `Raw/` as *"Emailing HPE ProLiant DL380 Gen9 Server User Guide (c04436966).pdf"*, Drive id `1FpVoelvAiJMXvg3pzzvJSyhfe56IPvzc`, size **16,349,434 B = matches the fetched original byte-for-byte in size** (Drive md5 not exposed by the connector, so size is the check). Belongs in `Infra-Inventory/` — to move/rename when convenient. QuickSpecs not on Drive (fetch on demand).
+
 Viewer pages (human, browser): https://support.hpe.com/hpesc/public/docDisplay?docId=c04436966 and
 `?docId=c04346247`. Parts lookup: https://partsurfer.hpe.com (search by part number or S/N).
 
