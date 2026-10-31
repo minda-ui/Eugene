@@ -65,3 +65,6 @@ A4000 used price; RunAIHome used RTX A4000; Aliteq RTX 5060 Ti for local AI; HPE
 For a 3-card server: V100 ~£1.6–1.8k · A30 (2 cards) ~£4–5.3k · A100 ~£12–16.5k.
 **Steer:** speed for staff Q&A is already good on V100; the 480B's speed depends on RAM, not GPUs. Best value =
 **V100 now + a planned refresh (~2028)** when A100/A30 prices fall further.
+
+## DECISION (Minda, 2026-10-31): **stay with V100** (32 GB PCIe) for the HQ AI server — best speed per £ in budget;
+frozen R580/CUDA 12 stack accepted; **planned card refresh ~2028** (A30/A100-class or newer once prices fall).
