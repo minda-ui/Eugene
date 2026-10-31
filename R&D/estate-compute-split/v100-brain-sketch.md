@@ -79,3 +79,7 @@ covers Volta (verify at install).
 - GPU-ready primary + secondary risers (+ tertiary x16 826700-B21 for card 3) + retainer-less cages P38515/P38517-B21 + GPU baffle
 - 2× **V100 32 GB PCIe** (Q9U36C) + 2× **871829-B21** cable kits — one-probe check before plugging (HL-0110)
 - iLO 5: confirm **iLO Advanced** licence (full remote console)
+- **RAM update (2026-10-31, supersedes option C):** buy **HPE 32 GB 2Rx4 DDR4-2933 RDIMM P03052-091** (retail kit P00924-B21) —
+  eBay seller IT Black Belt, £149.99 each, **only 6 in stock → buy 6**, find **6 more of the same part** elsewhere (≤ ~£150) → **12 sticks =
+  384 GB at full 2933** (6 per CPU). Interim: 6 sticks = 3/6 channels (~141 GB/s), 8 = 4/6 (~188 GB/s); **never 16** (uneven, slower than 12).
+  Gen9 keeps its 256 GB. Fallback = option C (mix with Gen9 2666 → all at 2666). Bargain Hardware memory = 0. Ask for VAT invoices.
