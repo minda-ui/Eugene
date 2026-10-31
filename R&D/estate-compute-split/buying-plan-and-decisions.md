@@ -27,7 +27,7 @@ contingencies £0–4,000+.
 
 ## Decisions waiting on Minda
 1. ~~V100 or V100S, and a GPU budget ceiling.~~ **Decided 2026-10-31: V100 32 GB**; refresh ~2028.
-2. Skip the Gen9 P40 cables (AWT-1061) if the AI server comes soon?
+2. ~~Skip the Gen9 P40 cables (AWT-1061)?~~ **Decided 2026-10-31: skipped** — P40s go to Beverley with Gen10 cables.
 3. Staff pilot: which 2–3 staff, which folders, Tailscale on their phones?
 4. What must never leave the building (sovereign list)?
 5. Monthly spend limit for frontier (cloud) AI calls.
