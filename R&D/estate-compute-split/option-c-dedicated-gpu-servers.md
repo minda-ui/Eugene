@@ -81,11 +81,12 @@ power-circuit/UPS upgrade the Supermicro might need (unknown — could be £300�
 | Power / yr (≈) | ~£650 | ~£790 | ~£1,450 | ~£1,580 |
 | **3-yr total (≈)** | **£4,250–5,150** | **£5,200–6,200** | **~£8,050** | **~£11,150** |
 | 3-yr £ per GB | ~£66–80 | ~£54–65 | ~£63 | **~£44** |
-| Biggest model on GPU (Q4, rough) | ~70B | ~120B | ~200B | ~400B |
+| Biggest model **all on GPU** (Q4, rough, real-time) | ~70B | ~120B | ~200B | ~400B |
+| **480B (Qwen3-Coder, MoE ~35B active, ~250 GB Q4)** | yes — RAM+GPU (384 GB RAM), batch, ~2× Gen9 | yes — RAM+GPU, batch, ~2× Gen9+ | RAM+GPU (needs ≥256 GB RAM), faster | **nearly all on GPU → near real-time** |
 | Size / noise | 2U, moderate | 2U, moderate | 4U, loud | 4U, loud |
 | Vendor | HPE (iLO 5, our runbooks) | HPE | Supermicro (IPMI) | Supermicro |
 | Grow later | +1 card (to 3) | full | swap to 32 GB modules | full |
 
-Read: the DL380 is cheapest to own and run, and stays HPE. The Supermicro 32 GB box is the cheapest
+Correction (Minda, 2026-10-31): the 480B plan (RND-19) runs from **system RAM + GPU** (MoE, ~35B active), so every option here runs it; GPU memory only decides whether it's batch-speed or near real-time. Read: the DL380 is cheapest to own and run, and stays HPE. The Supermicro 32 GB box is the cheapest
 **per GB** over 3 years and the only one that runs ~400B models on GPU — worth it only if those huge models
 are the goal and the room/circuit can take it.
