@@ -72,7 +72,7 @@ covers Volta (verify at install).
 ## DECISION (Minda, 2026-10-31): **DL380 Gen10** (option A) chosen over the DL385 Gen10 Plus (option B, ~£3k more).
 **Final build checklist for quotes** (8SFF chassis):
 - **2× Xeon Gold 6230 (20c, 125 W, 2nd gen, DDR4-2933) — £25 each at Bargain Hardware (2026-10-31)**, alt 2× Gold 6238 (22c, 140 W, £60 each). Rules: ≤165 W with V100/P40 (HPE); 2nd gen (62x0) for 2933 memory; avoid 1st gen 61xx (2666) and 200–205 W parts. + 2× High-Performance heatsinks (826706-B21) · HP fan kit 867810-B21 (all 6)
-- **384 GB = 12× 32 GB DDR4-2933 RDIMM** (all 12 channels) — price-check vs 12× 16 GB (192 GB) if RAM is dear
+- **RAM — DECIDED (Minda, 2026-10-31, option C): 384 GB = 12× 32 GB DDR4-2666** → buy **8× 32 GB DDR4-2666 2Rx4 (£180 each = £1,440 ex VAT, Bargain Hardware)** + **move 4 of the Gen9's 8× HPE 32 GB DDR4-2666** (Gen9 keeps 4× 32 GB = 128 GB for storage + PBX). ~9 % slower than 2933 but fits the 480B (~270 GB); saves £720 vs buying 12. Gen9 RAM move = planned shutdown in a phones-free window when the new server arrives (2 DIMMs per CPU on the Gen9, populated per HPE's rules). Controller: **E208i-a (£43)** — not 'No RAID' (no cables) or S100i (SATA only). NVMe boot (NS204i): none.
 - 2× 1600 W Flex-Slot PSU (830272-B21) · rails · C13–C14 leads to the UPS
 - **E208i-a** (SAS-capable, HBA mode) · **2× boot SSD** (mirror) + **Minda's 6× Seagate 900 GB 10K SAS** = model library · **8× HPE SFF caddies**
 - **2-port 10/25G FlexibleLOM — prefer a Mellanox-based one (e.g. HPE 640FLR-SFP28; confirm part)**: the Intel X710-based 562FLR can reject non-Intel modules; the Cisco DACs are more likely to work on Mellanox
