@@ -290,7 +290,7 @@ footer{color:var(--muted);font-size:12.5px}
   <section>
     <h2>Where it runs</h2>
     <div class="hw">
-      <div class="box"><span class="chip c-local" style="justify-self:start">HQ · new</span><b>DL380 Gen10, 8-bay</b><p>The AI server. 2× Gold 6252, 384 GB RAM, <b>V100 32 GB cards (decided 31 Oct)</b>: 2 to start, room for a third on the Gen10's extra riser. Built-in 2-port 10G for the server triangle. Planned card refresh around 2028, when newer server cards are cheaper.</p></div>
+      <div class="box"><span class="chip c-local" style="justify-self:start">HQ · new</span><b>DL380 Gen10 or DL385 Gen10 Plus, 8-bay (deciding)</b><p>The AI server. 2× Gold 6252, 384 GB RAM, <b>V100 32 GB cards (decided 31 Oct)</b>: 2 to start, room for a third on the Gen10's extra riser. Built-in 2-port 10G for the server triangle. Planned card refresh around 2028, when newer server cards are cheaper.</p></div>
       <div class="box"><span class="chip c-store" style="justify-self:start">HQ · existing</span><b>DL380 Gen9</b><p>Becomes the storage server: document copy, backups and the phone system. Runs the P40s until the new server arrives.</p></div>
       <div class="box"><span class="chip c-store" style="justify-self:start">HQ · existing</span><b>Dell R710</b><p>Third backup copy, powered off between backups. Pulls backups over its own private 10G cable.</p></div>
       <div class="box"><span class="chip c-local" style="justify-self:start">Beverley · planned</span><b>DL380 Gen10 + 2× P40</b><p>Off-site copy of the data and the second half of the AI pool: eyes, receptionist, librarian, overflow. Linked to HQ by the airFiber radio, with Tailscale as backup.</p></div>
@@ -447,6 +447,29 @@ footer{color:var(--muted);font-size:12.5px}
   </section>
 
   <section>
+    <h2>AI server: two options</h2>
+    <p class="lede">Both are HPE 2U servers that take the same V100 cards, cable kits, power supplies and iLO 5 remote management. The difference is memory speed, which sets how fast the 480B runs overnight, and the price.</p>
+    <div class="scroll">
+    <table>
+      <thead><tr><th></th><th>A · DL380 Gen10 (Intel)</th><th>B · DL385 Gen10 Plus (AMD)</th></tr></thead>
+      <tbody>
+        <tr><td>CPUs</td><td>2× Xeon Gold 6252, 24 cores each</td><td>2× EPYC 7642, 48 cores each</td></tr>
+        <tr><td>Memory speed (sets 480B speed)</td><td>~282 GB/s (1.8× the Gen9)</td><td><b>~410 GB/s (2.7× the Gen9)</b></td></tr>
+        <tr><td>RAM</td><td>384 GB (12× 32 GB)</td><td>256 GB to start (16× 16 GB, full speed); 512 GB later</td></tr>
+        <tr><td>GPUs (HPE-supported)</td><td>3× V100 (also V100S, T4)</td><td>3× V100S (also A100, T4); A100 makes the 2028 refresh simple</td></tr>
+        <tr><td>PCIe / room temperature limit with GPUs</td><td>Gen3 · 30 °C</td><td><b>Gen4 · 35 °C</b></td></tr>
+        <tr><td>Drives</td><td colspan="2">2 boot SSDs + your <b>6× 900 GB SAS drives</b> as the model library (about 2.7–3.6 TB), via an E208i-a controller and 8 HPE caddies</td></tr>
+        <tr><td>Network</td><td colspan="2">2-port 10G/25G on the motherboard (FlexibleLOM) for the server triangle, using your Cisco 10G cables</td></tr>
+        <tr><td>Server, before GPUs (ex VAT)</td><td>~£1,250–2,000</td><td>~£4,400–4,450 (Bargain Hardware build)</td></tr>
+        <tr><td>With 2 GPUs + cable kits (rough)</td><td><b>~£2,300–3,300</b></td><td><b>~£5,700–6,200</b></td></tr>
+        <tr><td>Best if</td><td>the 480B is a nice-to-have; value first</td><td>the 480B coder is central; faster overnight builds, longer life</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Before ordering B, ask Bargain Hardware which chassis takes 3 double-wide GPUs and still leaves a slot for an office-network card, whether it is a Gen10 Plus or Gen10 Plus v2, and whether the cheaper EPYC 7V12 works in it. Prices are rough and the GPU prices are estimates.</p>
+  </section>
+
+  <section>
     <h2>Buying plan</h2>
     <div class="scroll">
     <table>
@@ -455,7 +478,7 @@ footer{color:var(--muted);font-size:12.5px}
         <tr><td>0 · Fix + firewall</td><td>4× ASA 5525-X for OPNsense (ordered), console cable, SSDs, UPS rebalancing</td><td>£270–350 (+ batteries only if old)</td><td><span class="st st-ready">Ordered</span></td></tr>
         <tr><td>1 · Server triangle</td><td>10G cards for Gen9 and R710, one more cable</td><td>£55–85</td><td>Lid-off slot checks</td></tr>
         <tr><td>2 · Staff pilot</td><td>Nothing new; runs on the Gen9</td><td>£0</td><td>Pick staff and folders</td></tr>
-        <tr><td>3 · HQ AI server</td><td>DL380 Gen10 8-bay build + 2× V100 (3rd later)</td><td>£2,300–3,300</td><td>V100 chosen; get quotes</td></tr>
+        <tr><td>3 · HQ AI server</td><td>Option A: DL380 Gen10 + 2× V100 · Option B: DL385 Gen10 Plus + 2× V100S (3rd card later)</td><td>A £2,300–3,300 · B £5,700–6,200</td><td>V100 chosen; get quotes</td></tr>
         <tr><td>4 · Beverley node</td><td>Gen10 replica, reusing the HQ P40s</td><td>£1,350–1,850</td><td>After the AI server</td></tr>
         <tr><td>If needed</td><td>Own UPS for the AI server, cooling, new circuit</td><td>£0–4,000+</td><td>Power and temperature readings</td></tr>
       </tbody>
@@ -490,7 +513,7 @@ footer{color:var(--muted);font-size:12.5px}
         <tr><td>UPS rebalancing (A/B feeds)</td><td><span class="st st-wait">Waiting</span></td><td>Hub AWT-1064 and AWT-1065.</td></tr>
         <tr><td>Server triangle (private 10G)</td><td><span class="st st-rd">Designed</span></td><td>Lid-off checks, then 10G cards for the Gen9 and R710 plus 1 more cable.</td></tr>
         <tr><td>Composio scoped sessions</td><td><span class="st st-rd">Researching</span></td><td>Read-only and allowlist sessions per worker.</td></tr>
-        <tr><td>New AI server (Gen10 + V100)</td><td><span class="st st-ready">V100 chosen</span></td><td>Get quotes for the server build and 2× V100 32 GB; nothing bought. Card refresh planned ~2028.</td></tr>
+        <tr><td>New AI server (Gen10 + V100)</td><td><span class="st st-ready">V100 chosen</span></td><td>Choose A (DL380 Gen10) or B (DL385 Gen10 Plus); get quotes; nothing bought. Card refresh planned ~2028.</td></tr>
         <tr><td>Beverley half of the AI pool</td><td><span class="st st-rd">Planned</span></td><td>Measure the radio link (ping + iperf3), then reuse the HQ P40s once the new server is in.</td></tr>
         <tr><td>DeepSeek Harness</td><td><span class="st st-park">Parked</span></td><td>Revisit at the foundry stage, if audited.</td></tr>
       </tbody>
