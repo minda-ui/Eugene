@@ -120,3 +120,7 @@ covers Volta (verify at install).
   871829-B21) — £80.00 ex VAT (£20 each), £96.00 inc, standard delivery (seller SKU ITM0002454, Bargain Hardware SKU format).
   Listed as **EPS** = the right type for P40/V100. Use: 2 for the P40s in the HQ Gen10 now, 2 for a later card/Beverley.
   **One-probe check on each before first plug (HL-0110).**
+- **ORDERED (Minda, 2026-10-31 evening): 6× HPE 32 GB 2Rx4 DDR4-2933 RDIMM `P03052-091`** (eBay, the IT Black Belt listing),
+  £899.94 (6 × £149.99), eBay order 10-15369-27694. = 192 GB, 3 per CPU (half the channels). **Still to find: 6 more of the same
+  part** (2Rx4, 2933, RDIMM; any HPE-labelled maker is fine, keep 2Rx4) → 12 = 384 GB. Fit per HPE's population order (the
+  Gen10 user guide's DIMM table) — 6 now = 3 per CPU, matching slots on both CPUs.
