@@ -50,6 +50,15 @@ GPU work on the P40s is the same on any of these boxes (PCIe Gen3 x16).
     ≈ DL380 Gen10) and grow later.
   - **GPU cable kit for DL580 Gen10:** unknown — must come from HPE's DL580 QuickSpecs before buying.
 
+## V100 on the DL380 Gen10 (verified, same QuickSpecs, 2026-10-31)
+| Card | HPE part | Max | CPU | Max inlet temp |
+|---|---|---|---|---|
+| Tesla V100 PCIe 32 GB | `Q9U36C` | 3 | ≤165 W, 1st/2nd gen | **8SFF 30 °C**; 8LFF/16SFF/24SFF 20 °C; 12LFF not supported |
+| Tesla V100S PCIe 32 GB | `R4D73C` | 3 | ≤165 W, **2nd gen only** | same |
+- PCIe only — SXM2 modules + adapters are not supported. HPE: **mixing GPU types not supported** (P40s *or* V100s).
+- Why: HBM2 ~900 GB/s vs P40 346 GB/s + tensor cores → roughly 2–3× faster LLM tokens; 32 GB vs 24 GB.
+- Pushes the chassis choice harder to **8SFF** (only config above 20 °C).
+
 ## Shape of the estate after the flip
 - **Brain (new Gen10):** 2× P40 now (3–4 later), big RAM, AVX-512.
 - **Gen9 → storage + PBS + phones spine:** it already has 256 GB, 1400 W PSUs, 10 G. Its P840 is RAID-only
