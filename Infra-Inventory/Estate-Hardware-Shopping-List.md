@@ -1,5 +1,29 @@
 # Estate hardware shopping list — network, compute & storage (priority-marked)
 
+## ▶ CURRENT LIST (2026-10-31 evening) — supersedes the 28 Oct tables below (kept as history)
+**Ordered today:** 2× DL380 Gen10 (Bargain Hardware, due 9 Nov) · 4× GPU cable `869820-001` · 6× RAM `P03052-091` · 4× ASA 5525-X (earlier).
+| Pri | Qty | Item | Part / spec | ~£ | Status |
+|---|---|---|---|---|---|
+| 🔴 | 6 | RAM, HQ server | HPE 32 GB 2Rx4 DDR4-2933 RDIMM `P03052-091` | ~900 | Minda searching |
+| 🔴 | 4 | Boot SSDs (2 per server, mirrored) | enterprise SATA 2.5" 240–480 GB (e.g. Intel S4510 / Samsung PM883 / HPE RI) — fits BH's caddies | 100–160 | to buy |
+| 🔴 | 12 | High Performance fans (6 per server) | `867810-B21` (single fans `875075-001`) | 0–240 | **waiting on BH reply** |
+| 🔴 | 2 | GPU-ready risers + baffle | P38515-B21 / GPU baffle | 0–150 | **waiting on BH reply** |
+| 🟠 | 4 | Power leads C13–C14 | 1 m, for the UPS | ~15 | check stock first |
+| 🟠 | 1 | Cisco console cable (RJ45→USB) | for the ASA 5525-X / OPNsense installs | ~10 | if none in hand |
+| 🟠 | 0–4 | SSDs for the 5525-X | 2.5" SATA, only if the units arrive without | 0–80 | on arrival |
+| 🟡 | — | iLO Advanced licence | only if not already on the boxes | 0–40 | check at arrival |
+| 🔵 | 1–2 | 10G cards for the server triangle (R710, maybe Gen9 2nd) | 2-port SFP+; 2 Cisco DACs in hand | 55–85 | after lid-off checks |
+| 🔵 | — | Tertiary riser `826700-B21` + `P38517-B21` | only for a 3rd card | 50–120 | later |
+| 🔵 | 2 | V100 32 GB | ~£700 each | ~1,400 | **only if pilot testing says so** |
+| ⚪ | — | UPS batteries / AI-server UPS / 16 A circuit / cooling | only if AWT-1065/1066 readings say so | 0–4,000 | measurements |
+
+**Free (reuse):** Beverley RAM = 4 spare Gen9 sticks (128 GB) · Beverley data drives = spare 900 GB SAS (we have 32) · HQ model library = Minda's 6× 900 GB SAS · P40s → HQ Gen10.
+**Dropped:** new P40s, Gen9 P40 cables, Gen9 baffle 719082-B21, HQ storage Gen10 (24SFF), NM-4-10G, Beverley SSD set.
+
+---
+
+## History — 28 Oct list (superseded)
+
 > **Eugene, 2026-10-28 (guide-only, §3).** Everything still to buy to complete the estate as mapped
 > (`fishbone-estate-map`). **Minda buys + fits; Eugene specs + verifies.** Prices are indicative used/market
 > (ex-VAT) — **verify at purchase**. Part numbers from the specs: `R&D/estate-compute-split/gen10-r710-replacement.md`
