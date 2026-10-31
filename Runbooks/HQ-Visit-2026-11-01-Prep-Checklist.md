@@ -121,6 +121,20 @@ Send me the marked plan + screenshots → I'll make the coverage map and say whe
 
 ---
 
+## Block 5c — Mobile signal + booster check (≈ 15–20 min, do it on the same walk as 5b)
+HQ has a multi-band GSM/LTE repeater with a donor antenna on the roof mast.
+1. **Photo the booster's label** (make/model, bands, any "Ofcom"/"IR 2102" marking) and the **indoor antenna(s)** position.
+2. Phone signal at the **same spots as the Wi-Fi walk**: Android → Settings → About phone → SIM status → **Signal strength (dBm)**,
+   or a free app such as *Network Cell Info Lite*. Note the **network** (EE/O2/Vodafone/Three) and **4G/5G**.
+3. At 3–4 spots, compare **booster ON vs OFF** (switch it off for a minute) — tells us if it actually helps.
+4. Note where calls drop or are poor (ask staff if needed).
+**How to read it (4G, dBm):** better than −90 good · −90 to −105 OK · worse than −110 poor.
+**Why the label matters:** in the UK only Ofcom-approved, single-operator boosters are licence-exempt; many multi-band ones are not
+and can interfere with the mobile network. I'll check the model. Alternative fix if needed: **Wi-Fi calling** on staff phones
+(works well once the Wi-Fi map is good).
+
+---
+
 ## Block 6 — ☎️ Optional, only if quiet (≈ 45 min) — lid-off checks
 Sunday is the best time. **Phones go down while the Gen9 is off.** Do a clean shutdown from Proxmox (not the power button).
 ### ☐ 6a. Gen9 lid off (photos only — no changes)
