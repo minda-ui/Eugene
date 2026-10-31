@@ -67,3 +67,4 @@ from a session with the CLI signed in, or by Minda dropping the PDF into `Infra-
 - **eBay order (21:07):** Mellanox MCX312B-XCCT (R710) ✅, Cisco SFP-H10GB-CU3M ✅, **HP 530T for the Gen9 = RJ45 10GBASE-T, wrong type for DACs → flagged to swap to 530SFP+/546SFP+ or cancel.** Compuwyze #000000449 = the 4 GPU cables.
 - Minda messaged the 530T seller (swap or cancel); awaiting reply.
 - UPS model confirmed: 3× APC SUA2200RMI2U (2 HQ, 1 Beverley); one bought 10 Oct 2025. Power plan updated.
+- UPS purchase history found in minda@ (UPS Centre): 1× SUA2200RMI2U delivered ~22 Oct 2025, 1× **SUA3000RMI2U** delivered ~9 Nov 2025; third UPS source unknown.

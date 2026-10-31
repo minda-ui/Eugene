@@ -102,3 +102,12 @@ outside 10 °C → ~18 °C ✅ · 18 °C → ~26 °C ✅ · **25 °C → ~33 °C
   on-battery alerts + the AI server's early shutdown (P5, C4).
 - **Capacity:** 2× 1,980 W at HQ. New AI server (2× P40 + CPUs) ≈ 600–800 W under load → fits once the load is balanced
   across both UPSs (AWT-1064). Beverley Gen10 (CPU-only) ≈ 250–400 W → fine on its one UPS.
+
+### Correction from minda@ email (UPS Centre, checked 2026-10-31)
+- **Order 38435 — 1× SUA2200RMI2U (2200 VA / 1,980 W)**: ordered 10 Oct 2025, card payment refunded 16 Oct, then re-invoiced
+  (INV-001637, £360.49) and **delivered by pallet ~22 Oct 2025**.
+- **Order 38606 — 1× SUA3000RMI2U (3000 VA / 2,700 W)**: ordered 1 Nov 2025, invoiced INV-001693 (£459.79), **delivered ~9 Nov 2025**.
+- So the three are **not all 2200s**: at least **one 3000 VA**. The **third UPS isn't from UPS Centre** — source/date unknown.
+  Both of these have ~1-year-old batteries (2-yr warranty to Oct/Nov 2027). Both 2U models are believed to take the same pack (RBC43) — check the label.
+- **To confirm (Minda):** which unit is where (HQ ×2 / Beverley ×1) and the third unit's model + age (front display/rear label).
+  If the 3000 VA is at HQ, HQ has 1,980 + 2,700 W — plenty for the AI server.
