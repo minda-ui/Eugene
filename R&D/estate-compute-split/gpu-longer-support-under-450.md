@@ -50,3 +50,18 @@ eyes/receptionist or the night shift) rather than the main brain.
 eBay UK Tesla T4 listings; Thunder Compute "T4 pricing (Oct 2026)"; GPUDojo RTX 5060 Ti 16 GB UK price history and RTX
 A4000 used price; RunAIHome used RTX A4000; Aliteq RTX 5060 Ti for local AI; HPE DL380 Gen10 QuickSpecs a00008180enw
 (GPU support list); Tom's Hardware / Phoronix (R580 last for Pascal/Volta; Turing not included).
+
+## What it costs to go FASTER than the V100 (2026-10-31, rough; USD×0.78)
+| Card | Gen | Memory | Bandwidth | vs V100 | Server fit (DL380 Gen10) | Used price seen | per card |
+|---|---|---|---|---|---|---|---|
+| V100 32 GB (plan) | Volta | 32 GB | 900 GB/s | 1× | ✅ HPE, max 3 | ~£520–600 | baseline |
+| **RTX 3090 24 GB** | Ampere | 24 GB | 936 | ≈1× bandwidth, ~10–30 % faster in practice (newer features) | ❌ 3-slot, 350 W, fans — needs a workstation/4U chassis | UK ~£750–1,000+ (rising) | **+£250–500** |
+| **A30 24 GB** | Ampere | 24 GB HBM2 | 933 | ≈1×, less memory, longer support, 165 W passive | ✅ **HPE-supported, max 2** | ~$2,600–3,400 → ~£2,000–2,650 | **+£1,500–2,100** |
+| RTX 4090 24 GB | Ada | 24 GB | 1,008 | ~1.1–1.3× | ❌ 3-slot, 450 W | ~£1,400–1,700 | +£900–1,200 |
+| **A100 40 GB PCIe** | Ampere | 40 GB HBM2 | 1,555 | **~1.7×** | ✅ passive server card (check HPE list) | ~$5,000–7,000 asking → ~£4,000–5,500 | **+£3,500–5,000** |
+| RTX 5090 32 GB | Blackwell | 32 GB | 1,792 | ~2× | ❌ 575 W consumer | ~£2,000–2,500 new | +£1,500–2,000 |
+**Read:** in a server like ours, genuinely faster = **A100 (~10× the budget per card)**. Same speed but longer support =
+**A30 (~5×, max 2 per server → 48 GB)**. The **3090** is the cheap step up but needs a different chassis.
+For a 3-card server: V100 ~£1.6–1.8k · A30 (2 cards) ~£4–5.3k · A100 ~£12–16.5k.
+**Steer:** speed for staff Q&A is already good on V100; the 480B's speed depends on RAM, not GPUs. Best value =
+**V100 now + a planned refresh (~2028)** when A100/A30 prices fall further.
