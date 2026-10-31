@@ -68,3 +68,14 @@ covers Volta (verify at install).
 2. Budget ceiling for the GPUs?
 3. Keep the Gen9's 2× 1400 W PSUs (fine for storage) or swap to smaller ones later to save power?
 4. 10 G: is there a free 10 G port on the HQ 3850 stack, or do we need a module/switch change?
+
+## DECISION (Minda, 2026-10-31): **DL380 Gen10** (option A) chosen over the DL385 Gen10 Plus (option B, ~£3k more).
+**Final build checklist for quotes** (8SFF chassis):
+- 2× Xeon Gold 6252 (150 W) + 2× High-Performance heatsinks (826706-B21) · HP fan kit 867810-B21 (all 6)
+- **384 GB = 12× 32 GB DDR4-2933 RDIMM** (all 12 channels) — price-check vs 12× 16 GB (192 GB) if RAM is dear
+- 2× 1600 W Flex-Slot PSU (830272-B21) · rails · C13–C14 leads to the UPS
+- **E208i-a** (SAS-capable, HBA mode) · **2× boot SSD** (mirror) + **Minda's 6× Seagate 900 GB 10K SAS** = model library · **8× HPE SFF caddies**
+- **2-port 10/25G FlexibleLOM — prefer a Mellanox-based one (e.g. HPE 640FLR-SFP28; confirm part)**: the Intel X710-based 562FLR can reject non-Intel modules; the Cisco DACs are more likely to work on Mellanox
+- GPU-ready primary + secondary risers (+ tertiary x16 826700-B21 for card 3) + retainer-less cages P38515/P38517-B21 + GPU baffle
+- 2× **V100 32 GB PCIe** (Q9U36C) + 2× **871829-B21** cable kits — one-probe check before plugging (HL-0110)
+- iLO 5: confirm **iLO Advanced** licence (full remote console)
