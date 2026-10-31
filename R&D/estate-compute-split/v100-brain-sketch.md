@@ -87,3 +87,7 @@ covers Volta (verify at install).
   heatsink/fan fix: change to 2× High-Performance heatsinks + add 6× High-Performance fans; add 2 boot SSDs) and **Techbuyer**
   (same spec). Questions to both: GPU-Ready contents (2× x16 FL, baffle, P38515-B21), 871829-B21 ×2, embedded 4×1G LOM,
   tertiary riser 826700-B21 + P38517-B21, optional 2× V100 32 GB price. Eugene to compare line by line when back.
+- **Techbuyer quote (2026-10-31):** £649.24 ex VAT (£779.10 inc), **1-year warranty** — chassis DL380 Gen10 8SFF £265.78 · 2× HP
+  heatsinks £38.81 · 2× Gold 6238 £73.74 · 640SFP28 £38.04 · E208i-a £54.34 · rails 733660-B21 £65.98. **Missing:** PSUs, HP fans,
+  caddies, boot SSDs; GPU-ready risers not stated → complete ≈ £850–950. **Bargain Hardware** complete ≈ £560–650 ex VAT with a
+  **3-year** warranty → BH preferred unless Techbuyer price-matches. Awaiting BH answers to the 4 questions.
