@@ -91,3 +91,11 @@ Internet ─ Wavenet / Starlink                 Internet ─ Wavenet / Starlink
 | Generic N100/N305 appliance (Intel 82599 SFP+ + i226) | 4× 2.5G + 2× SFP+ (6) | multi-gig | desktop + shelf | ~£250–400 | ~£0.8–1.2k |
 Note: Deciso warns not to mix 2.5/5G and 10G SFP+ modules on one box. Earlier "£0.9–1.8k for 3" assumed generic boxes.
 **Steer:** HQ pair = 2× DEC2750 (official, HA-tested, rack, optional support); Beverley = DEC2750 (one platform + common spare) or generic (~£600 less). ≈ £2.6k all-Deciso / ≈ £2.0k mixed. Awaiting Minda's pick.
+
+## Low-cost path spotted (Minda, 2026-10-31): reflashed Cisco ASA 5500-X as an OPNsense box
+eBay (seller techreform, £49.99 + £3.30, used): "pfSense/OPNsense box, 7× Intel GbE, 8 GB DDR3, 8 GB storage, Xeon" — a retired
+**ASA 5500-X** (likely 5525-X/5545-X if Xeon). **Fit:** 7× 1G Intel ports cover Step A (2× 1G LACP to the 3850s + sync)
+and Step B (2 WAN); ~1–2 Gb/s; 1U rack; ~100 W; no vendor support; c.2012 hardware; no 10G.
+**Idea:** buy **1 first → Beverley pilot**; if good, 2 more (+1 spare, ~£200 total) for HQ Step A; move to 10G boxes
+(Deciso) only if traffic needs it — the cheap units become lab/spares. **Ask seller:** exact model + CPU; OPNsense
+installed on what drive (add a 2.5" SSD); tested + console cable; PSU (single — fine in a CARP pair).
