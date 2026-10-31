@@ -91,3 +91,7 @@ covers Volta (verify at install).
   heatsinks £38.81 · 2× Gold 6238 £73.74 · 640SFP28 £38.04 · E208i-a £54.34 · rails 733660-B21 £65.98. **Missing:** PSUs, HP fans,
   caddies, boot SSDs; GPU-ready risers not stated → complete ≈ £850–950. **Bargain Hardware** complete ≈ £560–650 ex VAT with a
   **3-year** warranty → BH preferred unless Techbuyer price-matches. Awaiting BH answers to the 4 questions.
+- **Like-for-like (2026-10-31, both 2× Gold 6238):** **Bargain Hardware £583.00 ex VAT (£699.60 inc)** — GPU Ready 6-slot chassis, HP
+  heatsinks, E208i-a, 8 caddies, 640FLR-SFP28, 2× 1600 W, rails, **3-yr RTB**, 4 available. **Techbuyer £649.24** missing PSUs + caddies
+  (→ ~£750–830), 1-yr. **Choose Bargain Hardware.** Still to add on BH: **6× High-Performance/Max-Performance fans** (no Fans line in
+  the summary) + 2 boot SSDs; then the 4 questions (GPU-Ready contents incl. baffle + 871829-B21, embedded 4×1G, tertiary riser).
