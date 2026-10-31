@@ -33,6 +33,7 @@ BEV (planned Gen10 + 2 NEW P40s)        BEV Gen10            = replica + failove
 | PSU | **2× 1600 W Flex-Slot `830272-B21`** | HPE: 1600 W recommended (min 800 W per GPU) | 60–120 |
 | RAM | **12× 32 GB DDR4-2933 = 384 GB** | fills all 12 channels (full bandwidth); HPE rule ≥2× GPU memory (3× 32 = 96 → ≥192 GB) | 480–720 |
 | GPU risers | Primary + Secondary GPU risers (Beverley spec lists `P14374-B21` / `P14373-B21` or `826704-B21`) | x16 full-length slots for 3 double-wide cards — **confirm exact parts** | 50–150 |
+| 3rd-card riser | **x16 Tertiary Riser `826700-B21`** (FH/FL, slot 7, needs CPU 2) + retainer-less cages **`P38515-B21`** (primary) and **`P38517-B21`** (secondary+tertiary butterfly) | Gen10's **third riser position** (rear-left, over the PSUs) — the Gen9 has no third riser, which is why it tops out at 2 cards. Costs the rear-drive option | 50–120 |
 | GPU power | **`871829-B21`** keyed 8-pin kit, one per card | V100 PCIe = EPS-style 8-pin (same family as the P40) — **one-probe check before plugging (HL-0110)** | 20–60 |
 | GPU baffle | Gen10 GPU air baffle | passive cards — mandatory under load | 20–60 |
 | Network | **10 G FlexibleLOM** (e.g. 562FLR-SFP+ — confirm part) | keeps PCIe slots free for GPUs; needs a free 10 G port on the 3850 stack | 30–60 |
@@ -51,6 +52,8 @@ covers Volta (verify at install).
 | Tensor cores / fast FP16 | no | **yes** |
 | Rough effect on chat speed | 1× | **~2–3×** |
 | Two cards together | 48 GB | **64 GB** (96 GB with a 3rd) |
+
+**3-card power note:** HPE: 1600 W recommended, ≥800 W per GPU. With 3× V100 at full load, 2× 1600 W may no longer be redundant (1+1) — run HPE Power Advisor before fitting card 3.
 
 ## Phasing (low risk, phones never touched first)
 1. **Price check** — V100 PCIe 32 GB ×2 quotes; DL380 Gen10 8SFF CTO quote (Techbuyer) with the parts above.
