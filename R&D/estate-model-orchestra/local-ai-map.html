@@ -1,0 +1,321 @@
+<title>Fishbone Local AI Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; the system map is the hero, then flows, rules, hardware, status. */
+:root{
+  --bg:#F4F6F4; --surface:#FFFFFF; --ink:#1D292D; --muted:#56666B; --line:#CBD4D2;
+  --human:#A86A12; --human-bg:#FBF0DC;
+  --frontier:#2C5AA6; --frontier-bg:#E5ECF8;
+  --local:#1F7A64; --local-bg:#DFF1EA;
+  --ctrl:#46555B; --ctrl-bg:#E7ECEC;
+  --store:#6A5596; --store-bg:#ECE8F5;
+  --display:"Archivo",system-ui,sans-serif; --body:"Public Sans",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#131A1C; --surface:#1B2427; --ink:#E4ECEA; --muted:#9AAAAD; --line:#33413F;
+  --human:#E3A955; --human-bg:#3A2D17; --frontier:#86A9EA; --frontier-bg:#1E2B44;
+  --local:#5FC9A9; --local-bg:#16352C; --ctrl:#B3C0C3; --ctrl-bg:#25302F;
+  --store:#B7A3E6; --store-bg:#2A2440; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#131A1C; --surface:#1B2427; --ink:#E4ECEA; --muted:#9AAAAD; --line:#33413F;
+  --human:#E3A955; --human-bg:#3A2D17; --frontier:#86A9EA; --frontier-bg:#1E2B44;
+  --local:#5FC9A9; --local-bg:#16352C; --ctrl:#B3C0C3; --ctrl-bg:#25302F;
+  --store:#B7A3E6; --store-bg:#2A2440; color-scheme:dark }
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body)}
+.wrap{max-width:1040px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:40px}
+h1,h2{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(28px,4.4vw,40px);font-weight:800}
+h2{font-size:22px;font-weight:700}
+.lede{color:var(--muted);max-width:66ch;margin:8px 0 0}
+.eyebrow{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+section{display:grid;gap:14px}
+.legend{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;font:500 12px var(--mono);padding:3px 9px;border-radius:999px;border:1px solid;white-space:nowrap}
+.c-human{color:var(--human);background:var(--human-bg);border-color:var(--human)}
+.c-frontier{color:var(--frontier);background:var(--frontier-bg);border-color:var(--frontier)}
+.c-local{color:var(--local);background:var(--local-bg);border-color:var(--local)}
+.c-ctrl{color:var(--ctrl);background:var(--ctrl-bg);border-color:var(--ctrl)}
+.c-store{color:var(--store);background:var(--store-bg);border-color:var(--store)}
+figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.scroll{overflow-x:auto}
+.scroll svg{display:block;min-width:760px;width:100%;height:auto}
+figcaption{color:var(--muted);font-size:13.5px;margin-top:10px;max-width:80ch}
+/* SVG classes */
+.b-human{fill:var(--human-bg);stroke:var(--human)}
+.b-frontier{fill:var(--frontier-bg);stroke:var(--frontier)}
+.b-local{fill:var(--local-bg);stroke:var(--local)}
+.b-ctrl{fill:var(--ctrl-bg);stroke:var(--ctrl)}
+.b-store{fill:var(--store-bg);stroke:var(--store)}
+.b-band{fill:none;stroke:var(--local);stroke-dasharray:2 0}
+.b-cloud{fill:var(--surface);stroke:var(--muted);stroke-dasharray:5 4}
+.bx{stroke-width:1.4}
+.t{font:600 13px var(--body);fill:var(--ink)}
+.s{font:400 11px var(--body);fill:var(--muted)}
+.bt{font:700 12.5px var(--display);fill:var(--local)}
+.lab{font:500 10.5px var(--mono);fill:var(--muted)}
+.ar{stroke:var(--muted);stroke-width:1.4;fill:none}
+.ar-d{stroke:var(--muted);stroke-width:1.4;fill:none;stroke-dasharray:5 4}
+.ah{fill:var(--muted)}
+/* flows */
+.flows{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.flow{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:10px;align-content:start;min-width:0}
+.flow h3{margin:0;font:700 16px var(--display)}
+.flow ol{margin:0;padding:0;list-style:none;display:grid;gap:8px;counter-reset:s}
+.flow li{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start;counter-increment:s}
+.flow li::before{content:counter(s);font:500 12px var(--mono);color:var(--muted);padding-top:2px}
+.flow li span.txt{display:block}
+.flow li .chip{margin-top:4px}
+.note{font-size:13px;color:var(--muted)}
+/* ladder */
+.ladder{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.rung{padding:14px 16px;border-right:1px solid var(--line);display:grid;gap:4px;min-width:0}
+.rung:last-child{border-right:0}
+.rung b{font:700 15px var(--display)}
+.rung p{margin:0;font-size:13.5px;color:var(--muted)}
+/* hardware */
+.hw{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:6px;align-content:start;min-width:0}
+.box b{font:700 15px var(--display)}
+.box p{margin:0;font-size:13.5px;color:var(--muted)}
+/* status */
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:14px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+.st{font:500 12px var(--mono);padding:2px 8px;border-radius:6px;white-space:nowrap;border:1px solid}
+.st-live{color:var(--local);background:var(--local-bg);border-color:var(--local)}
+.st-ready{color:var(--frontier);background:var(--frontier-bg);border-color:var(--frontier)}
+.st-wait{color:var(--human);background:var(--human-bg);border-color:var(--human)}
+.st-rd{color:var(--store);background:var(--store-bg);border-color:var(--store)}
+.st-park{color:var(--muted);background:var(--ctrl-bg);border-color:var(--line)}
+footer{color:var(--muted);font-size:12.5px}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Fishbone estate · R&amp;D map · 31 Oct 2026</div>
+    <h1>Fishbone Local AI Map</h1>
+    <p class="lede">How the planned local AI fits together: who asks, who plans, what directs the traffic, which models do the work, and where it all runs. Nothing on this page is bought or built yet except where the status table says so.</p>
+  </header>
+
+  <section>
+    <div class="legend" aria-label="Colour key">
+      <span class="chip c-human">People</span>
+      <span class="chip c-frontier">AI employees (frontier, cloud)</span>
+      <span class="chip c-ctrl">Plain software (no AI)</span>
+      <span class="chip c-local">Local AI models (private)</span>
+      <span class="chip c-store">Storage &amp; backup</span>
+    </div>
+    <figure>
+      <div class="scroll">
+      <svg viewBox="0 0 980 650" role="img" aria-label="System map. People ask through AI employees, a staff chat page or a night scheduler. All model calls pass through one gateway, which routes them by role to local models on the HQ AI server, falls back to Beverley, and only reaches a cloud model if the rules allow. AI employees act on apps only through scoped Composio access and ask Minda to approve anything irreversible.">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+
+        <!-- Row 1: people -->
+        <rect class="bx b-human" x="40" y="24" width="200" height="52" rx="8"/>
+        <text class="t" x="140" y="46" text-anchor="middle">You (Minda)</text>
+        <text class="s" x="140" y="63" text-anchor="middle">sets the rules · approves</text>
+
+        <rect class="bx b-human" x="390" y="24" width="200" height="52" rx="8"/>
+        <text class="t" x="490" y="46" text-anchor="middle">Staff</text>
+        <text class="s" x="490" y="63" text-anchor="middle">office &amp; site managers</text>
+
+        <rect class="bx b-human" x="740" y="24" width="200" height="52" rx="8"/>
+        <text class="t" x="840" y="46" text-anchor="middle">Site teams</text>
+        <text class="s" x="840" y="63" text-anchor="middle">photos · delivery notes</text>
+
+        <!-- Row 2 -->
+        <rect class="bx b-frontier" x="40" y="146" width="300" height="60" rx="8"/>
+        <text class="t" x="190" y="170" text-anchor="middle">AI employees</text>
+        <text class="s" x="190" y="188" text-anchor="middle">Eugene · Anna · Rachel · Peter… plan &amp; check</text>
+
+        <rect class="bx b-ctrl" x="390" y="146" width="200" height="60" rx="8"/>
+        <text class="t" x="490" y="170" text-anchor="middle">Staff chat page</text>
+        <text class="s" x="490" y="188" text-anchor="middle">Open WebUI · Tailscale only</text>
+
+        <rect class="bx b-ctrl" x="740" y="146" width="200" height="60" rx="8"/>
+        <text class="t" x="840" y="170" text-anchor="middle">Night scheduler</text>
+        <text class="s" x="840" y="188" text-anchor="middle">batch jobs 00:00–06:00</text>
+
+        <!-- Row 1 to 2 arrows -->
+        <line class="ar" x1="110" y1="76" x2="110" y2="144" marker-end="url(#ah)"/>
+        <text class="lab" x="104" y="114" text-anchor="end">briefs</text>
+        <line class="ar" x1="170" y1="146" x2="170" y2="78" marker-end="url(#ah)"/>
+        <text class="lab" x="176" y="114">asks approval</text>
+        <line class="ar" x1="490" y1="76" x2="490" y2="144" marker-end="url(#ah)"/>
+        <text class="lab" x="496" y="114">asks a question</text>
+        <line class="ar" x1="840" y1="76" x2="840" y2="144" marker-end="url(#ah)"/>
+        <text class="lab" x="846" y="114">sends photos</text>
+
+        <!-- Row 3 -->
+        <rect class="bx b-ctrl" x="40" y="270" width="200" height="64" rx="8"/>
+        <text class="t" x="140" y="292" text-anchor="middle">Composio</text>
+        <text class="s" x="140" y="309" text-anchor="middle">Gmail · Drive · Smartsheet</text>
+        <text class="s" x="140" y="324" text-anchor="middle">scoped: draft-only / read-only</text>
+
+        <rect class="bx b-ctrl" x="290" y="270" width="410" height="64" rx="8"/>
+        <text class="t" x="495" y="294" text-anchor="middle">Gateway (one private address)</text>
+        <text class="s" x="495" y="312" text-anchor="middle">routes by role · keeps private data local · logs every call</text>
+
+        <rect class="bx b-cloud" x="770" y="262" width="170" height="40" rx="8"/>
+        <text class="t" x="855" y="281" text-anchor="middle">Cloud model</text>
+        <text class="s" x="855" y="295" text-anchor="middle">only if the rules allow</text>
+
+        <!-- Row 2 to 3 arrows -->
+        <line class="ar" x1="110" y1="206" x2="110" y2="268" marker-end="url(#ah)"/>
+        <text class="lab" x="116" y="242">acts on apps</text>
+        <line class="ar" x1="300" y1="206" x2="300" y2="268" marker-end="url(#ah)"/>
+        <text class="lab" x="306" y="242">routine work</text>
+        <line class="ar" x1="490" y1="206" x2="490" y2="268" marker-end="url(#ah)"/>
+        <text class="lab" x="496" y="242">by role</text>
+        <polyline class="ar" points="840,206 840,236 680,236 680,268" marker-end="url(#ah)"/>
+        <text class="lab" x="760" y="230" text-anchor="middle">night jobs</text>
+        <line class="ar-d" x1="700" y1="282" x2="768" y2="282" marker-end="url(#ah)"/>
+        <text class="lab" x="734" y="276" text-anchor="middle">if allowed</text>
+
+        <!-- Gateway to workers -->
+        <line class="ar" x1="495" y1="334" x2="495" y2="386" marker-end="url(#ah)"/>
+        <text class="lab" x="501" y="365">routes by role</text>
+
+        <!-- Fallback to Beverley -->
+        <polyline class="ar-d" points="700,322 962,322 962,604 942,604" marker-end="url(#ah)"/>
+        <text class="lab" x="831" y="316" text-anchor="middle">falls back if HQ busy</text>
+
+        <!-- Workers band -->
+        <rect class="b-band" x="40" y="388" width="900" height="140" rx="10" stroke-width="1.6"/>
+        <text class="bt" x="56" y="410">HQ AI server · DL380 Gen10 · 3× V100 (96 GB) + 384 GB RAM</text>
+
+        <rect class="bx b-local" x="56" y="424" width="134" height="84" rx="8"/>
+        <text class="t" x="123" y="450" text-anchor="middle">Librarian</text>
+        <text class="s" x="123" y="468" text-anchor="middle">small model</text>
+        <text class="s" x="123" y="484" text-anchor="middle">finds our documents</text>
+
+        <rect class="bx b-local" x="202" y="424" width="134" height="84" rx="8"/>
+        <text class="t" x="269" y="450" text-anchor="middle">Receptionist</text>
+        <text class="s" x="269" y="468" text-anchor="middle">8B</text>
+        <text class="s" x="269" y="484" text-anchor="middle">sorts &amp; scores</text>
+
+        <rect class="bx b-local" x="348" y="424" width="134" height="84" rx="8"/>
+        <text class="t" x="415" y="450" text-anchor="middle">Generalist</text>
+        <text class="s" x="415" y="468" text-anchor="middle">70B–120B</text>
+        <text class="s" x="415" y="484" text-anchor="middle">answers · drafts</text>
+
+        <rect class="bx b-local" x="494" y="424" width="134" height="84" rx="8"/>
+        <text class="t" x="561" y="450" text-anchor="middle">Eyes</text>
+        <text class="s" x="561" y="468" text-anchor="middle">~30B vision</text>
+        <text class="s" x="561" y="484" text-anchor="middle">photos · notes</text>
+
+        <rect class="bx b-local" x="640" y="424" width="134" height="84" rx="8"/>
+        <text class="t" x="707" y="450" text-anchor="middle">Day coder</text>
+        <text class="s" x="707" y="468" text-anchor="middle">~30B</text>
+        <text class="s" x="707" y="484" text-anchor="middle">quick scripts</text>
+
+        <rect class="bx b-local" x="786" y="424" width="134" height="84" rx="8" stroke-dasharray="5 4"/>
+        <text class="t" x="853" y="450" text-anchor="middle">Night foundry</text>
+        <text class="s" x="853" y="468" text-anchor="middle">480B · from RAM</text>
+        <text class="s" x="853" y="484" text-anchor="middle">builds overnight</text>
+
+        <!-- Row 5 -->
+        <rect class="bx b-store" x="40" y="578" width="430" height="52" rx="8"/>
+        <text class="t" x="255" y="600" text-anchor="middle">Gen9 · storage server</text>
+        <text class="s" x="255" y="617" text-anchor="middle">read-only Drive copy · backups · phone system</text>
+
+        <rect class="bx b-local" x="510" y="578" width="430" height="52" rx="8"/>
+        <text class="t" x="725" y="600" text-anchor="middle">Beverley Gen10 · 2× P40</text>
+        <text class="s" x="725" y="617" text-anchor="middle">backup workers if HQ is busy or down</text>
+
+        <line class="ar" x1="123" y1="508" x2="123" y2="576" marker-end="url(#ah)"/>
+        <text class="lab" x="129" y="552">reads documents</text>
+      </svg>
+      </div>
+      <figcaption>Every model call goes through the gateway, so the private-data rule and the logs live in one place. Answers travel back up the same path. Local models only hand back text; acting on email, Drive or Smartsheet happens through an AI employee's scoped Composio access, and anything irreversible goes to you.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Three jobs, step by step</h2>
+    <div class="flows">
+      <article class="flow">
+        <h3>Staff question</h3>
+        <span class="chip c-local" style="justify-self:start">First pilot</span>
+        <ol>
+          <li><div><span class="txt">A site manager asks "what's the RAMS for working at height on this job?"</span><span class="chip c-human">Staff</span></div></li>
+          <li><div><span class="txt">Receptionist scores it: document lookup, routine.</span><span class="chip c-local">Local</span></div></li>
+          <li><div><span class="txt">Librarian finds the right file in the read-only Drive copy.</span><span class="chip c-local">Local</span></div></li>
+          <li><div><span class="txt">Generalist answers and names the source file.</span><span class="chip c-local">Local</span></div></li>
+          <li><div><span class="txt">Hard or unsure? It goes to the owning AI employee instead.</span><span class="chip c-frontier">Frontier</span></div></li>
+        </ol>
+      </article>
+      <article class="flow">
+        <h3>Delivery note</h3>
+        <span class="chip c-ctrl" style="justify-self:start">After the pilot</span>
+        <ol>
+          <li><div><span class="txt">Site sends a photo of the delivery note.</span><span class="chip c-human">Site team</span></div></li>
+          <li><div><span class="txt">Eyes read the supplier, items and amounts.</span><span class="chip c-local">Local</span></div></li>
+          <li><div><span class="txt">Generalist drafts the bill entry.</span><span class="chip c-local">Local</span></div></li>
+          <li><div><span class="txt">Rachel checks it against the purchase order.</span><span class="chip c-frontier">Frontier</span></div></li>
+          <li><div><span class="txt">You approve before anything is entered.</span><span class="chip c-human">You</span></div></li>
+        </ol>
+      </article>
+      <article class="flow">
+        <h3>Overnight tool build</h3>
+        <span class="chip c-ctrl" style="justify-self:start">Needs the new server</span>
+        <ol>
+          <li><div><span class="txt">Eugene writes the spec and the tests.</span><span class="chip c-frontier">Frontier</span></div></li>
+          <li><div><span class="txt">The scheduler starts the job at night.</span><span class="chip c-ctrl">Software</span></div></li>
+          <li><div><span class="txt">Night foundry builds and re-runs the tests until they pass, in a locked-down container.</span><span class="chip c-local">Local</span></div></li>
+          <li><div><span class="txt">Eugene reviews the result in the morning.</span><span class="chip c-frontier">Frontier</span></div></li>
+          <li><div><span class="txt">You approve before it is used.</span><span class="chip c-human">You</span></div></li>
+        </ol>
+        <p class="note">DeepSeek Harness could be the build loop here. It stays parked until it has a security audit.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Local or frontier? Checked in this order</h2>
+    <div class="ladder">
+      <div class="rung"><span class="eyebrow">1 · Privacy</span><b>Private data stays local</b><p>HR, finance and site photos never go to the cloud, whatever the task.</p></div>
+      <div class="rung"><span class="eyebrow">2 · Difficulty</span><b>Routine stays local</b><p>The receptionist scores each request. Judgement calls go to an AI employee.</p></div>
+      <div class="rung"><span class="eyebrow">3 · Confidence</span><b>Failed checks go up</b><p>Wrong totals, missing sources or failing tests send the work up a level.</p></div>
+      <div class="rung"><span class="eyebrow">4 · Stakes</span><b>Irreversible goes to you</b><p>Sending, paying or changing a live system always waits for your approval.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Where it runs</h2>
+    <div class="hw">
+      <div class="box"><span class="chip c-local" style="justify-self:start">HQ · new</span><b>DL380 Gen10, 8-bay</b><p>The AI server. 2× Gold 6252, 384 GB RAM, 2 V100 cards to start, room for a third on the Gen10's extra riser.</p></div>
+      <div class="box"><span class="chip c-store" style="justify-self:start">HQ · existing</span><b>DL380 Gen9</b><p>Becomes the storage server: document copy, backups and the phone system. Runs the P40s until the new server arrives.</p></div>
+      <div class="box"><span class="chip c-store" style="justify-self:start">HQ · existing</span><b>Dell R710</b><p>Third backup copy, powered off between backups.</p></div>
+      <div class="box"><span class="chip c-local" style="justify-self:start">Beverley · planned</span><b>DL380 Gen10 + 2× P40</b><p>Off-site copy of the data and backup AI workers. Linked to HQ by the airFiber radio and Tailscale.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Where each piece stands</h2>
+    <div class="scroll">
+    <table>
+      <thead><tr><th>Piece</th><th>Status</th><th>Next step</th></tr></thead>
+      <tbody>
+        <tr><td>Tailscale private access</td><td><span class="st st-live">Live</span></td><td>Add staff phones for the pilot.</td></tr>
+        <tr><td>Gen9 with 2× P40</td><td><span class="st st-wait">Waiting</span></td><td>Genuine HPE 805123-001 cables (Hub AWT-1061).</td></tr>
+        <tr><td>Staff chat page (Open WebUI)</td><td><span class="st st-ready">Ready to run</span></td><td>Runbook written; pick pilot staff and folders.</td></tr>
+        <tr><td>Read-only Drive copy</td><td><span class="st st-ready">Ready to run</span></td><td>Runbook written; Minda runs it, Eugene checks.</td></tr>
+        <tr><td>Gateway</td><td><span class="st st-rd">Designed</span></td><td>Add with the second job (delivery notes).</td></tr>
+        <tr><td>Composio scoped sessions</td><td><span class="st st-rd">Researching</span></td><td>Read-only and allowlist sessions per worker.</td></tr>
+        <tr><td>New AI server (Gen10 + V100)</td><td><span class="st st-rd">R&amp;D</span></td><td>Get quotes; nothing bought.</td></tr>
+        <tr><td>Beverley backup workers</td><td><span class="st st-rd">Planned</span></td><td>Reuses the HQ P40s once the new server is in.</td></tr>
+        <tr><td>DeepSeek Harness</td><td><span class="st st-park">Parked</span></td><td>Revisit at the foundry stage, if audited.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <footer>Source notes in Eugene's KB: R&amp;D/estate-model-orchestra (RND-24), R&amp;D/estate-compute-split (RND-23), RND-14 gateway, RND-15 night shift, RND-19 foundry, RND-25 Composio. Prices and sizes are estimates until quoted.</footer>
+</div>
