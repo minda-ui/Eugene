@@ -290,11 +290,50 @@ footer{color:var(--muted);font-size:12.5px}
   <section>
     <h2>Where it runs</h2>
     <div class="hw">
-      <div class="box"><span class="chip c-local" style="justify-self:start">HQ · new</span><b>DL380 Gen10, 8-bay</b><p>The AI server. 2× Gold 6252, 384 GB RAM, 2 V100 cards to start, room for a third on the Gen10's extra riser.</p></div>
+      <div class="box"><span class="chip c-local" style="justify-self:start">HQ · new</span><b>DL380 Gen10, 8-bay</b><p>The AI server. 2× Gold 6252, 384 GB RAM, 2 V100 cards to start, room for a third on the Gen10's extra riser. Built-in 2-port 10G for the server triangle.</p></div>
       <div class="box"><span class="chip c-store" style="justify-self:start">HQ · existing</span><b>DL380 Gen9</b><p>Becomes the storage server: document copy, backups and the phone system. Runs the P40s until the new server arrives.</p></div>
-      <div class="box"><span class="chip c-store" style="justify-self:start">HQ · existing</span><b>Dell R710</b><p>Third backup copy, powered off between backups.</p></div>
+      <div class="box"><span class="chip c-store" style="justify-self:start">HQ · existing</span><b>Dell R710</b><p>Third backup copy, powered off between backups. Pulls backups over its own private 10G cable.</p></div>
       <div class="box"><span class="chip c-local" style="justify-self:start">Beverley · planned</span><b>DL380 Gen10 + 2× P40</b><p>Off-site copy of the data and backup AI workers. Linked to HQ by the airFiber radio and Tailscale.</p></div>
     </div>
+    <figure>
+      <div class="scroll">
+      <svg viewBox="0 0 760 340" role="img" aria-label="Server triangle. The Gen9, the AI server and the R710 are joined to each other by three private 10G cables that carry models, documents and backups. Each server also has a separate, smaller link to the office switch stack, where the ASA pair stays the internet edge.">
+        <defs>
+          <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+        <rect class="bx b-ctrl" x="40" y="24" width="680" height="44" rx="8"/>
+        <text class="t" x="380" y="44" text-anchor="middle">Office network · 3850 switch stack</text>
+        <text class="s" x="380" y="60" text-anchor="middle">VLANs, phones, chat, management · ASA pair stays the internet edge</text>
+
+        <line class="ar" x1="90" y1="250" x2="90" y2="70" marker-end="url(#ah2)"/>
+        <text class="lab" x="96" y="160">2×10G bundle</text>
+        <line class="ar" x1="380" y1="110" x2="380" y2="70" marker-end="url(#ah2)"/>
+        <text class="lab" x="386" y="94">1G</text>
+        <line class="ar" x1="670" y1="250" x2="670" y2="70" marker-end="url(#ah2)"/>
+        <text class="lab" x="664" y="160" text-anchor="end">1G copper</text>
+
+        <line x1="300" y1="166" x2="175" y2="250" stroke="var(--local)" stroke-width="3.5"/>
+        <line x1="460" y1="166" x2="585" y2="250" stroke="var(--local)" stroke-width="3.5"/>
+        <line x1="260" y1="280" x2="500" y2="280" stroke="var(--local)" stroke-width="3.5"/>
+        <text class="lab" x="228" y="200" text-anchor="end">10G · backups</text>
+        <text class="lab" x="532" y="200">10G · backups</text>
+        <text class="lab" x="380" y="272" text-anchor="middle">10G · models &amp; documents</text>
+
+        <rect class="bx b-store" x="280" y="110" width="200" height="56" rx="8"/>
+        <text class="t" x="380" y="133" text-anchor="middle">R710 · backups</text>
+        <text class="s" x="380" y="151" text-anchor="middle">on only for backup runs</text>
+
+        <rect class="bx b-store" x="60" y="250" width="200" height="60" rx="8"/>
+        <text class="t" x="160" y="274" text-anchor="middle">Gen9 · storage + phones</text>
+        <text class="s" x="160" y="292" text-anchor="middle">new 2-port 10G card</text>
+
+        <rect class="bx b-local" x="500" y="250" width="200" height="60" rx="8"/>
+        <text class="t" x="600" y="274" text-anchor="middle">AI server · Gen10</text>
+        <text class="s" x="600" y="292" text-anchor="middle">built-in 2-port 10G</text>
+      </svg>
+      </div>
+      <figcaption>The server triangle (green): three private 10G cables, each its own small network with no route to the office LAN or the internet. Models, documents and backups travel only on these cables, so nothing changes on the switches or the firewalls. About £60–110 in parts; two of the three cables are already on hand.</figcaption>
+    </figure>
   </section>
 
   <section>
@@ -308,6 +347,7 @@ footer{color:var(--muted);font-size:12.5px}
         <tr><td>Staff chat page (Open WebUI)</td><td><span class="st st-ready">Ready to run</span></td><td>Runbook written; pick pilot staff and folders.</td></tr>
         <tr><td>Read-only Drive copy</td><td><span class="st st-ready">Ready to run</span></td><td>Runbook written; Minda runs it, Eugene checks.</td></tr>
         <tr><td>Gateway</td><td><span class="st st-rd">Designed</span></td><td>Add with the second job (delivery notes).</td></tr>
+        <tr><td>Server triangle (private 10G)</td><td><span class="st st-rd">Designed</span></td><td>Lid-off checks, then 10G cards for the Gen9 and R710 plus 1 more cable.</td></tr>
         <tr><td>Composio scoped sessions</td><td><span class="st st-rd">Researching</span></td><td>Read-only and allowlist sessions per worker.</td></tr>
         <tr><td>New AI server (Gen10 + V100)</td><td><span class="st st-rd">R&amp;D</span></td><td>Get quotes; nothing bought.</td></tr>
         <tr><td>Beverley backup workers</td><td><span class="st st-rd">Planned</span></td><td>Reuses the HQ P40s once the new server is in.</td></tr>
