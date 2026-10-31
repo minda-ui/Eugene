@@ -95,3 +95,10 @@ covers Volta (verify at install).
   heatsinks, E208i-a, 8 caddies, 640FLR-SFP28, 2× 1600 W, rails, **3-yr RTB**, 4 available. **Techbuyer £649.24** missing PSUs + caddies
   (→ ~£750–830), 1-yr. **Choose Bargain Hardware.** Still to add on BH: **6× High-Performance/Max-Performance fans** (no Fans line in
   the summary) + 2 boot SSDs; then the 4 questions (GPU-Ready contents incl. baffle + 871829-B21, embedded 4×1G, tertiary riser).
+- **ORDERED (Minda, 2026-10-31): 2× DL380 Gen10 from Bargain Hardware** (HQ AI server + Beverley node), £583.00 each ex VAT —
+  subtotal £1,166.00 + DHL £34.22 = **£1,194.52 ex VAT / £1,433.42 inc VAT**, two-day build, **est. delivery 2026-11-09**.
+  Each: 8SFF chassis £180 · 2× Gold 6238 · 2× Performance heatsinks · no RAM · E208i-a · 8 caddies · 640FLR-SFP28 · 2× 1600 W ·
+  rail kit · 3-yr RTB. Lines add up to £583 exactly. **Not on the order:** High-Performance fans (needed for any GPU), boot SSDs,
+  confirmed GPU risers/baffle (chassis line doesn't say "GPU Ready"), 871829-B21 cables. Rails listed as "G8/G9 SFF BB" — Gen9
+  2U SFF rails are the same family HPE lists for Gen10 (733660-B21), but ask BH to confirm. **RAM now needed for two servers.**
+  Ask BH before the build starts: add 6× HP fans per server, confirm GPU-ready risers + baffle, confirm rails.
