@@ -4,7 +4,7 @@
 **Ordered today:** 2× DL380 Gen10 (Bargain Hardware, due 9 Nov) · 4× GPU cable `869820-001` · 6× RAM `P03052-091` · 4× ASA 5525-X (earlier).
 | Pri | Qty | Item | Part / spec | ~£ | Status |
 |---|---|---|---|---|---|
-| 🔴 | 6 | RAM, HQ server | HPE 32 GB 2Rx4 DDR4-2933 RDIMM `P03052-091` | ~900 | Minda searching |
+| ✅ | 12 | RAM, HQ server | HPE 32 GB 2Rx4 DDR4-2933 RDIMM `P03052-091`, all from it-black-belt: 6 (10-15369-27694) + 6 (03-15383-02815, item 237150914833) | 1,800 | **all 12 ordered 2026-10-31**, due 3–4 Nov |
 | ✅ | 4 | Boot SSDs (2 per server, mirrored) | **HPE 240 GB SATA RI 789135-B21** (eBay 27-15338-03502, 4× £48) | 192 | ordered 2026-10-31, due 2–3 Nov |
 | 🔴 | 12 | High Performance fans (6 per server) | `867810-B21` (single-fan spare no. — confirm before buying) | 0–240 | **waiting on BH reply** |
 | 🔴 | 2 | GPU-ready risers + baffle | P38515-B21 / GPU baffle | 0–150 | **waiting on BH reply** |

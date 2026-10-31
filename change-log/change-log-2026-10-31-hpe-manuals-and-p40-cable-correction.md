@@ -71,3 +71,4 @@ from a session with the CLI signed in, or by Minda dropping the PDF into `Infra-
 - Beverley UPS found: UPS Centre 36438 (24 Oct 2024), SUA2200RMI2U refurb with new batteries, 2-yr warranty ends ~Nov 2026 → self-test now.
 - Ordered (22:22): 2× AP9631 (HQ UPSs), 3× iLO Advanced keys (cheap resold — flagged), 4× HPE 240 GB SSD 789135-B21 (boot). £303.54. Note: earlier ASA order includes item 373877034175 '2× ASA5525-X VPN Premium license' — confirm these are appliances, not licence-only.
 - Minda confirmed: the ASA order = 4 appliances (2 single listings + 2× garo603 listing). OK.
+- **RAM complete:** second 6× P03052-091 ordered 22:29 (it-black-belt, different listing, order 03-15383-02815, £899.94) → 12 sticks / 384 GB for the HQ server.
