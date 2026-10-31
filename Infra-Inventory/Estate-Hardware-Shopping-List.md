@@ -12,8 +12,9 @@
 | ✅ | — | Cisco console cable (RJ45→USB) | for the ASA 5525-X / OPNsense installs | 0 | **2 in hand (Minda, 2026-10-31)** |
 | 🟠 | 0–4 | SSDs for the 5525-X | 2.5" SATA, only if the units arrive without | 0–80 | on arrival |
 | 🟡 | — | iLO Advanced licence | only if not already on the boxes | 0–40 | check at arrival |
-| 🔵 | 2 | 10G cards for the server triangle (R710 + Gen9) | **HPE 546SFP+ `779793-B21`** (ConnectX-3 Pro, HPE-branded = no iLO fan ramp; fine in the R710 too) | 40–70 | Gen9 slot: lid-off check |
-| 🔵 | 1 | SFP+ passive DAC, 1–3 m | Cisco `SFP-H10GB-CU1M`/`CU3M` or compatible (2 spare in hand → 3 total) | 10–15 | to buy |
+| ✅ | 1 | 10G card, R710 | **Mellanox MCX312B-XCCT** full-height, £39 (eBay 09-15371-31144, due 2–3 Nov) | 39 | ordered 2026-10-31 |
+| ⚠️ | 1 | 10G card, Gen9 | ordered **HP 530T** (eBay 09-15371-31143, £21.60) = **10GBASE-T RJ45, not SFP+ → won't take a DAC**. Swap to **530SFP+ / 546SFP+** (same listing has options) or cancel before dispatch | 22 | **fix before dispatch** |
+| ✅ | 1 | SFP+ DAC 3 m | Cisco `SFP-H10GB-CU3M`, £7.99 (eBay 09-15371-31142) → 3 DACs total | 8 | ordered 2026-10-31 |
 | 🔵 | — | Tertiary riser `826700-B21` + `P38517-B21` | only for a 3rd card | 50–120 | later |
 | 🔵 | 2 | V100 32 GB | ~£700 each | ~1,400 | **only if pilot testing says so** |
 | ⚪ | — | UPS batteries / AI-server UPS / 16 A circuit / cooling | only if AWT-1065/1066 readings say so | 0–4,000 | measurements |
