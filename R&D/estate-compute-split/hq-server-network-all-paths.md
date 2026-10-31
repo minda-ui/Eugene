@@ -45,3 +45,13 @@ document copy (indexing), backups. That decides how far down this list is worth 
 2. Gen9 lid-off: is the 331T (1G 4-port) slot free with the P40s fitted?
 3. How Starlink is wired today (copper adapter → SFP, or fibre).
 4. Where models/documents should live (A1 decides a lot).
+
+## The ASA question (2026-10-31)
+- HQ ASAs = **2× ASA 5550** (end of support, software 9.1(7)32) with **ASA-SSM-4GE-INC** (4× 1G copper/SFP). **All 1G**; ~1 Gb/s firewall throughput. → the ASA SFP ports don't help 10G.
+- ⚠️ **Rule for every path:** the ASA is the **inter-VLAN gateway** at HQ → servers that exchange bulk data (AI server ↔ Gen9 storage) must sit on the **same VLAN**, or traffic hairpins through the ASA at ≤1G whatever the cabling.
+- ASA copper ports make **B4** (ASA↔switch links on copper, freeing switch SFP slots) feasible at both ends — still the riskiest path.
+
+## E. Replace the firewall pair (new path)
+| # | Path | Cost | Work / risk | Gain |
+|---|---|---|---|---|
+| E1 | **Modern firewall pair** with 10G ports + multi-gig throughput (newer Cisco, or OPNsense/pfSense on server hardware) | ££–£££ | big project: WAN, VPN, VLAN gateways, phones | fixes end-of-support ASA + the ≤1G inter-VLAN bottleneck; frees switch slots if links consolidate onto 10G |
