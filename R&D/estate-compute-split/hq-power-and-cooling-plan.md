@@ -92,3 +92,13 @@ outside 10 °C → ~18 °C ✅ · 18 °C → ~26 °C ✅ · **25 °C → ~33 °C
 - **Options:** night/cool-hours heavy jobs + V100 power cap (£0) → rack-area extract fan/duct to outside (~£100–400 + installer)
   → portable AC for summer peaks (~£300–500) → split AC (~£1.5–3k) → shift summer load to Beverley (£0).
 - **Read:** VAM likely fine autumn–spring; **summer is the gap** — measure a warm day before buying.
+
+## UPS model confirmed (Minda, 2026-10-31)
+**3× APC Smart-UPS 2200VA RM 2U 230V `SUA2200RMI2U`** (1,980 W each) — **2 at HQ, 1 at Beverley**. One bought
+**10 Oct 2025** (order #38435, £349.70, 2-yr warranty → to Oct 2027); purchase dates of the other two not yet known.
+- Battery pack for this model: **APC RBC43** (check the label before buying). Batteries last ~3–5 yr → the Oct 2025 unit's
+  are young; **UPS 1's fast drain is more likely the load imbalance than age** — confirm with a self-test (AWT-1065).
+- **Monitoring:** USB/serial → NUT on a server (free), or a **SmartSlot network card AP9631/AP9630** (~£40–80 used) for
+  on-battery alerts + the AI server's early shutdown (P5, C4).
+- **Capacity:** 2× 1,980 W at HQ. New AI server (2× P40 + CPUs) ≈ 600–800 W under load → fits once the load is balanced
+  across both UPSs (AWT-1064). Beverley Gen10 (CPU-only) ≈ 250–400 W → fine on its one UPS.
