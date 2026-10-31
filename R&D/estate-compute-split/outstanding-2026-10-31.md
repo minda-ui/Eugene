@@ -29,7 +29,8 @@ fixed IPs) · AWT-1066 (iLO power/temp + VAM) · AWT-1067 (3850 read-only checks
 
 ## 🧭 Decisions waiting on Minda
 ✅ Decided 31 Oct: sovereign list approved · logs kept 1 year · cloud-AI cap £100/month · R580 driver on the new server.
-**Still open:** pilot staff + folders · public IPs for firewall Step B · security friend's feedback (after the call).
+✅ Pilot = Minda only for 2 weeks · pilot HQ-only, Beverley update-staging later.
+**Still open:** public IPs for Step B — **check what HQ has now (tomorrow)** · security friend's feedback (after the call).
 Step B · Gen9 driver 535→580 · security friend's feedback (after the call).
 
 ## 📝 Eugene's own

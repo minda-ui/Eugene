@@ -51,3 +51,6 @@ Tailscale rule (chat page only) · logging on · acceptable-use note shared · k
 2. **Log retention: 1 year** (not the 90-day proposal) — on the Gen9, Minda + Eugene only; state it in the privacy/acceptable-use note; auto-delete after 365 days.
 3. **Cloud-AI spend cap: £100/month** — gateway (LiteLLM budget) stops cloud calls at the cap and alerts Minda.
 4. **NVIDIA driver: R580** on the new HQ Gen10 (fresh install); Gen9 driver removed when the P40s move.
+5. **Pilot: Minda only for the first 2 weeks**, then add 2–3 staff once reliable.
+6. **Software:** pilot runs at **HQ only** for now (pinned version); **Beverley-first update staging later**, once the Beverley server is running.
+7. **Firewall Step B public IPs:** open — **Minda to check what HQ has now (tomorrow, 1 Nov)**, then decide.

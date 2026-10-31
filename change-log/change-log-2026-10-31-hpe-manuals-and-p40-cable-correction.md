@@ -73,3 +73,4 @@ from a session with the CLI signed in, or by Minda dropping the PDF into `Infra-
 - Minda confirmed: the ASA order = 4 appliances (2 single listings + 2× garo603 listing). OK.
 - **RAM complete:** second 6× P03052-091 ordered 22:29 (it-black-belt, different listing, order 03-15383-02815, £899.94) → 12 sticks / 384 GB for the HQ server.
 - **Decisions (Minda):** sovereign list approved as drafted; AI logs kept 1 year; cloud-AI cap £100/month; R580 driver on the new Gen10.
+- Decisions: pilot = Minda only first 2 weeks; HQ-only pilot, Beverley staging later; Step B public IPs → Minda checks current HQ setup tomorrow.
