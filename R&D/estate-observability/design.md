@@ -73,3 +73,9 @@ the watchtower sits on the management VLAN, no inbound from the internet; Telegr
 1. Alerts via **Telegram** (+ email fallback)? Whose phone(s)?
 2. Quiet hours for Tier 2 (e.g. 22:00–07:00, except UPS on battery)?
 3. OK to use a free external heartbeat service (sees only "alive" pings)?
+
+## DECISIONS (Minda, 2026-10-31)
+1. **Alerts: Telegram + email fallback** — to Minda's phone (add others later on request).
+2. **Quiet hours for Tier 2: 22:00–07:00**, except **UPS on battery** (always alerts). Tier 1 any hour.
+3. **External heartbeat service approved** (e.g. healthchecks.io — sees only "alive" pings).
+→ Ready to build P0 when Minda wants it (Uptime Kuma LXC + checks + heartbeat + Telegram bot; bot token held by Minda).
