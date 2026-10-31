@@ -62,3 +62,4 @@ from a session with the CLI signed in, or by Minda dropping the PDF into `Infra-
 - **Sent by Minda** 19:27 UTC (from ops@, in the order thread). Awaiting BH answers on fans / GPU risers + baffle / rails before the build.
 - **V100 price:** Minda reports ~£700 each for 32 GB (estimate was £520–600). Steer: P40s into the HQ Gen10 first, decide on V100 after measuring.
 - **Decision:** P40 first, V100 later — RAM (12 sticks) before any new cards; V100 only if pilot testing shows it's needed. Map updated.
+- **GPU cables ordered:** 4× HPE 869820-001 EPS 8-pin (Gen10 keyed kit cable), £96 inc VAT. Personal/VAT details not recorded.

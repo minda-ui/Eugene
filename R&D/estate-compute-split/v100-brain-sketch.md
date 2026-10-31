@@ -116,3 +116,7 @@ covers Volta (verify at install).
   **`871829-B21` 8-pin Keyed** (spare `869820-001`) — the one HPE pairs with its EPS-powered data-centre cards (named for the A16 and
   V100) → **buy this, 2×**; `871828-B21` 8-pin (spare `875097-001`, discontinued) is the non-keyed graphics-card type — **avoid**.
   Inference, not an HPE line item for the P40 → **one-probe check before plugging (HL-0110)**: 12 V must be on the row AWAY from the clip.
+- **ORDERED (Minda, 2026-10-31 evening): 4× HPE `869820-001` "DL380 Gen10 GPU Power Cable EPS 8 PIN"** (the cable inside kit
+  871829-B21) — £80.00 ex VAT (£20 each), £96.00 inc, standard delivery (seller SKU ITM0002454, Bargain Hardware SKU format).
+  Listed as **EPS** = the right type for P40/V100. Use: 2 for the P40s in the HQ Gen10 now, 2 for a later card/Beverley.
+  **One-probe check on each before first plug (HL-0110).**
