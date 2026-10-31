@@ -14,8 +14,8 @@ before buying. Guide-only (§3): Minda buys and fits. Pulls together RND-23…28
 | **1 · Server triangle (start)** | 2-port 10G card for Gen9 + one for R710 + 1 more DAC | ~55–85 | after lid-off slot checks |
 | **2 · Staff-questions pilot** | nothing (runs on the Gen9) | 0 | runbooks ready |
 | **3 · HQ AI server** | DL380 Gen10 8SFF build (2× Gold 6252, 384 GB, 2× 1600 W, perf fans/heatsinks, GPU + tertiary risers, baffle, 10G FlexibleLOM, boot SSDs, rails) | 1,250–2,000 | ✅ **ordered 2026-10-31** (Bargain Hardware, ×2 incl. Beverley, £1,194.52 ex VAT, est. 9 Nov) — fans/SSDs/RAM still to add |
-| | 2× V100 32 GB PCIe (+ 2× `871829-B21` cable kits) | 1,060–1,260 | quotes; one-probe cable check |
-| | 3rd V100 later | 520–600 | after HPE Power Advisor check |
+| | 2× V100 32 GB PCIe (+ 2× `871829-B21` cable kits) | **~1,400** (Minda: ~£700 each) | quotes; one-probe cable check |
+| | 3rd V100 later | ~700 | after HPE Power Advisor check |
 | **4 · Beverley node** | DL380 Gen10 replica + failover (reuses the HQ **P40s**) + 2× Gen10 GPU cables | 1,350–1,850 | ✅ chassis **ordered** with the HQ one (same build); needs RAM, fans, 2× Gen10 GPU cables |
 | **If measurements say so** | own UPS for the AI server (3 kVA) | 300–800 | power readings (AWT-1066/1067) |
 | | rack-area extract fan / portable AC / split AC | 100–3,000 | warm-day inlet temperature |

@@ -102,3 +102,7 @@ covers Volta (verify at install).
   confirmed GPU risers/baffle (chassis line doesn't say "GPU Ready"), 871829-B21 cables. Rails listed as "G8/G9 SFF BB" — Gen9
   2U SFF rails are the same family HPE lists for Gen10 (733660-B21), but ask BH to confirm. **RAM now needed for two servers.**
   Ask BH before the build starts: add 6× HP fans per server, confirm GPU-ready risers + baffle, confirm rails.
+- **V100 price correction (Minda, 2026-10-31):** V100 32 GB PCIe is **~£700 each** (my estimate was £520–600) → 2 cards ≈ £1,400,
+  3 ≈ £2,100. P40 ≈ £195. Steer: both servers arrive 9 Nov — **fit our 2× P40 in the HQ AI server first** (genuine Gen10 cables),
+  run the staff pilot, measure real speed, **then** decide V100 (the 480B's speed depends on RAM, not the GPUs; V100 mainly speeds
+  up the smaller staff-chat models). Beverley node runs on CPU until then, or gets 2 more P40s (~£390). No V100 bought yet.
