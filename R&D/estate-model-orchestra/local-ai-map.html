@@ -184,7 +184,7 @@ footer{color:var(--muted);font-size:12.5px}
 
         <!-- Fallback to Beverley -->
         <polyline class="ar-d" points="700,322 962,322 962,604 942,604" marker-end="url(#ah)"/>
-        <text class="lab" x="831" y="316" text-anchor="middle">falls back if HQ busy</text>
+        <text class="lab" x="831" y="316" text-anchor="middle">shares work with Beverley</text>
 
         <!-- Workers band -->
         <rect class="b-band" x="40" y="388" width="900" height="140" rx="10" stroke-width="1.6"/>
@@ -227,7 +227,7 @@ footer{color:var(--muted);font-size:12.5px}
 
         <rect class="bx b-local" x="510" y="578" width="430" height="52" rx="8"/>
         <text class="t" x="725" y="600" text-anchor="middle">Beverley Gen10 · 2× P40</text>
-        <text class="s" x="725" y="617" text-anchor="middle">backup workers if HQ is busy or down</text>
+        <text class="s" x="725" y="617" text-anchor="middle">eyes · receptionist · librarian · takes over if HQ is down</text>
 
         <line class="ar" x1="123" y1="508" x2="123" y2="576" marker-end="url(#ah)"/>
         <text class="lab" x="129" y="552">reads documents</text>
@@ -293,7 +293,7 @@ footer{color:var(--muted);font-size:12.5px}
       <div class="box"><span class="chip c-local" style="justify-self:start">HQ · new</span><b>DL380 Gen10, 8-bay</b><p>The AI server. 2× Gold 6252, 384 GB RAM, 2 V100 cards to start, room for a third on the Gen10's extra riser. Built-in 2-port 10G for the server triangle.</p></div>
       <div class="box"><span class="chip c-store" style="justify-self:start">HQ · existing</span><b>DL380 Gen9</b><p>Becomes the storage server: document copy, backups and the phone system. Runs the P40s until the new server arrives.</p></div>
       <div class="box"><span class="chip c-store" style="justify-self:start">HQ · existing</span><b>Dell R710</b><p>Third backup copy, powered off between backups. Pulls backups over its own private 10G cable.</p></div>
-      <div class="box"><span class="chip c-local" style="justify-self:start">Beverley · planned</span><b>DL380 Gen10 + 2× P40</b><p>Off-site copy of the data and backup AI workers. Linked to HQ by the airFiber radio and Tailscale.</p></div>
+      <div class="box"><span class="chip c-local" style="justify-self:start">Beverley · planned</span><b>DL380 Gen10 + 2× P40</b><p>Off-site copy of the data and the second half of the AI pool: eyes, receptionist, librarian, overflow. Linked to HQ by the airFiber radio, with Tailscale as backup.</p></div>
     </div>
     <figure>
       <div class="scroll">
@@ -337,6 +337,61 @@ footer{color:var(--muted);font-size:12.5px}
   </section>
 
   <section>
+    <h2>Two sites, one AI pool</h2>
+    <figure>
+      <div class="scroll">
+      <svg viewBox="0 0 820 330" role="img" aria-label="Two-site AI pool. HQ runs the generalist, day coder and overnight 480B on three V100s, with the gateway and storage. Beverley runs the eyes, receptionist and librarian on two P40s and takes over if HQ is down. Only questions and answers cross the airFiber radio, with Tailscale or WireGuard over the internet as the backup path.">
+        <defs>
+          <marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+        <rect class="b-band" x="20" y="20" width="300" height="290" rx="10" stroke-width="1.6"/>
+        <text class="bt" x="36" y="44">HQ · 3× V100 + 384 GB RAM</text>
+        <rect class="bx b-ctrl" x="36" y="60" width="268" height="44" rx="8"/>
+        <text class="t" x="170" y="80" text-anchor="middle">Gateway</text>
+        <text class="s" x="170" y="96" text-anchor="middle">sends each request to the right site</text>
+        <rect class="bx b-local" x="36" y="124" width="130" height="52" rx="8"/>
+        <text class="t" x="101" y="146" text-anchor="middle">Generalist</text>
+        <text class="s" x="101" y="163" text-anchor="middle">70B–120B</text>
+        <rect class="bx b-local" x="174" y="124" width="130" height="52" rx="8"/>
+        <text class="t" x="239" y="146" text-anchor="middle">Day coder</text>
+        <text class="s" x="239" y="163" text-anchor="middle">~30B</text>
+        <rect class="bx b-local" x="36" y="188" width="130" height="52" rx="8" stroke-dasharray="5 4"/>
+        <text class="t" x="101" y="210" text-anchor="middle">Night foundry</text>
+        <text class="s" x="101" y="227" text-anchor="middle">480B · overnight</text>
+        <rect class="bx b-store" x="174" y="188" width="130" height="52" rx="8"/>
+        <text class="t" x="239" y="210" text-anchor="middle">Gen9 storage</text>
+        <text class="s" x="239" y="227" text-anchor="middle">models · documents</text>
+        <text class="s" x="170" y="288" text-anchor="middle">Night: foundry builds</text>
+
+        <rect class="b-band" x="500" y="20" width="300" height="290" rx="10" stroke-width="1.6"/>
+        <text class="bt" x="516" y="44">Beverley · 2× P40</text>
+        <rect class="bx b-local" x="516" y="124" width="130" height="52" rx="8"/>
+        <text class="t" x="581" y="146" text-anchor="middle">Eyes</text>
+        <text class="s" x="581" y="163" text-anchor="middle">~30B vision</text>
+        <rect class="bx b-local" x="654" y="124" width="130" height="52" rx="8"/>
+        <text class="t" x="719" y="146" text-anchor="middle">Receptionist</text>
+        <text class="s" x="719" y="163" text-anchor="middle">8B</text>
+        <rect class="bx b-local" x="516" y="188" width="130" height="52" rx="8"/>
+        <text class="t" x="581" y="210" text-anchor="middle">Librarian</text>
+        <text class="s" x="581" y="227" text-anchor="middle">on the off-site copy</text>
+        <rect class="bx b-local" x="654" y="188" width="130" height="52" rx="8"/>
+        <text class="t" x="719" y="210" text-anchor="middle">Overflow</text>
+        <text class="s" x="719" y="227" text-anchor="middle">takes over if HQ is down</text>
+        <text class="s" x="650" y="288" text-anchor="middle">Night: photo digest, delivery notes</text>
+
+        <line x1="322" y1="150" x2="498" y2="150" stroke="var(--ink)" stroke-width="2.5" marker-start="url(#ah3)" marker-end="url(#ah3)"/>
+        <text class="lab" x="410" y="140" text-anchor="middle">airFiber radio</text>
+        <text class="lab" x="410" y="168" text-anchor="middle">~415 Mb/s · Q&amp;A only</text>
+        <line class="ar-d" x1="322" y1="240" x2="498" y2="240" marker-start="url(#ah3)" marker-end="url(#ah3)"/>
+        <text class="lab" x="410" y="230" text-anchor="middle">Tailscale / WireGuard</text>
+        <text class="lab" x="410" y="258" text-anchor="middle">backup via internet</text>
+      </svg>
+      </div>
+      <figcaption>Each site runs whole models, and the gateway sends each request to the site that should handle it. Only questions and answers cross between sites, a few kilobytes each, so the radio is never the bottleneck. One model is never split across the two sites: that would run at P40 pace plus radio delay, and stop if the radio dropped. Link speed is from the 17 Oct reading; a fresh measurement is pending.</figcaption>
+    </figure>
+  </section>
+
+  <section>
     <h2>Where each piece stands</h2>
     <div class="scroll">
     <table>
@@ -350,7 +405,7 @@ footer{color:var(--muted);font-size:12.5px}
         <tr><td>Server triangle (private 10G)</td><td><span class="st st-rd">Designed</span></td><td>Lid-off checks, then 10G cards for the Gen9 and R710 plus 1 more cable.</td></tr>
         <tr><td>Composio scoped sessions</td><td><span class="st st-rd">Researching</span></td><td>Read-only and allowlist sessions per worker.</td></tr>
         <tr><td>New AI server (Gen10 + V100)</td><td><span class="st st-rd">R&amp;D</span></td><td>Get quotes; nothing bought.</td></tr>
-        <tr><td>Beverley backup workers</td><td><span class="st st-rd">Planned</span></td><td>Reuses the HQ P40s once the new server is in.</td></tr>
+        <tr><td>Beverley half of the AI pool</td><td><span class="st st-rd">Planned</span></td><td>Measure the radio link (ping + iperf3), then reuse the HQ P40s once the new server is in.</td></tr>
         <tr><td>DeepSeek Harness</td><td><span class="st st-park">Parked</span></td><td>Revisit at the foundry stage, if audited.</td></tr>
       </tbody>
     </table>
