@@ -83,3 +83,7 @@ covers Volta (verify at install).
   eBay seller IT Black Belt, £149.99 each, **only 6 in stock → buy 6**, find **6 more of the same part** elsewhere (≤ ~£150) → **12 sticks =
   384 GB at full 2933** (6 per CPU). Interim: 6 sticks = 3/6 channels (~141 GB/s), 8 = 4/6 (~188 GB/s); **never 16** (uneven, slower than 12).
   Gen9 keeps its 256 GB. Fallback = option C (mix with Gen9 2666 → all at 2666). Bargain Hardware memory = 0. Ask for VAT invoices.
+- **Quotes pending (2026-10-31):** Minda requesting quotes from **Bargain Hardware** (configured build £473 ex VAT before
+  heatsink/fan fix: change to 2× High-Performance heatsinks + add 6× High-Performance fans; add 2 boot SSDs) and **Techbuyer**
+  (same spec). Questions to both: GPU-Ready contents (2× x16 FL, baffle, P38515-B21), 871829-B21 ×2, embedded 4×1G LOM,
+  tertiary riser 826700-B21 + P38517-B21, optional 2× V100 32 GB price. Eugene to compare line by line when back.
