@@ -124,3 +124,13 @@ outside 10 °C → ~18 °C ✅ · 18 °C → ~26 °C ✅ · **25 °C → ~33 °C
   | HQ | SUA2200RMI2U | ~22 Oct 2025 | ~1 yr | ~Oct 2027 |
   | HQ | SUA3000RMI2U | ~9 Nov 2025 | ~1 yr | ~Nov 2027 |
   | Beverley | SUA2200RMI2U (refurb, new batteries) | ~early Nov 2024 | ~2 yr | **~Nov 2026** |
+- **CORRECTION (Minda, 2026-10-31): the latest unit (3000 VA, Nov 2025) is at BEVERLEY.** Supersedes "both UPS Centre units at HQ"
+  and the 3000 VA balancing note above. Final:
+  | Site | Model | Arrived | Batteries | Warranty to |
+  |---|---|---|---|---|
+  | HQ | SUA2200RMI2U (refurb, new batteries) | ~early Nov 2024 | ~2 yr | **~early Nov 2026** |
+  | HQ | SUA2200RMI2U | ~22 Oct 2025 | ~1 yr | ~Oct 2027 |
+  | Beverley | SUA3000RMI2U | ~9 Nov 2025 | ~1 yr | ~Nov 2027 |
+  HQ = **2× 1,980 W ≈ 3.96 kW**. AI server (~600–800 W) still fits once load is balanced 50/50 (AWT-1064), but headroom is
+  tighter — split each server's two PSUs across the two UPSs. ⚠️ **The HQ refurb unit's warranty ends ~early Nov 2026** →
+  self-test + runtime check at HQ **now** (if it's UPS 1, the one that drains first, this matters most).
