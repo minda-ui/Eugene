@@ -182,7 +182,7 @@ incident (OI-23). The HQ stack in miniature: **1× Cisco ASA 5550** (single, ser
 Catalyst 3850-48 + C3850-NM-2-10G** (single, no stack), **Lenovo mini-PC Proxmox** (`10.224.111.199`, no
 iLO), **UniFi Cloud Key Gen2** (`10.224.110.5`), **APC UPS**.
 
-**Two fibres on site:** both **BT** — a **BT Business** fibre and a **personal BT** fibre. ⚠️ The **BT Business** fibre is being
+**Two fibres on site:** both **BT** — a **BT Business** fibre (**5 public IPs**, contract ending — Minda plans to **extend** it, 2026-10-31; confirm the 27 Oct cancellation did not go through) and a **personal BT** fibre (**no public IP**, ~7 months left — to lapse at contract end). ⚠️ The **BT Business** fibre is being
 **cancelled 27 Oct 2026** (no replacement) — see **OI-24**. The **personal BT** fibre remains, so Beverley keeps
 internet (redundancy loss, not outage). At HQ the BT feed is delivered **from Beverley over the airFiber
 radio** and lands on **vlan 4** — it is only a *backup* WAN at HQ (HQ runs on Wavenet FTTB).
