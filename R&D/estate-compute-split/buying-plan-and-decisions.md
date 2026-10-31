@@ -38,4 +38,4 @@ contingencies £0–4,000+.
 - **Security of the AI setup:** staff logins/roles, audit logs, Composio scopes per worker.
 - **Monitoring:** model servers, radio link, UPS on battery, temperatures, backups → the silent-failure alarm (RND-6).
 - **Software stack:** NVIDIA driver line that covers Volta (V100) + Pascal (P40) long term; container layout; update routine.
-- **Rack space:** confirm 2U free for the AI server (and 3× 1U for the new firewalls at HQ).
+- ✅ **Rack space HQ:** HP 42U rack ~50–60 % used → plenty (needs 4U). Beverley TBC.
