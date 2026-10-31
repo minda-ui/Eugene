@@ -124,3 +124,8 @@ covers Volta (verify at install).
   £899.94 (6 × £149.99), eBay order 10-15369-27694. = 192 GB, 3 per CPU (half the channels). **Still to find: 6 more of the same
   part** (2Rx4, 2933, RDIMM; any HPE-labelled maker is fine, keep 2Rx4) → 12 = 384 GB. Fit per HPE's population order (the
   Gen10 user guide's DIMM table) — 6 now = 3 per CPU, matching slots on both CPUs.
+- **Gen9 RAM reuse (2026-10-31):** Gen9 has **8× 32 GB DDR4-2400 2Rx4 RDIMM `809083-091`** (Gen9 SmartMemory) — 2400, not 2666.
+  Mixing into the HQ Gen10 would drop all 12 to **2400 (~18 % slower)**, and Gen9 can only spare 4 (keep 4 = 128 GB for ZFS/PBS/PBX)
+  → 6+4 = 10 sticks = uneven (avoid). **Steer: the 4 spare Gen9 sticks → Beverley Gen10 (128 GB, 2 per CPU; speed matters less
+  there); HQ stays all-2933 with 6 more `P03052-091`.** Gen9 DIMMs in a Gen10 usually work but may show a POST "unsupported
+  memory" note — test at burn-in. Moving them = planned Gen9 shutdown (phones) — do it in a quiet window.
