@@ -39,3 +39,12 @@ from a session with the CLI signed in, or by Minda dropping the PDF into `Infra-
 ## Files
 `Infra-Inventory/Reference-HPE-DL380-Gen9-Manuals.md` (new), `external-source-register.md` (SRC-14),
 `open-issues.md` (OI-30 updated), `processed-items-ledger.md` (row 152), this file.
+
+## 4. Back at HQ — battery, P40 root cause, iLO (afternoon)
+- **CR2032 swapped (OI-32).** Booted with no reset screen; settings intact. Confirm on the next full power-off, then resolve.
+- **12 V tests (OI-30).** Cable in riser, card end loose, box on: one row 4× **12.17 V**, other row 0 / **3.4 V** / 0 / 0; both cables identical. Power-off resistance: P40 socket **clip-side row = ground**; cable's non-12 V row = 3 grounds + one ~478 kΩ signal.
+- **My error.** I numbered pins assuming clip-up; Minda held the plug clip-down. That led me (a) to conclude "cable matches card" — wrong — and (b) to point a jumper at what was really a 12 V pin. The jumper grounded 12 V and the Gen9 hard-powered off. Recovered clean: no smell/damage, `zpool status -x` healthy, FW/proxy/ssh-gw/**PBX running**. Minda caught the orientation. Lesson on the Hub: **HL-0110** (describe pins by row/landmark from a photo; one-probe check before any bridge; no live jumpers).
+- **Corrected root cause.** Physically: cable = 12 V on the **clip** side (graphics/PCIe-style); P40 = EPS, 12 V **away** from the clip. Plugged in, 12 V meets the card's ground → riser protection never enables 12 V (silent). The cables are wrong, not the risers or cards. Told Minda to leave the cables unplugged at the card end. Fix: 2× genuine `805123-001` (10-pin → EPS/CPU, Tesla type), pre-checked with one probe before use.
+- **iLO (OI-31).** Minda changed the iLO password (held by her; not seen by Eugene). iLO page: MAC `94:18:82:02:AC:02`, DHCP `10.224.10.50`, gw `10.224.10.1`. The ASA is DHCP server for every HQ VLAN but can't reserve by MAC → static IP outside the pool, once the pool is known.
+- **Gap owned.** Minda expected the network map to show DHCP; it didn't. Logged as my task.
+- **Hub (Rule B):** AWT-1060 (Minda — ASA `show run dhcpd`, iLO static IP + SNTP), AWT-1061 (Minda — buy cables), AWT-1062 (Eugene — map addressing layer, Blocked on 1060), HL-0110. No duplicate IDs (guard column checked).
