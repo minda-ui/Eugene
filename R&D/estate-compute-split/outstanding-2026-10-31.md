@@ -4,7 +4,7 @@
 - **HQ refurb UPS (SUA2200, Oct 2024) warranty ends ~early Nov** → self-test + runtime on both HQ UPSs (AWT-1065).
 - **Bargain Hardware reply (Mon):** 12× High-Performance fans, GPU-ready risers + baffle, rails fit for Gen10 — before the build starts.
 - **530T seller reply:** swap to 530SFP+/546SFP+ or cancel/return.
-- ✅ **Rack space HQ:** HP 42U rack, ~50–60 % used (Minda, 2026-10-31) → ~17–21U free; needs 4U (2U server + 2× 1U firewalls). Beverley rack: still to confirm (2U + 1U).
+- ✅ **Rack space HQ:** HP 42U rack, ~50–60 % used (Minda, 2026-10-31) → ~17–21U free; needs 4U (2U server + 2× 1U firewalls). ✅ **Beverley:** 2U spare for the server; the new firewall takes the old ASA's slot (straight swap).
 - **Check stock:** 4× C13–C14 leads.
 
 ## 📦 Arriving
