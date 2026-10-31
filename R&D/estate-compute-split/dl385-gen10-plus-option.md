@@ -20,3 +20,14 @@ Plain **V100 is not on its list — V100S is** (faster, ~1,134 GB/s). Skip the o
 **Gen10 Plus v2** (EPYC 7003) is better still if priced close. Notes: AMD has no AVX-512 on Rome (fine — RAM-bound);
 16 DIMMs needed to fill all channels.
 **Next:** price DL385 Gen10 Plus chassis + 2× EPYC 7002 + 16 DIMMs + 2× V100S vs the DL380 Gen10 plan.
+
+## Bargain Hardware build (screenshots 2026-10-31, ex VAT) + Minda's 6 spare drives
+Recommended: chassis 8SFF 5/6-slot iLO Std £1,100 (+ separate iLO Advanced licence) · 2× EPYC 7642 £1,000 · 2× HP heatsink £30 ·
+6× Max Perf fan £72 · **16× 16 GB DDR4-3200 2Rx8 £1,600** (256 GB, 1 DIMM/channel; alt 16× 32 GB 2666 £2,880 / 3200 £4,400) ·
+**E208i-a £43** (SAS-capable — needed for the drives) · skip NS204i NVMe boot (£770+, uses a GPU slot) · 2× boot SSD ·
+**8× HPE SFF caddy £56** · FLOM **25G dual Mellanox MCX562A £95** (takes the Cisco 10G DACs) · 2× 1600 W PSU £90 · rails £150 ·
+C13–C14 leads (to the UPS) → **≈ £4,400–4,450 ex VAT before GPUs**. Separately: 2× V100S 32 GB, 2× 871829-B21, riser cages
+P38771/P38774-B21. Ask BH: which chassis takes 3 double-wide GPUs + leaves an x8 slot; Gen10 Plus vs v2; EPYC 7V12 compatibility.
+**Drives (Minda, 2026-10-31):** the **6× Seagate 900 GB 10K SAS** bought for the R710 (kept "for the Gen10" on 29 Oct) go in
+bays 3–8 as the **model library** (ZFS: 3 mirrored pairs ≈ 2.7 TB, or RAIDZ2 ≈ 3.6 TB; ~600–800 MB/s → 480B loads in ~5–7 min);
+bays 1–2 = mirrored boot SSDs. HPE SFF caddies needed (Dell/NetApp ones don't fit; Gen8–Gen10 HPE SFF caddies interchangeable).
