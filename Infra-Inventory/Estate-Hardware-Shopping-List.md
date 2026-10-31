@@ -13,7 +13,7 @@
 | 🟠 | 0–4 | SSDs for the 5525-X | 2.5" SATA, only if the units arrive without | 0–80 | on arrival |
 | 🟡 | — | iLO Advanced licence | only if not already on the boxes | 0–40 | check at arrival |
 | ✅ | 1 | 10G card, R710 | **Mellanox MCX312B-XCCT** full-height, £39 (eBay 09-15371-31144, due 2–3 Nov) | 39 | ordered 2026-10-31 |
-| ⚠️ | 1 | 10G card, Gen9 | ordered **HP 530T** (eBay 09-15371-31143, £21.60) = **10GBASE-T RJ45, not SFP+ → won't take a DAC**. Swap to **530SFP+ / 546SFP+** (same listing has options) or cancel before dispatch | 22 | **fix before dispatch** |
+| ⚠️ | 1 | 10G card, Gen9 | ordered **HP 530T** (eBay 09-15371-31143, £21.60) = **10GBASE-T RJ45, not SFP+ → won't take a DAC**. Swap to **530SFP+ / 546SFP+** (same listing has options) or cancel before dispatch | 22 | **seller messaged 2026-10-31 (swap to 530SFP+/546SFP+ or cancel) — awaiting reply** |
 | ✅ | 1 | SFP+ DAC 3 m | Cisco `SFP-H10GB-CU3M`, £7.99 (eBay 09-15371-31142) → 3 DACs total | 8 | ordered 2026-10-31 |
 | 🔵 | — | Tertiary riser `826700-B21` + `P38517-B21` | only for a 3rd card | 50–120 | later |
 | 🔵 | 2 | V100 32 GB | ~£700 each | ~1,400 | **only if pilot testing says so** |

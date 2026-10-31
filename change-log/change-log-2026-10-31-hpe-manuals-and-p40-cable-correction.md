@@ -65,3 +65,4 @@ from a session with the CLI signed in, or by Minda dropping the PDF into `Infra-
 - **GPU cables ordered:** 4× HPE 869820-001 EPS 8-pin (Gen10 keyed kit cable), £96 inc VAT. Personal/VAT details not recorded.
 - **RAM ordered:** 6× P03052-091 (32 GB 2Rx4 2933), £899.94, eBay. 6 more still to find.
 - **eBay order (21:07):** Mellanox MCX312B-XCCT (R710) ✅, Cisco SFP-H10GB-CU3M ✅, **HP 530T for the Gen9 = RJ45 10GBASE-T, wrong type for DACs → flagged to swap to 530SFP+/546SFP+ or cancel.** Compuwyze #000000449 = the 4 GPU cables.
+- Minda messaged the 530T seller (swap or cancel); awaiting reply.
