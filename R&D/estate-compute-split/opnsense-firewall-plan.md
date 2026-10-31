@@ -99,3 +99,18 @@ and Step B (2 WAN); ~1–2 Gb/s; 1U rack; ~100 W; no vendor support; c.2012 hard
 **Idea:** buy **1 first → Beverley pilot**; if good, 2 more (+1 spare, ~£200 total) for HQ Step A; move to 10G boxes
 (Deciso) only if traffic needs it — the cheap units become lab/spares. **Ask seller:** exact model + CPU; OPNsense
 installed on what drive (add a 2.5" SSD); tested + console cable; PSU (single — fine in a CARP pair).
+
+## Browse list — retired appliances that reflash to OPNsense (2026-10-31, used UK eBay, rough)
+| # | Search term | Ports | Why | ~£ |
+|---|---|---|---|---|
+| 1 | **Sophos SG 330 / SG 430 / XG 330** | 8× 1G Intel + **FleXi bay (2× 10G SFP+ module)** | popular for OPNsense; 10G add-on later; 1U | 60–150 (+module) |
+| 2 | **WatchGuard Firebox M400 / M500** | 6–8× 1G Intel | Intel Core, cheap, 1U | 50–120 |
+| 3 | **Cisco ASA 5525-X / 5545-X** | 6× 1G (+6-port module) | 1U, Xeon, often pre-flashed | 50–120 |
+| 4 | **Supermicro SYS-E300-8D** | **2× 10G SFP+** + 6× 1G, IPMI | best cheap built-in 10G; small/quiet | 200–350 |
+| 5 | **Check Point 5400 / 5600 / 4600** | 6–8× 1G + expansion | 1U Intel; 10G card possible | 50–150 |
+| 6 | **Dell R230/R240 + Intel X520-DA2** | 2–4× 1G + 2× SFP+ | plain 1U server + iDRAC; more power | 100–200 |
+**Look for:** Intel NICs · ≥8 GB RAM · SSD or slot · x86 with AES-NI · console access · "tested OPNsense/pfSense" / BIOS unlocked
+(Sophos/WatchGuard may have BIOS passwords) · identical pair (+ spare) for HQ.
+**Avoid:** Intel **Atom C2000** units (ASA 5506/5508/5516-X, Supermicro A1SRi-2758 — early-failure chip fault) · FortiGate /
+Juniper SRX (not standard x86) · Core 2/Pentium-era · "for parts".
+**Pick:** Sophos SG/XG 330 (cheap, 8 Intel ports, 10G later via FleXi); Supermicro E300-8D for built-in 10G.
