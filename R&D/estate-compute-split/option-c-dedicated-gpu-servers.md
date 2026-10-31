@@ -66,3 +66,26 @@ Reference point (option B): **DL380 Gen10 8SFF + 3× V100 PCIe 32 GB** ≈ £1,2
 - eBay / ETB-Tech / techyparts Supermicro SYS-4029GP-TVRT listings.
 - servershop24 / eBay Apollo 6500 Gen10 listings.
 - compute.exchange used V100 32 GB; illinitechs / runaihome SXM2 guides.
+
+## Cost comparison — Supermicro 4029GP-TVRT vs DL380 Gen10 + V100 PCIe (2026-10-31, rough)
+Assumptions: V100 PCIe 32 GB ≈ £520–600 used (guide price €599–699); DL380 build from `v100-brain-sketch.md`
+(£1,250–2,000 incl. 3rd-riser parts); Supermicro = complete used systems as listed (CPUs + RAM included) +
+~£150 rails/boot SSD; electricity 30p/kWh, 24/7 at a typical light-AI average draw. **Excludes** any HQ
+power-circuit/UPS upgrade the Supermicro might need (unknown — could be £300–1,500+).
+
+| | DL380 Gen10, 2× V100 | DL380 Gen10, 3× V100 | Supermicro 8× V100 16 GB | Supermicro 8× V100 32 GB |
+|---|---|---|---|---|
+| GPU memory | 64 GB | 96 GB | 128 GB | **256 GB** |
+| Buy (≈) | £2,300–3,200 | £2,800–3,800 | ~£3,700 | ~£6,400 |
+| Avg draw (≈) | ~250 W | ~300 W | ~550 W | ~600 W |
+| Power / yr (≈) | ~£650 | ~£790 | ~£1,450 | ~£1,580 |
+| **3-yr total (≈)** | **£4,250–5,150** | **£5,200–6,200** | **~£8,050** | **~£11,150** |
+| 3-yr £ per GB | ~£66–80 | ~£54–65 | ~£63 | **~£44** |
+| Biggest model on GPU (Q4, rough) | ~70B | ~120B | ~200B | ~400B |
+| Size / noise | 2U, moderate | 2U, moderate | 4U, loud | 4U, loud |
+| Vendor | HPE (iLO 5, our runbooks) | HPE | Supermicro (IPMI) | Supermicro |
+| Grow later | +1 card (to 3) | full | swap to 32 GB modules | full |
+
+Read: the DL380 is cheapest to own and run, and stays HPE. The Supermicro 32 GB box is the cheapest
+**per GB** over 3 years and the only one that runs ~400B models on GPU — worth it only if those huge models
+are the goal and the room/circuit can take it.
