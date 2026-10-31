@@ -28,7 +28,8 @@ AWT-1060 (ASA DHCP + iLO static/NTP) · AWT-1062 (Eugene: map addressing, blocke
 fixed IPs) · AWT-1066 (iLO power/temp + VAM) · AWT-1067 (3850 read-only checks) · OI-24 (BT Business line: extend, keep the 5 IPs).
 
 ## 🧭 Decisions waiting on Minda
-Pilot staff + folders · what never leaves the building · monthly cloud-AI spend limit · log retention · public IPs for firewall
+✅ Decided 31 Oct: sovereign list approved · logs kept 1 year · cloud-AI cap £100/month · R580 driver on the new server.
+**Still open:** pilot staff + folders · public IPs for firewall Step B · security friend's feedback (after the call).
 Step B · Gen9 driver 535→580 · security friend's feedback (after the call).
 
 ## 📝 Eugene's own

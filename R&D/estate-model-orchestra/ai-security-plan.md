@@ -45,3 +45,9 @@ Tailscale rule (chat page only) · logging on · acceptable-use note shared · k
 2. Google Workspace sign-in for the chat page (yes/later)?
 3. Log retention: 90 days OK?
 4. Who besides Minda + Eugene may read the logs?
+
+## DECISIONS (Minda, 2026-10-31)
+1. **Sovereign list: approved as drafted** (HR/payroll/staff, finance incl. VAT/HMRC, client/tenant personal data, site photos with people + CCTV, contracts/tenders under negotiation, anything with secrets → local models only).
+2. **Log retention: 1 year** (not the 90-day proposal) — on the Gen9, Minda + Eugene only; state it in the privacy/acceptable-use note; auto-delete after 365 days.
+3. **Cloud-AI spend cap: £100/month** — gateway (LiteLLM budget) stops cloud calls at the cap and alerts Minda.
+4. **NVIDIA driver: R580** on the new HQ Gen10 (fresh install); Gen9 driver removed when the P40s move.
