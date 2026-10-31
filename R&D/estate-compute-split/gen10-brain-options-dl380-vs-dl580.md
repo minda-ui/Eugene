@@ -77,3 +77,11 @@ GPU work on the P40s is the same on any of these boxes (PCIe Gen3 x16).
 1. What do you want the brain to do most — fast chat on the P40s (A is plenty) or the huge CPU model (B shines)?
 2. Is the DL580 a specific listing? Price, CPUs, RAM, PSUs, risers included?
 3. HQ rack: is there 4U free, and what's the power circuit/UPS headroom?
+
+## Wider options (2026-10-31, Minda: "do we have other options?")
+- **A. Keep Gen9 + P40s** — genuine `805123-001` cables (AWT-1061, ~£50) → working brain now; decide the rest calmly.
+- **B. DL380 Gen10, other HPE-supported GPUs** (QuickSpecs `a00008180enw`, verified max qty): V100/V100S 32 GB ×3 · **Quadro RTX 8000 48 GB ×2** (2nd-gen CPU) · A40 48 GB ×2 · A30 24 GB ×2 · A16 64 GB ×2 · **T4 16 GB ×7** (70 W, single-slot) · A2 16 GB ×8.
+- **C. Dedicated GPU server** — 4–8× **SXM2 V100** boxes (Dell C4140, Supermicro/Gigabyte/Inspur): SXM2 modules cheap used + NVLink; loud, power-hungry, non-HPE.
+- **D. Not a server** — **Mac Studio Ultra 192–512 GB unified memory** (huge models, quiet, ~200 W; £4–10k) · **RTX 3090 24 GB** in a tower (best perf/£; won't power/cool properly in an HPE chassis).
+- **E. Hybrid** — modest local box for private daily work + cloud (Claude / rented GPUs) for heavy jobs; cheapest, but data leaves the building.
+- Steer: A now; then B (V100 / RTX 8000) for fast chat, or D (Mac Studio) for the biggest models quietly. Needs Minda's priority (cost / chat speed / model size / noise+power).
