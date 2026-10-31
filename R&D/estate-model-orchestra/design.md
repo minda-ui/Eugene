@@ -56,6 +56,16 @@ If estate-fast scores it **hard / risky / low confidence** → it goes up to the
 - **Each AI employee** decides, per task, which lane to use — within the policy.
 - **No local model** can call the cloud, send email, or change a live system — it only returns text to whoever asked.
 
+## Where DeepSeek Harness fits (2026-10-31, Minda asked)
+**Seat: the local agent workbench inside layer 4** — a harness where a local planner model (480B / 70B)
+drives smaller local models through multi-step jobs (read → edit → run tests → retry). **Best job: the
+night foundry** (spec + tests from Eugene → dsh runs the loop overnight → PR for review). **Not** a manager
+(layer 2 stays frontier), **not** traffic control (it sits *behind* the gateway so policy still applies),
+**not** the staff chat (Open WebUI). Still **parked** (preview, unaudited, non-boundary sandbox — see
+`R&D/local-models/deepseek-harness.md`). Conditions if used: own locked-down LXC, local models only via the
+gateway, MCP/web/Composio off, works on a copy of the repo only, official repo + pinned version.
+Revisit at the foundry stage; compare with other agent harnesses then.
+
 ## Phasing (works with today's hardware first)
 - **P0 (Gen9 + P40s, once the genuine cables land):** gateway + `estate-brain` (27–32B) + `estate-memory`. One flow: staff Q&A over our documents.
 - **P1:** add `estate-vision` → delivery-note flow with Rachel checking.
