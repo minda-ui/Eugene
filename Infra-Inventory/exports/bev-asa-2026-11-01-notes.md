@@ -28,3 +28,12 @@
 
 ## Beverley 3850
 SSH from Gen9: 10.224.10.252 **refused**, 10.224.110.4 **timed out** (likely asymmetric return path: the switch answers out its own vlan-10 SVI). → Use the console cable on the next visit, or SSH from a host on 10.224.10.x/11.x that's directly on the switch. Port map already recorded from 2026-10-10.
+
+### AWT-1063 matching (Minda, 2026-11-01)
+| Device | MAC | Current DHCP IP | Planned static |
+|---|---|---|---|
+| **Loxone Miniserver** (MSC91A, panel "Schaltschrank") | 50:4F:94:A2:C9:1B | **10.224.111.77** | 10.224.111.2 (set **last**) |
+| Audio Server | ? | ? (one of .11/.14–.18) | .3 |
+| Intercom | ? | ? | .4 |
+| HP M479dw printer | ? | ? (.12 or .48/.49?) | .5 |
+Remote access uses Loxone Cloud (connect.loxonecloud.com) — no ASA port-forward needed; unaffected by the IP change.
