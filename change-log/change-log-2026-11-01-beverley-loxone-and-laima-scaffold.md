@@ -20,3 +20,4 @@
 
 ## Repo seeded (21:45)
 - Minda created `minda-ui/Laima-Vance`; Eugene seeded `main` (3145692): CLAUDE.md entry point, charter files, control files, work-run prompt, README, group SessionStart hook, settings.json (read allow-list; deny email send/reply/forward, Drive trash/share/delete, Smartsheet delete_rows). Opportunity detail deliberately kept off git.
+- 21:45 **Charter v1.0 APPROVED by Minda.** Drive: old CHARTER/Charter-Rules/Charter-History/open-issues/current-state archived to her Archive/ (renamed "(archived 2026-11-01 2145, ...)"), approved copies uploaded, byte-verified (6233/1524/755/908/986). Repo main updated to match.
