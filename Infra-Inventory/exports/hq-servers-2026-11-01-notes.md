@@ -22,3 +22,14 @@
 | Memory | 23 GB (DIMM B3 disabled) |
 | PCIe | R710 has 4 slots; CP400e uses one → ~3 free; **x8 slot for the Mellanox to confirm with lid off** |
 | Note | Was found **powered off** 2026-11-01 — check BIOS "AC Power Recovery" = On and that it's on a UPS outlet |
+
+### Gen9 POST screen (2026-11-01 reboot)
+| Item | Value |
+|---|---|
+| BIOS | P89 **v3.40 (29/08/2024)**, redundant ROM valid |
+| CPUs | **2× Xeon E5-2695 v4** @ 2.1 GHz, 36 cores, HT on (the heatsink sticker "E5-2650 v3" is a leftover label — v4 confirmed, so the P40 v4 prerequisite *was* met) |
+| Memory | 256 GB, Advanced ECC |
+| ⚠️ Power | Power Profile **Custom**, Power Regulator **Static Low Power — CPUs clocked down**. Slows the CPU-only AI pilot on this box. Change to *Dynamic Power Savings* (or Static High Performance) in RBSU at the next planned reboot. |
+| Inlet temp | **18 °C** |
+| Heatsinks | 747608-001 (spare 777290-001) and 759519-002 — two different types |
+| DIMMs | HPE 809083-091 (32 GB 2Rx4 DDR4-2400), Micron, white slots |
