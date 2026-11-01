@@ -11,3 +11,13 @@ Colour scale (WiFiman): green = strong · yellow = OK · orange = weak · red = 
 
 ## Still needed
 Which area/floor each map is · orientation (where the entrance is) · where the 3 APs are mounted · dBm at the red/orange spots · speed tests · G-NetTrack log.
+
+## Mobile signal — G-NetTrack Lite log (O2, 10:31:48–10:33:09, Drive `O2_-_UK_2026.11.01_10.31.30.txt`)
+| Time | Tech | Level (dBm) | Read |
+|---|---|---|---|
+| 10:31:48 | 4G | −340 | invalid / no reading |
+| 10:31:58 | 4G | **−121** | very poor |
+| 10:32:45 | **2G** | −111 | fell back to 2G |
+| 10:32:58 | -- | −113 | **no service** |
+| 10:33:09 | 4G | −253 | invalid / no reading |
+Only 5 samples over ~80 s, one GPS position (indoors), KML exports empty. **O2 indoors at HQ is very poor (4G −121, drops to 2G / no service).** Not yet known: whether the booster was on, other networks (EE/Vodafone/Three), booster on/off comparison, booster model (Ofcom).
