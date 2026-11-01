@@ -35,7 +35,9 @@ SSH from Gen9: 10.224.10.252 **refused**, 10.224.110.4 **timed out** (likely asy
 | **Loxone Miniserver** (MSC91A, panel "Schaltschrank") | 50:4F:94:A2:C9:1B | **10.224.111.77** | 10.224.111.2 (set **last**) |
 | **Audio Server "Music Box"** | 50:4F:94:F0:C1:33 | **10.224.111.14** (Loxone Config 'Local Address' = this IP → why it breaks on DHCP change) | .3 — update Local Address in Loxone Config + save to Miniserver |
 | **Intercom "Home Intercom"** | 50:4F:94:E0:D6:FA | **10.224.111.11** (Loxone Config 'Network Address' = this IP) | .4 — update Network Address in Loxone Config + save |
-| HP M479dw printer | ? | ? (.12 or .48/.49?) | .5 |
+| **HP M479dw printer** (wired, SN CNCRNC55BR) | F8:0D:AC:D8:5C:63 | **10.224.111.12** | .5 |
 Remote access uses Loxone Cloud (connect.loxonecloud.com) — no ASA port-forward needed; unaffected by the IP change.
 
 Other Loxone leases (.15–.18) = 50:4F:94:F5:… — likely extensions/speakers; leave on DHCP unless they also drop.
+
+→ Steps: `Runbooks/Runbook-Beverley-Fixed-IPs-Loxone-Printer.md`.
