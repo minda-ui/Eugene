@@ -21,3 +21,8 @@ Which area/floor each map is · orientation (where the entrance is) · where the
 | 10:32:58 | -- | −113 | **no service** |
 | 10:33:09 | 4G | −253 | invalid / no reading |
 Only 5 samples over ~80 s, one GPS position (indoors), KML exports empty. **O2 indoors at HQ is very poor (4G −121, drops to 2G / no service).** Not yet known: whether the booster was on, other networks (EE/Vodafone/Three), booster on/off comparison, booster model (Ofcom).
+
+## Booster check (2026-11-01)
+Label: **"800/900/1800/2100/2600MHz Booster", model SR-FBG70/22-K** (≈70 dB gain / 22 dBm), no Ofcom/IR 2102 marking.
+→ Generic **multi-operator, 5-band, high-gain** repeater = **not licence-exempt in the UK** (Ofcom allows only IR 2102-compliant single-operator boosters; others are illegal to install/use under the Wireless Telegraphy Act and can interfere with the networks). **Eugene does not guide its set-up.** Keep it switched off.
+**Options:** (1) Wi-Fi calling on staff phones — free, now; (2) Ofcom-approved O2 booster (e.g. Cel-Fi GO class, ~£500–1,000 + fit) re-using the mast position; (3) ask O2 business about indoor coverage options.
