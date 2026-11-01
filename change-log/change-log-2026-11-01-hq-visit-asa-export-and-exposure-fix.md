@@ -19,3 +19,4 @@ Full export saved masked → `Infra-Inventory/exports/hq-asa-2026-11-01-export-M
 - Why was it off? Unknown — check its iLO/iDRAC log or power cable/UPS outlet; add to UPS-outlet list.
 - `pvesm status`: **pbs-nas active** (843 GB, 1.5 % used) · **pbs-tank active** (13.9 TB, 0.08 %).
 - Backup jobs exist (`/etc/pve/jobs.cfg`): **02:00 → pbs-nas**, VMs 101,102,103,105,106, keep-daily 14 · **21:00 → pbs-tank**, VMs 101–106, **no prune set** (tidy later) · `repeat-missed 0` → nights missed while the R710 was off were not caught up. **OI-17 (nightly job) effectively done.** Minor: 104 ssh-gateway not in the 02:00 job; 106 DocuSeal backed up though not needed.
+- **Manual PBX backup OK** 09:40–09:41 → pbs-tank: 50 GiB in 53 s, incremental (98 % reused — earlier backups intact), 'Backup job finished successfully'.
