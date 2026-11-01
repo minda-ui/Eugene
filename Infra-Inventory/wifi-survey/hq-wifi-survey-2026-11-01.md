@@ -26,3 +26,4 @@ Only 5 samples over ~80 s, one GPS position (indoors), KML exports empty. **O2 i
 Label: **"800/900/1800/2100/2600MHz Booster", model SR-FBG70/22-K** (≈70 dB gain / 22 dBm), no Ofcom/IR 2102 marking.
 → Generic **multi-operator, 5-band, high-gain** repeater = **not licence-exempt in the UK** (Ofcom allows only IR 2102-compliant single-operator boosters; others are illegal to install/use under the Wireless Telegraphy Act and can interfere with the networks). **Eugene does not guide its set-up.** Keep it switched off.
 **Options:** (1) Wi-Fi calling on staff phones — free, now; (2) Ofcom-approved O2 booster (e.g. Cel-Fi GO class, ~£500–1,000 + fit) re-using the mast position; (3) ask O2 business about indoor coverage options.
+- **Decision (Minda, 2026-11-01): leave it** — booster stays off, no replacement for now; Wi-Fi calling remains the free option.
