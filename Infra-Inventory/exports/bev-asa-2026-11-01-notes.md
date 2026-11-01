@@ -33,7 +33,7 @@ SSH from Gen9: 10.224.10.252 **refused**, 10.224.110.4 **timed out** (likely asy
 | Device | MAC | Current DHCP IP | Planned static |
 |---|---|---|---|
 | **Loxone Miniserver** (MSC91A, panel "Schaltschrank") | 50:4F:94:A2:C9:1B | **10.224.111.77** | 10.224.111.2 (set **last**) |
-| Audio Server | ? | ? (one of .11/.14–.18) | .3 |
+| **Audio Server "Music Box"** | 50:4F:94:F0:C1:33 | **10.224.111.14** (Loxone Config 'Local Address' = this IP → why it breaks on DHCP change) | .3 — update Local Address in Loxone Config + save to Miniserver |
 | Intercom | ? | ? | .4 |
 | HP M479dw printer | ? | ? (.12 or .48/.49?) | .5 |
 Remote access uses Loxone Cloud (connect.loxonecloud.com) — no ASA port-forward needed; unaffected by the IP change.
