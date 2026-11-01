@@ -10,3 +10,15 @@
 | NICs | 10G `ens6f0np0` + `ens6f1np1` UP (bond0 → 3850 Po4, OVS) · mgmt0 10.224.10.10/24 · Tailscale 100.84.133.120 · onboard eno1–4 DOWN · 4-port 1G card eno49–52 DOWN (the 331T — its slot is the candidate for the 2nd 10G card) |
 | PCI (lspci) | Broadcom **BCM5719 4×1G** (02:00, onboard/FLOM) · Intel **I350 4×1G** (04:00 — add-in card, probably HPE 366T; *corrects "331T"*) · Smart Array Gen9 (05:00) · **Tesla P40** ×2 (08:00, 84:00) · Intel **X710 2×10G SFP+** (81:00 — the 562SFP+, CPU2 side; works with the Cisco DACs) |
 | Memory | **251 GB total, 11 GB used** (lots spare → 4 sticks to Beverley later is fine) |
+
+## R710 `pve-nas` (10.224.10.20)
+| Item | Value |
+|---|---|
+| Proxmox | **9.2.2**, kernel 7.0.2-6 (newer than the Gen9's 8.2.2 — Gen9 upgrade is a later, planned job) |
+| VMs | none (runs Proxmox Backup Server stores only) |
+| Pools | all healthy |
+| NICs | 4× Broadcom BCM5709 1G onboard; **nic0 → vmbr0 10.224.10.20/24**, nic1–3 down |
+| Storage controllers | PERC 6/i (LSI 1078, integrated slot) · **CP400e LSI SAS3008** (one PCIe slot, shelf) |
+| Memory | 23 GB (DIMM B3 disabled) |
+| PCIe | R710 has 4 slots; CP400e uses one → ~3 free; **x8 slot for the Mellanox to confirm with lid off** |
+| Note | Was found **powered off** 2026-11-01 — check BIOS "AC Power Recovery" = On and that it's on a UPS outlet |
