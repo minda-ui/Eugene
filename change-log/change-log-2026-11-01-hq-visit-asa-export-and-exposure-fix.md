@@ -13,3 +13,6 @@ Full export saved masked → `Infra-Inventory/exports/hq-asa-2026-11-01-export-M
 - Checked Proxmox: **763 failed SSH logins since 1 Oct, 0 successful from outside** — all 9 accepted logins internal (10.224.11.x / 10.224.20.x) on 1 Oct. No sign of compromise.
 - **Fix:** removed all 12 static NATs for those 4 services on outside_fttb/bt/vf; `write memory` OK; `show nat detail | include 22024|35392|16078|22023` → empty. Rollback = same lines without `no`.
 - **Still open:** ssh-gateway forward (22999) — purpose to confirm; `permit ip any any` on outside ACLs; Wi-Fi (sec 100) reaches mgmt; Proxmox root password SSH; DocuSeal .60 inside DHCP pool; statelink down; NTP. → OI-33.
+
+## R710 / backups (Block 5)
+- Gen9 couldn't reach pve-nas 10.224.10.20 (PBS stores inactive). R710 nic0 UP, MAC not on 3850 → the R710 was **still booting**. Once up: Gen9 → 10.224.10.20 ping OK. **OI-27 resolved.** Next: PBS stores active + a fresh backup (no backups since ~30 Oct).
