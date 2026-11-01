@@ -20,3 +20,8 @@ Full export saved masked → `Infra-Inventory/exports/hq-asa-2026-11-01-export-M
 - `pvesm status`: **pbs-nas active** (843 GB, 1.5 % used) · **pbs-tank active** (13.9 TB, 0.08 %).
 - Backup jobs exist (`/etc/pve/jobs.cfg`): **02:00 → pbs-nas**, VMs 101,102,103,105,106, keep-daily 14 · **21:00 → pbs-tank**, VMs 101–106, **no prune set** (tidy later) · `repeat-missed 0` → nights missed while the R710 was off were not caught up. **OI-17 (nightly job) effectively done.** Minor: 104 ssh-gateway not in the 02:00 job; 106 DocuSeal backed up though not needed.
 - **Manual PBX backup OK** 09:40–09:41 → pbs-tank: 50 GiB in 53 s, incremental (98 % reused — earlier backups intact), 'Backup job finished successfully'.
+
+## Gen9 lid-off + iLO
+- Lid-off photos (no changes); air guides refitted; Gen9 back: VMs 101/102/104/105 auto-started, R710 reachable. CPUs **E5-2695 v4** confirmed (v3 sticker is a leftover). BIOS **Static Low Power** flagged. Slots/DIMMs mapped (I350 = FlexibleLOM).
+- **iLO static IP (AWT-1060 / OI-31): `10.224.10.21`**, DHCP off, NTP set, iLO reset. iLO Advanced now licensed → monitoring plan: read-only `monitor` user, AlertMail, Kuma Redfish health check, firmware check (remote, later).
+- Address register (mgmt vlan 10, static, outside DHCP .50–.240): .1/.2 ASA · .4 3850 · .9 ssh-gw · .10 Gen9 · .20 R710 · **.21 Gen9 iLO** · (.60 DocuSeal — inside pool, retire).
