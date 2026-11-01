@@ -17,3 +17,6 @@
 ## Hub (own rows)
 - AWT-1062 -> In Progress (ASA exports exist now). AWT-1069 -> unblocked for b-d (still need: which ASA 5525-X are spares; ROMMON USB result).
 - AWT-1082 -> In Progress (scaffold done, not live).
+
+## Repo seeded (21:45)
+- Minda created `minda-ui/Laima-Vance`; Eugene seeded `main` (3145692): CLAUDE.md entry point, charter files, control files, work-run prompt, README, group SessionStart hook, settings.json (read allow-list; deny email send/reply/forward, Drive trash/share/delete, Smartsheet delete_rows). Opportunity detail deliberately kept off git.
