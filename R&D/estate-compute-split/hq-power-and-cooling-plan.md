@@ -136,3 +136,4 @@ outside 10 °C → ~18 °C ✅ · 18 °C → ~26 °C ✅ · **25 °C → ~33 °C
   self-test + runtime check at HQ **now** (if it's UPS 1, the one that drains first, this matters most).
 - **HQ readings 2026-11-01 (Minda):** both SUA2200RMI2U (LED models, no LCD). **Top** — serial **JS0727011051** (APC: made 2007 wk 27), load **2/5 LEDs**, battery 5/5, no alarm. **Bottom** — serial **AS1111…** (label torn; made 2011 wk 11), load **0/5**, battery 5/5, no alarm. Both are refurbished chassis (manufacture date ≠ battery age). Which is the Oct 2024 unit: ask UPS Centre for the serial on orders 36438 / 38435. Imbalance confirmed (top carries ~all).
 - **Self-test 2026-11-01: PASSED on both HQ UPSs** (replace-battery light off). Warranty-check done. Socket count + per-UPS device list still to collect (for AWT-1064).
+- **Beverley UPS (SUA3000RMI2U) self-test PASSED 2026-11-01** (Minda).
