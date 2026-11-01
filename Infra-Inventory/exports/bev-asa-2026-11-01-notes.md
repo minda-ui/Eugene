@@ -32,8 +32,8 @@ SSH from Gen9: 10.224.10.252 **refused**, 10.224.110.4 **timed out** (likely asy
 ### AWT-1063 matching (Minda, 2026-11-01)
 | Device | MAC | Current DHCP IP | Planned static |
 |---|---|---|---|
-| **Loxone Miniserver** (MSC91A, panel "Schaltschrank") | 50:4F:94:A2:C9:1B | **10.224.111.77** | 10.224.111.2 (set **last**) |
-| **Audio Server "Music Box"** | 50:4F:94:F0:C1:33 | **10.224.111.14** (Loxone Config 'Local Address' = this IP → why it breaks on DHCP change) | .3 — ON HOLD (device stayed on .14; re-adding 2026-11-01) |
+| **Loxone Miniserver** (MSC91A, panel "Schaltschrank") | 50:4F:94:A2:C9:1B | **10.224.111.77** | **10.224.111.2 — DONE 2026-11-01** |
+| **Audio Server "Music Box"** | 50:4F:94:F0:C1:33 | **10.224.111.14** (Loxone Config 'Local Address' = this IP → why it breaks on DHCP change) | **.3 — DONE 2026-11-01 (re-paired, hostname asc133)** |
 | **Intercom "Home Intercom"** | 50:4F:94:E0:D6:FA | **10.224.111.11** (Loxone Config 'Network Address' = this IP) | .4 — ON HOLD (device stayed on .11; re-adding 2026-11-01) |
 | **HP M479dw printer** (wired, SN CNCRNC55BR) | F8:0D:AC:D8:5C:63 | **10.224.111.12** | .5 |
 Remote access uses Loxone Cloud (connect.loxonecloud.com) — no ASA port-forward needed; unaffected by the IP change.
