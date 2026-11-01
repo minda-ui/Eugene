@@ -29,3 +29,7 @@ Full export saved masked → `Infra-Inventory/exports/hq-asa-2026-11-01-export-M
 ## Visit end (~10:45, Minda back to Beverley) — summary
 Done: UPS self-tests ✅ · ASA + 3850 exports (masked) ✅ · **internet-exposed admin forwards closed** ✅ · public IPs answered ✅ · Gen9 + R710 inventory ✅ · **R710 back on (was powered off) → OI-27 resolved, backups confirmed + fresh PBX backup** ✅ · Gen9 lid-off, slots/DIMMs mapped ✅ · **Gen9 iLO static 10.224.10.21 + NTP (OI-31/AWT-1060)** ✅ · iLO Administrator password changed ✅ · Wi-Fi heatmaps + O2 log ✅ · booster = non-compliant, left off ✅.
 Carried over: UPS socket/device list (needs a site visit) · Wi-Fi AP positions + map orientation (Minda, remote) · R710 lid/x8 slot · next planned Gen9 reboot: Power Regulator → Dynamic, re-enter serial CZJ64905NP + Product ID · Gen9 10G card goes in with the P40 move · OI-33 ASA hardening (ssh-gw, DocuSeal forward, any-any, Wi-Fi→mgmt) · 3850: Gi2/1/1 "home-sw" question, Gi2/0/6 err-disabled, remove leftover WLAN config, half-finished upgrade check.
+
+## Beverley (afternoon)
+- Beverley UPS (SUA3000) self-test passed; load 0/5.
+- Beverley ASA exported via Gen9 SSH (10.224.10.254), masked copy + notes in Infra-Inventory/exports/. Raw copies (Gen9 /root + Drive Raw/) **deleted by Minda**. Loxone MACs (50:4F:94) found → AWT-1063 proposed statics .2–.5. Beverley 3850 not reachable by SSH (refused/timeout) — console next visit.
