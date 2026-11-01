@@ -8,3 +8,4 @@
 | Containers | none |
 | Storage | local-zfs ~3.6 TB, 0.6 % used, **all pools healthy** · **pbs-nas / pbs-tank inactive: "No route to host" 10.224.10.20:8007 → backups to R710 not running (OI-27)** |
 | NICs | 10G `ens6f0np0` + `ens6f1np1` UP (bond0 → 3850 Po4, OVS) · mgmt0 10.224.10.10/24 · Tailscale 100.84.133.120 · onboard eno1–4 DOWN · 4-port 1G card eno49–52 DOWN (the 331T — its slot is the candidate for the 2nd 10G card) |
+| PCI (lspci) | Broadcom **BCM5719 4×1G** (02:00, onboard/FLOM) · Intel **I350 4×1G** (04:00 — add-in card, probably HPE 366T; *corrects "331T"*) · Smart Array Gen9 (05:00) · **Tesla P40** ×2 (08:00, 84:00) · Intel **X710 2×10G SFP+** (81:00 — the 562SFP+, CPU2 side; works with the Cisco DACs) |
