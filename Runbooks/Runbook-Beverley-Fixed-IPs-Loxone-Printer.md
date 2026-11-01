@@ -36,3 +36,4 @@ Ping .2–.5 from the Lenovo; Loxone app OK; print test OK. Note: the old DHCP l
 
 ## Progress log
 - 2026-11-01 11:38 — **Printer done:** static 10.224.111.5, Shutdown 'disable when ports active' on; HOMEOFFICEPC re-added as **"Beverley Printer"**, port 10.224.111.5 (RAW), HP M479 PCL-6 V4 driver; **test page printed** ✅. Other PCs: repeat if any.
+- 2026-11-01 — **Printer tray prompt fixed:** cause was Tray 2 type set to "HP LaserJet 90g" (driver sends Plain → no match → fell back to Tray 1 manual feed and prompted). Fix: EWS Tray and Paper Management → Tray 2 = A4 / Plain, Manually Feed Prompt = Unless loaded, Size/Type Prompt = Do not display, Alternative Letter/A4 = Enabled; PC Printing preferences = A4 / Automatically select / Unspecified. Minda confirmed it prints with no prompt ✅.
