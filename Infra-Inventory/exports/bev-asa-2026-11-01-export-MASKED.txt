@@ -1,0 +1,500 @@
+Type help or '?' for a list of available commands.
+home-asa> enable
+Password: **************
+home-asa# enable
+           ^
+ERROR: % Invalid input detected at '^' marker.
+home-asa# terminal pager 0
+home-asa# show version
+
+Cisco Adaptive Security Appliance Software Version 9.1(7)32 
+Device Manager Version 6.2(1)
+
+Compiled on Tue 04-Sep-18 08:37 by builders
+System image file is "disk0:/asa917-32-k8.bin"
+Config file at boot was "startup-config"
+
+home-asa up 21 days 16 hours
+
+Hardware:   ASA5550, 4096 MB RAM, CPU Pentium 4 3000 MHz,
+Internal ATA Compact Flash, 256MB
+BIOS Flash M50FW016 @ 0xfff00000, 2048KB
+
+Encryption hardware device : Cisco ASA-55xx on-board accelerator (revision 0x0)
+                             Boot microcode        : CN1000-MC-BOOT-2.00 
+                             SSL/IKE microcode     : CNlite-MC-SSLm-PLUS-2.08
+                             IPSec microcode       : CNlite-MC-IPSECm-MAIN-2.09
+                             Number of accelerators: 1
+
+ 0: Ext: GigabitEthernet0/0  : address is 503d.e51e.b2dc, irq 9
+ 1: Ext: GigabitEthernet0/1  : address is 503d.e51e.b2dd, irq 9
+ 2: Ext: GigabitEthernet0/2  : address is 503d.e51e.b2de, irq 9
+ 3: Ext: GigabitEthernet0/3  : address is 503d.e51e.b2df, irq 9
+ 4: Ext: Management0/0       : address is 503d.e51e.b2db, irq 11
+ 5: Int: Internal-Data0/0    : address is 0000.0001.0002, irq 11
+ 6: Int: Not used            : irq 5
+ 7: Ext: GigabitEthernet1/0  : address is 503d.e506.3270, irq 255
+ 8: Ext: GigabitEthernet1/1  : address is 503d.e506.3271, irq 255
+ 9: Ext: GigabitEthernet1/2  : address is 503d.e506.3272, irq 255
+10: Ext: GigabitEthernet1/3  : address is 503d.e506.3273, irq 255
+11: Int: Internal-Data1/0    : address is 0000.0003.0002, irq 255
+
+Licensed features for this platform:
+Maximum Physical Interfaces       : Unlimited      perpetual
+Maximum VLANs                     : 400            perpetual
+Inside Hosts                      : Unlimited      perpetual
+Failover                          : Active/Active  perpetual
+Encryption-DES                    : Enabled        perpetual
+Encryption-3DES-AES               : Enabled        perpetual
+Security Contexts                 : 2              perpetual
+GTP/GPRS                          : Disabled       perpetual
+AnyConnect Premium Peers          : 2              perpetual
+AnyConnect Essentials             : Disabled       perpetual
+Other VPN Peers                   : 5000           perpetual
+Total VPN Peers                   : 5000           perpetual
+Shared License                    : Disabled       perpetual
+AnyConnect for Mobile             : Disabled       perpetual
+AnyConnect for Cisco VPN Phone    : Disabled       perpetual
+Advanced Endpoint Assessment      : Disabled       perpetual
+UC Phone Proxy Sessions           : 2              perpetual
+Total UC Proxy Sessions           : 2              perpetual
+Botnet Traffic Filter             : Disabled       perpetual
+Intercompany Media Engine         : Disabled       perpetual
+Cluster                           : Disabled       perpetual
+
+This platform has an ASA 5550 VPN Premium license.
+
+Serial Number: JMX1512L0FD
+Running Permanent Activation Key: *****
+Configuration register is 0x41 (will be 0x1 at next reload)
+Configuration last modified by enable_15 at 06:29:32.889 UTC Wed Dec 17 2003
+home-asa# show inventory
+Name: "Chassis", DESCR: "ASA 5550 Adaptive Security Appliance"
+PID: ASA5550           , VID: V06     , SN: JMX1512L0FD
+
+Name: "module 1", DESCR: "SSM-4GE Included with ASA 5550 System"
+PID: SSM-4GE-INC       , VID:         , SN: JAF1510BPRF
+
+Name: "power supply", DESCR: "ASA/IPS 180W AC Power Supply"
+PID: ASA-180W-PWR-AC   , VID: V03     , SN: DTN1443800Y
+
+home-asa# show running-config
+: Saved
+: 
+: Serial Number: JMX1512L0FD
+: Hardware:   ASA5550, 4096 MB RAM, CPU Pentium 4 3000 MHz
+:
+ASA Version 9.1(7)32 
+!
+hostname home-asa
+domain-name fishbone.local
+enable password ***** encrypted
+xlate per-session deny tcp any4 any4
+xlate per-session deny tcp any4 any6
+xlate per-session deny tcp any6 any4
+xlate per-session deny tcp any6 any6
+xlate per-session deny udp any4 any4 eq domain
+xlate per-session deny udp any4 any6 eq domain
+xlate per-session deny udp any6 any4 eq domain
+xlate per-session deny udp any6 any6 eq domain
+names
+!
+interface GigabitEthernet0/0
+ channel-group 1 mode active
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/1
+ channel-group 1 mode active
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/2
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/3
+ nameif office-lan
+ security-level 0
+ ip address 10.224.11.113 255.255.255.0 
+!
+interface Management0/0
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet1/0
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet1/1
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet1/2
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet1/3
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface Port-channel1
+ description ## uplink to catalyst ##
+ no nameif
+ no security-level
+ no ip address
+!
+interface Port-channel1.6
+ vlan 6
+ nameif outside
+ security-level 0
+ ip address 192.168.1.111 255.255.255.0 
+!
+interface Port-channel1.10
+ description Office management vlan
+ vlan 10
+ nameif office_mgmt
+ security-level 50
+ ip address 10.224.10.254 255.255.255.0 
+!
+interface Port-channel1.110
+ description WiFi AP management
+ vlan 110
+ nameif ap_mgmt
+ security-level 20
+ ip address 10.224.110.1 255.255.255.0 
+!
+interface Port-channel1.111
+ description LAN
+ vlan 111
+ nameif inside
+ security-level 100
+ ip address 10.224.111.1 255.255.255.0 
+!
+interface Port-channel1.120
+ description Main WiFi
+ vlan 120
+ nameif wifi
+ security-level 100
+ ip address 10.224.120.1 255.255.255.0 
+!
+interface Port-channel1.121
+ description IoT WiFi
+ vlan 121
+ nameif wifi_iot
+ security-level 10
+ ip address 10.224.121.1 255.255.255.0 
+!
+boot system disk0:/asa917-32-k8.bin
+ftp mode passive
+dns server-group DefaultDNS
+ domain-name fishbone.local
+same-security-traffic permit inter-interface
+object network wifi_network
+ subnet 10.224.120.0 255.255.255.0
+object network lan_network
+ subnet 10.224.111.0 255.255.255.0
+object network wmc_allowed_internet
+ host 10.224.110.5
+object network wmc_network
+ subnet 10.224.110.0 255.255.255.0
+object network wifi_iot_network
+ subnet 10.224.121.0 255.255.255.0
+access-list allow-all extended permit ip any any 
+access-list wmc extended permit ip object wmc_allowed_internet any 
+access-list wmc extended permit ip host 10.224.110.5 host 10.224.11.11 
+access-list ACL_OUTSIDE_IN extended permit icmp any interface outside echo 
+access-list ACL_OUTSIDE_IN extended permit icmp any4 any4 time-exceeded 
+access-list ACL_OUTSIDE_IN extended permit icmp any4 any4 unreachable 
+access-list ACL_OUTSIDE_IN extended permit ip any any 
+pager lines 24
+mtu office-lan 1500
+mtu outside 1500
+mtu office_mgmt 1500
+mtu ap_mgmt 1500
+mtu inside 1500
+mtu wifi 1500
+mtu wifi_iot 1500
+no failover
+icmp unreachable rate-limit 1 burst-size 1
+no asdm history enable
+arp timeout 14400
+no arp permit-nonconnected
+nat (wifi,outside) source dynamic wifi_network interface
+nat (inside,outside) source dynamic lan_network interface
+nat (ap_mgmt,outside) source dynamic wmc_network interface
+nat (wifi_iot,outside) source dynamic wifi_iot_network interface
+access-group ACL_OUTSIDE_IN in interface outside
+access-group allow-all in interface office_mgmt
+access-group wmc in interface ap_mgmt
+route outside 0.0.0.0 0.0.0.0 192.168.1.254 1 
+route office_mgmt 10.224.5.0 255.255.255.0 10.224.10.1 1 
+route office_mgmt 10.224.10.32 255.255.255.224 10.224.10.1 1 
+route office_mgmt 10.224.10.64 255.255.255.192 10.224.10.1 1 
+route office_mgmt 10.224.10.128 255.255.255.192 10.224.10.1 1 
+route office_mgmt 10.224.10.192 255.255.255.224 10.224.10.1 1 
+route office_mgmt 10.224.10.224 255.255.255.240 10.224.10.1 1 
+route office_mgmt 10.224.11.0 255.255.255.0 10.224.10.1 1 
+route office_mgmt 10.224.12.0 255.255.255.0 10.224.10.1 1 
+route office_mgmt 10.224.13.0 255.255.255.0 10.224.10.1 1 
+route office_mgmt 10.224.30.0 255.255.255.0 10.224.10.1 1 
+route office_mgmt 192.168.5.0 255.255.255.0 10.224.10.1 1 
+timeout xlate 3:00:00
+timeout pat-xlate 0:00:30
+timeout conn 1:00:00 half-closed 0:10:00 udp 0:02:00 icmp 0:00:02
+timeout sunrpc 0:10:00 h323 0:05:00 h225 1:00:00 mgcp 0:05:00 mgcp-pat 0:05:00
+timeout sip 0:30:00 sip_media 0:02:00 sip-invite 0:03:00 sip-disconnect 0:02:00
+timeout sip-provisional-media 0:02:00 uauth 0:05:00 absolute
+timeout tcp-proxy-reassembly 0:01:00
+timeout floating-conn 0:00:00
+dynamic-access-policy-record DfltAccessPolicy
+user-identity default-domain LOCAL
+aaa authentication ssh console LOCAL 
+no snmp-server location
+no snmp-server contact
+crypto ipsec security-association pmtu-aging infinite
+crypto ca trustpool policy
+telnet timeout 5
+ssh stricthostkeycheck
+ssh 10.224.10.0 255.255.255.0 office_mgmt
+ssh 10.224.5.0 255.255.255.0 office_mgmt
+ssh 10.224.11.0 255.255.255.0 office_mgmt
+ssh timeout 60
+ssh version 2
+ssh key-exchange group dh-group14-sha1
+console timeout 0
+dhcpd dns 1.0.0.1 8.8.8.8
+!
+dhcpd address 10.224.110.10-10.224.110.248 ap_mgmt
+dhcpd enable ap_mgmt
+!
+dhcpd address 10.224.111.10-10.224.111.248 inside
+dhcpd enable inside
+!
+dhcpd address 10.224.120.10-10.224.120.248 wifi
+dhcpd enable wifi
+!
+dhcpd address 10.224.121.10-10.224.121.248 wifi_iot
+dhcpd enable wifi_iot
+!
+!
+tls-proxy maximum-session 1000
+!
+threat-detection basic-threat
+threat-detection statistics access-list
+no threat-detection statistics tcp-intercept
+username admin password ***** encrypted privilege 15
+!
+class-map inspection_default
+ match default-inspection-traffic
+!
+!
+policy-map type inspect dns preset_dns_map
+ parameters
+  message-length maximum client auto
+  message-length maximum 512
+policy-map global_policy
+ class inspection_default
+  inspect dns preset_dns_map 
+  inspect ftp 
+  inspect h323 h225 
+  inspect h323 ras 
+  inspect ip-options 
+  inspect netbios 
+  inspect rsh 
+  inspect rtsp 
+  inspect skinny  
+  inspect esmtp 
+  inspect sqlnet 
+  inspect sunrpc 
+  inspect tftp 
+  inspect xdmcp 
+!
+service-policy global_policy global
+prompt hostname context 
+no call-home reporting anonymous
+call-home
+ profile CiscoTAC-1
+  no active
+  destination address http https://tools.cisco.com/its/service/oddce/services/DDCEService
+  destination address email callhome@cisco.com
+  destination transport-method http
+  subscribe-to-alert-group diagnostic
+  subscribe-to-alert-group environment
+  subscribe-to-alert-group inventory periodic monthly
+  subscribe-to-alert-group configuration periodic monthly
+  subscribe-to-alert-group telemetry periodic daily
+Cryptochecksum:49d14fa1f6ba1ff03257aebc32660a9a
+: end
+home-asa# show interface ip brief
+Interface                  IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0         unassigned      YES unset  up                    up  
+GigabitEthernet0/1         unassigned      YES unset  up                    up  
+GigabitEthernet0/2         unassigned      YES unset  administratively down down
+GigabitEthernet0/3         10.224.11.113   YES manual down                  down
+Internal-Data0/0           unassigned      YES unset  administratively down up  
+Management0/0              unassigned      YES unset  administratively down down
+GigabitEthernet1/0         unassigned      YES unset  administratively down down
+GigabitEthernet1/1         unassigned      YES unset  administratively down down
+GigabitEthernet1/2         unassigned      YES unset  administratively down down
+GigabitEthernet1/3         unassigned      YES unset  administratively down down
+Internal-Data1/0           unassigned      YES unset  up                    up  
+Port-channel1              unassigned      YES unset  up                    up  
+Port-channel1.6            192.168.1.111   YES manual up                    up  
+Port-channel1.10           10.224.10.254   YES manual up                    up  
+Port-channel1.110          10.224.110.1    YES manual up                    up  
+Port-channel1.111          10.224.111.1    YES manual up                    up  
+Port-channel1.120          10.224.120.1    YES manual up                    up  
+Port-channel1.121          10.224.121.1    YES manual up                    up  
+home-asa# show nameif
+Interface                Name                     Security
+GigabitEthernet0/3       office-lan                 0
+Port-channel1.6          outside                    0
+Port-channel1.10         office_mgmt               50
+Port-channel1.110        ap_mgmt                   20
+Port-channel1.111        inside                   100
+Port-channel1.120        wifi                     100
+Port-channel1.121        wifi_iot                  10
+home-asa# show route
+
+Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is 192.168.1.254 to network 0.0.0.0
+
+S    192.168.5.0 255.255.255.0 [1/0] via 10.224.10.1, office_mgmt
+S    10.224.10.224 255.255.255.240 [1/0] via 10.224.10.1, office_mgmt
+S    10.224.10.192 255.255.255.224 [1/0] via 10.224.10.1, office_mgmt
+S    10.224.10.128 255.255.255.192 [1/0] via 10.224.10.1, office_mgmt
+C    10.224.110.0 255.255.255.0 is directly connected, ap_mgmt
+C    10.224.111.0 255.255.255.0 is directly connected, inside
+C    10.224.120.0 255.255.255.0 is directly connected, wifi
+C    10.224.121.0 255.255.255.0 is directly connected, wifi_iot
+S    10.224.10.64 255.255.255.192 [1/0] via 10.224.10.1, office_mgmt
+S    10.224.10.32 255.255.255.224 [1/0] via 10.224.10.1, office_mgmt
+C    10.224.10.0 255.255.255.0 is directly connected, office_mgmt
+S    10.224.11.0 255.255.255.0 [1/0] via 10.224.10.1, office_mgmt
+S    10.224.12.0 255.255.255.0 [1/0] via 10.224.10.1, office_mgmt
+S    10.224.13.0 255.255.255.0 [1/0] via 10.224.10.1, office_mgmt
+S    10.224.5.0 255.255.255.0 [1/0] via 10.224.10.1, office_mgmt
+S    10.224.30.0 255.255.255.0 [1/0] via 10.224.10.1, office_mgmt
+C    192.168.1.0 255.255.255.0 is directly connected, outside
+S*   0.0.0.0 0.0.0.0 [1/0] via 192.168.1.254, outside
+home-asa# show nat detail
+Manual NAT Policies (Section 1)
+1 (wifi) to (outside) source dynamic wifi_network interface  
+    translate_hits = 928537, untranslate_hits = 289915
+    Source - Origin: 10.224.120.0/24, Translated: 192.168.1.111/24
+2 (inside) to (outside) source dynamic lan_network interface  
+    translate_hits = 779844, untranslate_hits = 127929
+    Source - Origin: 10.224.111.0/24, Translated: 192.168.1.111/24
+3 (ap_mgmt) to (outside) source dynamic wmc_network interface  
+    translate_hits = 108231, untranslate_hits = 130142
+    Source - Origin: 10.224.110.0/24, Translated: 192.168.1.111/24
+4 (wifi_iot) to (outside) source dynamic wifi_iot_network interface  
+    translate_hits = 28429, untranslate_hits = 79
+    Source - Origin: 10.224.121.0/24, Translated: 192.168.1.111/24
+home-asa# show access-list
+access-list cached ACL log flows: total 0, denied 0 (deny-flow-max 4096)
+            alert-interval 300
+access-list allow-all; 1 elements; name hash: 0xa87f2041
+access-list allow-all line 1 extended permit ip any any (hitcnt=8866) 0x95153a33 
+access-list wmc; 2 elements; name hash: 0xac161bff
+access-list wmc line 1 extended permit ip object wmc_allowed_internet any (hitcnt=172155) 0xedda5277 
+  access-list wmc line 1 extended permit ip host 10.224.110.5 any (hitcnt=172155) 0xedda5277 
+access-list wmc line 2 extended permit ip host 10.224.110.5 host 10.224.11.11 (hitcnt=0) 0x43b2a449 
+access-list ACL_OUTSIDE_IN; 4 elements; name hash: 0x12067c9b
+access-list ACL_OUTSIDE_IN line 1 extended permit icmp any interface outside echo (hitcnt=0) 0xd27e5308 
+access-list ACL_OUTSIDE_IN line 2 extended permit icmp any4 any4 time-exceeded (hitcnt=66760) 0xc393fed3 
+access-list ACL_OUTSIDE_IN line 3 extended permit icmp any4 any4 unreachable (hitcnt=33857) 0xf201a40a 
+access-list ACL_OUTSIDE_IN line 4 extended permit ip any any (hitcnt=317310) 0xcab2cb32 
+home-asa# show run dhcpd
+dhcpd dns 1.0.0.1 8.8.8.8
+!
+dhcpd address 10.224.110.10-10.224.110.248 ap_mgmt
+dhcpd enable ap_mgmt
+!
+dhcpd address 10.224.111.10-10.224.111.248 inside
+dhcpd enable inside
+!
+dhcpd address 10.224.120.10-10.224.120.248 wifi
+dhcpd enable wifi
+!
+dhcpd address 10.224.121.10-10.224.121.248 wifi_iot
+dhcpd enable wifi_iot
+!
+home-asa# show dhcpd binding
+
+IP address       Client Identifier        Lease expiration        Type
+
+  10.224.110.10    011c.6a1b.91b6.46            1830 seconds    Automatic
+  10.224.110.11    018c.3066.745e.d3            1803 seconds    Automatic
+  10.224.110.12    018c.3066.7480.16            2716 seconds    Automatic
+  10.224.111.10    0180.5ec0.0aed.98            2292 seconds    Automatic
+  10.224.111.11    0150.4f94.e0d6.fa            2380 seconds    Automatic
+  10.224.111.12    01f8.0dac.d85c.63            2381 seconds    Automatic
+  10.224.111.13    0194.bbae.19a9.ea            2424 seconds    Automatic
+  10.224.111.14    0150.4f94.f0c1.33            3582 seconds    Automatic
+  10.224.111.15    0150.4f94.f549.b5            1848 seconds    Automatic
+  10.224.111.16    0150.4f94.f54d.83            2149 seconds    Automatic
+  10.224.111.17    0150.4f94.f54d.70            1856 seconds    Automatic
+  10.224.111.18    0150.4f94.f553.47            2133 seconds    Automatic
+  10.224.111.32    01bc.0ff3.8517.9d            3240 seconds    Automatic
+  10.224.111.48    013c.a82a.e492.27            2966 seconds    Automatic
+  10.224.111.49    013c.a82a.e492.25            2966 seconds    Automatic
+  10.224.111.77    0150.4f94.a2c9.1b            3503 seconds    Automatic
+  10.224.120.17    01f8.f005.aa7d.a8            3025 seconds    Automatic
+  10.224.120.19  ff12.3456.7800.0300.           2182 seconds    Automatic
+                 0668.a40e.2242.d5
+ 10.224.120.160    0172.e30c.2ee7.94            2349 seconds    Automatic
+ 10.224.120.182    01ec.5c68.bfa3.53            3017 seconds    Automatic
+ 10.224.120.229    0176.c80c.57a6.01            1890 seconds    Automatic
+ 10.224.120.231    0118.473d.fb9f.d7            2956 seconds    Automatic
+ 10.224.120.234    018e.cc68.afb5.be            3254 seconds    Automatic
+ 10.224.120.235    014c.e6c0.1eba.97            2714 seconds    Automatic
+ 10.224.120.236    01b2.2ecb.7e61.40            3576 seconds    Automatic
+  10.224.121.10  ff12.3456.7800.0300.           2033 seconds    Automatic
+                 0668.a40e.4c07.6b
+  10.224.121.11  ff12.3456.7800.0300.           2359 seconds    Automatic
+                 0668.a40e.19eb.74
+  10.224.121.12    0128.11a5.98f3.76            3163 seconds    Automatic
+  10.224.121.13  ff12.3456.7800.0300.           2204 seconds    Automatic
+                 0668.a40e.2284.2f
+  10.224.121.14  ff12.3456.7800.0300.           2153 seconds    Automatic
+                 0668.a40e.1c6f.a2
+  10.224.121.15  ff12.3456.7800.0300.           2202 seconds    Automatic
+                 0668.a40e.08ba.d8
+  10.224.121.64  ff12.3456.7800.0300.           2590 seconds    Automatic
+                 0668.a40e.1c48.69
+home-asa# show vpn-sessiondb summary
+
+ No sessions to display.
+
+home-asa# show run crypto
+crypto ipsec security-association pmtu-aging infinite
+crypto ca trustpool policy
+home-asa# show clock
+23:10:43.228 UTC Wed Jan 7 2004
+home-asa# exit
+
+Logoff
+
