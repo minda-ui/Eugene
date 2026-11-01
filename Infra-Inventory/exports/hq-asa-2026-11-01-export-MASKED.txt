@@ -1,0 +1,1253 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2026.11.01 09:05:55 =~=~=~=~=~=~=~=~=~=~=~=
+
+
+Cisco Adaptive Security Appliance Software Version 9.1(7)32 
+Device Manager Version 6.4(7)
+
+Compiled on Tue 04-Sep-18 08:37 by builders
+System image file is "disk0:/asa917-32-k8.bin"
+Config file at boot was "startup-config"
+
+fishbone-asa up 29 days 23 hours
+failover cluster up 30 days 21 hours
+
+Hardware:   ASA5550, 4096 MB RAM, CPU Pentium 4 3000 MHz,
+Internal ATA Compact Flash, 256MB
+BIOS Flash M50FW016 @ 0xfff00000, 2048KB
+
+Encryption hardware device : Cisco ASA-55xx on-board accelerator (revision 0x0)
+                             Boot microcode        : CN1000-MC-BOOT-2.00 
+                             SSL/IKE microcode     : CNlite-MC-SSLm-PLUS-2.08
+                             IPSec microcode       : CNlite-MC-IPSECm-MAIN-2.09
+                             Number of accelerators: 1
+
+ 0: Ext: GigabitEthernet0/0  : address is c84c.7522.54de, irq 9
+ 1: Ext: GigabitEthernet0/1  : address is c84c.7522.54df, irq 9
+ 2: Ext: GigabitEthernet0/2  : address is c84c.7522.54e0, irq 9
+ 3: Ext: GigabitEthernet0/3  : address is c84c.7522.54e1, irq 9
+ 4: Ext: Management0/0       : address is c84c.7522.54dd, irq 11
+ 5: Int: Internal-Data0/0    : address is 0000.0001.0002, irq 11
+ 6: Int: Not used            : irq 5
+ 7: Ext: GigabitEthernet1/0  : address is c84c.7522.21ec, irq 255
+ 8: Ext: GigabitEthernet1/1  : address is c84c.7522.21ed, irq 255
+ 9: Ext: GigabitEthernet1/2  : address is c84c.7522.21ee, irq 255
+10: Ext: GigabitEthernet1/3  : address is c84c.7522.21ef, irq 255
+11: Int: Internal-Data1/0    : address is 0000.0003.0002, irq 255
+
+Licensed features for this platform:
+Maximum Physical Interfaces       : Unlimited      perpetual
+Maximum VLANs                     : 400            perpetual
+Inside Hosts                      : Unlimited      perpetual
+Failover                          : Active/Active  perpetual
+Encryption-DES                    : Enabled        perpetual
+Encryption-3DES-AES               : Enabled        perpetual
+Security Contexts                 : 10             perpetual
+GTP/GPRS                          : Disabled       perpetual
+AnyConnect Premium Peers          : 5000           perpetual
+AnyConnect Essentials             : 5000           perpetual
+Other VPN Peers                   : 5000           perpetual
+Total VPN Peers                   : 5000           perpetual
+Shared License                    : Disabled       perpetual
+AnyConnect for Mobile             : Enabled        perpetual
+AnyConnect for Cisco VPN Phone    : Disabled       perpetual
+Advanced Endpoint Assessment      : Disabled       perpetual
+UC Phone Proxy Sessions           : 100            perpetual
+Total UC Proxy Sessions           : 100            perpetual
+Botnet Traffic Filter             : Disabled       perpetual
+Intercompany Media Engine         : Disabled       perpetual
+Cluster                           : Disabled       perpetual
+
+This platform has an ASA 5550 VPN Premium license.
+
+
+Failover cluster licensed features for this platform:
+Maximum Physical Interfaces       : Unlimited      perpetual
+Maximum VLANs                     : 400            perpetual
+Inside Hosts                      : Unlimited      perpetual
+Failover                          : Active/Active  perpetual
+Encryption-DES                    : Enabled        perpetual
+Encryption-3DES-AES               : Enabled        perpetual
+Security Contexts                 : 20             perpetual
+GTP/GPRS                          : Disabled       perpetual
+AnyConnect Premium Peers          : 5000           perpetual
+AnyConnect Essentials             : 5000           perpetual
+Other VPN Peers                   : 5000           perpetual
+Total VPN Peers                   : 5000           perpetual
+Shared License                    : Disabled       perpetual
+AnyConnect for Mobile             : Enabled        perpetual
+AnyConnect for Cisco VPN Phone    : Disabled       perpetual
+Advanced Endpoint Assessment      : Disabled       perpetual
+UC Phone Proxy Sessions           : 200            perpetual
+Total UC Proxy Sessions           : 200            perpetual
+Botnet Traffic Filter             : Disabled       perpetual
+Intercompany Media Engine         : Disabled       perpetual
+Cluster                           : Disabled       perpetual
+
+This platform has an ASA 5550 VPN Premium license.
+
+The Running Activation Key feature: 5100 AnyConnect Premium sessions exceed the limit on the platform, reduced to 5000 AnyConnect Premium sessions.
+
+Serial Number: JMX1425L244
+Running Permanent Activation Key: *****
+Configuration register is 0x1
+Configuration last modified by enable_15 at 21:16:29.829 UTC Wed Mar 24 2004
+fishbone-asa/sec/act# show inventory
+Name: "Chassis", DESCR: "ASA 5550 Adaptive Security Appliance"
+PID: ASA5550           , VID: V06     , SN: JMX1425L244
+
+Name: "module 1", DESCR: "SSM-4GE Included with ASA 5550 System"
+PID: SSM-4GE-INC       , VID:         , SN: JAF1423ENKA
+
+Name: "power supply", DESCR: "ASA/IPS 180W AC Power Supply"
+PID: ASA-180W-PWR-AC   , VID: V03     , SN: DTN144084JW
+
+fishbone-asa/sec/act# show running-config
+: Saved
+: 
+: Serial Number: JMX1425L244
+: Hardware:   ASA5550, 4096 MB RAM, CPU Pentium 4 3000 MHz
+:
+ASA Version 9.1(7)32 
+!
+hostname fishbone-asa
+domain-name fishbone.local
+enable password ***** encrypted
+xlate per-session deny tcp any4 any4
+xlate per-session deny tcp any4 any6
+xlate per-session deny tcp any6 any4
+xlate per-session deny tcp any6 any6
+xlate per-session deny udp any4 any4 eq domain
+xlate per-session deny udp any4 any6 eq domain
+xlate per-session deny udp any6 any4 eq domain
+xlate per-session deny udp any6 any6 eq domain
+names
+ip local pool VPN_POOL 10.224.16.1-10.224.16.254 mask 255.255.255.0
+!
+interface GigabitEthernet0/0
+ channel-group 1 mode active
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/1
+ channel-group 1 mode active
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/2
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/3
+ description LAN Failover Interface
+!
+interface Management0/0
+ nameif management
+ security-level 0
+ ip address 10.11.11.1 255.255.255.0 
+!
+interface GigabitEthernet1/0
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet1/1
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet1/2
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet1/3
+ description STATE Failover Interface
+!
+interface Port-channel1
+ description uplink to catalyst
+ no nameif
+ no security-level
+ no ip address
+!
+interface Port-channel1.2
+ description StarLink
+ vlan 2
+ nameif outside_sl
+ security-level 0
+ ip address 192.168.1.254 255.255.255.0 
+!
+interface Port-channel1.3
+ description Vodafone
+ vlan 3
+ nameif outside_vf
+ security-level 0
+ ip address 192.168.3.254 255.255.255.0 
+!
+interface Port-channel1.4
+ vlan 4
+ nameif outside_bt
+ security-level 0
+ ip address 81.143.32.194 255.255.255.248 
+!
+interface Port-channel1.5
+ description Management for ubiquity AirFiber
+ vlan 5
+ nameif ubnt_mgmt
+ security-level 0
+ ip address 192.168.5.1 255.255.255.0 
+!
+interface Port-channel1.6
+ vlan 6
+ nameif outside_fttb
+ security-level 0
+ ip address 62.105.119.118 255.255.255.252 
+!
+interface Port-channel1.10
+ description Management VLAN
+ vlan 10
+ nameif mgmt
+ security-level 100
+ ip address 10.224.10.1 255.255.255.0 standby 10.224.10.2 
+!
+interface Port-channel1.11
+ description LAN
+ vlan 11
+ nameif inside
+ security-level 100
+ ip address 10.224.11.1 255.255.255.0 standby 10.224.11.2 
+!
+interface Port-channel1.12
+ description CCTV
+ vlan 12
+ nameif cctv
+ security-level 70
+ ip address 10.224.12.1 255.255.255.0 
+!
+interface Port-channel1.13
+ description IP-Phones
+ vlan 13
+ nameif telephony
+ security-level 50
+ ip address 10.224.13.1 255.255.255.0 
+!
+interface Port-channel1.20
+ description Main WiFi
+ vlan 20
+ nameif wifi
+ security-level 100
+ ip address 10.224.20.1 255.255.255.0 
+!
+interface Port-channel1.21
+ description Guest WiFi
+ vlan 21
+ nameif guest_wifi
+ security-level 40
+ ip address 10.224.21.1 255.255.255.0 
+!
+interface Port-channel1.30
+ vlan 30
+ nameif dmz
+ security-level 30
+ ip address 10.224.30.1 255.255.255.0 
+!
+boot system disk0:/asa917-32-k8.bin
+ftp mode passive
+dns server-group DefaultDNS
+ domain-name fishbone.local
+same-security-traffic permit inter-interface
+same-security-traffic permit intra-interface
+object network inside_network
+ subnet 10.224.11.0 255.255.255.0
+object network mgmt_network
+ subnet 10.224.10.0 255.255.255.0
+object network wifi_network
+ subnet 10.224.20.0 255.255.255.0
+object network tmp_hack
+ subnet 192.168.228.0 255.255.255.0
+object network Cat3850
+ host 10.224.10.4
+object network C3850_MGMT_SSH
+ host 10.224.10.4
+object service SVC_TCP_22023
+ service tcp source eq 22023 
+object service SVC_TCP_22
+ service tcp source eq ssh 
+object service SVC_TCP_443
+ service tcp source eq https 
+object service SVC_TCP_16078
+ service tcp source eq 16078 
+object network DL380_iLO
+ host 10.224.10.78
+object network guest_wifi_network
+ subnet 10.224.21.0 255.255.255.0
+object service SVC_TCP_8006
+ service tcp source eq 8006 
+object service SVC_TCP_35392
+ service tcp source eq 35392 
+object network PVE1
+ host 10.224.10.10
+object service SVC_TCP_22024
+ service tcp source eq 22024 
+object network lan_network
+object network dmz_network
+ subnet 10.224.30.0 255.255.255.0
+object network proxy
+ host 10.224.30.30
+object network opnsense_wan
+ host 10.224.30.11
+object network opnsense_lan
+ host 10.224.11.11
+object service SVC_TCP_80
+ service tcp source eq www 
+object service SVC_UDP_500
+ service udp source eq isakmp 
+object service SVC_UDP_4500
+ service udp source eq 4500 
+object network telephony_nat_allowed
+ host 10.224.13.9
+object network ssh-gateway
+ host 10.224.10.9
+object service SVC_TCP_22999
+ service tcp source eq 22999 
+object network PBX-SIP-FTTB
+ host 10.224.13.9
+object network PBX-SIP-BT
+ host 10.224.13.9
+object network FTTB-PUBLIC
+ host 62.105.119.118
+object network PBX-HOST
+ host 10.224.13.9
+object service SVC_UDP_5080
+ service udp destination eq 5080 
+object network DOCUSEAL
+ host 10.224.10.60
+object network DOCUSEAL-HTTP
+ host 10.224.10.60
+object-group network admin_access
+ network-object host 80.80.109.42
+ network-object host 94.180.57.40
+object-group network vpn_pools
+ network-object 10.224.16.0 255.255.255.0
+access-list ACL_VODAFONE_IN extended permit tcp object-group admin_access interface outside_vf eq ssh 
+access-list ACL_VODAFONE_IN extended permit tcp object-group admin_access object Cat3850 eq ssh 
+access-list ACL_VODAFONE_IN extended permit tcp object-group admin_access object DL380_iLO eq https 
+access-list ACL_VODAFONE_IN extended permit tcp object-group admin_access object PVE1 eq ssh 
+access-list ACL_VODAFONE_IN extended permit tcp object-group admin_access object PVE1 eq 8006 
+access-list ACL_VODAFONE_IN extended permit icmp any interface outside_vf echo 
+access-list ACL_VODAFONE_IN extended permit icmp any4 any4 time-exceeded 
+access-list ACL_VODAFONE_IN extended permit icmp any4 any4 unreachable 
+access-list ACL_VODAFONE_IN extended permit ip any any 
+access-list SPLIT_TUNNEL standard permit 10.224.0.0 255.255.0.0 
+access-list ACL_BT_IN extended permit tcp object-group admin_access interface outside_bt eq ssh 
+access-list ACL_BT_IN extended permit tcp object-group admin_access object Cat3850 eq ssh 
+access-list ACL_BT_IN extended permit tcp object-group admin_access object ssh-gateway eq ssh 
+access-list ACL_BT_IN extended permit tcp object-group admin_access object DL380_iLO eq https 
+access-list ACL_BT_IN extended permit tcp object-group admin_access object PVE1 eq ssh 
+access-list ACL_BT_IN extended permit tcp object-group admin_access object PVE1 eq 8006 
+access-list ACL_BT_IN extended permit icmp any interface outside_bt echo 
+access-list ACL_BT_IN extended permit icmp any4 any4 time-exceeded 
+access-list ACL_BT_IN extended permit icmp any4 any4 unreachable 
+access-list ACL_BT_IN extended permit tcp any object proxy eq www 
+access-list ACL_BT_IN extended permit tcp any object proxy eq https 
+access-list ACL_BT_IN extended permit udp any object opnsense_wan eq isakmp 
+access-list ACL_BT_IN extended permit udp any object opnsense_wan eq 4500 
+access-list ACL_BT_IN extended permit ip any any 
+access-list ACL_OUTSIDE_IN extended permit icmp any4 any4 time-exceeded 
+access-list ACL_OUTSIDE_IN extended permit icmp any4 any4 unreachable 
+access-list ACL_OUTSIDE_IN extended permit ip any any 
+access-list ACL_SL_IN extended permit icmp any interface outside_sl echo 
+access-list ACL_SL_IN extended permit icmp any4 any4 time-exceeded 
+access-list ACL_SL_IN extended permit icmp any4 any4 unreachable 
+access-list ACL_SL_IN extended permit ip any any 
+access-list ACL_FTTB_IN extended permit tcp object-group admin_access interface outside_fttb eq ssh 
+access-list ACL_FTTB_IN extended permit tcp object-group admin_access object Cat3850 eq ssh 
+access-list ACL_FTTB_IN extended permit tcp object-group admin_access object ssh-gateway eq ssh 
+access-list ACL_FTTB_IN extended permit tcp object-group admin_access object DL380_iLO eq https 
+access-list ACL_FTTB_IN extended permit tcp object-group admin_access object PVE1 eq ssh 
+access-list ACL_FTTB_IN extended permit tcp object-group admin_access object PVE1 eq 8006 
+access-list ACL_FTTB_IN extended permit udp object-group admin_access any eq isakmp 
+access-list ACL_FTTB_IN extended permit ip object-group admin_access any 
+access-list ACL_FTTB_IN extended permit icmp any interface outside_fttb echo 
+access-list ACL_FTTB_IN extended permit icmp any4 any4 time-exceeded 
+access-list ACL_FTTB_IN extended permit icmp any4 any4 unreachable 
+access-list ACL_FTTB_IN extended permit tcp any object proxy eq www 
+access-list ACL_FTTB_IN extended permit tcp any object proxy eq https 
+access-list ACL_FTTB_IN extended permit udp any object opnsense_wan eq isakmp 
+access-list ACL_FTTB_IN extended permit udp any object opnsense_wan eq 4500 
+access-list ACL_FTTB_IN extended permit ip any any 
+pager lines 24
+logging enable
+logging console alerts
+logging monitor debugging
+mtu management 1500
+mtu outside_sl 1500
+mtu outside_vf 1500
+mtu outside_bt 1492
+mtu ubnt_mgmt 1500
+mtu outside_fttb 1500
+mtu mgmt 1500
+mtu inside 1500
+mtu cctv 1500
+mtu telephony 1500
+mtu wifi 1500
+mtu guest_wifi 1500
+mtu dmz 1500
+failover
+failover lan unit secondary
+failover lan interface folink GigabitEthernet0/3
+failover replication http
+failover link statelink GigabitEthernet1/3
+failover interface ip folink 10.224.0.253 255.255.255.252 standby 10.224.0.254
+failover interface ip statelink 10.224.0.249 255.255.255.252 standby 10.224.0.250
+icmp unreachable rate-limit 1 burst-size 1
+icmp permit any outside_vf
+no asdm history enable
+arp timeout 14400
+no arp permit-nonconnected
+nat (mgmt,outside_fttb) source static DOCUSEAL interface service SVC_TCP_443 SVC_TCP_443
+nat (mgmt,outside_fttb) source static DOCUSEAL interface service SVC_TCP_80 SVC_TCP_80
+nat (outside_fttb,telephony) source static any any destination static interface PBX-HOST service SVC_UDP_5080 SVC_UDP_5080
+nat (mgmt,outside_vf) source static Cat3850 interface service SVC_TCP_22 SVC_TCP_22023
+nat (mgmt,outside_bt) source static Cat3850 interface service SVC_TCP_22 SVC_TCP_22023
+nat (mgmt,outside_fttb) source static Cat3850 interface service SVC_TCP_22 SVC_TCP_22023
+nat (mgmt,outside_bt) source static PVE1 interface service SVC_TCP_22 SVC_TCP_22024
+nat (mgmt,outside_fttb) source static PVE1 interface service SVC_TCP_22 SVC_TCP_22024
+nat (mgmt,outside_vf) source static PVE1 interface service SVC_TCP_22 SVC_TCP_22024
+nat (mgmt,outside_bt) source static ssh-gateway interface service SVC_TCP_22 SVC_TCP_22999
+nat (mgmt,outside_fttb) source static ssh-gateway interface service SVC_TCP_22 SVC_TCP_22999
+nat (mgmt,outside_bt) source static DL380_iLO interface service SVC_TCP_443 SVC_TCP_16078
+nat (mgmt,outside_fttb) source static DL380_iLO interface service SVC_TCP_443 SVC_TCP_16078
+nat (mgmt,outside_vf) source static DL380_iLO interface service SVC_TCP_443 SVC_TCP_16078
+nat (mgmt,outside_bt) source static PVE1 interface service SVC_TCP_8006 SVC_TCP_35392
+nat (mgmt,outside_fttb) source static PVE1 interface service SVC_TCP_8006 SVC_TCP_35392
+nat (dmz,outside_bt) source static proxy interface service SVC_TCP_443 SVC_TCP_443
+nat (dmz,outside_vf) source static proxy interface service SVC_TCP_443 SVC_TCP_443
+nat (dmz,outside_bt) source static proxy interface service SVC_TCP_80 SVC_TCP_80
+nat (dmz,outside_bt) source static opnsense_wan interface service SVC_UDP_500 SVC_UDP_500
+nat (dmz,outside_vf) source static opnsense_wan interface service SVC_UDP_500 SVC_UDP_500
+nat (dmz,outside_fttb) source static opnsense_wan interface service SVC_UDP_500 SVC_UDP_500
+nat (dmz,outside_bt) source static opnsense_wan interface service SVC_UDP_4500 SVC_UDP_4500
+nat (dmz,outside_vf) source static opnsense_wan interface service SVC_UDP_4500 SVC_UDP_4500
+nat (dmz,outside_fttb) source static opnsense_wan interface service SVC_UDP_4500 SVC_UDP_4500
+nat (dmz,outside_vf) source static proxy interface service SVC_TCP_80 SVC_TCP_80
+nat (mgmt,outside_vf) source static PVE1 interface service SVC_TCP_8006 SVC_TCP_35392
+nat (mgmt,outside_vf) source static mgmt_network mgmt_network destination static vpn_pools vpn_pools
+nat (mgmt,outside_bt) source dynamic mgmt_network interface
+nat (mgmt,outside_fttb) source dynamic mgmt_network interface
+nat (inside,outside_vf) source dynamic inside_network interface
+nat (inside,outside_sl) source dynamic inside_network interface
+nat (inside,outside_bt) source dynamic inside_network interface
+nat (inside,outside_fttb) source dynamic inside_network interface
+nat (mgmt,outside_vf) source dynamic mgmt_network interface
+nat (mgmt,outside_sl) source dynamic mgmt_network interface
+nat (wifi,outside_vf) source dynamic wifi_network interface
+nat (dmz,outside_vf) source dynamic dmz_network interface
+nat (dmz,outside_sl) source dynamic dmz_network interface
+nat (dmz,outside_bt) source dynamic dmz_network interface
+nat (dmz,outside_fttb) source dynamic dmz_network interface
+nat (wifi,outside_sl) source dynamic wifi_network interface
+nat (wifi,outside_bt) source dynamic wifi_network interface
+nat (wifi,outside_fttb) source dynamic wifi_network interface
+nat (guest_wifi,outside_vf) source dynamic guest_wifi_network interface
+nat (guest_wifi,outside_sl) source dynamic guest_wifi_network interface
+nat (guest_wifi,outside_bt) source dynamic guest_wifi_network interface
+nat (guest_wifi,outside_fttb) source dynamic guest_wifi_network interface
+nat (telephony,outside_bt) source dynamic telephony_nat_allowed interface
+nat (telephony,outside_sl) source dynamic telephony_nat_allowed interface
+nat (telephony,outside_fttb) source dynamic telephony_nat_allowed interface
+!
+object network tmp_hack
+ nat (mgmt,outside_sl) dynamic interface
+object network PBX-SIP-FTTB
+ nat (telephony,outside_fttb) static interface service udp 5080 5080 
+object network PBX-SIP-BT
+ nat (telephony,outside_bt) static interface service udp 5080 5080 
+!
+nat (outside_vf,outside_vf) after-auto source dynamic vpn_pools interface
+nat (outside_vf,outside_sl) after-auto source dynamic vpn_pools interface
+nat (outside_bt,outside_bt) after-auto source dynamic vpn_pools interface
+nat (outside_bt,outside_sl) after-auto source dynamic vpn_pools interface
+nat (outside_fttb,outside_fttb) after-auto source dynamic vpn_pools interface
+nat (outside_fttb,outside_sl) after-auto source dynamic vpn_pools interface
+access-group ACL_SL_IN in interface outside_sl
+access-group ACL_VODAFONE_IN in interface outside_vf
+access-group ACL_BT_IN in interface outside_bt
+access-group ACL_FTTB_IN in interface outside_fttb
+route outside_sl 0.0.0.0 0.0.0.0 192.168.1.1 20 track 1
+route outside_bt 0.0.0.0 0.0.0.0 81.143.32.198 10 track 4
+route outside_fttb 0.0.0.0 0.0.0.0 62.105.119.117 9 track 6
+route outside_vf 0.0.0.0 0.0.0.0 192.168.3.1 254 
+route outside_fttb 5.255.255.242 255.255.255.255 62.105.119.117 1 
+route inside 10.224.17.0 255.255.255.255 10.224.11.11 1 
+route mgmt 10.224.110.0 255.255.255.0 10.224.10.254 1 
+route mgmt 10.224.111.0 255.255.255.0 10.224.10.254 1 
+route mgmt 10.224.120.0 255.255.255.0 10.224.10.254 1 
+route mgmt 192.168.228.0 255.255.255.0 10.224.10.4 1 
+timeout xlate 3:00:00
+timeout pat-xlate 0:00:30
+timeout conn 1:00:00 half-closed 0:10:00 udp 0:02:00 icmp 0:00:02
+timeout sunrpc 0:10:00 h323 0:05:00 h225 1:00:00 mgcp 0:05:00 mgcp-pat 0:05:00
+timeout sip 0:30:00 sip_media 0:02:00 sip-invite 0:03:00 sip-disconnect 0:02:00
+timeout sip-provisional-media 0:02:00 uauth 0:05:00 absolute
+timeout tcp-proxy-reassembly 0:01:00
+timeout floating-conn 0:00:00
+dynamic-access-policy-record DfltAccessPolicy
+user-identity default-domain LOCAL
+aaa authentication ssh console LOCAL 
+no snmp-server location
+no snmp-server contact
+sysopt connection tcpmss 1452
+no sysopt connection permit-vpn
+sla monitor 2
+ type echo protocol ipIcmpEcho 1.1.1.1 interface outside_sl
+ num-packets 3
+ frequency 19
+sla monitor schedule 2 life forever start-time now
+sla monitor 4
+ type echo protocol ipIcmpEcho 1.0.0.1 interface outside_bt
+ num-packets 3
+ frequency 19
+sla monitor schedule 4 life forever start-time now
+sla monitor 6
+ type echo protocol ipIcmpEcho 8.8.4.4 interface outside_fttb
+ num-packets 3
+ frequency 19
+sla monitor schedule 6 life forever start-time now
+crypto ipsec security-association pmtu-aging infinite
+crypto ca trustpoint XCA
+ enrollment terminal
+ crl configure
+crypto ca trustpool policy
+crypto ca certificate chain XCA
+ certificate ca 7d888b0479b733c9
+    30820300 308201e8 a0030201 0202087d 888b0479 b733c930 0d06092a 864886f7 
+    0d010105 05003016 31143012 06035504 03130b66 69736862 6f6e652d 6361301e 
+    170d3234 31313034 31373435 30305a17 0d333431 31303431 37343530 305a3016 
+    31143012 06035504 03130b66 69736862 6f6e652d 63613082 0122300d 06092a86 
+    4886f70d 01010105 00038201 0f003082 010a0282 0101008b b032fea8 4374fc65 
+    cdfb27f0 620fd421 0de9b845 64caf8ec 1df023d7 b0671f28 6f2e01d4 a35a53f5 
+    1bb826f2 f233e079 92dec38f 0f3c68e6 7105afdc 0030b307 86a92d9b a12e0724 
+    a78738e5 1c132bbf 83f8ddb2 c5bd2a6d a75ac33c 618c1ddb 6b206aac 71d28edc 
+    575ff6ef 3ededc26 7976051f e5d56ec8 477e6ba4 699093ee 362a6252 60fc54ca 
+    04eacc44 e47f322a 6a60f44d f9ef2178 9f27737d ec96ed6e 2cb36d46 66871c8c 
+    7a93ad0b dbee99d4 587ed042 d2300380 0a4b9159 560c4c98 b0fb2a28 ed8b594d 
+    6dff14da 7c7e8507 684c14ef 6b03de81 6ae60274 90598781 b7f80b59 19081ef8 
+    dac06c2a 0b2515f7 53cbca89 3020d266 7692eaeb 33d85b02 03010001 a3523050 
+    300f0603 551d1301 01ff0405 30030101 ff301d06 03551d0e 04160414 dcf40945 
+    c768ee55 86a61da1 5cd4654c c43a06c1 300b0603 551d0f04 04030201 06301106 
+    09608648 0186f842 01010404 03020007 300d0609 2a864886 f70d0101 05050003 
+    82010100 6909769c 17bb5250 6078101b 00961362 632d29e5 ff8e3b42 ec63137e 
+    970af5b9 0baec62f eb8508cf b35eff41 d515e1b5 cb4b08d0 a52de6bb 9c58b3ee 
+    c13330e7 ea1d7805 268d14d9 bde8fb8f 875be5ed bbca8a65 493cd465 e26bdf92 
+    2b95a1b8 42862869 05aa6a3a e56c55b3 dd96b255 b6a1e534 80b0e793 9d7e7c35 
+    ae29920b 0bc85fd8 3e6cf4ba 43e868e1 27347e0f 956eca68 63f05776 18725a99 
+    9f89b688 2d4fb38f e35a5489 418d9c2c cb125905 312add81 badca304 ad2b6ccc 
+    2e389b5e 323a7d3e 9fa3c39c 60959cb8 8605faa9 6a395af0 133d71fa 72bbd15e 
+    93faee1e 8cf8cf1f d224527d b4de10c9 e23f69d2 e7a576be f95fa5dd 65786660 
+    401972c4
+  quit
+ certificate 37f01d066f816e5f
+    30820363 3082024b a0030201 02020837 f01d066f 816e5f30 0d06092a 864886f7 
+    0d010105 05003016 31143012 06035504 03130b66 69736862 6f6e652d 6361301e 
+    170d3234 31313035 30313431 30305a17 0d333331 31303530 31343130 305a302c 
+    312a3028 06092a86 4886f70d 01090216 1b666973 68626f6e 652d6173 612e6669 
+    7368626f 6e652e6c 6f63616c 30820122 300d0609 2a864886 f70d0101 01050003 
+    82010f00 3082010a 02820101 00ba27fa 1d440748 66be93c5 1271495f 731fd7e8 
+    497b5161 7fa4dcbf 556701ff 157cb0e3 7252b2db c08665fc 76abf230 b662cf5d 
+    be58db19 ff64530b 73c20a50 fa21b6fc 4838fb01 0e2dc181 74d84406 5b10db02 
+    efb288e9 5bf919e7 b026ae47 145c6854 876320a6 5678ebb8 8a160fce d51d4520 
+    bea1b979 d62ac19c c1d64c47 e9412c5c a49405a8 fbfc3898 699d688c 04d4a3f2 
+    8996976b b525bbd6 61af070c 760cbb8f 8a6700bd f870aaed 4995a02c 3ca66d6f 
+    332a6e99 da94cb18 67d00dde 29c3d66b 481d5e94 23a5c835 02b41b80 037bd2e1 
+    e453fc41 e37effca ca758403 772263be eb578f26 8b53585a 8cad67be ff124c43 
+    cfd1dfc7 6d2c5231 1caa8776 73020301 0001a381 9e30819b 30090603 551d1304 
+    02300030 1d060355 1d0e0416 04142af8 52f67761 0649f706 0837ae1e 48402b13 
+    c9ce301f 0603551d 23041830 168014dc f40945c7 68ee5586 a61da15c d4654cc4 
+    3a06c130 16060355 1d12040f 300d820b 66697368 626f6e65 2d636130 0e060355 
+    1d0f0101 ff040403 0205a030 26060355 1d11041f 301d821b 66697368 626f6e65 
+    2d617361 2e666973 68626f6e 652e6c6f 63616c30 0d06092a 864886f7 0d010105 
+    05000382 0101005f f1b8eb10 033b5bd9 f2abf409 fd5afdba cabca6c1 a00854a8 
+    745b93be acc1681a 2d22bbc6 d8b6b5a4 a01b519f 443c3aef b71388de 50a970a3 
+    0727cbd0 d7f2ebe8 0e06d9a9 53b95a2d 8d56bbb1 f87d3efc f0845f4d b09e3803 
+    fdcd5122 f1a70929 bb5b36a6 1b3d39f2 499c0fdc 94d68530 887cd1e1 d17f4be3 
+    b0f3c86f cadc91d1 904e07ad a6e5338e 90ea0d5f ea378bce 08bf3996 d7bdc5ef 
+    21e356fa 97a8290c b24b2f6f 42d6d348 2598684f fb02cb46 6effc368 153a7d21 
+    12c2be5c e9797160 8a7c5f12 57f4e5e2 832ad9d9 41155a4f 9ec4a1da cb584fff 
+    4072ccd7 1f901716 029a8226 ecd00469 9949da5d 49942285 47372e5c 3a7e5a31 
+    ce115f5a 3977be
+  quit
+!
+track 1 rtr 2 reachability
+!
+track 4 rtr 4 reachability
+!
+track 6 rtr 6 reachability
+telnet timeout 5
+ssh stricthostkeycheck
+ssh 80.80.109.42 255.255.255.255 outside_vf
+ssh 94.180.57.40 255.255.255.255 outside_vf
+ssh 80.80.109.42 255.255.255.255 outside_bt
+ssh 94.180.57.40 255.255.255.255 outside_bt
+ssh 80.80.109.42 255.255.255.255 outside_fttb
+ssh 94.180.57.40 255.255.255.255 outside_fttb
+ssh 10.224.10.0 255.255.255.0 mgmt
+ssh 10.224.11.11 255.255.255.255 inside
+ssh timeout 60
+ssh version 2
+ssh key-exchange group dh-group14-sha1
+console timeout 0
+dhcpd dns 1.0.0.1 8.8.8.8
+dhcpd lease 28800
+!
+dhcpd address 10.224.10.50-10.224.10.240 mgmt
+dhcpd option 43 hex 01040ae06e05 interface mgmt
+dhcpd enable mgmt
+!
+dhcpd address 10.224.11.50-10.224.11.240 inside
+dhcpd enable inside
+!
+dhcpd address 10.224.12.10-10.224.12.248 cctv
+dhcpd enable cctv
+!
+dhcpd address 10.224.13.10-10.224.13.248 telephony
+dhcpd enable telephony
+!
+dhcpd address 10.224.20.10-10.224.20.248 wifi
+dhcpd enable wifi
+!
+dhcpd address 10.224.21.10-10.224.21.248 guest_wifi
+dhcpd enable guest_wifi
+!
+!
+tls-proxy maximum-session 1000
+!
+threat-detection basic-threat
+threat-detection statistics access-list
+no threat-detection statistics tcp-intercept
+webvpn
+ no anyconnect-essentials
+ cache
+  disable
+username admin password ***** encrypted privilege 15
+username admin attributes
+ ssh authentication publickey ***** hashed
+username vpn2 password ***** encrypted
+username vpn2 attributes
+ service-type remote-access
+username vpn-user-1 password ***** encrypted
+username vpn-user-1 attributes
+ service-type remote-access
+!
+class-map inspection_default
+ match default-inspection-traffic
+!
+!
+policy-map type inspect dns preset_dns_map
+ parameters
+  message-length maximum client auto
+  message-length maximum 512
+policy-map global_policy
+ class inspection_default
+  inspect dns preset_dns_map 
+  inspect ftp 
+  inspect h323 h225 
+  inspect h323 ras 
+  inspect ip-options 
+  inspect netbios 
+  inspect rsh 
+  inspect rtsp 
+  inspect skinny  
+  inspect esmtp 
+  inspect sqlnet 
+  inspect sunrpc 
+  inspect tftp 
+  inspect xdmcp 
+  inspect pptp 
+  inspect icmp 
+!
+service-policy global_policy global
+prompt hostname priority state 
+no call-home reporting anonymous
+call-home
+ profile CiscoTAC-1
+  no active
+  destination address http https://tools.cisco.com/its/service/oddce/services/DDCEService
+  destination address email callhome@cisco.com
+  destination transport-method http
+  subscribe-to-alert-group diagnostic
+  subscribe-to-alert-group environment
+  subscribe-to-alert-group inventory periodic monthly
+  subscribe-to-alert-group configuration periodic monthly
+  subscribe-to-alert-group telemetry periodic daily
+Cryptochecksum:711005a0e96520c24cf78cda2e8f92be
+: end
+fishbone-asa/sec/act# show interface ip brief
+Interface                  IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0         unassigned      YES unset  up                    up  
+GigabitEthernet0/1         unassigned      YES unset  up                    up  
+GigabitEthernet0/2         unassigned      YES unset  administratively down up  
+GigabitEthernet0/3         10.224.0.254    YES unset  up                    up  
+Internal-Data0/0           unassigned      YES unset  up                    up  
+Management0/0              10.11.11.1      YES CONFIG down                  down
+GigabitEthernet1/0         unassigned      YES unset  administratively down down
+GigabitEthernet1/1         unassigned      YES unset  administratively down down
+GigabitEthernet1/2         unassigned      YES unset  administratively down down
+GigabitEthernet1/3         10.224.0.250    YES unset  down                  down
+Internal-Data1/0           unassigned      YES unset  up                    up  
+Port-channel1              unassigned      YES unset  up                    up  
+Port-channel1.2            192.168.1.254   YES CONFIG up                    up  
+Port-channel1.3            192.168.3.254   YES CONFIG up                    up  
+Port-channel1.4            81.143.32.194   YES CONFIG up                    up  
+Port-channel1.5            192.168.5.1     YES CONFIG up                    up  
+Port-channel1.6            62.105.119.118  YES CONFIG up                    up  
+Port-channel1.10           10.224.10.1     YES CONFIG up                    up  
+Port-channel1.11           10.224.11.1     YES CONFIG up                    up  
+Port-channel1.12           10.224.12.1     YES CONFIG up                    up  
+Port-channel1.13           10.224.13.1     YES CONFIG up                    up  
+Port-channel1.20           10.224.20.1     YES CONFIG up                    up  
+Port-channel1.21           10.224.21.1     YES CONFIG up                    up  
+Port-channel1.30           10.224.30.1     YES CONFIG up                    up  
+fishbone-asa/sec/act# show nameif
+Interface                Name                     Security
+Management0/0            management                 0
+Port-channel1.2          outside_sl                 0
+Port-channel1.3          outside_vf                 0
+Port-channel1.4          outside_bt                 0
+Port-channel1.5          ubnt_mgmt                  0
+Port-channel1.6          outside_fttb               0
+Port-channel1.10         mgmt                     100
+Port-channel1.11         inside                   100
+Port-channel1.12         cctv                      70
+Port-channel1.13         telephony                 50
+Port-channel1.20         wifi                     100
+Port-channel1.21         guest_wifi                40
+Port-channel1.30         dmz                       30
+fishbone-asa/sec/act# show route
+
+Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is 62.105.119.117 to network 0.0.0.0
+
+C    81.143.32.192 255.255.255.248 is directly connected, outside_bt
+S    5.255.255.242 255.255.255.255 [1/0] via 62.105.119.117, outside_fttb
+S    192.168.228.0 255.255.255.0 [1/0] via 10.224.10.4, mgmt
+C    192.168.5.0 255.255.255.0 is directly connected, ubnt_mgmt
+C    10.224.0.252 255.255.255.252 is directly connected, folink
+S    10.224.110.0 255.255.255.0 [1/0] via 10.224.10.254, mgmt
+S    10.224.111.0 255.255.255.0 [1/0] via 10.224.10.254, mgmt
+S    10.224.120.0 255.255.255.0 [1/0] via 10.224.10.254, mgmt
+C    10.224.10.0 255.255.255.0 is directly connected, mgmt
+C    10.224.11.0 255.255.255.0 is directly connected, inside
+C    10.224.12.0 255.255.255.0 is directly connected, cctv
+C    10.224.13.0 255.255.255.0 is directly connected, telephony
+C    10.224.30.0 255.255.255.0 is directly connected, dmz
+S    10.224.17.0 255.255.255.255 [1/0] via 10.224.11.11, inside
+C    10.224.20.0 255.255.255.0 is directly connected, wifi
+C    10.224.21.0 255.255.255.0 is directly connected, guest_wifi
+C    192.168.1.0 255.255.255.0 is directly connected, outside_sl
+C    62.105.119.116 255.255.255.252 is directly connected, outside_fttb
+C    192.168.3.0 255.255.255.0 is directly connected, outside_vf
+S*   0.0.0.0 0.0.0.0 [9/0] via 62.105.119.117, outside_fttb
+fishbone-asa/sec/act# show nat detail
+Manual NAT Policies (Section 1)
+1 (mgmt) to (outside_fttb) source static DOCUSEAL interface   service SVC_TCP_443 SVC_TCP_443
+    translate_hits = 19720, untranslate_hits = 21710
+    Source - Origin: 10.224.10.60/32, Translated: 62.105.119.118/30
+    Service - Origin: tcp source eq https , Translated: tcp source eq https 
+2 (mgmt) to (outside_fttb) source static DOCUSEAL interface   service SVC_TCP_80 SVC_TCP_80
+    translate_hits = 13062, untranslate_hits = 15238
+    Source - Origin: 10.224.10.60/32, Translated: 62.105.119.118/30
+    Service - Origin: tcp source eq www , Translated: tcp source eq www 
+3 (outside_fttb) to (telephony) source static any any   destination static interface PBX-HOST service SVC_UDP_5080 SVC_UDP_5080
+    translate_hits = 29855, untranslate_hits = 29925
+    Source - Origin: 0.0.0.0/0, Translated: 0.0.0.0/0
+    Destination - Origin: 62.105.119.118/30, Translated: 10.224.13.9/32
+    Service - Origin: udp destination eq 5080 , Translated: udp destination eq 5080 
+4 (mgmt) to (outside_vf) source static Cat3850 interface   service SVC_TCP_22 SVC_TCP_22023
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.10.4/32, Translated: 192.168.3.254/24
+    Service - Origin: tcp source eq ssh , Translated: tcp source eq 22023 
+5 (mgmt) to (outside_bt) source static Cat3850 interface   service SVC_TCP_22 SVC_TCP_22023
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.10.4/32, Translated: 81.143.32.194/29
+    Service - Origin: tcp source eq ssh , Translated: tcp source eq 22023 
+6 (mgmt) to (outside_fttb) source static Cat3850 interface   service SVC_TCP_22 SVC_TCP_22023
+    translate_hits = 11, untranslate_hits = 11
+    Source - Origin: 10.224.10.4/32, Translated: 62.105.119.118/30
+    Service - Origin: tcp source eq ssh , Translated: tcp source eq 22023 
+7 (mgmt) to (outside_bt) source static PVE1 interface   service SVC_TCP_22 SVC_TCP_22024
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.10.10/32, Translated: 81.143.32.194/29
+    Service - Origin: tcp source eq ssh , Translated: tcp source eq 22024 
+8 (mgmt) to (outside_fttb) source static PVE1 interface   service SVC_TCP_22 SVC_TCP_22024
+    translate_hits = 24579, untranslate_hits = 25271
+    Source - Origin: 10.224.10.10/32, Translated: 62.105.119.118/30
+    Service - Origin: tcp source eq ssh , Translated: tcp source eq 22024 
+9 (mgmt) to (outside_vf) source static PVE1 interface   service SVC_TCP_22 SVC_TCP_22024
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.10.10/32, Translated: 192.168.3.254/24
+    Service - Origin: tcp source eq ssh , Translated: tcp source eq 22024 
+10 (mgmt) to (outside_bt) source static ssh-gateway interface   service SVC_TCP_22 SVC_TCP_22999
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.10.9/32, Translated: 81.143.32.194/29
+    Service - Origin: tcp source eq ssh , Translated: tcp source eq 22999 
+11 (mgmt) to (outside_fttb) source static ssh-gateway interface   service SVC_TCP_22 SVC_TCP_22999
+    translate_hits = 148, untranslate_hits = 238
+    Source - Origin: 10.224.10.9/32, Translated: 62.105.119.118/30
+    Service - Origin: tcp source eq ssh , Translated: tcp source eq 22999 
+12 (mgmt) to (outside_bt) source static DL380_iLO interface   service SVC_TCP_443 SVC_TCP_16078
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.10.78/32, Translated: 81.143.32.194/29
+    Service - Origin: tcp source eq https , Translated: tcp source eq 16078 
+13 (mgmt) to (outside_fttb) source static DL380_iLO interface   service SVC_TCP_443 SVC_TCP_16078
+    translate_hits = 109, untranslate_hits = 109
+    Source - Origin: 10.224.10.78/32, Translated: 62.105.119.118/30
+    Service - Origin: tcp source eq https , Translated: tcp source eq 16078 
+14 (mgmt) to (outside_vf) source static DL380_iLO interface   service SVC_TCP_443 SVC_TCP_16078
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.10.78/32, Translated: 192.168.3.254/24
+    Service - Origin: tcp source eq https , Translated: tcp source eq 16078 
+15 (mgmt) to (outside_bt) source static PVE1 interface   service SVC_TCP_8006 SVC_TCP_35392
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.10.10/32, Translated: 81.143.32.194/29
+    Service - Origin: tcp source eq 8006 , Translated: tcp source eq 35392 
+16 (mgmt) to (outside_fttb) source static PVE1 interface   service SVC_TCP_8006 SVC_TCP_35392
+    translate_hits = 1392, untranslate_hits = 3285
+    Source - Origin: 10.224.10.10/32, Translated: 62.105.119.118/30
+    Service - Origin: tcp source eq 8006 , Translated: tcp source eq 35392 
+17 (dmz) to (outside_bt) source static proxy interface   service SVC_TCP_443 SVC_TCP_443
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.30.30/32, Translated: 81.143.32.194/29
+    Service - Origin: tcp source eq https , Translated: tcp source eq https 
+18 (dmz) to (outside_vf) source static proxy interface   service SVC_TCP_443 SVC_TCP_443
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.30.30/32, Translated: 192.168.3.254/24
+    Service - Origin: tcp source eq https , Translated: tcp source eq https 
+19 (dmz) to (outside_bt) source static proxy interface   service SVC_TCP_80 SVC_TCP_80
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.30.30/32, Translated: 81.143.32.194/29
+    Service - Origin: tcp source eq www , Translated: tcp source eq www 
+20 (dmz) to (outside_bt) source static opnsense_wan interface   service SVC_UDP_500 SVC_UDP_500
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.30.11/32, Translated: 81.143.32.194/29
+    Service - Origin: udp source eq isakmp , Translated: udp source eq isakmp 
+21 (dmz) to (outside_vf) source static opnsense_wan interface   service SVC_UDP_500 SVC_UDP_500
+    translate_hits = 1, untranslate_hits = 0
+    Source - Origin: 10.224.30.11/32, Translated: 192.168.3.254/24
+    Service - Origin: udp source eq isakmp , Translated: udp source eq isakmp 
+22 (dmz) to (outside_fttb) source static opnsense_wan interface   service SVC_UDP_500 SVC_UDP_500
+    translate_hits = 4625, untranslate_hits = 812
+    Source - Origin: 10.224.30.11/32, Translated: 62.105.119.118/30
+    Service - Origin: udp source eq isakmp , Translated: udp source eq isakmp 
+23 (dmz) to (outside_bt) source static opnsense_wan interface   service SVC_UDP_4500 SVC_UDP_4500
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.30.11/32, Translated: 81.143.32.194/29
+    Service - Origin: udp source eq 4500 , Translated: udp source eq 4500 
+24 (dmz) to (outside_vf) source static opnsense_wan interface   service SVC_UDP_4500 SVC_UDP_4500
+    translate_hits = 2, untranslate_hits = 0
+    Source - Origin: 10.224.30.11/32, Translated: 192.168.3.254/24
+    Service - Origin: udp source eq 4500 , Translated: udp source eq 4500 
+25 (dmz) to (outside_fttb) source static opnsense_wan interface   service SVC_UDP_4500 SVC_UDP_4500
+    translate_hits = 352, untranslate_hits = 522
+    Source - Origin: 10.224.30.11/32, Translated: 62.105.119.118/30
+    Service - Origin: udp source eq 4500 , Translated: udp source eq 4500 
+26 (dmz) to (outside_vf) source static proxy interface   service SVC_TCP_80 SVC_TCP_80
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.30.30/32, Translated: 192.168.3.254/24
+    Service - Origin: tcp source eq www , Translated: tcp source eq www 
+27 (mgmt) to (outside_vf) source static PVE1 interface   service SVC_TCP_8006 SVC_TCP_35392
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.10.10/32, Translated: 192.168.3.254/24
+    Service - Origin: tcp source eq 8006 , Translated: tcp source eq 35392 
+28 (mgmt) to (outside_vf) source static mgmt_network mgmt_network   destination static vpn_pools vpn_pools
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.10.0/24, Translated: 10.224.10.0/24
+    Destination - Origin: 10.224.16.0/24, Translated: 10.224.16.0/24
+29 (mgmt) to (outside_bt) source dynamic mgmt_network interface  
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.10.0/24, Translated: 81.143.32.194/29
+30 (mgmt) to (outside_fttb) source dynamic mgmt_network interface  
+    translate_hits = 28314, untranslate_hits = 124
+    Source - Origin: 10.224.10.0/24, Translated: 62.105.119.118/30
+31 (inside) to (outside_vf) source dynamic inside_network interface  
+    translate_hits = 2020, untranslate_hits = 0
+    Source - Origin: 10.224.11.0/24, Translated: 192.168.3.254/24
+32 (inside) to (outside_sl) source dynamic inside_network interface  
+    translate_hits = 180643, untranslate_hits = 10651
+    Source - Origin: 10.224.11.0/24, Translated: 192.168.1.254/24
+33 (inside) to (outside_bt) source dynamic inside_network interface  
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.11.0/24, Translated: 81.143.32.194/29
+34 (inside) to (outside_fttb) source dynamic inside_network interface  
+    translate_hits = 886947, untranslate_hits = 144905
+    Source - Origin: 10.224.11.0/24, Translated: 62.105.119.118/30
+35 (mgmt) to (outside_vf) source dynamic mgmt_network interface  
+    translate_hits = 225, untranslate_hits = 0
+    Source - Origin: 10.224.10.0/24, Translated: 192.168.3.254/24
+36 (mgmt) to (outside_sl) source dynamic mgmt_network interface  
+    translate_hits = 1015, untranslate_hits = 0
+    Source - Origin: 10.224.10.0/24, Translated: 192.168.1.254/24
+37 (wifi) to (outside_vf) source dynamic wifi_network interface  
+    translate_hits = 373, untranslate_hits = 0
+    Source - Origin: 10.224.20.0/24, Translated: 192.168.3.254/24
+38 (dmz) to (outside_vf) source dynamic dmz_network interface  
+    translate_hits = 50, untranslate_hits = 0
+    Source - Origin: 10.224.30.0/24, Translated: 192.168.3.254/24
+39 (dmz) to (outside_sl) source dynamic dmz_network interface  
+    translate_hits = 88029, untranslate_hits = 80
+    Source - Origin: 10.224.30.0/24, Translated: 192.168.1.254/24
+40 (dmz) to (outside_bt) source dynamic dmz_network interface  
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.30.0/24, Translated: 81.143.32.194/29
+41 (dmz) to (outside_fttb) source dynamic dmz_network interface  
+    translate_hits = 787591, untranslate_hits = 838
+    Source - Origin: 10.224.30.0/24, Translated: 62.105.119.118/30
+42 (wifi) to (outside_sl) source dynamic wifi_network interface  
+    translate_hits = 33829, untranslate_hits = 12992
+    Source - Origin: 10.224.20.0/24, Translated: 192.168.1.254/24
+43 (wifi) to (outside_bt) source dynamic wifi_network interface  
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.20.0/24, Translated: 81.143.32.194/29
+44 (wifi) to (outside_fttb) source dynamic wifi_network interface  
+    translate_hits = 167223, untranslate_hits = 14671
+    Source - Origin: 10.224.20.0/24, Translated: 62.105.119.118/30
+45 (guest_wifi) to (outside_vf) source dynamic guest_wifi_network interface  
+    translate_hits = 5, untranslate_hits = 0
+    Source - Origin: 10.224.21.0/24, Translated: 192.168.3.254/24
+46 (guest_wifi) to (outside_sl) source dynamic guest_wifi_network interface  
+    translate_hits = 11467, untranslate_hits = 2464
+    Source - Origin: 10.224.21.0/24, Translated: 192.168.1.254/24
+47 (guest_wifi) to (outside_bt) source dynamic guest_wifi_network interface  
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.21.0/24, Translated: 81.143.32.194/29
+48 (guest_wifi) to (outside_fttb) source dynamic guest_wifi_network interface  
+    translate_hits = 61481, untranslate_hits = 8926
+    Source - Origin: 10.224.21.0/24, Translated: 62.105.119.118/30
+49 (telephony) to (outside_bt) source dynamic telephony_nat_allowed interface  
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.13.9/32, Translated: 81.143.32.194/29
+50 (telephony) to (outside_sl) source dynamic telephony_nat_allowed interface  
+    translate_hits = 2087, untranslate_hits = 0
+    Source - Origin: 10.224.13.9/32, Translated: 192.168.1.254/24
+51 (telephony) to (outside_fttb) source dynamic telephony_nat_allowed interface  
+    translate_hits = 23756, untranslate_hits = 2
+    Source - Origin: 10.224.13.9/32, Translated: 62.105.119.118/30
+
+Auto NAT Policies (Section 2)
+1 (telephony) to (outside_bt) source static PBX-SIP-BT interface   service udp 5080 5080 
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.13.9/32, Translated: 81.143.32.194/29
+    Service - Protocol: udp Real: 5080 Mapped: 5080 
+2 (telephony) to (outside_fttb) source static PBX-SIP-FTTB interface   service udp 5080 5080 
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.13.9/32, Translated: 62.105.119.118/30
+    Service - Protocol: udp Real: 5080 Mapped: 5080 
+3 (mgmt) to (outside_sl) source dynamic tmp_hack interface  
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 192.168.228.0/24, Translated: 192.168.1.254/24
+
+Manual NAT Policies (Section 3)
+1 (outside_vf) to (outside_vf) source dynamic vpn_pools interface  
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.16.0/24, Translated: 192.168.3.254/24
+2 (outside_vf) to (outside_sl) source dynamic vpn_pools interface  
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.16.0/24, Translated: 192.168.1.254/24
+3 (outside_bt) to (outside_bt) source dynamic vpn_pools interface  
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.16.0/24, Translated: 81.143.32.194/29
+4 (outside_bt) to (outside_sl) source dynamic vpn_pools interface  
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.16.0/24, Translated: 192.168.1.254/24
+5 (outside_fttb) to (outside_fttb) source dynamic vpn_pools interface  
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.16.0/24, Translated: 62.105.119.118/30
+6 (outside_fttb) to (outside_sl) source dynamic vpn_pools interface  
+    translate_hits = 0, untranslate_hits = 0
+    Source - Origin: 10.224.16.0/24, Translated: 192.168.1.254/24
+fishbone-asa/sec/act# show access-list
+access-list cached ACL log flows: total 0, denied 0 (deny-flow-max 4096)
+            alert-interval 300
+access-list ACL_VODAFONE_IN; 14 elements; name hash: 0x9e73c126
+access-list ACL_VODAFONE_IN line 1 extended permit tcp object-group admin_access interface outside_vf eq ssh (hitcnt=0) 0x263d49aa 
+  access-list ACL_VODAFONE_IN line 1 extended permit tcp host 80.80.109.42 interface outside_vf eq ssh (hitcnt=0) 0x28aabeea 
+  access-list ACL_VODAFONE_IN line 1 extended permit tcp host 94.180.57.40 interface outside_vf eq ssh (hitcnt=0) 0x2b4bd6c1 
+access-list ACL_VODAFONE_IN line 2 extended permit tcp object-group admin_access object Cat3850 eq ssh (hitcnt=0) 0x577dbfff 
+  access-list ACL_VODAFONE_IN line 2 extended permit tcp host 80.80.109.42 host 10.224.10.4 eq ssh (hitcnt=0) 0xd29a6444 
+  access-list ACL_VODAFONE_IN line 2 extended permit tcp host 94.180.57.40 host 10.224.10.4 eq ssh (hitcnt=0) 0xd090fbaa 
+access-list ACL_VODAFONE_IN line 3 extended permit tcp object-group admin_access object DL380_iLO eq https (hitcnt=0) 0x99a43aa5 
+  access-list ACL_VODAFONE_IN line 3 extended permit tcp host 80.80.109.42 host 10.224.10.78 eq https (hitcnt=0) 0xc6d4ae6f 
+  access-list ACL_VODAFONE_IN line 3 extended permit tcp host 94.180.57.40 host 10.224.10.78 eq https (hitcnt=0) 0x53648b6b 
+access-list ACL_VODAFONE_IN line 4 extended permit tcp object-group admin_access object PVE1 eq ssh (hitcnt=0) 0x9ed4d468 
+  access-list ACL_VODAFONE_IN line 4 extended permit tcp host 80.80.109.42 host 10.224.10.10 eq ssh (hitcnt=0) 0x0b504976 
+  access-list ACL_VODAFONE_IN line 4 extended permit tcp host 94.180.57.40 host 10.224.10.10 eq ssh (hitcnt=0) 0xca8a2bb6 
+access-list ACL_VODAFONE_IN line 5 extended permit tcp object-group admin_access object PVE1 eq 8006 (hitcnt=0) 0xa702b286 
+  access-list ACL_VODAFONE_IN line 5 extended permit tcp host 80.80.109.42 host 10.224.10.10 eq 8006 (hitcnt=0) 0xe966f2de 
+  access-list ACL_VODAFONE_IN line 5 extended permit tcp host 94.180.57.40 host 10.224.10.10 eq 8006 (hitcnt=0) 0x2f49e78c 
+access-list ACL_VODAFONE_IN line 6 extended permit icmp any interface outside_vf echo (hitcnt=0) 0xc6593d40 
+access-list ACL_VODAFONE_IN line 7 extended permit icmp any4 any4 time-exceeded (hitcnt=0) 0xe2dd92c1 
+access-list ACL_VODAFONE_IN line 8 extended permit icmp any4 any4 unreachable (hitcnt=0) 0x52ab2bd9 
+access-list ACL_VODAFONE_IN line 9 extended permit ip any any (hitcnt=0) 0x760e9ce7 
+access-list SPLIT_TUNNEL; 1 elements; name hash: 0x63aa8f22
+access-list SPLIT_TUNNEL line 1 standard permit 10.224.0.0 255.255.0.0 (hitcnt=0) 0x5e762b5a 
+access-list ACL_BT_IN; 20 elements; name hash: 0xff7ec1f8
+access-list ACL_BT_IN line 1 extended permit tcp object-group admin_access interface outside_bt eq ssh (hitcnt=0) 0x9e595f53 
+  access-list ACL_BT_IN line 1 extended permit tcp host 80.80.109.42 interface outside_bt eq ssh (hitcnt=0) 0x5415a549 
+  access-list ACL_BT_IN line 1 extended permit tcp host 94.180.57.40 interface outside_bt eq ssh (hitcnt=0) 0x6b21537f 
+access-list ACL_BT_IN line 2 extended permit tcp object-group admin_access object Cat3850 eq ssh (hitcnt=0) 0x69f97176 
+  access-list ACL_BT_IN line 2 extended permit tcp host 80.80.109.42 host 10.224.10.4 eq ssh (hitcnt=0) 0xb22d0844 
+  access-list ACL_BT_IN line 2 extended permit tcp host 94.180.57.40 host 10.224.10.4 eq ssh (hitcnt=0) 0xcb808a11 
+access-list ACL_BT_IN line 3 extended permit tcp object-group admin_access object ssh-gateway eq ssh (hitcnt=0) 0xebf8efdb 
+  access-list ACL_BT_IN line 3 extended permit tcp host 80.80.109.42 host 10.224.10.9 eq ssh (hitcnt=0) 0x5e595be0 
+  access-list ACL_BT_IN line 3 extended permit tcp host 94.180.57.40 host 10.224.10.9 eq ssh (hitcnt=0) 0x99329f92 
+access-list ACL_BT_IN line 4 extended permit tcp object-group admin_access object DL380_iLO eq https (hitcnt=0) 0xc4859d19 
+  access-list ACL_BT_IN line 4 extended permit tcp host 80.80.109.42 host 10.224.10.78 eq https (hitcnt=0) 0x333d1df4 
+  access-list ACL_BT_IN line 4 extended permit tcp host 94.180.57.40 host 10.224.10.78 eq https (hitcnt=0) 0x19e17b2c 
+access-list ACL_BT_IN line 5 extended permit tcp object-group admin_access object PVE1 eq ssh (hitcnt=0) 0x91639a3a 
+  access-list ACL_BT_IN line 5 extended permit tcp host 80.80.109.42 host 10.224.10.10 eq ssh (hitcnt=0) 0x83f68a79 
+  access-list ACL_BT_IN line 5 extended permit tcp host 94.180.57.40 host 10.224.10.10 eq ssh (hitcnt=0) 0x5f5e7da7 
+access-list ACL_BT_IN line 6 extended permit tcp object-group admin_access object PVE1 eq 8006 (hitcnt=0) 0x8f8445c2 
+  access-list ACL_BT_IN line 6 extended permit tcp host 80.80.109.42 host 10.224.10.10 eq 8006 (hitcnt=0) 0x7d1c5669 
+  access-list ACL_BT_IN line 6 extended permit tcp host 94.180.57.40 host 10.224.10.10 eq 8006 (hitcnt=0) 0xcfec34dd 
+access-list ACL_BT_IN line 7 extended permit icmp any interface outside_bt echo (hitcnt=0) 0x014425f1 
+access-list ACL_BT_IN line 8 extended permit icmp any4 any4 time-exceeded (hitcnt=0) 0x8989fd1b 
+access-list ACL_BT_IN line 9 extended permit icmp any4 any4 unreachable (hitcnt=0) 0xae800892 
+access-list ACL_BT_IN line 10 extended permit tcp any object proxy eq www (hitcnt=0) 0xd40f0312 
+  access-list ACL_BT_IN line 10 extended permit tcp any host 10.224.30.30 eq www (hitcnt=0) 0xd40f0312 
+access-list ACL_BT_IN line 11 extended permit tcp any object proxy eq https (hitcnt=0) 0x6b379f9e 
+  access-list ACL_BT_IN line 11 extended permit tcp any host 10.224.30.30 eq https (hitcnt=0) 0x6b379f9e 
+access-list ACL_BT_IN line 12 extended permit udp any object opnsense_wan eq isakmp (hitcnt=0) 0x654639b8 
+  access-list ACL_BT_IN line 12 extended permit udp any host 10.224.30.11 eq isakmp (hitcnt=0) 0x654639b8 
+access-list ACL_BT_IN line 13 extended permit udp any object opnsense_wan eq 4500 (hitcnt=0) 0x1d1e14e5 
+  access-list ACL_BT_IN line 13 extended permit udp any host 10.224.30.11 eq 4500 (hitcnt=0) 0x1d1e14e5 
+access-list ACL_BT_IN line 14 extended permit ip any any (hitcnt=0) 0xe95042a8 
+access-list ACL_OUTSIDE_IN; 3 elements; name hash: 0x12067c9b
+access-list ACL_OUTSIDE_IN line 1 extended permit icmp any4 any4 time-exceeded (hitcnt=0) 0xc393fed3 
+access-list ACL_OUTSIDE_IN line 2 extended permit icmp any4 any4 unreachable (hitcnt=0) 0xf201a40a 
+access-list ACL_OUTSIDE_IN line 3 extended permit ip any any (hitcnt=0) 0xcab2cb32 
+access-list ACL_SL_IN; 4 elements; name hash: 0x277ca157
+access-list ACL_SL_IN line 1 extended permit icmp any interface outside_sl echo (hitcnt=0) 0x0c322635 
+access-list ACL_SL_IN line 2 extended permit icmp any4 any4 time-exceeded (hitcnt=36) 0xdda1e659 
+access-list ACL_SL_IN line 3 extended permit icmp any4 any4 unreachable (hitcnt=27) 0x55362c59 
+access-list ACL_SL_IN line 4 extended permit ip any any (hitcnt=26124) 0x8eb6313e 
+access-list ACL_FTTB_IN; 24 elements; name hash: 0xf911f1ca
+access-list ACL_FTTB_IN line 1 extended permit tcp object-group admin_access interface outside_fttb eq ssh (hitcnt=0) 0x356e4301 
+  access-list ACL_FTTB_IN line 1 extended permit tcp host 80.80.109.42 interface outside_fttb eq ssh (hitcnt=0) 0x91cfdb4b 
+  access-list ACL_FTTB_IN line 1 extended permit tcp host 94.180.57.40 interface outside_fttb eq ssh (hitcnt=0) 0x1a869a36 
+access-list ACL_FTTB_IN line 2 extended permit tcp object-group admin_access object Cat3850 eq ssh (hitcnt=0) 0xcaa44b0a 
+  access-list ACL_FTTB_IN line 2 extended permit tcp host 80.80.109.42 host 10.224.10.4 eq ssh (hitcnt=0) 0x04087190 
+  access-list ACL_FTTB_IN line 2 extended permit tcp host 94.180.57.40 host 10.224.10.4 eq ssh (hitcnt=0) 0x6536febb 
+access-list ACL_FTTB_IN line 3 extended permit tcp object-group admin_access object ssh-gateway eq ssh (hitcnt=0) 0x2bb34aa6 
+  access-list ACL_FTTB_IN line 3 extended permit tcp host 80.80.109.42 host 10.224.10.9 eq ssh (hitcnt=0) 0x1727ad27 
+  access-list ACL_FTTB_IN line 3 extended permit tcp host 94.180.57.40 host 10.224.10.9 eq ssh (hitcnt=0) 0xed443a88 
+access-list ACL_FTTB_IN line 4 extended permit tcp object-group admin_access object DL380_iLO eq https (hitcnt=0) 0x503637ea 
+  access-list ACL_FTTB_IN line 4 extended permit tcp host 80.80.109.42 host 10.224.10.78 eq https (hitcnt=0) 0x216f3adb 
+  access-list ACL_FTTB_IN line 4 extended permit tcp host 94.180.57.40 host 10.224.10.78 eq https (hitcnt=0) 0x7b5eabc5 
+access-list ACL_FTTB_IN line 5 extended permit tcp object-group admin_access object PVE1 eq ssh (hitcnt=0) 0xbbc0a869 
+  access-list ACL_FTTB_IN line 5 extended permit tcp host 80.80.109.42 host 10.224.10.10 eq ssh (hitcnt=0) 0xee64173e 
+  access-list ACL_FTTB_IN line 5 extended permit tcp host 94.180.57.40 host 10.224.10.10 eq ssh (hitcnt=0) 0xde8fb9fa 
+access-list ACL_FTTB_IN line 6 extended permit tcp object-group admin_access object PVE1 eq 8006 (hitcnt=0) 0xde7e4e46 
+  access-list ACL_FTTB_IN line 6 extended permit tcp host 80.80.109.42 host 10.224.10.10 eq 8006 (hitcnt=0) 0xba48fcd7 
+  access-list ACL_FTTB_IN line 6 extended permit tcp host 94.180.57.40 host 10.224.10.10 eq 8006 (hitcnt=0) 0xf1c0e23a 
+access-list ACL_FTTB_IN line 7 extended permit udp object-group admin_access any eq isakmp (hitcnt=0) 0xf3310790 
+  access-list ACL_FTTB_IN line 7 extended permit udp host 80.80.109.42 any eq isakmp (hitcnt=0) 0x21c23318 
+  access-list ACL_FTTB_IN line 7 extended permit udp host 94.180.57.40 any eq isakmp (hitcnt=0) 0x0346b472 
+access-list ACL_FTTB_IN line 8 extended permit ip object-group admin_access any (hitcnt=0) 0xaf0a69bd 
+  access-list ACL_FTTB_IN line 8 extended permit ip host 80.80.109.42 any (hitcnt=0) 0x7157dafc 
+  access-list ACL_FTTB_IN line 8 extended permit ip host 94.180.57.40 any (hitcnt=0) 0x06b3af16 
+access-list ACL_FTTB_IN line 9 extended permit icmp any interface outside_fttb echo (hitcnt=0) 0x578beb60 
+access-list ACL_FTTB_IN line 10 extended permit icmp any4 any4 time-exceeded (hitcnt=1144) 0x7f4d75fc 
+access-list ACL_FTTB_IN line 11 extended permit icmp any4 any4 unreachable (hitcnt=909) 0xd17df3b8 
+access-list ACL_FTTB_IN line 12 extended permit tcp any object proxy eq www (hitcnt=4559) 0xa7744ec6 
+  access-list ACL_FTTB_IN line 12 extended permit tcp any host 10.224.30.30 eq www (hitcnt=4559) 0xa7744ec6 
+access-list ACL_FTTB_IN line 13 extended permit tcp any object proxy eq https (hitcnt=1354) 0x2fb8ba16 
+  access-list ACL_FTTB_IN line 13 extended permit tcp any host 10.224.30.30 eq https (hitcnt=1354) 0x2fb8ba16 
+access-list ACL_FTTB_IN line 14 extended permit udp any object opnsense_wan eq isakmp (hitcnt=603) 0xcfae9b8d 
+  access-list ACL_FTTB_IN line 14 extended permit udp any host 10.224.30.11 eq isakmp (hitcnt=603) 0xcfae9b8d 
+access-list ACL_FTTB_IN line 15 extended permit udp any object opnsense_wan eq 4500 (hitcnt=342) 0x9771f7d4 
+  access-list ACL_FTTB_IN line 15 extended permit udp any host 10.224.30.11 eq 4500 (hitcnt=342) 0x9771f7d4 
+access-list ACL_FTTB_IN line 16 extended permit ip any any (hitcnt=260579) 0x89c2a7e8 
+fishbone-asa/sec/act# show run dhcpd
+dhcpd dns 1.0.0.1 8.8.8.8
+dhcpd lease 28800
+!
+dhcpd address 10.224.10.50-10.224.10.240 mgmt
+dhcpd option 43 hex 01040ae06e05 interface mgmt
+dhcpd enable mgmt
+!
+dhcpd address 10.224.11.50-10.224.11.240 inside
+dhcpd enable inside
+!
+dhcpd address 10.224.12.10-10.224.12.248 cctv
+dhcpd enable cctv
+!
+dhcpd address 10.224.13.10-10.224.13.248 telephony
+dhcpd enable telephony
+!
+dhcpd address 10.224.20.10-10.224.20.248 wifi
+dhcpd enable wifi
+!
+dhcpd address 10.224.21.10-10.224.21.248 guest_wifi
+dhcpd enable guest_wifi
+!
+fishbone-asa/sec/act# show failover
+Failover On 
+Failover unit Secondary
+Failover LAN Interface: folink GigabitEthernet0/3 (up)
+Unit Poll frequency 1 seconds, holdtime 15 seconds
+Interface Poll frequency 5 seconds, holdtime 25 seconds
+Interface Policy 1
+Monitored Interfaces 1 of 410 maximum
+failover replication http
+Version: Ours 9.1(7)32, Mate 9.1(7)32
+Last Failover at: 00:59:05 UTC Mar 15 2004
+	This host: Secondary - Active 
+		Active time: 2580405 (sec)
+		slot 0: ASA5550 hw/sw rev (2.0/9.1(7)32) status (Up Sys)
+		  Interface management (10.11.11.1): No Link (Waiting)
+		  Interface outside_sl (192.168.1.254): Normal (Not-Monitored)
+		  Interface outside_vf (192.168.3.254): Normal (Not-Monitored)
+		  Interface outside_bt (81.143.32.194): Normal (Not-Monitored)
+		  Interface ubnt_mgmt (192.168.5.1): Normal (Not-Monitored)
+		  Interface outside_fttb (62.105.119.118): Normal (Not-Monitored)
+		  Interface mgmt (10.224.10.1): Normal (Not-Monitored)
+		  Interface inside (10.224.11.1): Normal (Not-Monitored)
+		  Interface cctv (10.224.12.1): Normal (Not-Monitored)
+		  Interface telephony (10.224.13.1): Normal (Not-Monitored)
+		  Interface wifi (10.224.20.1): Normal (Not-Monitored)
+		  Interface guest_wifi (10.224.21.1): Normal (Not-Monitored)
+		  Interface dmz (10.224.30.1): Normal (Not-Monitored)
+		slot 1: ASA-SSM-4GE-INC hw/sw rev (1.0/1.0(0)10) status (Up)
+	Other host: Primary - Standby Ready 
+		Active time: 88485 (sec)
+		slot 0: ASA5550 hw/sw rev (2.0/9.1(7)32) status (Up Sys)
+		  Interface management (0.0.0.0): No Link (Waiting)
+		  Interface outside_sl (0.0.0.0): Normal (Not-Monitored)
+		  Interface outside_vf (0.0.0.0): Normal (Not-Monitored)
+		  Interface outside_bt (0.0.0.0): Normal (Not-Monitored)
+		  Interface ubnt_mgmt (0.0.0.0): Normal (Not-Monitored)
+		  Interface outside_fttb (0.0.0.0): Normal (Not-Monitored)
+		  Interface mgmt (10.224.10.2): Normal (Not-Monitored)
+		  Interface inside (10.224.11.2): Normal (Not-Monitored)
+		  Interface cctv (0.0.0.0): Normal (Not-Monitored)
+		  Interface telephony (0.0.0.0): Normal (Not-Monitored)
+		  Interface wifi (0.0.0.0): Normal (Not-Monitored)
+		  Interface guest_wifi (0.0.0.0): Normal (Not-Monitored)
+		  Interface dmz (0.0.0.0): Normal (Not-Monitored)
+		slot 1: ASA-SSM-4GE-INC hw/sw rev (1.0/1.0(0)10) status (Up)
+
+Stateful Failover Logical Update Statistics
+	Link : statelink GigabitEthernet1/3 (down)
+	Stateful Obj 	xmit       xerr       rcv        rerr      
+	General		0          0          0          0         
+	sys cmd  	0          0          0          0         
+	up time  	0          0          0          0         
+	RPC services  	0          0          0          0         
+	TCP conn 	0          0          0          0         
+	UDP conn 	0          0          0          0         
+	ARP tbl  	0          0          0          0         
+	Xlate_Timeout  	0          0          0          0         
+	IPv6 ND tbl  	0          0          0          0         
+	VPN IKEv1 SA 	0          0          0          0         
+	VPN IKEv1 P2 	0          0          0          0         
+	VPN IKEv2 SA 	0          0          0          0         
+	VPN IKEv2 P2 	0          0          0          0         
+	VPN CTCP upd 	0          0          0          0         
+	VPN SDI upd 	0          0          0          0         
+	VPN DHCP upd 	0          0          0          0         
+	SIP Session 	0          0          0          0         
+	Route Session 	0          0          0          0         
+	User-Identity 	0          0          0          0         
+	CTS SGTNAME 	0          0          0          0         
+	CTS PAC 	0          0          0          0         
+	TrustSec-SXP 	0          0          0          0         
+	IPv6 Route 	0          0          0          0         
+
+	Logical Update Queue Information
+	 	 	Cur 	Max 	Total
+	Recv Q: 	0 	0 	0
+	Xmit Q: 	0 	0 	0
+fishbone-asa/sec/act# show vpn-sessiondb summary
+
+ No sessions to display.
+
+fishbone-asa/sec/act# show run crypto
+crypto ipsec security-association pmtu-aging infinite
+crypto ca trustpoint XCA
+ enrollment terminal
+ crl configure
+crypto ca trustpool policy
+crypto ca certificate chain XCA
+ certificate ca 7d888b0479b733c9
+    30820300 308201e8 a0030201 0202087d 888b0479 b733c930 0d06092a 864886f7 
+    0d010105 05003016 31143012 06035504 03130b66 69736862 6f6e652d 6361301e 
+    170d3234 31313034 31373435 30305a17 0d333431 31303431 37343530 305a3016 
+    31143012 06035504 03130b66 69736862 6f6e652d 63613082 0122300d 06092a86 
+    4886f70d 01010105 00038201 0f003082 010a0282 0101008b b032fea8 4374fc65 
+    cdfb27f0 620fd421 0de9b845 64caf8ec 1df023d7 b0671f28 6f2e01d4 a35a53f5 
+    1bb826f2 f233e079 92dec38f 0f3c68e6 7105afdc 0030b307 86a92d9b a12e0724 
+    a78738e5 1c132bbf 83f8ddb2 c5bd2a6d a75ac33c 618c1ddb 6b206aac 71d28edc 
+    575ff6ef 3ededc26 7976051f e5d56ec8 477e6ba4 699093ee 362a6252 60fc54ca 
+    04eacc44 e47f322a 6a60f44d f9ef2178 9f27737d ec96ed6e 2cb36d46 66871c8c 
+    7a93ad0b dbee99d4 587ed042 d2300380 0a4b9159 560c4c98 b0fb2a28 ed8b594d 
+    6dff14da 7c7e8507 684c14ef 6b03de81 6ae60274 90598781 b7f80b59 19081ef8 
+    dac06c2a 0b2515f7 53cbca89 3020d266 7692eaeb 33d85b02 03010001 a3523050 
+    300f0603 551d1301 01ff0405 30030101 ff301d06 03551d0e 04160414 dcf40945 
+    c768ee55 86a61da1 5cd4654c c43a06c1 300b0603 551d0f04 04030201 06301106 
+    09608648 0186f842 01010404 03020007 300d0609 2a864886 f70d0101 05050003 
+    82010100 6909769c 17bb5250 6078101b 00961362 632d29e5 ff8e3b42 ec63137e 
+    970af5b9 0baec62f eb8508cf b35eff41 d515e1b5 cb4b08d0 a52de6bb 9c58b3ee 
+    c13330e7 ea1d7805 268d14d9 bde8fb8f 875be5ed bbca8a65 493cd465 e26bdf92 
+    2b95a1b8 42862869 05aa6a3a e56c55b3 dd96b255 b6a1e534 80b0e793 9d7e7c35 
+    ae29920b 0bc85fd8 3e6cf4ba 43e868e1 27347e0f 956eca68 63f05776 18725a99 
+    9f89b688 2d4fb38f e35a5489 418d9c2c cb125905 312add81 badca304 ad2b6ccc 
+    2e389b5e 323a7d3e 9fa3c39c 60959cb8 8605faa9 6a395af0 133d71fa 72bbd15e 
+    93faee1e 8cf8cf1f d224527d b4de10c9 e23f69d2 e7a576be f95fa5dd 65786660 
+    401972c4
+  quit
+ certificate 37f01d066f816e5f
+    30820363 3082024b a0030201 02020837 f01d066f 816e5f30 0d06092a 864886f7 
+    0d010105 05003016 31143012 06035504 03130b66 69736862 6f6e652d 6361301e 
+    170d3234 31313035 30313431 30305a17 0d333331 31303530 31343130 305a302c 
+    312a3028 06092a86 4886f70d 01090216 1b666973 68626f6e 652d6173 612e6669 
+    7368626f 6e652e6c 6f63616c 30820122 300d0609 2a864886 f70d0101 01050003 
+    82010f00 3082010a 02820101 00ba27fa 1d440748 66be93c5 1271495f 731fd7e8 
+    497b5161 7fa4dcbf 556701ff 157cb0e3 7252b2db c08665fc 76abf230 b662cf5d 
+    be58db19 ff64530b 73c20a50 fa21b6fc 4838fb01 0e2dc181 74d84406 5b10db02 
+    efb288e9 5bf919e7 b026ae47 145c6854 876320a6 5678ebb8 8a160fce d51d4520 
+    bea1b979 d62ac19c c1d64c47 e9412c5c a49405a8 fbfc3898 699d688c 04d4a3f2 
+    8996976b b525bbd6 61af070c 760cbb8f 8a6700bd f870aaed 4995a02c 3ca66d6f 
+    332a6e99 da94cb18 67d00dde 29c3d66b 481d5e94 23a5c835 02b41b80 037bd2e1 
+    e453fc41 e37effca ca758403 772263be eb578f26 8b53585a 8cad67be ff124c43 
+    cfd1dfc7 6d2c5231 1caa8776 73020301 0001a381 9e30819b 30090603 551d1304 
+    02300030 1d060355 1d0e0416 04142af8 52f67761 0649f706 0837ae1e 48402b13 
+    c9ce301f 0603551d 23041830 168014dc f40945c7 68ee5586 a61da15c d4654cc4 
+    3a06c130 16060355 1d12040f 300d820b 66697368 626f6e65 2d636130 0e060355 
+    1d0f0101 ff040403 0205a030 26060355 1d11041f 301d821b 66697368 626f6e65 
+    2d617361 2e666973 68626f6e 652e6c6f 63616c30 0d06092a 864886f7 0d010105 
+    05000382 0101005f f1b8eb10 033b5bd9 f2abf409 fd5afdba cabca6c1 a00854a8 
+    745b93be acc1681a 2d22bbc6 d8b6b5a4 a01b519f 443c3aef b71388de 50a970a3 
+    0727cbd0 d7f2ebe8 0e06d9a9 53b95a2d 8d56bbb1 f87d3efc f0845f4d b09e3803 
+    fdcd5122 f1a70929 bb5b36a6 1b3d39f2 499c0fdc 94d68530 887cd1e1 d17f4be3 
+    b0f3c86f cadc91d1 904e07ad a6e5338e 90ea0d5f ea378bce 08bf3996 d7bdc5ef 
+    21e356fa 97a8290c b24b2f6f 42d6d348 2598684f fb02cb46 6effc368 153a7d21 
+    12c2be5c e9797160 8a7c5f12 57f4e5e2 832ad9d9 41155a4f 9ec4a1da cb584fff 
+    4072ccd7 1f901716 029a8226 ecd00469 9949da5d 49942285 47372e5c 3a7e5a31 
+    ce115f5a 3977be
+  quit
+fishbone-asa/sec/act# show clock
+21:46:35.250 UTC Tue Apr 13 2004
+fishbone-asa/sec/act# 

@@ -35,3 +35,8 @@ Step B · Gen9 driver 535→580 · security friend's feedback (after the call).
 
 ## 📝 Eugene's own
 Map: fix "3× V100" wording in the two-site diagram · VAT invoices: reply to Compuwyze (Minda) · monitoring plan: add AP9631/NUT.
+
+
+## Update after HQ visit (1 Nov)
+✅ UPS self-tests passed · ASA/3850 exported · admin ports closed to internet · iLO static .21 · R710 back + backups OK · rack space confirmed.
+**Still open from the visit:** UPS socket/device list (site) · Wi-Fi AP positions (remote) · R710 x8 slot check · Gen9 next-reboot list (power profile, serial) · OI-33 ASA hardening · 3850 follow-ups.
