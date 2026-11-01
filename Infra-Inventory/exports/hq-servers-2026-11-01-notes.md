@@ -45,3 +45,9 @@
 - **Correction:** the Intel I350 4×1G (04:00) is **not in a PCIe slot** → it's the **FlexibleLOM** (e.g. 366FLR); BCM5719 (02:00) = embedded 331i. So the "replace the 331T" idea is void.
 - **10G card for the Gen9 (server triangle):** fit it **when the P40s come out** (same shutdown) — slots 2/4/5 (x16) then free. Before that, slot 4 is blocked by the P40.
 - **DIMMs:** 8× 32 GB = **PROC1 DIMM 1, 4, 9, 12** and **PROC2 DIMM 1, 4, 9, 12** (HPE "4 per CPU" layout). Removing 4 for Beverley → keep the HPE 2-per-CPU slots (confirm exact pair in UG `c04436966` before the move).
+
+### Gen9 identity
+- **Serial number: CZJ64905NP** (from the iLO pull-tab label; iLO hostname ILOCZJ64905NP). Product ID still to read (separate label).
+- ⚠️ iLO shows **Server Serial Number blank + UUID all zeros** (likely lost in the 31 Oct BIOS NVRAM recovery) → re-enter in RBSU → Advanced Options → Service Options at the next planned reboot (with the Power Regulator change).
+- iLO 4 firmware **2.82 (Feb 2023) = final iLO 4 release**; health OK; iLO Advanced licensed.
+- The pull-tab label also prints the **factory iLO password** — not recorded here. Make sure the `Administrator` account no longer uses it (changed 31 Oct?) or is disabled.
