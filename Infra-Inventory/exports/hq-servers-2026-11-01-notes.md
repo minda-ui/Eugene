@@ -33,3 +33,15 @@
 | Inlet temp | **18 °C** |
 | Heatsinks | 747608-001 (spare 777290-001) and 759519-002 — two different types |
 | DIMMs | HPE 809083-091 (32 GB 2Rx4 DDR4-2400), Micron, white slots |
+
+### Gen9 slots + DIMMs (dmidecode, 2026-11-01)
+| Slot | Type | Use |
+|---|---|---|
+| PCI-E Slot 2 | x16 Gen3 | **P40 #1** (08:00) |
+| PCI-E Slot 3 | x8 Gen3 | Smart Array (05:00) |
+| PCI-E Slot 4 | x16 Gen3 | **Available** (88:00) — physically shadowed by the double-wide P40 in slot 5 |
+| PCI-E Slot 5 | x16 Gen3 | **P40 #2** (84:00) |
+| PCI-E Slot 6 | x8 Gen3 | **X710 2×10G** (81:00) |
+- **Correction:** the Intel I350 4×1G (04:00) is **not in a PCIe slot** → it's the **FlexibleLOM** (e.g. 366FLR); BCM5719 (02:00) = embedded 331i. So the "replace the 331T" idea is void.
+- **10G card for the Gen9 (server triangle):** fit it **when the P40s come out** (same shutdown) — slots 2/4/5 (x16) then free. Before that, slot 4 is blocked by the P40.
+- **DIMMs:** 8× 32 GB = **PROC1 DIMM 1, 4, 9, 12** and **PROC2 DIMM 1, 4, 9, 12** (HPE "4 per CPU" layout). Removing 4 for Beverley → keep the HPE 2-per-CPU slots (confirm exact pair in UG `c04436966` before the move).
