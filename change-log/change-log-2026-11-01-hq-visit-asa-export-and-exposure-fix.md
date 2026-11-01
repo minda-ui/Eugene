@@ -17,3 +17,5 @@ Full export saved masked → `Infra-Inventory/exports/hq-asa-2026-11-01-export-M
 ## R710 / backups (Block 5)
 - Gen9 couldn't reach pve-nas 10.224.10.20 (PBS stores inactive). R710 nic0 UP, MAC not on 3850 → the R710 was **powered off** (Minda: "it was not booted"); started it. Once up: Gen9 → 10.224.10.20 ping OK. **OI-27 resolved.** Next: PBS stores active + a fresh backup (no backups since ~30 Oct).
 - Why was it off? Unknown — check its iLO/iDRAC log or power cable/UPS outlet; add to UPS-outlet list.
+- `pvesm status`: **pbs-nas active** (843 GB, 1.5 % used) · **pbs-tank active** (13.9 TB, 0.08 %).
+- Backup jobs exist (`/etc/pve/jobs.cfg`): **02:00 → pbs-nas**, VMs 101,102,103,105,106, keep-daily 14 · **21:00 → pbs-tank**, VMs 101–106, **no prune set** (tidy later) · `repeat-missed 0` → nights missed while the R710 was off were not caught up. **OI-17 (nightly job) effectively done.** Minor: 104 ssh-gateway not in the 02:00 job; 106 DocuSeal backed up though not needed.
