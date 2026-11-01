@@ -33,3 +33,6 @@ Loxone Config reconnects by hostname `MSC91A`; Loxone Cloud remote access is una
 
 ## 5. Verify (Eugene)
 Ping .2–.5 from the Lenovo; Loxone app OK; print test OK. Note: the old DHCP leases (.11/.12/.14/.77) expire by themselves.
+
+## Progress log
+- 2026-11-01 11:38 — **Printer done:** static 10.224.111.5, Shutdown 'disable when ports active' on; HOMEOFFICEPC re-added as **"Beverley Printer"**, port 10.224.111.5 (RAW), HP M479 PCL-6 V4 driver; **test page printed** ✅. Other PCs: repeat if any.
