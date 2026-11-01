@@ -2,6 +2,17 @@
 
 _Minda at HQ, guided live (§3). No credential held by Eugene._
 
+
+## Update 2026-11-01 ~11:45 UTC — end of day
+| Area | End state |
+|---|---|
+| Security | Internet-exposed admin forwards (Proxmox SSH/GUI, iLO, 3850) **closed**; 763 failed SSH tries, 0 successful; iLO Administrator password changed. OI-33 opened for the rest. |
+| Exports (masked) | HQ ASA, HQ 3850, Beverley ASA → `Infra-Inventory/exports/`; raw copies deleted |
+| Servers | R710 back on (OI-27 resolved), backups confirmed + PBX backup; Gen9 + R710 inventoried; Gen9 iLO static .21 + NTP (OI-31 resolved) |
+| Power | 3 UPS self-tests passed; HQ imbalance confirmed |
+| Wi-Fi / mobile | WiFiman heatmaps + O2 log; booster non-compliant → left off |
+| Open | AP positions, UPS socket list, Loxone/printer MACs (AWT-1063), Beverley 3850 via console, Gen9 next-reboot list, OI-33 |
+
 ## UPS (Block 1)
 Both HQ SUA2200RMI2U: self-test **passed**, battery full, no alarms. Top JS0727011051 (2/5 load), bottom AS1111… (0/5) → imbalance confirmed. SmartSlots free for AP9631. No UPS monitoring today.
 
