@@ -15,4 +15,5 @@ Full export saved masked → `Infra-Inventory/exports/hq-asa-2026-11-01-export-M
 - **Still open:** ssh-gateway forward (22999) — purpose to confirm; `permit ip any any` on outside ACLs; Wi-Fi (sec 100) reaches mgmt; Proxmox root password SSH; DocuSeal .60 inside DHCP pool; statelink down; NTP. → OI-33.
 
 ## R710 / backups (Block 5)
-- Gen9 couldn't reach pve-nas 10.224.10.20 (PBS stores inactive). R710 nic0 UP, MAC not on 3850 → the R710 was **still booting**. Once up: Gen9 → 10.224.10.20 ping OK. **OI-27 resolved.** Next: PBS stores active + a fresh backup (no backups since ~30 Oct).
+- Gen9 couldn't reach pve-nas 10.224.10.20 (PBS stores inactive). R710 nic0 UP, MAC not on 3850 → the R710 was **powered off** (Minda: "it was not booted"); started it. Once up: Gen9 → 10.224.10.20 ping OK. **OI-27 resolved.** Next: PBS stores active + a fresh backup (no backups since ~30 Oct).
+- Why was it off? Unknown — check its iLO/iDRAC log or power cable/UPS outlet; add to UPS-outlet list.
