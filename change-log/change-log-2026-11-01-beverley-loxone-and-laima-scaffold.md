@@ -21,3 +21,9 @@
 ## Repo seeded (21:45)
 - Minda created `minda-ui/Laima-Vance`; Eugene seeded `main` (3145692): CLAUDE.md entry point, charter files, control files, work-run prompt, README, group SessionStart hook, settings.json (read allow-list; deny email send/reply/forward, Drive trash/share/delete, Smartsheet delete_rows). Opportunity detail deliberately kept off git.
 - 21:45 **Charter v1.0 APPROVED by Minda.** Drive: old CHARTER/Charter-Rules/Charter-History/open-issues/current-state archived to her Archive/ (renamed "(archived 2026-11-01 2145, ...)"), approved copies uploaded, byte-verified (6233/1524/755/908/986). Repo main updated to match.
+
+## 2026-11-02 morning - IT order mail check (read-only)
+- **Bargain Hardware (SO219233 / order 002022046):** both DL380 Gen10 already have HP GPU fans; riser 1 + riser 2 each give a FH FL x16 GPU slot; Gen10 has no GPU baffle (inserts removed instead); rail kit fits Gen10. Offered: Riser 2/3 GBP150 ex VAT, Tesla GPU cables GBP30 ex VAT. Awaiting Minda's reply (Eugene recommends: proceed as ordered, no extras - cables already bought from Compuwyze, third riser not needed yet).
+- **530T swap (eBay 09-15371-31143, renewtech):** seller offers **665249-B21** = HP Ethernet 10Gb 2-port **560SFP+** (SFP+, works with DAC) - suitable; Minda to accept on eBay.
+- **iLO Advanced keys (eBay 27-15338-03501):** 3 licence keys delivered by eBay message. **Secrets - not recorded here**; Minda to store in password manager and apply in iLO Administration > Licensing.
+- Shipped / ETA: Compuwyze GPU cables (FedEx, despatched 2 Nov); RAM, 2x ASA 5525-X updates, iLO, ETA 3-4 Nov; Cisco SFP-H10GB DAC ETA 6-9 Nov; 240GB SSD + Mellanox updated 2 Nov; one item posted Royal Mail. Mellanox seller (compuwyze_ltd) offers a VAT invoice on request.
