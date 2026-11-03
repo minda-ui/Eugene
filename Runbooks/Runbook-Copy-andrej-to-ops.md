@@ -35,3 +35,6 @@ Admin console -> Apps -> Google Workspace -> Gmail -> Routing -> Routing -> Conf
 - Also deliver to: tick "Add more recipients" -> Add -> ops@fishboneconstruction.co.uk (Basic). The copy is hidden from the people he writes to (like a Bcc).
 - Save. Test: Andrejus sends one email to anyone -> a copy appears in ops@.
 Note: emails he sends to ops@ itself, or internal mail, will also arrive in ops@ (possible duplicates - harmless).
+
+## Decision 2026-11-03 (Minda)
+Purpose: evidence check. Eugene advised Google Vault hold / private mailbox instead of shared ops@; **Minda chose copies to ops@ only.** Both rules above (received: per-user Email routing; sent: outbound routing rule). Suggested: Peter never closes/archives these copies.
