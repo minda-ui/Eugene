@@ -111,3 +111,11 @@ Gateway group on OPNsense = today's ASA tracked routes: **FTTB tier 1** (monitor
 
 ## 9. Done when (Step A)
 All six VLANs gatewayed by the OPNsense pair; CARP failover tested (pull hq-fw-a power → hq-fw-b takes over, calls stay up); DHCP serving from the pair; ASA carries only WANs + DMZ + transit; every window logged in a change-log with its roll-back lines.
+
+## 10. Minda's answers (2026-11-03)
+1. HQ pair = **unit 1 + unit 2** ✅
+2. **Copy first, tighten (T1–T4) one week after** the last VLAN moves ✅
+3. **VM 101 (OPNsense VM): Minda doesn't know what it does and doesn't use it.** → Before Step A window 2: Eugene guides a read-only look (VPN status/logs, any traffic on 10.224.17.x in the last 30 days). If unused: **power it off for 7 days** (reversible), then remove the **UDP 500/4500 forwards** to it (they expose an unused VM to the internet — added to OI-33), then archive it (never delete without Minda).
+4. **Keep BT and Vodafone** for Step B ✅
+5. `tmp_hack` 192.168.228.0/24: unknown → treated as a leftover. Check its hit counts on the ASA/3850 first; remove only after a week with zero use.
+6. Windows: **go with the flow** — only Minda and Andrejus work at HQ, so the guest/office/CCTV/mgmt windows can be short daytime slots agreed on the day. **Telephony stays a planned phones-free window** (the PBX serves the whole company, not only HQ desks).
