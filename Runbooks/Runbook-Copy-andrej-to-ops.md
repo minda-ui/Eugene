@@ -25,3 +25,13 @@ Send a test email to andrej@ from another address -> it should arrive in BOTH hi
 
 ## Follow-up
 Peter's triage will now see Andrejus's mail in ops@ - Peter may need a routing rule for it (Hub row to Peter if wanted).
+
+## Added 2026-11-03 - also copy SENT mail (Minda)
+Per-user Email routing only covers mail he RECEIVES. For mail he SENDS, add a Gmail routing rule:
+Admin console -> Apps -> Google Workspace -> Gmail -> Routing -> Routing -> Configure (or Add another rule):
+- Description: copy andrej SENT to ops.
+- Messages to affect: Outbound + Internal - sending.
+- Envelope filter: Only affect specific envelope senders -> Single email address -> andrej@fishboneconstruction.co.uk.
+- Also deliver to: tick "Add more recipients" -> Add -> ops@fishboneconstruction.co.uk (Basic). The copy is hidden from the people he writes to (like a Bcc).
+- Save. Test: Andrejus sends one email to anyone -> a copy appears in ops@.
+Note: emails he sends to ops@ itself, or internal mail, will also arrive in ops@ (possible duplicates - harmless).
