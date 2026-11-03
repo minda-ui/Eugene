@@ -116,3 +116,4 @@ _Guide-only (§3): Eugene specs; Minda buys + fits + holds all accounts. Verify 
 |---|---|---|---|---|---|---|
 | 1 | 2026-11-03 | ASA5525 SN FGL1823410U | FCH18187KX2 | V03 | none | 8x GE + MGMT + console; 2 of 4 arrived 3 Nov (HQ); boot/ROMMON check pending |
 | 2 | 2026-11-03 | ASA5525 SN FGL19234?5X (read from photo - confirm via show version) | FCH19267THV (confirmed, close-up) | V04 | not checked | 2nd HQ unit |
+- Bench boot (3 Nov, unit not yet identified): Cisco BIOS 9B2C109A (2013-05-15), Intel Xeon X3430 2.40GHz (4-core Lynnfield, **no AES-NI**), 8192 MB DDR3-1333, BMC init OK, POST OK. OPNsense note: fine for firewall/routing; IPsec slower without AES-NI; WireGuard (ChaCha20) unaffected.
