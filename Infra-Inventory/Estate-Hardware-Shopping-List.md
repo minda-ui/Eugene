@@ -115,3 +115,4 @@ _Guide-only (§3): Eugene specs; Minda buys + fits + holds all accounts. Verify 
 | # | Arrived | Chassis label (pull tag) | Lic S/N (front) | HW ver | SSD | Notes |
 |---|---|---|---|---|---|---|
 | 1 | 2026-11-03 | ASA5525 SN FGL1823410U | FCH18187KX2 | V03 | none | 8x GE + MGMT + console; 2 of 4 arrived 3 Nov (HQ); boot/ROMMON check pending |
+| 2 | 2026-11-03 | ASA5525 SN FGL19234?5X (read from photo - confirm via show version) | FCH19267THV (from photo - confirm) | V04 | not checked | 2nd HQ unit |
