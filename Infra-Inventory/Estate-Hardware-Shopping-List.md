@@ -110,3 +110,8 @@ _P3 subtotal ≈ **£1,550–2,050** (build the chassis **2-GPU-ready** so the 2
 ---
 _Guide-only (§3): Eugene specs; Minda buys + fits + holds all accounts. Verify every part/price at purchase
 (HPE PartSurfer/QuickSpecs for the Gen10 GPU parts). Pairs with the estate map + the four build specs._
+
+### ASA 5525-X arrivals (bench log)
+| # | Arrived | Chassis label (pull tag) | Lic S/N (front) | HW ver | SSD | Notes |
+|---|---|---|---|---|---|---|
+| 1 | 2026-11-03 | ASA5525 SN FGL1823410U | FCH18187KX2 | V03 | none | 8x GE + MGMT + console; 2 of 4 arrived 3 Nov (HQ); boot/ROMMON check pending |
