@@ -2,7 +2,7 @@
 
 **Hub:** AWT-1069 part (a). **Version:** v0.2, 2026-11-03 (extends the Drive v0.1 bench runbook, id 1H6hbUSpkwQD8MG8wr9VHJPjDP1EzVxcO).
 **Guide-only (charter §3):** Minda downloads, verifies, cables, installs and holds every password (1Password). Eugene writes, reads console output, verifies.
-**Status of the hardware (3 Nov):** 2 of 4 units in hand. Unit 2 (V04, FCH19267THV) bench-checked OK: X3430 4-core, 8 GB, POST pass, ROMMON 2.1(9)8, ASA 9.8(2)20, no config. Unit 1 (V03, FCH18187KX2) not yet booted. SSDs (Cisco ASA5500X-SSD120) ordered, due 4–5 Nov.
+**Status of the hardware (3 Nov):** 2 of 4 units in hand. Unit 2 (V04, FCH19267THV) bench-checked OK: X3430 4-core, 8 GB, POST pass, ROMMON 2.1(9)8, ASA 9.8(2)20, no config. Unit 1 (V03, FCH18187KX2) not yet booted. Unit 3 (V02, FCH1802J4Y9) arrived 3 Nov, **assigned to Beverley (`bev-fw`)**, not yet booted. Roles: units 1 + 2 = HQ pair, unit 3 = Beverley, unit 4 = spare. SSDs (Cisco ASA5500X-SSD120) ordered, due 4–5 Nov.
 
 ---
 
