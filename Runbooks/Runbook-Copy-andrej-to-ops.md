@@ -38,3 +38,8 @@ Note: emails he sends to ops@ itself, or internal mail, will also arrive in ops@
 
 ## Decision 2026-11-03 (Minda)
 Purpose: evidence check. Eugene advised Google Vault hold / private mailbox instead of shared ops@; **Minda chose copies to ops@ only.** Both rules above (received: per-user Email routing; sent: outbound routing rule). Suggested: Peter never closes/archives these copies.
+
+## Verified 2026-11-03 13:30 UK (Eugene, read-only on ops@)
+- Rule 1 (received): "Test message 1" minda@ -> andrej@ 13:16 arrived in ops@ INBOX.
+- Rule 2 (sent): "Test 2" andrej@ -> minda@ 13:26 arrived in ops@ INBOX.
+Note: per-user "Email routing" (Method A) is DISCONTINUED by Google - both copies are done with Gmail routing rules (Apps > Gmail > Routing), envelope filter on andrej@.
