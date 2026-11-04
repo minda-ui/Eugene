@@ -1,6 +1,6 @@
 # RND-34 — "Asset Desk": replace EZOfficeInventory on our own machines (spark, lab mode)
 
-**Date:** 2026-11-04 · **Status:** spark · **Asked by:** Minda (lab mode: "Another app. EZOffice")
+**Date:** 2026-11-04 · **Status:** exploring — **2026-11-04: EZOffice is empty (Minda) → start clean, no migration** · **Asked by:** Minda (lab mode: "Another app. EZOffice")
 **Not yet known (ask Minda):** what Fishbone tracks in EZOffice (site tools / plant / IT / vans?), how many assets and users, which features are used, the monthly cost, who owns it (Anna for site kit? Alex for ops?). No mention of EZOffice in Eugene's KB before today.
 
 ## What EZOfficeInventory does (general product knowledge)
@@ -28,3 +28,9 @@ All writes stay drafts until a person confirms; no secrets in the system (Minda 
 - Low stakes compared with finance — the worst case is a lost record, and EZOffice stays live during the trial.
 - We own hosting, backups (into PBS like everything else) and updates.
 - Staff habit: the phone flow must be as quick as EZOffice's app or people stop scanning.
+
+## Update 2026-11-04 — start clean
+EZOffice holds nothing, so there's no export/import and the tool choice is free (Snipe-IT first; Shelf.nu if bookings matter). Cancel the EZOffice subscription if one is being paid (Minda's call).
+**Pilot scope = IT kit first** (Eugene's own domain, data already in `Infra-Inventory/`): seed file `seed-it-assets.csv` — 26 assets, tags `FB-IT-0001…0026`, Snipe-IT import columns, no secrets/licence keys. Site tools and plant come second, with the owner (Anna/Alex) agreed first.
+**Install:** small Debian LXC on the Gen9 (2 cores, 2 GB, 20 GB), Snipe-IT + MariaDB, Tailscale-only, backed up by PBS. Eugene writes the exact steps on the day; Minda runs them and holds the admin login.
+**Labels:** `FB-IT-####` QR labels — any thermal label printer or A4 label sheets.

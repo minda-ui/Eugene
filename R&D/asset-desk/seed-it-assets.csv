@@ -1,0 +1,27 @@
+Asset Tag,Item Name,Category,Manufacturer,Model,Serial,Location,Status,Notes
+FB-IT-0001,pve (Proxmox host),Server,HPE,ProLiant DL380 Gen9 (843556-425),CZJ64905NP,HQ rack,Deployed,10.224.10.10; iLO 10.224.10.21; 2x E5-2695 v4; 256 GB; CR2032 flat (OI-32)
+FB-IT-0002,pve-nas (backup server),Server,Dell,PowerEdge R710,3MLS95J,HQ rack,Deployed,10.224.10.20; Proxmox Backup Server; DIMM B3 disabled
+FB-IT-0003,GPU 1 (in Gen9),GPU,NVIDIA,Tesla P40 24 GB,,HQ rack,Pending,no aux power yet (OI-30); moves to Gen10
+FB-IT-0004,GPU 2 (in Gen9),GPU,NVIDIA,Tesla P40 24 GB,,HQ rack,Pending,no aux power yet (OI-30); moves to Gen10
+FB-IT-0005,fishbone-asa (HQ firewall A),Firewall,Cisco,ASA 5550,JMX1425L244,HQ rack,Deployed,active/standby pair; end of support; to be replaced (AWT-1069)
+FB-IT-0006,fishbone-asa (HQ firewall B),Firewall,Cisco,ASA 5550,,HQ rack,Deployed,pair partner; serial to read
+FB-IT-0007,HQ core switch 1,Switch,Cisco,WS-C3850-48F-E,,HQ rack,Deployed,stack member 1; 10.224.10.4
+FB-IT-0008,HQ core switch 2,Switch,Cisco,WS-C3850-48F-E,,HQ rack,Deployed,stack member 2
+FB-IT-0009,HQ UPS 1,UPS,APC,Smart-UPS 2200,,HQ rack,Deployed,AWT-1064/1065 A/B feeds
+FB-IT-0010,HQ UPS 2,UPS,APC,Smart-UPS 2200,,HQ rack,Deployed,AWT-1064/1065 A/B feeds
+FB-IT-0011,hq-fw-a (new),Firewall,Cisco,ASA 5525-X V03 -> OPNsense,FGL1823410U,Beverley (bench),Pending,Lic FCH18187KX2; unit 1; HQ pair
+FB-IT-0012,hq-fw-b (new),Firewall,Cisco,ASA 5525-X V04 -> OPNsense,,Beverley (bench),Pending,Lic FCH19267THV; unit 2; HQ pair; bench OK 3 Nov; chassis serial to confirm
+FB-IT-0013,bev-fw (new),Firewall,Cisco,ASA 5525-X V02 -> OPNsense,FGL1804407Y,Beverley (bench),Pending,Lic FCH1802J4Y9; unit 3; serial read from photo - confirm
+FB-IT-0014,home-asa (Beverley firewall),Firewall,Cisco,ASA 5550,JMX1512L0FD,Beverley rack,Deployed,single; to be swapped for bev-fw
+FB-IT-0015,home-sw (Beverley switch),Switch,Cisco,WS-C3850-48 + NM-2-10G,,Beverley rack,Deployed,10.224.110.4
+FB-IT-0016,Beverley Proxmox mini-PC,Server,Lenovo,mini-PC,,Beverley rack,Deployed,10.224.111.199
+FB-IT-0017,UniFi Cloud Key,Controller,Ubiquiti,UniFi Cloud Key Gen2,,Beverley rack,Deployed,10.224.110.5; manages both sites' APs
+FB-IT-0018,airFiber master (HQ mast),Radio,Ubiquiti,airFiber AF-5,,HQ mast,Deployed,192.168.5.21
+FB-IT-0019,airFiber slave (Beverley),Radio,Ubiquiti,airFiber AF-5,,Beverley,Deployed,192.168.5.20
+FB-IT-0020,airFiber spare (HQ mast),Radio,Ubiquiti,airFiber AF-5,,HQ mast,Ready to deploy,standby
+FB-IT-0021,Beverley printer,Printer,HP,Color LaserJet M479dw,CNCRNC55BR,Beverley,Deployed,10.224.111.5
+FB-IT-0022,Loxone Miniserver,Automation,Loxone,Miniserver (MSC91A),,Beverley,Deployed,10.224.111.2
+FB-IT-0023,Loxone Audio Server,Automation,Loxone,Audio Server,,Beverley,Deployed,10.224.111.3
+FB-IT-0024,Loxone Intercom,Automation,Loxone,Intercom,,Beverley,Deployed,10.224.111.4
+FB-IT-0025,HQ AI server (new),Server,HPE,ProLiant DL380 Gen10 8SFF,,In transit,Pending,due 9 Nov (Bargain Hardware)
+FB-IT-0026,Beverley AI server (new),Server,HPE,ProLiant DL380 Gen10 8SFF,,In transit,Pending,due 9 Nov (Bargain Hardware)
