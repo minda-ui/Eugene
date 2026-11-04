@@ -156,3 +156,8 @@ all dated 2026, all to be re-verified.
 Pairs with the Telegram→Drive evidence stream (RND cluster): local models = private photo tagging,
 delivery-note OCR→QuickBooks, sign-in OCR, RAG over the whole project record. The KB (markdown) is the
 primary RAG source; storage (RND-3) hosts it; GPU (2× P40) runs the brain that answers over it.
+
+
+## 2026-11-04 — additions (RND-32)
+- **gpt-oss-120b** — Generalist candidate (MoE, ~5.1B active, ~63 GB MXFP4; text-only). **gpt-oss-20b** — receptionist / day coder. Test plan: `gpt-oss-test-plan.md`.
+- **Vision shortlist:** Qwen3-VL 30B-A3B (first choice for Eyes), Qwen3-VL 8B (triage), Gemma 3/4 27B, Mistral Small 24B; PaddleOCR/Tesseract as numeric cross-check. Llama 3.2 Vision dropped (weaker OCR). Confirm the pinned llama.cpp handles Qwen3-VL before relying on it.
