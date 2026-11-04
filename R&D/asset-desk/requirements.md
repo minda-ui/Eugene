@@ -39,3 +39,11 @@ Starting clean (EZOffice empty). Answers from Minda, lab mode.
 2. Import the 26 IT assets; print QR labels; test one check-out / check-in.
 3. Add 5 site tools, 1 van (with MOT date), 5 Amfa items (a panel type, Blum hinges…) as a trial.
 4. Two weeks of use → decide whether Amfa stock needs InvenTree.
+
+## Update 2026-11-04 — use the manufacturers' own barcodes (Minda)
+- **Materials & consumables** (Blum hinges, fixings, PPE, boxed items): the printed **EAN/UPC barcode on the packet identifies the product**, so scanning it can find the part and add/remove stock — no labels to print. Same product = same barcode, which is exactly right for counts.
+- **InvenTree** supports linking a third-party (manufacturer) barcode to a part, and its phone app scans → this tips **all stock (Amfa + site consumables) to InvenTree**. Snipe-IT can store a barcode number in its item fields but doesn't do scan-to-adjust-stock well.
+- **Individual tools, plant, IT** still need **our own QR tag** (`FB-…`): every DeWalt drill of one model carries the same product barcode, so it can't tell *which* drill. The manufacturer's serial can be recorded on the asset.
+- **Gaps:** cut panels / offcuts and loose items have no barcode → print our own label for the shelf/bin; the same product from two suppliers may carry two barcodes → link both to one part (check in the trial); some supplier labels use their own internal codes, not EAN.
+- **Office scanning:** a USB/Bluetooth barcode scanner (~£20–40) acts as a keyboard — scan at the desk on delivery; phone camera for the stores.
+- **Revised split:** Snipe-IT = things we track one by one (IT, tools, plant, vans); InvenTree = things we count (Amfa materials, site stock, PPE). Both small containers, Tailscale-only, PBS-backed. Trial: scan 5 real Amfa packets (incl. Blum hinges) into InvenTree.
