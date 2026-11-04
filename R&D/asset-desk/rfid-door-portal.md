@@ -1,4 +1,4 @@
-# RND-34 — "Smart door": UHF RFID portal + cameras for the warehouse (lab sketch v0.1, 2026-11-04)
+# RND-34 — "Smart door": UHF RFID portal + cameras for the warehouse (lab sketch v0.1, 2026-11-04) — **PARKED 2026-11-04: Minda, too expensive.** Stay with QR labels + office check-out/in. Revisit only if a cheap DIY portal (budget integrated UHF reader ~£150–400 on one pedestrian door) proves itself, or tool losses justify the cost.
 
 **Minda's idea:** warehouse only, no manual check-out/check-in. Walk through the door with a tool → antennas read its tag → the system records it **out** or **in** automatically. The intelligent cameras show **who** carried it.
 
