@@ -8,7 +8,7 @@
 input="$(cat)"
 prompt="$(printf '%s' "$input" | jq -r '.prompt // empty' 2>/dev/null)"
 [ -n "$prompt" ] || exit 0
-if printf '%s' "$prompt" | grep -qiE "\bcreative mode\b|\br&d mode\b|enter creative"; then
+if printf '%s' "$prompt" | grep -qiE "\bcreative mode\b|\br&d mode\b|\blab mode\b|enter creative"; then
   cat <<'EOF'
 CREATIVE / R&D MODE ON (Eugene's R&D pool). Hold this posture for this and following turns until Minda says "Normal mode":
 - Explore boldly: propose speculative, ambitious ideas; sketch and prototype quickly; think beyond the usual scope. Half-formed ideas are welcome here — the point is to generate, and let the good ones become real.
