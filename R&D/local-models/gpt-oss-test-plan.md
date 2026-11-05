@@ -64,3 +64,6 @@ A one-page result note: tokens/s for each stage, scores, and a recommendation fo
 - **llama-bench, 16 threads, Gen9 still on Static Low Power:** **pp512 = 67.2 ± 0.4 t/s** (reading), **tg128 = 20.1 ± 0.1 t/s** (writing) → comfortable chat speed on CPU alone (~15 words/s).
 - PBX untouched (VM 105 running; container at lower CPU priority).
 - Side finding: `pbs-nas` and `pbs-tank` show **active** in `pvesm status` and a Backup Job ran 02:00 - OI-27 may be fixed; confirm.
+- **Quality (browser chat via llama-server on 10.224.10.58:8080, mgmt VLAN only, stopped after):**
+  - Q1 VAT arithmetic (3×£6.85 + 12×£4.20 + £27.50, +20%): **2/2** — net £98.45, VAT £19.69, total £118.14, clear table, 18.7 t/s. *(Eugene's answer key said £96.45 — Eugene's own addition error, corrected.)*
+  - Note: pasting long prompts into `llama-cli` in the Proxmox shell garbled them (£ / bracketed paste) — use the llama-server web page for tests.
