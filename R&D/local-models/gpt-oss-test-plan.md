@@ -76,3 +76,4 @@ A one-page result note: tokens/s for each stage, scores, and a recommendation fo
 - **120b quality (same 4 prompts, llama-server, new chat each):**
   - Q1 VAT arithmetic: **2/2** — £98.45 / £19.69 / £118.14, 12.6 t/s.
   - Q2 construction terms: **~1.5/2** (better than 20b) — practical completion correct (handover, defects period starts); CIS correct (contractor deducts, pays HMRC, sub reclaims via self-assessment; no "suppliers" error); retention slip: "held back from the final payment" (actually deducted from each interim payment, typically half released at PC). 12.4 t/s.
+  - Q3 supplier email: **2/2** — adds PO# placeholder, "programme", specific subject, firm-polite tone. 12.9 t/s.
