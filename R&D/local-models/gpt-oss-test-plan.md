@@ -56,3 +56,11 @@ Speed (tokens/s prompt + generation), correctness per prompt (0–2), follows "s
 
 ## Done when
 A one-page result note: tokens/s for each stage, scores, and a recommendation for the Generalist + Receptionist slots and the V100 decision.
+
+## Results — Stage 1, 2026-11-05 (HQ, Minda running; Eugene reading)
+- Container **CT 120 `ai-test`** (unprivileged Debian 12.12, 16 cores, cpuunits 50, 96 GB, 150 GB local-zfs, vmbr0 tag 10, DHCP **10.224.10.58**, onboot 0, no password - `pct enter 120`).
+- llama.cpp **3259ab6e5** (5 Nov 2026, build 12129), CPU build.
+- Model **ggml-org/gpt-oss-20b-GGUF / gpt-oss-20b-MXFP4.gguf**, 12,109,566,624 B, sha256 `27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901` - **verified OK** against the Hugging Face listing. Download 11.2 GB in 3 min (~60 MB/s).
+- **llama-bench, 16 threads, Gen9 still on Static Low Power:** **pp512 = 67.2 ± 0.4 t/s** (reading), **tg128 = 20.1 ± 0.1 t/s** (writing) → comfortable chat speed on CPU alone (~15 words/s).
+- PBX untouched (VM 105 running; container at lower CPU priority).
+- Side finding: `pbs-nas` and `pbs-tank` show **active** in `pvesm status` and a Backup Job ran 02:00 - OI-27 may be fixed; confirm.
