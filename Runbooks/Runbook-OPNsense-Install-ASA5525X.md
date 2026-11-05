@@ -35,6 +35,8 @@ So each box can always go back to being a Cisco ASA (or be resold with its VPN P
   | Gi0/3 | 9 | em6 |
   | Gi0/1 | 10 | em7 |
   | Management0/0 | 18 | em8 |
+- **SSD written on a desktop PC (balenaEtcher) and fitted; ASA still booted Cisco from internal flash and warned it may build a RAID on the SSD → powered off at once.** Lesson: with the SSD fitted, always press **Esc** at ROMMON until the boot order is changed.
+- **BIOS setup NOT reachable over the console:** F2 (and Del) tried with PuTTY keyboard modes SCO, VT100+, Xterm R6 - no menu. Community reports (Hackaday homelab, Cisco Community) used the **internal VGA pin header** + USB keyboard: F2 → boot order SSD first, **disable ROMMON boot**. → Next: lid-off photo of the VGA header, buy header-to-VGA cable, do all 4 units in one session.
 - All ports Intel 82574L (`em` driver). Board also has an ASPEED VGA chip (no external port) and the Cavium crypto card (unused by OPNsense).
 
 ## 1. Download (Minda's PC)
