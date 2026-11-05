@@ -1,6 +1,6 @@
 # Runbook — Install OPNsense on a Cisco ASA 5525-X (bench, before any live network)
 
-**Hub:** AWT-1069 part (a). **Version:** v0.2, 2026-11-03 (extends the Drive v0.1 bench runbook, id 1H6hbUSpkwQD8MG8wr9VHJPjDP1EzVxcO).
+**Hub:** AWT-1069 part (a). **Version:** v0.3, 2026-11-05 (Management port = admin; ROMMON/BIOS findings; VGA route) (extends the Drive v0.1 bench runbook, id 1H6hbUSpkwQD8MG8wr9VHJPjDP1EzVxcO).
 **Guide-only (charter §3):** Minda downloads, verifies, cables, installs and holds every password (1Password). Eugene writes, reads console output, verifies.
 **Status of the hardware (3 Nov):** 2 of 4 units in hand. Unit 2 (V04, FCH19267THV) bench-checked OK: X3430 4-core, 8 GB, POST pass, ROMMON 2.1(9)8, ASA 9.8(2)20, no config. Unit 1 (V03, FCH18187KX2) not yet booted. Unit 3 (V02, FCH1802J4Y9) arrived 3 Nov, **assigned to Beverley (`bev-fw`)**, not yet booted. Roles: units 1 + 2 = HQ pair, unit 3 = Beverley, unit 4 = spare. SSDs (Cisco ASA5500X-SSD120) ordered, due 4–5 Nov.
 
@@ -106,7 +106,7 @@ The ASA's normal path is BIOS → ROMMON → Cisco image on the internal flash. 
   | Gi0/7 | 188b.9d72.a293 |
   | Management0/0 | 188b.9d72.a28f |
   Send Eugene the OPNsense port list (name + MAC) — he maps each to the Cisco label so the sticker on the box matches the config.
-- Bench LAN = **Gi0/7** with `192.168.99.1/24` (a range not used anywhere in the estate). Laptop on Gi0/7 → https://192.168.99.1.
+- **Admin / bench LAN = the Management port** (OPNsense `em8`, MAC …a28f on unit 2) with `192.168.99.1/24` (a range not used anywhere in the estate). Laptop on the Management port → https://192.168.99.1. *(Changed 2026-11-05, Minda: Management port = dedicated admin port; Gi0/7 now spare.)* In the rack the Management port joins a small **out-of-band admin VLAN (9, 10.224.9.0/29)** — not VLAN 10, because the box will also own VLAN 10 after window 3 and can't have two interfaces in one subnet (see the HQ plan). Web GUI + SSH listen only on admin interfaces (System → Settings → Administration → Listen interfaces).
 - Then: **System → Firmware → Update** to the latest 26.7.x · **2FA for admin** (TOTP in 1Password) · NTP (uk.pool.ntp.org) · hostname `hq-fw-a` / `hq-fw-b` (`bev-fw` for Beverley) · serial speed 9600.
 - **Burn-in:** leave running 24 h; check System → Log Files for errors; ping test through a port.
 - **Backup:** System → Configuration → Backups → download **with encryption** → Minda keeps it (contains secrets; never in git or chat). Eugene reviews redacted diffs only.
