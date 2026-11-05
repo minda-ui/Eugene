@@ -120,3 +120,11 @@ _Guide-only (§3): Eugene specs; Minda buys + fits + holds all accounts. Verify 
 - Bench boot (3 Nov, **unit #2**, V04, Lic FCH19267THV): Cisco BIOS 9B2C109A (2013-05-15), Intel Xeon X3430 2.40GHz (4-core Lynnfield, **no AES-NI**), 8192 MB DDR3-1333, BMC init OK, POST OK. OPNsense note: fine for firewall/routing; IPsec slower without AES-NI; WireGuard (ChaCha20) unaffected.
 - Unit #2 continued: ROMMON 2.1(9)8; booted disk0:/asa982-20-smp-k8.bin (ASA 9.8(2)20); image SHA2 hash verified; POST result 0 (pass); internal flash /dev/sda1 FAT32 ~8 GB (867586/2011280 clusters used), minor boot-sector/backup mismatch reported by dosfsck (harmless, not fixed). IPMI over LAN not active.
 - Unit #2 show version: ASA 9.8(2)20 / FXOS 2.2(2.63) / ASDM 7.2(2)1; ASA5525 8192 MB, Lynnfield 4-core; 8 GB internal CF; BMC fw 2.4; **no startup-config (wiped)**; licence **ASA5525 VPN Premium, perpetual** (Active/Active failover, 2 contexts, 750 VPN peers); serial FCH19267THV; ports Gi0/0-0/7 MAC 188b.9d72.a290-a297 (0/0=a294 ordering), Management0/0 188b.9d72.a28f. Activation key NOT recorded (licence secret; not needed for OPNsense).
+
+### Deliveries 2026-11-05 (from Minda's mail, read-only check)
+- **Cisco ASA5500X-SSD120** — delivered 12:35 (eBay) → OPNsense installs can start (AWT-1069).
+- **HPE 32GB 2Rx4 DDR4** (Gen10 RAM) — delivered 11:28.
+- **renewtech HPE DL360/DL380 Gen9 network adapter** (listing 278422773036 → the 665249-B21 **560SFP+** swap) — DHL delivered 12:35. Check it is the **high-profile** bracket (seller asked HP/LP on 2 Nov).
+- **Genuine Cisco SFP-H10GB DAC** — delivered 13:46 (one parcel; other DACs as ordered).
+- **IT Black belt** parcel — Royal Mail delivered 5 Nov (item to confirm). A further Royal Mail parcel due Fri 6 Nov (sender to confirm).
+- Compuwyze order 000000449 (GPU cables) — delivered 3 Nov.
