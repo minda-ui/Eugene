@@ -128,3 +128,4 @@ _Guide-only (§3): Eugene specs; Minda buys + fits + holds all accounts. Verify 
 - **Genuine Cisco SFP-H10GB DAC** — delivered 13:46 (one parcel; other DACs as ordered).
 - **IT Black belt** parcel — Royal Mail delivered 5 Nov (item to confirm). A further Royal Mail parcel due Fri 6 Nov (sender to confirm).
 - Compuwyze order 000000449 (GPU cables) — delivered 3 Nov.
+- **ASA VGA header DIY kit (ordered 2026-11-05, arriving 6 Nov 07–11):** iYueMps VGA DB15 female breakout, 3-row 15-pin, screw terminals, with case (£6.90, Amazon 205-9665655-6797106) + 40× Dupont male-to-female 20 cm jumpers (£4.29, order 205-3660599-9385161). For the BIOS boot-order change on all 4 ASA 5525-X (AWT-1069).
