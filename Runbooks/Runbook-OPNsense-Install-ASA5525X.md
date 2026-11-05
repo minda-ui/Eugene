@@ -18,6 +18,25 @@ So each box can always go back to being a Cisco ASA (or be resold with its VPN P
 3. Label the stick "ASA 5525-X images 9.8(2)20". Keep it in the IT box.
 4. **Do not** record the licence activation key anywhere except Minda's 1Password (it is shown by `show version`).
 
+
+### Unit 2 ROMMON findings (2026-11-05)
+- Cisco images backed up to USB (`asa982-20-smp-k8.bin` 108877824 B, `asdm-791.bin` 29197944 B, verified by size). disk0 also holds `oldconfig_2018Nov29_1400.cfg` (previous owner's config — not copied; wipe before any resale).
+- BIOS screen (9B2C109A) shows **no setup / boot-menu key**; ROMMON `dev` lists only network ports (no storage). → **Use the fallback: write the image to the SSD with a USB-to-SATA adapter** (ordered).
+- `dev` PCI bus per port → expected OPNsense `em` order (FreeBSD numbers em by PCI bus; **confirm by MAC at first boot**):
+
+  | Cisco port | PCI bus | expected OPNsense |
+  |---|---|---|
+  | Gi0/6 | 3 | em0 |
+  | Gi0/4 | 4 | em1 |
+  | Gi0/2 | 5 | em2 |
+  | Gi0/0 | 6 | em3 |
+  | Gi0/7 | 7 | em4 |
+  | Gi0/5 | 8 | em5 |
+  | Gi0/3 | 9 | em6 |
+  | Gi0/1 | 10 | em7 |
+  | Management0/0 | 18 | em8 |
+- All ports Intel 82574L (`em` driver). Board also has an ASPEED VGA chip (no external port) and the Cavium crypto card (unused by OPNsense).
+
 ## 1. Download (Minda's PC)
 - Current stable: **OPNsense 26.7** (released 15 Jul 2026). Use the newest 26.7.x installer offered on the download page.
 - Page: https://opnsense.org/download/ → Architecture **amd64** → Image type **serial** (the ASA has no screen, only the console port) → mirror in the UK (e.g. mirrorservice.org).
