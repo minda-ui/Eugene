@@ -8,7 +8,7 @@
 |---|---|---|
 | Top | Patch panels + cable entry from ceiling | |
 | Top | **2× ASA 5525-X (new, for OPNsense)** | keep **off** the live network until bench-built; unit 2 comes out for the VGA/BIOS job |
-| Upper | HP-labelled black unit | to identify |
+| Upper | **HP rack PDU** (power distribution unit, horizontal) | which UPS feeds it? — key for the A/B split (AWT-1064/1065) |
 | Upper/middle | **DL380 Gen9** (2U, sliding rails) | loose items on top (console cable, caddy, adapters) → remove |
 | Middle | **~2U empty sliding rails** | **planned: AI server DL380 Gen10** |
 | Middle | **Hikvision DS-9632NI-M8 NVR (2U) on a wooden board** | → rack ears or 2U shelf |
