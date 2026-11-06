@@ -138,7 +138,7 @@ Layout suggestion: AI server low (heaviest, most heat); OPNsense pair next to th
 - 2026-11-06 rack photos: the **two 1U units at the top of the HQ rack (by the patch panels) are the new ASA 5525-X for OPNsense** (Minda). Other observations to tidy: the **CCTV recorder (Hikvision DS-9632NI-M8, 2U) stands on a wooden board** mid-rack — mount it with its own rack ears if found (Hikvision 2U NVRs usually ship with them) or a 2U rack shelf, loose items on top of the Gen9 (console cable, caddy, adapters), rear cabling unmanaged (1U cable manager + velcro when the new kit goes in), ~2U empty sliding rails under the Gen9 (AI server slot candidate).
 
 ### Mail check 2026-11-06 (evening)
-- **Bargain Hardware dispatched 6 Nov (Shipment SS207004, invoice PPSI147647)** — the 2× DL380 Gen10 (order 002022046). DPD: **driver cannot leave it safe** → someone must be in to sign. Tracking number is in the attached shipment PDF.
+- **Bargain Hardware dispatched 6 Nov (Shipment SS207004, invoice PPSI147647)** — the 2× DL380 Gen10 (order 002022046). **Arriving Tuesday 10 Nov** (Minda). DPD: **driver cannot leave it safe** → someone must be in to sign. Tracking number is in the attached shipment PDF.
 - **TP-Link TL-SG1016** (OOB switch) ordered on eBay 6 Nov, expected 9–13 Nov.
 - VGA breakout + Dupont wires delivered 6 Nov (used for unit 3 BIOS).
 - Composio: free shared-key toolkits (Gemini, Yelp, text_to_pdf, weathermap…) end 13 Nov — the estate uses Gmail/Drive/GitHub/Smartsheet (own OAuth), not these → no action expected; Minda may ignore unless an employee uses web search via Composio.
