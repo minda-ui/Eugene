@@ -49,6 +49,7 @@ So each box can always go back to being a Cisco ASA (or be resold with its VPN P
   | H-sync → 13 | top row, 2nd from left | 4 |
   | V-sync → 14 | bottom row, 2nd from left | 3 |
   Optional check: the ground pin should beep to the chassis on a multimeter.
+- **WORKED 2026-11-06 (unit 2):** wired with a cut VGA cable (colours not standard - verify with a meter or swap the two sync wires if no picture). BIOS = **AMI Aptio, entered with F2**, no password. **Boot tab:** Quiet Boot Disabled, Setup Prompt Timeout 1, **ROMMON Boot → Disabled** (set by Minda), default order 1st eUSB-HDD (Cisco internal flash) / 2nd USB-HDD / 3rd HDD / 4th Network IBA GE / 5th USB-ODD. **Advanced → SATA Configuration:** Port0 = **Micron_M550_MT (128.0GB)** (the ASA5500X-SSD120), Port1 not present, **SATA mode AHCI**. Set 1st Boot = HDD, 2nd = eUSB-HDD; save = **F4**.
 - All ports Intel 82574L (`em` driver). Board also has an ASPEED VGA chip (no external port) and the Cavium crypto card (unused by OPNsense).
 
 ## 1. Download (Minda's PC)
