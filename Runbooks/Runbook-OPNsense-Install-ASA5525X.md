@@ -156,6 +156,11 @@ The ASA's normal path is BIOS → ROMMON → Cisco image on the internal flash. 
 |---|---|---|---|---|
 | 1 (V03, FCH18187KX2) | HQ hq-fw-a | no | no | — |
 | 2 (V04, FCH19267THV) | HQ hq-fw-b | **yes** (USB stick, 9.8(2)20 + ASDM 7.9(1)) | no | — |
-| 3 (V02, FCH1802J4Y9) | Beverley bev-fw | no (unit 2's stick holds the same 9.8(2)20 image) | **yes** | live image boots from SSD; install via USB next |
+| 3 (V02, FCH1802J4Y9) | Beverley bev-fw | no (unit 2's stick holds the same 9.8(2)20 image) | **yes** | **INSTALLED 2026-11-06** — OPNsense 26.7, UFS/GPT on ada0 (Micron M550), root fs /dev/gpt/rootfs, root password set by Minda (1Password) |
 | 4 | spare | — | — | — |
 MACs: unit 2 188b.9d72.a28f…a297; **unit 3 88:5a:92:87:ed:af…b7**.
+
+### Lessons from unit 3 install (2026-11-06)
+- Don't pre-write the image to the SSD: it boots the live image from the SSD (both disks carry label OPNsense_Install) and the installer then reports *"table 'ada0' is corrupt"* / *"Device busy"*. Do this instead: **SSD blank (or slid out), boot from USB stick (BIOS 1st Boot = USB-HDD), push SSD in, `camcontrol rescan all`, `gpart destroy -F ada0`, `dd if=/dev/zero of=/dev/ada0 bs=1m count=10`**, then installer → UFS → ada0 → GPT → swap 8 GB → destroy yes.
+- Disks seen by the installer: ada0 Micron M550 119 GB (SSD) / da1 "USB DISK MODULE" 7 GB (Cisco eUSB flash — never touch) / da0 USB stick.
+- After install: BIOS 1st Boot = HDD, stick out; OPNsense boots from `/dev/gpt/rootfs`. Console 115200.
