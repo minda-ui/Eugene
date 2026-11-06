@@ -50,6 +50,20 @@ So each box can always go back to being a Cisco ASA (or be resold with its VPN P
   | V-sync → 14 | bottom row, 2nd from left | 3 |
   Optional check: the ground pin should beep to the chassis on a multimeter.
 - **WORKED 2026-11-06 (unit 2):** wired with a cut VGA cable (colours not standard - verify with a meter or swap the two sync wires if no picture). BIOS = **AMI Aptio, entered with F2**, no password. **Boot tab:** Quiet Boot Disabled, Setup Prompt Timeout 1, **ROMMON Boot → Disabled** (set by Minda), default order 1st eUSB-HDD (Cisco internal flash) / 2nd USB-HDD / 3rd HDD / 4th Network IBA GE / 5th USB-ODD. **Advanced → SATA Configuration:** Port0 = **Micron_M550_MT (128.0GB)** (the ASA5500X-SSD120), Port1 not present, **SATA mode AHCI**. Set 1st Boot = HDD, 2nd = eUSB-HDD; save = **F4**.
+- **First OPNsense boot (2026-11-06, live mode from SSD):** OPNsense 26.7 amd64 runs; defaults LAN em0 192.168.1.1/24 (+DHCP) - **clashes with HQ Starlink 192.168.1.x → no network cables until reassigned**. `ifconfig` MACs **88:5a:92:87:ed:af…b7** - *not* unit 2's 188b.9d72.a28f… → **this box is a different unit (to confirm which)**. Port map **confirmed** (same MAC offsets as unit 2's `show version` + PCI-bus prediction):
+
+  | OPNsense | MAC (this unit) | Cisco label |
+  |---|---|---|
+  | em0 | …ed:b7 | Gi0/6 |
+  | em1 | …ed:b6 | Gi0/4 |
+  | em2 | …ed:b5 | Gi0/2 |
+  | em3 | …ed:b4 | Gi0/0 |
+  | em4 | …ed:b3 | Gi0/7 |
+  | em5 | …ed:b2 | Gi0/5 |
+  | em6 | …ed:b1 | Gi0/3 |
+  | em7 | …ed:b0 | Gi0/1 |
+  | em8 | …ed:af | **Management** |
+- Live image cannot install onto its own disk → install from a USB stick onto the SSD (ada0); never the ~8 GB eUSB.
 - All ports Intel 82574L (`em` driver). Board also has an ASPEED VGA chip (no external port) and the Cavium crypto card (unused by OPNsense).
 
 ## 1. Download (Minda's PC)
