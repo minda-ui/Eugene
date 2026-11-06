@@ -130,7 +130,7 @@ _Guide-only (§3): Eugene specs; Minda buys + fits + holds all accounts. Verify 
 - Compuwyze order 000000449 (GPU cables) — delivered 3 Nov.
 - **ASA VGA header DIY kit (ordered 2026-11-05, arriving 6 Nov 07–11):** iYueMps VGA DB15 female breakout, 3-row 15-pin, screw terminals, with case (£6.90, Amazon 205-9665655-6797106) + 40× Dupont male-to-female 20 cm jumpers (£4.29, order 205-3660599-9385161). For the BIOS boot-order change on all 4 ASA 5525-X (AWT-1069).
 
-### HQ rack space (Minda, 2026-11-06): ~10–16U free
+### HQ rack (Minda, 2026-11-06): **HP 36U** cabinet, ~10–16U free
 Planned new kit: AI server DL380 Gen10 **2U** + OPNsense pair **2× 1U** + OOB switch **1U** = **5U** → fits, leaving ~5–11U. The 2× ASA 5550 (1U each) free 2U when retired after Step B.
 Layout suggestion: AI server low (heaviest, most heat); OPNsense pair next to the 3850 stack (short patch leads); OOB switch beside them. ✅ ASA 5525-X rack ears present on all 4 units (Minda, 6 Nov); Gen10 rail kit (confirmed by Bargain Hardware).
 
