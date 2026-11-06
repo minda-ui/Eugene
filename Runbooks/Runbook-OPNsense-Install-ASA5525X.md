@@ -156,7 +156,7 @@ The ASA's normal path is BIOS → ROMMON → Cisco image on the internal flash. 
 |---|---|---|---|---|
 | 1 (V03, FCH18187KX2) | HQ hq-fw-a | no | no | — |
 | 2 (V04, FCH19267THV) | HQ hq-fw-b | **yes** (USB stick, 9.8(2)20 + ASDM 7.9(1)) | no | — |
-| 3 (V02, FCH1802J4Y9) | Beverley bev-fw | no (unit 2's stick holds the same 9.8(2)20 image) | **yes** | **INSTALLED 2026-11-06** — OPNsense 26.7, UFS/GPT on ada0 (Micron M550), root fs /dev/gpt/rootfs, root password set by Minda (1Password) |
+| 3 (V02, FCH1802J4Y9) | Beverley bev-fw | no (unit 2's stick holds the same 9.8(2)20 image) | **yes** | **INSTALLED 2026-11-06, updated to 26.7.8** — OPNsense, UFS/GPT on ada0 (Micron M550), root fs /dev/gpt/rootfs, root password set by Minda (1Password) |
 | 4 | spare | — | — | — |
 MACs: unit 2 188b.9d72.a28f…a297; **unit 3 88:5a:92:87:ed:af…b7**.
 
