@@ -49,8 +49,8 @@ So each box can always go back to being a Cisco ASA (or be resold with its VPN P
   | H-sync → 13 | top row, 2nd from left | 4 |
   | V-sync → 14 | bottom row, 2nd from left | 3 |
   Optional check: the ground pin should beep to the chassis on a multimeter.
-- **WORKED 2026-11-06 (unit 2):** wired with a cut VGA cable (colours not standard - verify with a meter or swap the two sync wires if no picture). BIOS = **AMI Aptio, entered with F2**, no password. **Boot tab:** Quiet Boot Disabled, Setup Prompt Timeout 1, **ROMMON Boot → Disabled** (set by Minda), default order 1st eUSB-HDD (Cisco internal flash) / 2nd USB-HDD / 3rd HDD / 4th Network IBA GE / 5th USB-ODD. **Advanced → SATA Configuration:** Port0 = **Micron_M550_MT (128.0GB)** (the ASA5500X-SSD120), Port1 not present, **SATA mode AHCI**. Set 1st Boot = HDD, 2nd = eUSB-HDD; save = **F4**.
-- **First OPNsense boot (2026-11-06, live mode from SSD):** OPNsense 26.7 amd64 runs; defaults LAN em0 192.168.1.1/24 (+DHCP) - **clashes with HQ Starlink 192.168.1.x → no network cables until reassigned**. `ifconfig` MACs **88:5a:92:87:ed:af…b7** - *not* unit 2's 188b.9d72.a28f… → **this box is a different unit (to confirm which)**. Port map **confirmed** (same MAC offsets as unit 2's `show version` + PCI-bus prediction):
+- **WORKED 2026-11-06 (UNIT 3, not unit 2 — corrected):** wired with a cut VGA cable (colours not standard - verify with a meter or swap the two sync wires if no picture). BIOS = **AMI Aptio, entered with F2**, no password. **Boot tab:** Quiet Boot Disabled, Setup Prompt Timeout 1, **ROMMON Boot → Disabled** (set by Minda), default order 1st eUSB-HDD (Cisco internal flash) / 2nd USB-HDD / 3rd HDD / 4th Network IBA GE / 5th USB-ODD. **Advanced → SATA Configuration:** Port0 = **Micron_M550_MT (128.0GB)** (the ASA5500X-SSD120), Port1 not present, **SATA mode AHCI**. Set 1st Boot = HDD, 2nd = eUSB-HDD; save = **F4**.
+- **First OPNsense boot (2026-11-06, live mode from SSD):** OPNsense 26.7 amd64 runs; defaults LAN em0 192.168.1.1/24 (+DHCP) - **clashes with HQ Starlink 192.168.1.x → no network cables until reassigned**. `ifconfig` MACs **88:5a:92:87:ed:af…b7** - *not* unit 2's 188b.9d72.a28f… → **confirmed by Minda: this is UNIT 3** (V02, Lic FCH1802J4Y9, chassis FGL1804407Y, → Beverley `bev-fw`). Port map **confirmed** (same MAC offsets as unit 2's `show version` + PCI-bus prediction):
 
   | OPNsense | MAC (this unit) | Cisco label |
   |---|---|---|
@@ -149,3 +149,13 @@ The ASA's normal path is BIOS → ROMMON → Cisco image on the internal flash. 
 - CPU is an Intel Xeon X3430 (no AES-NI): fine for firewall/routing at our line speeds; WireGuard unaffected; IPsec slower.
 - All units on the **same OPNsense version** before any HA pairing.
 - Sources: OPNsense 26.7 release (mirror README, 15 Jul 2026); verification method per docs.opnsense.org/manual/install.html.
+
+
+## Per-unit status (2026-11-06)
+| Unit | Role | Cisco images backed up | BIOS: ROMMON Boot off, HDD first | OPNsense |
+|---|---|---|---|---|
+| 1 (V03, FCH18187KX2) | HQ hq-fw-a | no | no | — |
+| 2 (V04, FCH19267THV) | HQ hq-fw-b | **yes** (USB stick, 9.8(2)20 + ASDM 7.9(1)) | no | — |
+| 3 (V02, FCH1802J4Y9) | Beverley bev-fw | no (unit 2's stick holds the same 9.8(2)20 image) | **yes** | live image boots from SSD; install via USB next |
+| 4 | spare | — | — | — |
+MACs: unit 2 188b.9d72.a28f…a297; **unit 3 88:5a:92:87:ed:af…b7**.
