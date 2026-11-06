@@ -132,6 +132,6 @@ _Guide-only (§3): Eugene specs; Minda buys + fits + holds all accounts. Verify 
 
 ### HQ rack space (Minda, 2026-11-06): ~10–16U free
 Planned new kit: AI server DL380 Gen10 **2U** + OPNsense pair **2× 1U** + OOB switch **1U** = **5U** → fits, leaving ~5–11U. The 2× ASA 5550 (1U each) free 2U when retired after Step B.
-Layout suggestion: AI server low (heaviest, most heat); OPNsense pair next to the 3850 stack (short patch leads); OOB switch beside them. Check: ASA 5525-X rack ears present on all units; Gen10 rail kit (confirmed by Bargain Hardware).
+Layout suggestion: AI server low (heaviest, most heat); OPNsense pair next to the 3850 stack (short patch leads); OOB switch beside them. ✅ ASA 5525-X rack ears present on all 4 units (Minda, 6 Nov); Gen10 rail kit (confirmed by Bargain Hardware).
 
 | ⬜ | 1 | **OOB management switch** | **TP-Link TL-SG1016** — 16× 1G, unmanaged, 1U rack, fanless, internal PSU (IEC lead → UPS outlet) | ~50–60 | proposed 2026-11-06 (Plan-OOB-Management-Network-HQ) — Minda to order |
