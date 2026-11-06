@@ -38,6 +38,17 @@ So each box can always go back to being a Cisco ASA (or be resold with its VPN P
 - **SSD written on a desktop PC (balenaEtcher) and fitted; ASA still booted Cisco from internal flash and warned it may build a RAID on the SSD → powered off at once.** Lesson: with the SSD fitted, always press **Esc** at ROMMON until the boot order is changed.
 - **BIOS setup NOT reachable over the console:** F2 (and Del) tried with PuTTY keyboard modes SCO, VT100+, Xterm R6 - no menu. Community reports (Hackaday homelab, Cisco Community) used the **internal VGA pin header** + USB keyboard: F2 → boot order SSD first, **disable ROMMON boot**. → Lid-off photo (5 Nov, board PCBA 800-36786-02): **VGA CONN = populated 2×8 (16-pin, 2.54 mm) header** next to the unpopulated J1 iBMC/JTAG 2×10. Cable: **"IDC 16-pin to VGA" motherboard bracket cable** (~£5–10); check the community pinout (github.com/Axon07/Cisco-ASA-VGA-Pinout) matches before powering on. BIOS (USB keyboard, F2/Del): **BOOT → "ROMMON Boot" → Disabled** (space bar), SSD first, save. Do all 4 units in one session.
 - **DIY cable (no ready-made cable found, 5 Nov):** community pinout (Axon07) - header pin → VGA DB15 pin, same numbers: **1 red, 2 green, 3 blue, 10 sync ground, 13 H-sync, 14 V-sync**; 4–9, 11, 12, 15 not connected; **pin 16 absent (gap = orientation mark)**. Parts: 6× female-to-male Dupont jumpers + a **VGA DB15 female screw-terminal breakout**; the monitor's normal VGA cable plugs into the breakout. Board silkscreen shows 15/16 at the right-hand end - confirm against the missing pin before wiring.
+- **Checked 2026-11-06 (unit 2, header J9):** silkscreen 2 top-left, 16 top-right, 15 bottom-right; **the empty position is bottom-left (silk 1)**. The community guide numbers the *opposite* way (its pin 1 top-right, its missing pin 16) → its pin N = board silk (17−N). **Wire by position** (board held with "VGA CONN" readable below the header):
+
+  | VGA signal → breakout terminal | Header position | Board silk |
+  |---|---|---|
+  | Red → 1 | top row, 1st from right | 16 |
+  | Green → 2 | bottom row, 1st from right | 15 |
+  | Blue → 3 | top row, 2nd from right | 14 |
+  | Ground → 10 | bottom row, 5th from right | 7 |
+  | H-sync → 13 | top row, 2nd from left | 4 |
+  | V-sync → 14 | bottom row, 2nd from left | 3 |
+  Optional check: the ground pin should beep to the chassis on a multimeter.
 - All ports Intel 82574L (`em` driver). Board also has an ASPEED VGA chip (no external port) and the Cavium crypto card (unused by OPNsense).
 
 ## 1. Download (Minda's PC)
