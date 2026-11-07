@@ -107,3 +107,12 @@ Minda: the Business line has the **newer BT hub with no modem/bridge mode**; the
 Sources: business.bt.com Smart Hub 2 multiple static IP guide; BT Business community threads on bridge mode / 3rd-party routers.
 **Update 7 Nov (Minda's screenshots):** BT chat 23 Dec 2024 → Beverley Business line = **Full Fibre 900 (FTTP)**, PPPoE login on `…@hg7.btclick.com` (**credentials → Minda's 1Password only, never recorded here**), single static **81.150.11.69** (the line/session address). Hub page "Manage your Multi Static IP addresses" (Dec 2024) → **block 81.143.32.193–.197 enabled** (gateway .198 = hub); **.193 assigned to MAC b8:31:b5:38:03:33** (device to identify), .194 used by HQ ASA `outside_bt`, .195–.197 free. Note from the contractor at the time: the hub has **no "allow incoming connections to the static IPs" switch** → inbound to the block is limited by the hub → strengthens **option B (PPPoE on bev-fw, hub retired)**: then the block is routed straight to bev-fw and the hub firewall is out of the path. Still ask BT to confirm the block is routed to a third-party PPPoE router and whether a VLAN tag is needed.
 Context (Minda, 7 Nov): the Dec 2024 hub screenshot + note came from the **original network engineer** (contractor who built the network); exposing the static block through the hub was an option they explored then and it stalled on the missing inbound switch. Option B (PPPoE on our own firewall) is the same goal by a route that avoids the hub.
+
+### 9d. BT tests at Beverley — next week (Minda, 7 Nov: no BT contact for now)
+Read-only / reversible, ~30 min, Minda on site, Eugene guiding:
+1. Hub device list: identify **b8:31:b5:38:03:33** (holder of 81.143.32.193).
+2. Hub Static IP page + firewall page screenshots (no passwords): what inbound options exist.
+3. Inbound test to the block: from a phone on 4G, ping 81.143.32.193 / .194 (ping is allowed on the hub page) — confirms the block is live end to end.
+4. Trace the BT cabling: Openreach box → hub → 3850 Gi1/0/48 (VLAN 4 "BT-router for office") and Gi1/1/1 (VLAN 6) — which hub feeds which VLAN, and which line the Beverley ASA `outside` (192.168.1.254) uses.
+5. Optional, if time: bench PPPoE test from bev-fw on a spare port to the **residential** Openreach box? — no: do PPPoE tests only on the Business line in a planned window; skip in this visit.
+Outcome decides: A (public IP behind the hub) vs B (PPPoE on bev-fw) for the swap.
