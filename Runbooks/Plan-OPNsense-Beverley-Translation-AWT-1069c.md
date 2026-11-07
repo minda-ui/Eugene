@@ -36,7 +36,7 @@ ASA logic: `same-security-traffic permit inter-interface`; higher→lower allowe
 | LAN (inside 100) | to anything (incl. wifi = same level) | **allow any** |
 | WIFI (wifi 100) | to anything (incl. inside = same level) | **allow any** |
 | HQMGMT (office_mgmt 50, ACL `allow-all`) | anything, **incl. inside/wifi** (ACL overrides levels) — this is how HQ reaches the Beverley phone (1006 on .111.10) and Proxmox | **allow any** |
-| APMGMT (ap_mgmt 20, ACL `wmc`) | only Cloud Key **10.224.110.5 → any**, and .110.5 → 10.224.11.11 (VM 101) | **allow 10.224.110.5 → any**; block rest. (VM 101 line not needed — VM stopped.) ⚠ APs (.110.10–12) get **no** internet today — keep as is. |
+| APMGMT (ap_mgmt 20, ACL `wmc`) | only Cloud Key **10.224.110.5 → any**, and .110.5 → 10.224.11.11 (VM 101) | **allow 10.224.110.5 → any**; **NEW (Minda 7 Nov): allow APMGMT net → !RFC1918 on TCP 443 + UDP 123 only** (UniFi firmware + NTP); block rest. (VM 101 line not needed — VM stopped.) |
 | IOT (wifi_iot 10) | lower levels only → effectively **internet only** | **allow → !RFC1918 (internet)**; block all internal |
 | WAN (outside, ACL permits ip any any + ICMP) | no port-forwards → nothing reachable | **default deny inbound** (OPNsense default). Optional: allow ICMP echo to WAN. |
 
@@ -58,7 +58,7 @@ OPNsense: Firewall → NAT → Outbound → **Hybrid**: automatic rules cover th
 
 ## Minda's answers (2026-11-07)
 1. **IoT stays as today** (internet only, blocked from inside).
-2. AP internet: Eugene recommends **yes, narrowly** — APs (10.224.110.0/24 except .5) → internet on **HTTPS 443 + NTP 123 only**, so UniFi firmware downloads and time work; still blocked from all internal nets. Awaiting Minda's yes/no.
+2. AP internet: Eugene recommends **yes, narrowly** — APs (10.224.110.0/24 except .5) → internet on **HTTPS 443 + NTP 123 only**, so UniFi firmware downloads and time work; still blocked from all internal nets. **Minda: YES (2026-11-07).**
 3. **Swap before the BT Business change** — work out the plan (section 8).
 
 ## Open for Minda (original)
