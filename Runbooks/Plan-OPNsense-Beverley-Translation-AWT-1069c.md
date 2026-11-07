@@ -77,3 +77,15 @@ OPNsense: Firewall → NAT → Outbound → **Hybrid**: automatic rules cover th
 | 6 | **Day 30**: home-asa retired (keep as cold spare/resell) | — | Minda | — | — |
 | 7 | **Then** BT Business extension + WAN gateway group (BT primary, HQ Wavenet over radio as backup) | — | — | — | OI-24 |
 Prerequisites: unit 3 Gi0/0 cable out of the HQ office socket; console cable + laptop at Beverley; Minda's 1Password entry for bev-fw root.
+
+## 9. Beverley internet resilience — three paths (Minda, 7 Nov)
+Lines: **BT Business (5 public IPs, main)**, **BT residential (ends Jul/Aug 2027)**, **airFiber radio to HQ** (HQ has Wavenet FTTB + Starlink + Vodafone).
+**Yes — HQ can be Beverley's backup internet over the radio.** bev-fw gateway group (OPNsense *System → Gateways → Group*), failover on packet loss/latency to a monitor IP:
+| Tier | Gateway | Monitor | Note |
+|---|---|---|---|
+| 1 | **BT Business** (WAN, public IP) | 1.1.1.1 | main |
+| 2 | **BT residential** (WAN2) | 8.8.4.4 | until it lapses 2027 |
+| 3 | **HQ over the radio** — next hop 10.224.10.1 on HQMGMT (later a dedicated transit VLAN) | 9.9.9.9 | uses HQ's Wavenet → Starlink → Vodafone |
+**HQ side needs (on today's ASA, later the HQ OPNsense pair):** NAT Beverley nets (10.224.110/111/120/121.0/24) out of HQ's internet; add the missing route **10.224.121.0/24 via 10.224.10.254**; allow from mgmt. ~6 lines, Eugene writes them.
+**Caveats:** inbound to Beverley's public IPs (future WireGuard endpoint) does not fail over; radio ~415 Mb/s is ample; when the radio is down, tier 3 is simply unavailable. **Bonus:** the same idea in reverse lets HQ use Beverley's BT Business as a backup (today's `outside_bt` vlan 4 path) — tidy that up in HQ Step B.
+**To check:** which BT router sits behind Beverley ASA `outside` (192.168.1.111 → 192.168.1.254) — Business or residential? The 5 public IPs are not on the ASA today, so the Business line is probably in router/NAT mode.
