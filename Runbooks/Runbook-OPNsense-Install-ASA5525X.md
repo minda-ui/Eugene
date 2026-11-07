@@ -1,6 +1,6 @@
 # Runbook — Install OPNsense on a Cisco ASA 5525-X (bench, before any live network)
 
-**Hub:** AWT-1069 part (a). **Version:** v0.2, 2026-11-03 (extends the Drive v0.1 bench runbook, id 1H6hbUSpkwQD8MG8wr9VHJPjDP1EzVxcO).
+**Hub:** AWT-1069 part (a). **Version:** v0.3, 2026-11-05 (Management port = admin; ROMMON/BIOS findings; VGA route) (extends the Drive v0.1 bench runbook, id 1H6hbUSpkwQD8MG8wr9VHJPjDP1EzVxcO).
 **Guide-only (charter §3):** Minda downloads, verifies, cables, installs and holds every password (1Password). Eugene writes, reads console output, verifies.
 **Status of the hardware (3 Nov):** 2 of 4 units in hand. Unit 2 (V04, FCH19267THV) bench-checked OK: X3430 4-core, 8 GB, POST pass, ROMMON 2.1(9)8, ASA 9.8(2)20, no config. Unit 1 (V03, FCH18187KX2) not yet booted. Unit 3 (V02, FCH1802J4Y9) arrived 3 Nov, **assigned to Beverley (`bev-fw`)**, not yet booted. Roles: units 1 + 2 = HQ pair, unit 3 = Beverley, unit 4 = spare. SSDs (Cisco ASA5500X-SSD120) ordered, due 4–5 Nov.
 
@@ -17,6 +17,54 @@ So each box can always go back to being a Cisco ASA (or be resold with its VPN P
 2. Also copy anything else listed by `dir disk0:` that ends in `.bin` or `.pkg` (e.g. ASDM `asdm-*.bin`).
 3. Label the stick "ASA 5525-X images 9.8(2)20". Keep it in the IT box.
 4. **Do not** record the licence activation key anywhere except Minda's 1Password (it is shown by `show version`).
+
+
+### Unit 2 ROMMON findings (2026-11-05)
+- Cisco images backed up to USB (`asa982-20-smp-k8.bin` 108877824 B, `asdm-791.bin` 29197944 B, verified by size). disk0 also holds `oldconfig_2018Nov29_1400.cfg` (previous owner's config — not copied; wipe before any resale).
+- BIOS screen (9B2C109A) shows **no setup / boot-menu key**; ROMMON `dev` lists only network ports (no storage). → **Use the fallback: write the image to the SSD with a USB-to-SATA adapter** (ordered).
+- `dev` PCI bus per port → expected OPNsense `em` order (FreeBSD numbers em by PCI bus; **confirm by MAC at first boot**):
+
+  | Cisco port | PCI bus | expected OPNsense |
+  |---|---|---|
+  | Gi0/6 | 3 | em0 |
+  | Gi0/4 | 4 | em1 |
+  | Gi0/2 | 5 | em2 |
+  | Gi0/0 | 6 | em3 |
+  | Gi0/7 | 7 | em4 |
+  | Gi0/5 | 8 | em5 |
+  | Gi0/3 | 9 | em6 |
+  | Gi0/1 | 10 | em7 |
+  | Management0/0 | 18 | em8 |
+- **SSD written on a desktop PC (balenaEtcher) and fitted; ASA still booted Cisco from internal flash and warned it may build a RAID on the SSD → powered off at once.** Lesson: with the SSD fitted, always press **Esc** at ROMMON until the boot order is changed.
+- **BIOS setup NOT reachable over the console:** F2 (and Del) tried with PuTTY keyboard modes SCO, VT100+, Xterm R6 - no menu. Community reports (Hackaday homelab, Cisco Community) used the **internal VGA pin header** + USB keyboard: F2 → boot order SSD first, **disable ROMMON boot**. → Lid-off photo (5 Nov, board PCBA 800-36786-02): **VGA CONN = populated 2×8 (16-pin, 2.54 mm) header** next to the unpopulated J1 iBMC/JTAG 2×10. Cable: **"IDC 16-pin to VGA" motherboard bracket cable** (~£5–10); check the community pinout (github.com/Axon07/Cisco-ASA-VGA-Pinout) matches before powering on. BIOS (USB keyboard, F2/Del): **BOOT → "ROMMON Boot" → Disabled** (space bar), SSD first, save. Do all 4 units in one session.
+- **DIY cable (no ready-made cable found, 5 Nov):** community pinout (Axon07) - header pin → VGA DB15 pin, same numbers: **1 red, 2 green, 3 blue, 10 sync ground, 13 H-sync, 14 V-sync**; 4–9, 11, 12, 15 not connected; **pin 16 absent (gap = orientation mark)**. Parts: 6× female-to-male Dupont jumpers + a **VGA DB15 female screw-terminal breakout**; the monitor's normal VGA cable plugs into the breakout. Board silkscreen shows 15/16 at the right-hand end - confirm against the missing pin before wiring.
+- **Checked 2026-11-06 (unit 2, header J9):** silkscreen 2 top-left, 16 top-right, 15 bottom-right; **the empty position is bottom-left (silk 1)**. The community guide numbers the *opposite* way (its pin 1 top-right, its missing pin 16) → its pin N = board silk (17−N). **Wire by position** (board held with "VGA CONN" readable below the header):
+
+  | VGA signal → breakout terminal | Header position | Board silk |
+  |---|---|---|
+  | Red → 1 | top row, 1st from right | 16 |
+  | Green → 2 | bottom row, 1st from right | 15 |
+  | Blue → 3 | top row, 2nd from right | 14 |
+  | Ground → 10 | bottom row, 5th from right | 7 |
+  | H-sync → 13 | top row, 2nd from left | 4 |
+  | V-sync → 14 | bottom row, 2nd from left | 3 |
+  Optional check: the ground pin should beep to the chassis on a multimeter.
+- **WORKED 2026-11-06 (UNIT 3, not unit 2 — corrected):** wired with a cut VGA cable (colours not standard - verify with a meter or swap the two sync wires if no picture). BIOS = **AMI Aptio, entered with F2**, no password. **Boot tab:** Quiet Boot Disabled, Setup Prompt Timeout 1, **ROMMON Boot → Disabled** (set by Minda), default order 1st eUSB-HDD (Cisco internal flash) / 2nd USB-HDD / 3rd HDD / 4th Network IBA GE / 5th USB-ODD. **Advanced → SATA Configuration:** Port0 = **Micron_M550_MT (128.0GB)** (the ASA5500X-SSD120), Port1 not present, **SATA mode AHCI**. Set 1st Boot = HDD, 2nd = eUSB-HDD; save = **F4**.
+- **First OPNsense boot (2026-11-06, live mode from SSD):** OPNsense 26.7 amd64 runs; defaults LAN em0 192.168.1.1/24 (+DHCP) - **clashes with HQ Starlink 192.168.1.x → no network cables until reassigned**. `ifconfig` MACs **88:5a:92:87:ed:af…b7** - *not* unit 2's 188b.9d72.a28f… → **confirmed by Minda: this is UNIT 3** (V02, Lic FCH1802J4Y9, chassis FGL1804407Y, → Beverley `bev-fw`). Port map **confirmed** (same MAC offsets as unit 2's `show version` + PCI-bus prediction):
+
+  | OPNsense | MAC (this unit) | Cisco label |
+  |---|---|---|
+  | em0 | …ed:b7 | Gi0/6 |
+  | em1 | …ed:b6 | Gi0/4 |
+  | em2 | …ed:b5 | Gi0/2 |
+  | em3 | …ed:b4 | Gi0/0 |
+  | em4 | …ed:b3 | Gi0/7 |
+  | em5 | …ed:b2 | Gi0/5 |
+  | em6 | …ed:b1 | Gi0/3 |
+  | em7 | …ed:b0 | Gi0/1 |
+  | em8 | …ed:af | **Management** |
+- Live image cannot install onto its own disk → install from a USB stick onto the SSD (ada0); never the ~8 GB eUSB.
+- All ports Intel 82574L (`em` driver). Board also has an ASPEED VGA chip (no external port) and the Cavium crypto card (unused by OPNsense).
 
 ## 1. Download (Minda's PC)
 - Current stable: **OPNsense 26.7** (released 15 Jul 2026). Use the newest 26.7.x installer offered on the download page.
@@ -84,7 +132,7 @@ The ASA's normal path is BIOS → ROMMON → Cisco image on the internal flash. 
   | Gi0/7 | 188b.9d72.a293 |
   | Management0/0 | 188b.9d72.a28f |
   Send Eugene the OPNsense port list (name + MAC) — he maps each to the Cisco label so the sticker on the box matches the config.
-- Bench LAN = **Gi0/7** with `192.168.99.1/24` (a range not used anywhere in the estate). Laptop on Gi0/7 → https://192.168.99.1.
+- **Admin / bench LAN = the Management port** (OPNsense `em8`, MAC …a28f on unit 2) with `192.168.99.1/24` (a range not used anywhere in the estate). Laptop on the Management port → https://192.168.99.1. *(Changed 2026-11-05, Minda: Management port = dedicated admin port; Gi0/7 now spare.)* In the rack the Management port joins a small **out-of-band admin VLAN (9, 10.224.9.0/29)** — not VLAN 10, because the box will also own VLAN 10 after window 3 and can't have two interfaces in one subnet (see the HQ plan). Web GUI + SSH listen only on admin interfaces (System → Settings → Administration → Listen interfaces).
 - Then: **System → Firmware → Update** to the latest 26.7.x · **2FA for admin** (TOTP in 1Password) · NTP (uk.pool.ntp.org) · hostname `hq-fw-a` / `hq-fw-b` (`bev-fw` for Beverley) · serial speed 9600.
 - **Burn-in:** leave running 24 h; check System → Log Files for errors; ping test through a port.
 - **Backup:** System → Configuration → Backups → download **with encryption** → Minda keeps it (contains secrets; never in git or chat). Eugene reviews redacted diffs only.
@@ -101,3 +149,20 @@ The ASA's normal path is BIOS → ROMMON → Cisco image on the internal flash. 
 - CPU is an Intel Xeon X3430 (no AES-NI): fine for firewall/routing at our line speeds; WireGuard unaffected; IPsec slower.
 - All units on the **same OPNsense version** before any HA pairing.
 - Sources: OPNsense 26.7 release (mirror README, 15 Jul 2026); verification method per docs.opnsense.org/manual/install.html.
+
+
+## Per-unit status (2026-11-06)
+| Unit | Role | Cisco images backed up | BIOS: ROMMON Boot off, HDD first | OPNsense |
+|---|---|---|---|---|
+| 1 (V03, FCH18187KX2) | HQ hq-fw-a | no | no | — |
+| 2 (V04, FCH19267THV) | HQ hq-fw-b | **yes** (USB stick, 9.8(2)20 + ASDM 7.9(1)) | no | — |
+| 3 (V02, FCH1802J4Y9) | Beverley bev-fw | no (unit 2's stick holds the same 9.8(2)20 image) | **yes** | **INSTALLED 2026-11-06, updated to 26.7.8** — OPNsense, UFS/GPT on ada0 (Micron M550), root fs /dev/gpt/rootfs, root password set by Minda (1Password) |
+| 4 | spare | — | — | — |
+MACs: unit 2 188b.9d72.a28f…a297; **unit 3 88:5a:92:87:ed:af…b7**.
+
+### Lessons from unit 3 install (2026-11-06)
+- Don't pre-write the image to the SSD: it boots the live image from the SSD (both disks carry label OPNsense_Install) and the installer then reports *"table 'ada0' is corrupt"* / *"Device busy"*. Do this instead: **SSD blank (or slid out), boot from USB stick (BIOS 1st Boot = USB-HDD), push SSD in, `camcontrol rescan all`, `gpart destroy -F ada0`, `dd if=/dev/zero of=/dev/ada0 bs=1m count=10`**, then installer → UFS → ada0 → GPT → swap 8 GB → destroy yes.
+- Disks seen by the installer: ada0 Micron M550 119 GB (SSD) / da1 "USB DISK MODULE" 7 GB (Cisco eUSB flash — never touch) / da0 USB stick.
+- After install: BIOS 1st Boot = HDD, stick out; OPNsense boots from `/dev/gpt/rootfs`. Console 115200.
+- **Unit 3 bench config (6 Nov):** console option 1 → WAN none, **LAN = em8 (Management port)**; option 2 → LAN **192.168.99.1/24**, no gateway, no IPv6, DHCP 192.168.99.100–150, HTTPS kept, web GUI defaults restored. GUI: https://192.168.99.1 from a laptop on the MGMT port only.
+- GUI reached from the HQ desktop PC (no RJ45 on the laptop). Wizard blocks on the WAN page when no WAN is assigned → skip wizard (click logo) and set **System → Settings → General**: hostname **bev-fw**, domain **fishbone.local**, Europe/London, DNS 1.0.0.1 + 8.8.8.8 (one per line) — saved 6 Nov. Temporary WAN for updates: **em3 (Gi0/0) → office socket**, DHCP got 10.224.11.72; ping 1.1.1.1 OK. Update offered: **26.7 → 26.7.8 (30 Oct 2026)**, security fixes (OpenSSH 10.6 regenerates ML-DSA host keys on reboot → SSH host key fingerprints change; StrongSwan IKEv1 deprecation — we use WireGuard/IKEv2 only). Backup: deferred by Minda to go-live (nightly config.xml pull → PBS). Root 2FA: deferred.

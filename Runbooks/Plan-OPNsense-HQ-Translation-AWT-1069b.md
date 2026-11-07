@@ -21,7 +21,7 @@
 | 5 | ubnt_mgmt (0) | 192.168.5.0/24 | — | Stays on ASA (AP/airFiber native VLAN mgmt) |
 
 ## 2. Physical + addressing
-- **Each OPNsense box:** Gi0/0 + Gi0/1 → **LACP to the 3850 stack** (one leg per switch, built-in RJ45 ports, new port-channel each) carrying the moved VLANs + transit VLAN. Gi0/2 = **HA sync (pfsync)** cable box-to-box. Gi0/3–0/6 spare (Step B WANs). Gi0/7 = bench/admin.
+- **Each OPNsense box:** Gi0/0 + Gi0/1 → **LACP to the 3850 stack** (one leg per switch, built-in RJ45 ports, new port-channel each) carrying the moved VLANs + transit VLAN. Gi0/2 = **HA sync (pfsync)** cable box-to-box. Gi0/3–0/6 spare (Step B WANs). Gi0/7 spare. **Management port = dedicated admin interface** (changed 2026-11-05, Minda): bench = laptop on 192.168.99.1/24; in the rack = its own small **out-of-band admin network** (new VLAN 9 `oob`, 10.224.9.0/29: hq-fw-a .2, hq-fw-b .3, admin jump host/laptop .4–.6), **not** VLAN 10 — once window 3 moves VLAN 10 onto the pair, the box already has an interface in 10.224.10.0/24 and one box cannot hold two interfaces in the same subnet. Web GUI + SSH listen on OOB (and on VLAN 10 mgmt for day-to-day), never on guest/wifi/cctv/telephony.
 - **Transit VLAN 250** (new): `10.224.250.0/29` — ASA `.1` (new sub-interface `Port-channel1.250`, nameif `transit`, security 100), hq-fw-a `.2`, hq-fw-b `.3`, **CARP VIP `.4`**.
 - **Per moved VLAN:** CARP VIP **`.1`** (same gateway as today → no client changes), hq-fw-a **`.252`**, hq-fw-b **`.253`** (outside every DHCP pool). ASA's `.2` standby addresses on VLAN 10/11 disappear with the sub-interface.
 - **Default route on OPNsense:** `0.0.0.0/0 → 10.224.250.1` (ASA). ASA keeps internet, NAT, DMZ and all public forwards.

@@ -116,7 +116,30 @@ _Guide-only (§3): Eugene specs; Minda buys + fits + holds all accounts. Verify 
 |---|---|---|---|---|---|---|
 | 1 | 2026-11-03 | ASA5525 SN FGL1823410U | FCH18187KX2 | V03 | none | 8x GE + MGMT + console; 2 of 4 arrived 3 Nov (HQ); boot/ROMMON check pending |
 | 2 | 2026-11-03 | ASA5525 SN FGL19234?5X (read from photo - confirm via show version) | FCH19267THV (confirmed, close-up) | V04 | not checked | 2nd HQ unit |
-| 3 | 2026-11-03 | ASA5525 SN FGL1804407Y (read from photo - confirm via show version) | FCH1802J4Y9 (close-up) | V02 | not checked (front bay visible) | old seller label "N3 FIREWALL", front sticker "JR20"; earliest hardware rev of the three; **assigned to Beverley (`bev-fw`) - Minda 2026-11-03**; boot/ROMMON check pending |
+| 3 | 2026-11-03 | ASA5525 SN FGL1804407Y (read from photo - confirm via show version) | FCH1802J4Y9 (close-up) | V02 | not checked (front bay visible) | old seller label "N3 FIREWALL", front sticker "JR20"; earliest hardware rev of the three; **assigned to Beverley (`bev-fw`) - Minda 2026-11-03**; 6 Nov: VGA/BIOS done (ROMMON Boot off), OPNsense 26.7 boots, MACs 88:5a:92:87:ed:af–b7; boot/ROMMON check pending |
 - Bench boot (3 Nov, **unit #2**, V04, Lic FCH19267THV): Cisco BIOS 9B2C109A (2013-05-15), Intel Xeon X3430 2.40GHz (4-core Lynnfield, **no AES-NI**), 8192 MB DDR3-1333, BMC init OK, POST OK. OPNsense note: fine for firewall/routing; IPsec slower without AES-NI; WireGuard (ChaCha20) unaffected.
 - Unit #2 continued: ROMMON 2.1(9)8; booted disk0:/asa982-20-smp-k8.bin (ASA 9.8(2)20); image SHA2 hash verified; POST result 0 (pass); internal flash /dev/sda1 FAT32 ~8 GB (867586/2011280 clusters used), minor boot-sector/backup mismatch reported by dosfsck (harmless, not fixed). IPMI over LAN not active.
 - Unit #2 show version: ASA 9.8(2)20 / FXOS 2.2(2.63) / ASDM 7.2(2)1; ASA5525 8192 MB, Lynnfield 4-core; 8 GB internal CF; BMC fw 2.4; **no startup-config (wiped)**; licence **ASA5525 VPN Premium, perpetual** (Active/Active failover, 2 contexts, 750 VPN peers); serial FCH19267THV; ports Gi0/0-0/7 MAC 188b.9d72.a290-a297 (0/0=a294 ordering), Management0/0 188b.9d72.a28f. Activation key NOT recorded (licence secret; not needed for OPNsense).
+
+### Deliveries 2026-11-05 (from Minda's mail, read-only check)
+- **Cisco ASA5500X-SSD120** — delivered 12:35 (eBay) → OPNsense installs can start (AWT-1069).
+- **HPE 32GB 2Rx4 DDR4** (Gen10 RAM) — delivered 11:28.
+- **renewtech HPE DL360/DL380 Gen9 network adapter** (listing 278422773036 → the 665249-B21 **560SFP+** swap) — DHL delivered 12:35. Check it is the **high-profile** bracket (seller asked HP/LP on 2 Nov).
+- **Genuine Cisco SFP-H10GB DAC** — delivered 13:46 (one parcel; other DACs as ordered).
+- **IT Black belt** parcel — Royal Mail delivered 5 Nov (item to confirm). A further Royal Mail parcel due Fri 6 Nov (sender to confirm).
+- Compuwyze order 000000449 (GPU cables) — delivered 3 Nov.
+- **ASA VGA header DIY kit (ordered 2026-11-05, arriving 6 Nov 07–11):** iYueMps VGA DB15 female breakout, 3-row 15-pin, screw terminals, with case (£6.90, Amazon 205-9665655-6797106) + 40× Dupont male-to-female 20 cm jumpers (£4.29, order 205-3660599-9385161). For the BIOS boot-order change on all 4 ASA 5525-X (AWT-1069).
+
+### HQ rack (Minda, 2026-11-06): **HP 36U** cabinet, ~10–16U free
+Planned new kit: AI server DL380 Gen10 **2U** + OPNsense pair **2× 1U** + OOB switch **1U** = **5U** → fits, leaving ~5–11U. The 2× ASA 5550 (1U each) free 2U when retired after Step B.
+Layout suggestion: AI server low (heaviest, most heat); OPNsense pair next to the 3850 stack (short patch leads); OOB switch beside them. ✅ ASA 5525-X rack ears present on all 4 units (Minda, 6 Nov); Gen10 rail kit (confirmed by Bargain Hardware).
+
+| ⬜ | 1 | **OOB management switch** | **TP-Link TL-SG1016** — 16× 1G, unmanaged, 1U rack, fanless, internal PSU (IEC lead → UPS outlet) | ~50–60 | proposed 2026-11-06 (Plan-OOB-Management-Network-HQ) — Minda to order |
+- 2026-11-06 rack photos: the **two 1U units at the top of the HQ rack (by the patch panels) are the new ASA 5525-X for OPNsense** (Minda). Other observations to tidy: the **CCTV recorder (Hikvision DS-9632NI-M8, 2U) stands on a wooden board** mid-rack — mount it with its own rack ears if found (Hikvision 2U NVRs usually ship with them) or a 2U rack shelf, loose items on top of the Gen9 (console cable, caddy, adapters), rear cabling unmanaged (1U cable manager + velcro when the new kit goes in), ~2U empty sliding rails under the Gen9 (AI server slot candidate).
+
+### Mail check 2026-11-06 (evening)
+- **Bargain Hardware dispatched 6 Nov (Shipment SS207004, invoice PPSI147647)** — the 2× DL380 Gen10 (order 002022046). **Arriving Tuesday 10 Nov** (Minda). DPD: **driver cannot leave it safe** → someone must be in to sign. Tracking number is in the attached shipment PDF.
+- **TP-Link TL-SG1016** (OOB switch) ordered on eBay 6 Nov, expected 9–13 Nov.
+- VGA breakout + Dupont wires delivered 6 Nov (used for unit 3 BIOS).
+- Composio: free shared-key toolkits (Gemini, Yelp, text_to_pdf, weathermap…) end 13 Nov — the estate uses Gmail/Drive/GitHub/Smartsheet (own OAuth), not these → no action expected; Minda may ignore unless an employee uses web search via Composio.
+- GitHub: the Claude app requests updated permissions (review at github.com/settings/installations) — Minda's decision; ignoring keeps current permissions.
