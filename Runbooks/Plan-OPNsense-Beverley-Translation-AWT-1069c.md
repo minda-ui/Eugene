@@ -92,7 +92,7 @@ Lines: **BT Business (5 public IPs, main)**, **BT residential (ends Jul/Aug 2027
 
 ### 9b. Vice versa — HQ backed up by Beverley's BT Business (Minda, 7 Nov)
 **Already half-built:** the HQ ASA has `outside_bt` on **VLAN 4 = 81.143.32.194/29, gw 81.143.32.198** — i.e. one of Beverley's **BT Business public addresses is carried over the radio straight to HQ** (Beverley 3850 Gi1/0/48 "BT-router for office"). It has had **0 hits** (no route uses it).
-**Plan (HQ Step B, on the HQ OPNsense pair):** HQ gateway group = **Wavenet FTTB (1) → BT Business via radio, VLAN 4 (2) → Starlink (3) → Vodafone (4)**. Rationale: a fixed BT line with a public IP beats Starlink (CGNAT, latency) for phones/VPN; Minda to confirm the order.
+**Plan (HQ Step B, on the HQ OPNsense pair):** HQ gateway group = **Wavenet FTTB (1) → BT Business via radio, VLAN 4 (2) → Starlink (3) → Vodafone (4)**. Rationale: a fixed BT line with a public IP beats Starlink (CGNAT, latency) for phones/VPN. **Order confirmed by Minda 7 Nov.**
 **No loop:** HQ's backup uses the **raw BT line on VLAN 4** (not Beverley's firewall), and Beverley's backup uses HQ's firewall, which only sends via BT if BT is up — so the two backups can never point at each other.
 **Optional sooner:** on today's HQ ASA, add a tracked backup route via `outside_bt` + NAT for the inside nets (~6 lines, guided) — only if Minda wants it before the OPNsense HQ move.
 **To confirm:** VLAN 4 is still patched end to end (Beverley BT router → 3850 Gi1/0/48 → radio → HQ 3850 → ASA) after the OI-24 line changes; the /29's remaining addresses (.193, .195–.197) are free for bev-fw / WireGuard.
