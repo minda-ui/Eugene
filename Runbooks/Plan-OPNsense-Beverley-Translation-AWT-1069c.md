@@ -56,7 +56,24 @@ OPNsense: Firewall → NAT → Outbound → **Hybrid**: automatic rules cover th
 4. Tests: inside client gets DHCP + internet; Wi-Fi + IoT internet; **ext 1006 registers + 2-way call with HQ**; Loxone app/cloud; Cloud Key manages APs; HQ → Beverley Proxmox (10.224.111.199) and phone reachable; IoT cannot reach 10.224.111.x.
 5. **Roll-back (2 min):** power off bev-fw, cables back to home-asa, power on. home-asa stays untouched for 30 days.
 
-## Open for Minda
+## Minda's answers (2026-11-07)
+1. **IoT stays as today** (internet only, blocked from inside).
+2. AP internet: Eugene recommends **yes, narrowly** — APs (10.224.110.0/24 except .5) → internet on **HTTPS 443 + NTP 123 only**, so UniFi firmware downloads and time work; still blocked from all internal nets. Awaiting Minda's yes/no.
+3. **Swap before the BT Business change** — work out the plan (section 8).
+
+## Open for Minda (original)
 1. OK to **block IoT → inside** exactly as today (yes by default)?
 2. Should the **APs** (110.10–.12) get internet (firmware checks)? Today they don't.
 3. Swap timing: before or after the BT Business line is extended (OI-24)? Eugene: before — same WAN as today, one change at a time.
+
+## 8. Plan to go-live (v0.1, 2026-11-07)
+| # | Phase | Where | Who | Time | Done when |
+|---|---|---|---|---|---|
+| 1 | **Bench build** of sections 2–5 on bev-fw (LAGG, 6 VLANs, DHCP pools + 4 reservations, routes, rules, outbound NAT, NTP) | HQ desk, desktop PC on the MGMT port, console as backup | Minda clicks, Eugene dictates screen by screen | ~1.5 h | config matches this plan; Eugene reviews screenshots |
+| 2 | **Bench test** with a small unmanaged switch or the OOB switch: laptop on a VLAN-tagged port is not needed — test one access VLAN via a spare port in a LAGG member, or skip and rely on review | HQ | Minda | 30 min (optional) | DHCP + ping on one VLAN |
+| 3 | **Pre-swap checks at Beverley** (read-only): 3850 port-channel members + allowed VLANs (`show etherchannel summary`, `show interfaces trunk`), MACs of Loxone/printer still match, Cloud Key reachable, ext 1006 registered | Beverley, console | Minda | 15 min | outputs match the export |
+| 4 | **Swap window** (section 7) — evening/weekend, phones quiet | Beverley | Minda + Eugene live | 30 min + tests | all 8 tests pass |
+| 5 | **Watch 7 days**: firewall log for blocked traffic we didn't expect; Loxone/phone/Wi-Fi OK | remote (Tailscale) | Eugene reads, Minda screenshots | daily 5 min | no surprises |
+| 6 | **Day 30**: home-asa retired (keep as cold spare/resell) | — | Minda | — | — |
+| 7 | **Then** BT Business extension + WAN gateway group (BT primary, HQ Wavenet over radio as backup) | — | — | — | OI-24 |
+Prerequisites: unit 3 Gi0/0 cable out of the HQ office socket; console cable + laptop at Beverley; Minda's 1Password entry for bev-fw root.
