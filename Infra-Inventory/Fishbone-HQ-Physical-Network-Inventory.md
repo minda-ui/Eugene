@@ -53,7 +53,7 @@ _Discovery and recovery 2026-10-01, Minda executing with Eugene guiding; no cred
 
 **Network segments found:** `10.224.10.x` management (**iLO now `.50`** — DHCP, was `.78` on 2026-10-01; Proxmox `.10`, a Cisco web login at `.4` (probably the 3850 stack), plus `.9`, `.51`–`.52`); `10.224.13.x` phones (PBX `.9`, Yealink T48S `.10`, `.11`); `10.224.20.x` WiFi `FSG0218`.
 
-#### HQ AI server — DL380 Gen10 (arrived, logged 2026-11-09)
+#### Gen10 unit 2M20130BGN — now the BEVERLEY server (roles swapped 2026-11-09, see below)
 _From Minda's photos of the open chassis. The iLO default password on the pull-out label is **not recorded here** (charter §3) — change it at first iLO login and store the new one in 1Password only._
 
 | Item | Value |
@@ -66,7 +66,11 @@ _From Minda's photos of the open chassis. The iLO default password on the pull-o
 | First boot (2026-11-09) | System ROM **U30 v3.66 (04/01/2026)** · **2× Xeon Gold 6238** (22c each, 44c/88t) · SmartMemory authenticated · Boot UEFI. ⚠️ **Error 234: Processor 2 DIMM 5 fails training** (codes 0x29/0x02) with two different sticks → **slot / CPU2 seating fault, not the stick.** Interim: both F-5 sticks removed → **10× 32 GB = 320 GB**, warning 510 (unbalanced controllers, minor speed loss). Next: torch-check slot; raise with Bargain Hardware (warranty) before any CPU reseat. 2 spare 32 GB sticks on the shelf. |
 | To check at first power-on | Memory count + speed, CPU model, PSU wattage (2× 1600 W wanted for GPUs), controller model (E208i-a expected), iLO/System ROM firmware |
 
-#### Beverley server — DL380 Gen10 (arrived, logged 2026-11-09)
+#### Gen10 unit 2M20130BJL — now the HQ AI SERVER (roles swapped 2026-11-09)
+
+**Role swap (Minda, 2026-11-09):** BJL booted clean with all **12× 32 GB = 384 GB**, ROM U30 v3.66, 2× Gold 6238, SmartMemory OK, no memory errors → **BJL = HQ AI server**. BGN (P2 DIMM 5 slot fault) → **Beverley** (needs less RAM; warranty claim with Bargain Hardware still open). The 12 sticks are proven good (all train in BJL).
+
+_Original entry follows (written before the swap):_
 _iLO default password on the label is **not recorded** (charter §3) — change at first iLO login, store in 1Password only._
 
 | Item | Value |
