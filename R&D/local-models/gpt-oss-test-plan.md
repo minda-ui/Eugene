@@ -94,4 +94,6 @@ A one-page result note: tokens/s for each stage, scores, and a recommendation fo
 | Model | Where | pp512 t/s | tg128 t/s | vs Stage 1 CPU |
 |---|---|---|---|---|
 | gpt-oss-20b MXFP4 (11.27 GiB) | GPU, `-ngl 99` | **1419.12 ± 11.22** | **60.69 ± 0.00** | pp ×21 (67), tg ×3 (20.1) |
-| gpt-oss-120b MXFP4 | 2× P40 + RAM (`--n-cpu-moe N`) | _pending_ | _pending_ | Stage 1: pp 42.4, tg 13.5 |
+| gpt-oss-120b MXFP4 (59.02 GiB) | 2× P40 + RAM, `-ncmoe 18 -ts 27/9` | **115.48 ± 1.66** | **17.01 ± 0.34** | pp ×2.7 (42.4), tg ×1.3 (13.5) |
+
+Notes: `-ncmoe 14,18,24` with default even split → OOM on device 1 (28.5 GB): CPU-expert layers are the first N, so the heavy layers all land on GPU 1 → set `-ts` to give GPU 0 more layers. 120b on 2 cards is limited by the CPU-expert part; tuning next (ncmoe 14, threads), third P40 would hold it all on GPU.
