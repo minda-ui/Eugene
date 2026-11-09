@@ -63,6 +63,7 @@ _From Minda's photos of the open chassis. The iLO default password on the pull-o
 | Seen in photos | 2 CPUs with heatsinks · **6 "Performance" fans** (the high-performance kit GPUs need) · Type-a storage controller fitted (cables AROC PORT1/PORT2 to the drive backplane) · primary + secondary riser cages fitted, no cards yet · memory slots look empty in the photo (RAM: 6× P03052-091 to fit) |
 | RAM plan (2026-11-09) | **12× 32 GB = 384 GB**, 1 stick per channel: **all 12 WHITE slots** = slots 1, 3, 5, 8, 10, 12 (letters A–F) on each processor; black slots stay empty → full 2933 speed, all 6 channels per CPU |
 | Role | HQ AI brain (2× P40 first, V100 later) — see `R&D/estate-compute-split/v100-brain-sketch.md` |
+| First boot (2026-11-09) | System ROM **U30 v3.66 (04/01/2026)** · **2× Xeon Gold 6238** (22c each, 44c/88t) · SmartMemory authenticated · Boot UEFI. ⚠️ **Error 234: Processor 2 DIMM 5 fails training** (codes 0x29/0x02) with two different sticks → **slot / CPU2 seating fault, not the stick.** Interim: both F-5 sticks removed → **10× 32 GB = 320 GB**, warning 510 (unbalanced controllers, minor speed loss). Next: torch-check slot; raise with Bargain Hardware (warranty) before any CPU reseat. 2 spare 32 GB sticks on the shelf. |
 | To check at first power-on | Memory count + speed, CPU model, PSU wattage (2× 1600 W wanted for GPUs), controller model (E208i-a expected), iLO/System ROM firmware |
 
 #### Server hardware baseline — 2026-10-16 (iLO/IPMI readout, GPU-upgrade prep RND-2)
