@@ -116,3 +116,12 @@ Read-only / reversible, ~30 min, Minda on site, Eugene guiding:
 4. Trace the BT cabling: Openreach box → hub → 3850 Gi1/0/48 (VLAN 4 "BT-router for office") and Gi1/1/1 (VLAN 6) — which hub feeds which VLAN, and which line the Beverley ASA `outside` (192.168.1.254) uses.
 5. Optional, if time: bench PPPoE test from bev-fw on a spare port to the **residential** Openreach box? — no: do PPPoE tests only on the Business line in a planned window; skip in this visit.
 Outcome decides: A (public IP behind the hub) vs B (PPPoE on bev-fw) for the swap.
+
+### §9d results — 2026-11-09 evening (Minda at Beverley; read-only on home-sw)
+| Test | Result |
+|---|---|
+| Gi1/0/48 (VLAN 4, "BT-router for o…") | Hub A: `b86a.f17f.3000` (+ `ba6a.f17f.3000/3001` = same device, locally-administered variants) — connected a-1000 |
+| Gi1/1/1 SFP (VLAN 6, "BT-router") | Hub B: `0470.565a.f13e` / `…f13f` — connected a-1000 — feeds the old ASA outside (192.168.1.x) |
+| VLAN 4 over the radio Gi1/1/2 (HQ side) | `76ac.b96f.108b`, `76ac.b96f.1916`, `dcce.c1e4.feb1` (HQ ASA .194 expected among these) |
+| `.193` holder `b8:31:b5:38:03:33` | **not seen on home-sw at all** → not on VLAN 4/6 here: either plugged straight into a hub LAN port, or gone/stale in the hub's assignment |
+| Working conclusion | Hub A (VLAN 4) = **BT Business** (the /29 block; HQ uses .194 through it); Hub B (VLAN 6) = Beverley's current internet for the old ASA. To confirm on the hub pages (test 2). |
