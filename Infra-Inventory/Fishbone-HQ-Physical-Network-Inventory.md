@@ -76,7 +76,7 @@ _iLO default password on the label is **not recorded** (charter §3) — change 
 | Item | Value |
 |---|---|
 | Model | **HPE ProLiant DL380 Gen10 8SFF**, product **868703-B21**, S/N **2M20130BJL** (same order as the HQ unit) |
-| iLO | iLO 5, default DNS name `ILO2M20130BJL`, user Administrator, ⚠️ factory password still set |
+| iLO | iLO 5, default DNS name `ILO2M20130BJL`, MAC `94:40:C9:F7:8E:82`, static **10.224.9.22/24, no gateway** (OOB plan) set 2026-11-09; factory password to be changed in F9 |
 | Plan | RAM: 4 spare 32 GB from the Gen9 (128 GB) (the 2 spare 2933 sticks stay reserved for the HQ unit once its P2 slot 5 is fixed); CPU-only to start; build at HQ, then move to Beverley |
 | To check at first power-on | CPUs, memory, PSUs, controller, ROM version |
 
