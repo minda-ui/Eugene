@@ -170,3 +170,9 @@ pve-ai runs PVE 9.2.2, kernels 7.0.14-28-pve (new) + 7.0.2-6-pve. Web check (for
 - Once `nvidia-smi` shows both P40s: **pin the working kernel** (`proxmox-boot-tool kernel pin <ver>`) so an update can't break the driver; test new kernels deliberately.
 - Some 580 builds fail on kernels newer than 7.0.6; 7.0.14-x reported working with later 580 point releases.
 Sources: forum.proxmox.com threads 183421, 185614, 185092, 183800 (via search; forum not reachable from Eugene's session).
+
+## 2026-11-09 — Permanent serving on pve-ai CT 200 `ai-lab` (10.224.10.31)
+- Model files: stable names in `/models/live/` (symlinks into the HF cache): gpt-oss-120b.gguf (63,387,346,208 B), gpt-oss-20b.gguf (12,109,566,624 B), qwen3-vl-30b.gguf + qwen3-vl-30b-mmproj.gguf.
+- **llama-swap v271** (`/usr/local/bin`, checksum OK) → `/etc/llama-swap/config.yaml`, systemd `llama-swap.service`, **listens 127.0.0.1:9000 only**; swaps one model at a time (48 GB VRAM can't hold all three). 120b line = tested best (`--n-cpu-moe 12 -ts 23/13 -t 12 -c 32768 -b 2048 -ub 2048 --jinja`).
+- **Open WebUI v0.13.3** (pip venv `/opt/open-webui`, data `/var/lib/open-webui`), systemd `open-webui.service`, **port 3000 on the LAN, login required**, `OPENAI_API_BASE_URL=http://127.0.0.1:9000/v1` (key "local" = placeholder, not a secret), Ollama off, `CUDA_VISIBLE_DEVICES=` (CPU only, GPUs stay with the models), WEBUI_NAME "Fishbone AI". Its own secret key is generated and kept on the server. Admin account = Minda (password in 1Password only).
+- To do: sign-ups off / pending; per-model system prompt with {{CURRENT_DATE}} + {{CURRENT_WEEKDAY}}; friendly model names; backup of `/var/lib/open-webui` (PBS); later the RND-14 gateway.
