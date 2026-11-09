@@ -9,4 +9,4 @@ _Guide-only session (§3): Minda did every physical and console step; Eugene gui
 - **2× Tesla P40 live:** NVIDIA data-centre driver **580.196.07** (.run, `--dkms -m=kernel`), nouveau + nova_core blacklisted. `nvidia-smi` = 2× P40, 23040 MiB each. Power cables (869820-001) were plugged before a meter check; proven correct by clean boots + the driver (no power-cable error). Lesson kept: meter-check first next time (HL-0110).
 - Lessons: Debian's 550 driver fails on kernel 7.0 → use NVIDIA .run R580; kernel 7.0's nova_core must be blacklisted; DNS on VLAN 10 is 1.1.1.1, not the ASA.
 - Kernel pinned 7.0.14-28-pve; P40 persistence mode on (@reboot cron). **`models` pool built:** 6× 900 GB NetApp SAS (512 B, prot_en=0) as 3 ZFS mirrors (RAID10), lz4, recordsize 1M, atime off, ~2.5 TB.
-- Next: gpt-oss Stage 2 on the P40s; 6× 900 GB SAS model library; Beverley Gen10 (BGN) RAM + warranty claim; check Gen9 phones after the P40 removal.
+- Next: gpt-oss Stage 2 on the P40s; 6× 900 GB SAS model library; Beverley Gen10 (BGN) RAM + warranty claim; Gen9 phones confirmed working after the P40 removal (Minda).
