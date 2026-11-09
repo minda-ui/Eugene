@@ -89,3 +89,9 @@ A one-page result note: tokens/s for each stage, scores, and a recommendation fo
 ## Stage 2 setup — 2026-11-09 (pve-ai, HQ Gen10 BJL, 2× P40)
 - Container **CT 200 `ai-lab`** (unprivileged Debian 12, 32 cores, 256 GB RAM, 64 GB rootfs on local-zfs, 10.224.10.31, DNS 1.1.1.1), devices nvidia0/1, nvidiactl, nvidia-uvm(-tools) passed in; host dataset `models/gguf` (chown 100000) mounted at `/models`; `LLAMA_CACHE=/models`.
 - Inside: NVIDIA 580.196.07 userspace (`--no-kernel-modules`); **CUDA toolkit 12.9** (CUDA 13 can't build sm_61/Pascal); llama.cpp built `-DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=61`, **commit `a0ad695cb`** (Stage 1 was `3259ab6e5`).
+
+## Results — Stage 2, 2026-11-09 (pve-ai, 2× P40, llama.cpp a0ad695cb, CUDA 12.9)
+| Model | Where | pp512 t/s | tg128 t/s | vs Stage 1 CPU |
+|---|---|---|---|---|
+| gpt-oss-20b MXFP4 (11.27 GiB) | GPU, `-ngl 99` | **1419.12 ± 11.22** | **60.69 ± 0.00** | pp ×21 (67), tg ×3 (20.1) |
+| gpt-oss-120b MXFP4 | 2× P40 + RAM (`--n-cpu-moe N`) | _pending_ | _pending_ | Stage 1: pp 42.4, tg 13.5 |
