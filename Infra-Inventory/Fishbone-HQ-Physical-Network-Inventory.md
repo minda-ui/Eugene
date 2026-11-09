@@ -53,6 +53,17 @@ _Discovery and recovery 2026-10-01, Minda executing with Eugene guiding; no cred
 
 **Network segments found:** `10.224.10.x` management (**iLO now `.50`** — DHCP, was `.78` on 2026-10-01; Proxmox `.10`, a Cisco web login at `.4` (probably the 3850 stack), plus `.9`, `.51`–`.52`); `10.224.13.x` phones (PBX `.9`, Yealink T48S `.10`, `.11`); `10.224.20.x` WiFi `FSG0218`.
 
+#### HQ AI server — DL380 Gen10 (arrived, logged 2026-11-09)
+_From Minda's photos of the open chassis. The iLO default password on the pull-out label is **not recorded here** (charter §3) — change it at first iLO login and store the new one in 1Password only._
+
+| Item | Value |
+|---|---|
+| Model | **HPE ProLiant DL380 Gen10 8SFF**, product **868703-B21**, S/N **2M20130BGN** (Bargain Hardware order 002022046, shipment SS207004, invoice PPSI147647) |
+| iLO | iLO 5, default DNS name `ILO2M20130BGN`, user Administrator. ⚠️ Factory password still on the label → change before it goes on the network (same gap as OI-31 on the Gen9). |
+| Seen in photos | 2 CPUs with heatsinks · **6 "Performance" fans** (the high-performance kit GPUs need) · Type-a storage controller fitted (cables AROC PORT1/PORT2 to the drive backplane) · primary + secondary riser cages fitted, no cards yet · memory slots look empty in the photo (RAM: 6× P03052-091 to fit) |
+| Role | HQ AI brain (2× P40 first, V100 later) — see `R&D/estate-compute-split/v100-brain-sketch.md` |
+| To check at first power-on | Memory count + speed, CPU model, PSU wattage (2× 1600 W wanted for GPUs), controller model (E208i-a expected), iLO/System ROM firmware |
+
 #### Server hardware baseline — 2026-10-16 (iLO/IPMI readout, GPU-upgrade prep RND-2)
 _Read non-intrusively via `ipmitool` on the running host (`fru print`, `sdr`); no reboot, no credential held. For the DL380 Gen9 `CZJ64905NP`._
 | Item | Detail |
