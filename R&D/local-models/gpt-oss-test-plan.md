@@ -96,4 +96,7 @@ A one-page result note: tokens/s for each stage, scores, and a recommendation fo
 | gpt-oss-20b MXFP4 (11.27 GiB) | GPU, `-ngl 99` | **1419.12 ± 11.22** | **60.69 ± 0.00** | pp ×21 (67), tg ×3 (20.1) |
 | gpt-oss-120b MXFP4 (59.02 GiB) | 2× P40 + RAM, `-ncmoe 18 -ts 27/9` | **115.48 ± 1.66** | **17.01 ± 0.34** | pp ×2.7 (42.4), tg ×1.3 (13.5) |
 
+| gpt-oss-120b | `-ncmoe 14 -ts 25/11 -t 16` | **128.99 ± 1.89** | **20.97 ± 0.74** | best so far; VRAM 20.9 / 17.3 GB used |
+| gpt-oss-120b | `-ncmoe 14 -ts 25/11 -t 32` | 125.38 ± 1.45 | **5.69 ± 6.03** | 32 threads collapses (oversubscribed / cross-socket) → use 16 |
+
 Notes: `-ncmoe 14,18,24` with default even split → OOM on device 1 (28.5 GB): CPU-expert layers are the first N, so the heavy layers all land on GPU 1 → set `-ts` to give GPU 0 more layers. 120b on 2 cards is limited by the CPU-expert part; tuning next (ncmoe 14, threads), third P40 would hold it all on GPU.
