@@ -1,5 +1,8 @@
 # Change log — 2026-11-09 (Mon, HQ) — Gen10 servers in, pve-ai built, P40s live
 
+## Update 2026-11-09 evening — wrap-up
+Ledger rows 166–168 added; current-state refreshed. Open small items: tank-store prune schedule hourly→daily; Gen9 `pbs-tank` retention check. Skill candidate SC-18 proposed (pve-gpu-ai-node-build).
+
 _Guide-only session (§3): Minda did every physical and console step; Eugene guided and checked from photos._
 
 - **Both DL380 Gen10 arrived** (Bargain Hardware SS207004, delivered Sat 7 Nov — earlier than the expected Tue). Logged S/N 2M20130BGN + 2M20130BJL. iLO factory passwords on the pull-out labels **not recorded** (1Password only).
