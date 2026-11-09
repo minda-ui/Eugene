@@ -68,7 +68,7 @@ _From Minda's photos of the open chassis. The iLO default password on the pull-o
 
 #### Gen10 unit 2M20130BJL — now the HQ AI SERVER (roles swapped 2026-11-09)
 
-**Role swap (Minda, 2026-11-09):** BJL booted clean with all **12× 32 GB = 384 GB**, ROM U30 v3.66, 2× Gold 6238, SmartMemory OK, no memory errors → **BJL = HQ AI server**. BGN (P2 DIMM 5 slot fault) → **Beverley** (needs less RAM; warranty claim with Bargain Hardware still open). The 12 sticks are proven good (all train in BJL). **PSUs (BJL): 2× HPE 1600 W 94 % (Platinum)**, both green — enough for 2× P40 with 1+1 redundancy (~900 W peak est.). Same parts as BGN (fans, risers, controller) per Minda.
+**Role swap (Minda, 2026-11-09):** BJL booted clean with all **12× 32 GB = 384 GB**, ROM U30 v3.66, 2× Gold 6238, SmartMemory OK, no memory errors → **BJL = HQ AI server**. BGN (P2 DIMM 5 slot fault) → **Beverley** (needs less RAM; warranty claim with Bargain Hardware still open). The 12 sticks are proven good (all train in BJL). **PSUs (BJL): 2× HPE 1600 W 94 % (Platinum)**, both green — enough for 2× P40 with 1+1 redundancy (~900 W peak est.). Same parts as BGN (fans, risers, controller) per Minda. **Storage (F9, 2026-11-09):** E208i-a SR Gen10, **no arrays** (unconfigured drives pass straight to the OS — fine for ZFS); drives: **2× HPE 240 GB SATA SSD `VK0240GEPQN`** in Box 3 Bay 1 + Bay 2 → Proxmox ZFS mirror. 6× 900 GB SAS not yet fitted.
 
 _Original entry follows (written before the swap):_
 _iLO default password on the label is **not recorded** (charter §3) — change at first iLO login, store in 1Password only._
