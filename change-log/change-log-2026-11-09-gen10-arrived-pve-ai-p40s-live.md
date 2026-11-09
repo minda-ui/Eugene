@@ -1,5 +1,8 @@
 # Change log — 2026-11-09 (Mon, HQ) — Gen10 servers in, pve-ai built, P40s live
 
+## Update 2026-11-09 ~18:55 UTC — Beverley Gen10 `pve-bev` built
+4× 32 GB moved from the Gen9 (slots C+D per CPU; Gen9 keeps A+B = 128 GB, phones OK) → BGN boots 128 GB, all HPE SmartMemory authenticated. Proxmox 9.2 installed as `pve-bev` 10.224.10.32 (ZFS RAID1), at Beverley on home-sw Gi1/0/3 (re-pointed VLAN 111 → VLAN 10 by Minda via console from the Beverley mini-PC). Reaches HQ gw, pve-ai, internet, DNS. Clock was ~45 h behind (BIOS defaults) → fixed + chrony sources added; upgraded to kernel 7.0.14-28-pve. Remaining: iLO, backup token/job, gateway → bev-fw later.
+
 ## Update 2026-11-09 evening — wrap-up
 Ledger rows 166–168 added; current-state refreshed. Open small items: tank-store prune schedule hourly→daily; Gen9 `pbs-tank` retention check. Skill candidate SC-18 proposed (pve-gpu-ai-node-build).
 
