@@ -53,6 +53,35 @@ _Discovery and recovery 2026-10-01, Minda executing with Eugene guiding; no cred
 
 **Network segments found:** `10.224.10.x` management (**iLO now `.50`** — DHCP, was `.78` on 2026-10-01; Proxmox `.10`, a Cisco web login at `.4` (probably the 3850 stack), plus `.9`, `.51`–`.52`); `10.224.13.x` phones (PBX `.9`, Yealink T48S `.10`, `.11`); `10.224.20.x` WiFi `FSG0218`.
 
+#### Gen10 unit 2M20130BGN — now the BEVERLEY server (roles swapped 2026-11-09, see below)
+_From Minda's photos of the open chassis. The iLO default password on the pull-out label is **not recorded here** (charter §3) — change it at first iLO login and store the new one in 1Password only._
+
+| Item | Value |
+|---|---|
+| Model | **HPE ProLiant DL380 Gen10 8SFF**, product **868703-B21**, S/N **2M20130BGN** (Bargain Hardware order 002022046, shipment SS207004, invoice PPSI147647) |
+| iLO | iLO 5, default DNS name `ILO2M20130BGN`, user Administrator. ⚠️ Factory password still on the label → change before it goes on the network (same gap as OI-31 on the Gen9). |
+| Seen in photos | 2 CPUs with heatsinks · **6 "Performance" fans** (the high-performance kit GPUs need) · Type-a storage controller fitted (cables AROC PORT1/PORT2 to the drive backplane) · primary + secondary riser cages fitted, no cards yet · memory slots look empty in the photo (RAM: 6× P03052-091 to fit) |
+| RAM plan (2026-11-09) | **12× 32 GB = 384 GB**, 1 stick per channel: **all 12 WHITE slots** = slots 1, 3, 5, 8, 10, 12 (letters A–F) on each processor; black slots stay empty → full 2933 speed, all 6 channels per CPU |
+| Role | HQ AI brain (2× P40 first, V100 later) — see `R&D/estate-compute-split/v100-brain-sketch.md` |
+| First boot (2026-11-09) | System ROM **U30 v3.66 (04/01/2026)** · **2× Xeon Gold 6238** (22c each, 44c/88t) · SmartMemory authenticated · Boot UEFI. ⚠️ **Error 234: Processor 2 DIMM 5 fails training** (codes 0x29/0x02) with two different sticks → **slot / CPU2 seating fault, not the stick.** Interim: both F-5 sticks removed → **10× 32 GB = 320 GB**, warning 510 (unbalanced controllers, minor speed loss). Next: torch-check slot; raise with Bargain Hardware (warranty) before any CPU reseat. 2 spare 32 GB sticks on the shelf. |
+| To check at first power-on | Memory count + speed, CPU model, PSU wattage (2× 1600 W wanted for GPUs), controller model (E208i-a expected), iLO/System ROM firmware |
+
+#### Gen10 unit 2M20130BJL — now the HQ AI SERVER (roles swapped 2026-11-09)
+
+**Role swap (Minda, 2026-11-09):** BJL booted clean with all **12× 32 GB = 384 GB**, ROM U30 v3.66, 2× Gold 6238, SmartMemory OK, no memory errors → **BJL = HQ AI server**. BGN (P2 DIMM 5 slot fault) → **Beverley** (needs less RAM; warranty claim with Bargain Hardware still open). The 12 sticks are proven good (all train in BJL). **PSUs (BJL): 2× HPE 1600 W 94 % (Platinum)**, both green — enough for 2× P40 with 1+1 redundancy (~900 W peak est.). Same parts as BGN (fans, risers, controller) per Minda. **Storage (F9, 2026-11-09):** E208i-a SR Gen10, **no arrays** (unconfigured drives pass straight to the OS — fine for ZFS); drives: **2× HPE 240 GB SATA SSD `VK0240GEPQN`** in Box 3 Bay 1 + Bay 2 → Proxmox ZFS mirror. 6× 900 GB SAS not yet fitted. **Proxmox installed 2026-11-09:** host **`pve-ai`** (`pve-ai.fishbone.local`), **pve-manager 9.2.2**, kernel **7.0.2-6-pve**, `rpool` ZFS **mirror** on the two SSDs (S/N S1P1NYAG800377 + S1P1NYAG800231) ONLINE, no errors. Network `vmbr0` on `nic0` (tg3, MAC 94:40:c9:f7:8e:84) **10.224.10.30/24 gw 10.224.10.1, DNS 1.1.1.1 + 8.8.8.8** (the ASA .1 does not answer DNS), on **3850 Gi2/0/17** (VLAN 10) — gateway + internet ping OK (1.1.1.1 ~15 ms). Root password in 1Password only. Updated to **PVE 9.2.26, kernel 7.0.14-28-pve** (7.0.2-6 kept as fallback). **2× Tesla P40 working (2026-11-09):** PCI `37:00.0` + `86:00.0`, NVIDIA **580.196.07** (data-centre .run, `--dkms -m=kernel` proprietary), CUDA 13.0, 23040 MiB each, idle 42–46 W / 250 W cap, 22–24 °C; nouveau + nova_core blacklisted (`/etc/modprobe.d/blacklist-gpu.conf`). GPU power cables (869820-001) proven by the driver (no 'power cables' error). **Kernel pinned 7.0.14-28-pve** (`proxmox-boot-tool kernel pin`, both ESPs refreshed); persistence mode on (re-applied at boot via root crontab @reboot). **NICs (2026-11-09):** onboard 4× 1G Broadcom BCM5719 (tg3) = `nic0`–`nic3` (MAC …8e:84–87; nic0 = vmbr0 LAN); **FlexibleLOM Mellanox ConnectX-4 Lx 2-port (SFP28, 10/25G)** at 5d:00.0/.1 = **`nic4` (b8:83:03:8f:b3:98) + `nic5` (…b3:99)** → server-triangle ports. **Live 2026-11-09: `nic5` 10.99.23.1/30 MTU 9000 ↔ pve-nas `enp7s0` 10.99.23.2/30** (DAC; link 10G; ping 0.19–0.32 ms, 8972-byte jumbo OK). **`nic4` 10.99.12.2/30 MTU 9000 ↔ Gen9 `ens4f0` 10.99.12.1/30 — live 2026-11-09** (ping 0.12–0.33 ms, jumbo OK). **Model library pool `models` (2026-11-09):** 6× NetApp/Seagate 900 GB 10K SAS `X423_SLTNG900A10` (sdd–sdi, 512 B sectors, prot_en=0, no reformat needed) as **ZFS RAID10 = 3 mirrors**, lz4, ashift 12, recordsize 1M, atime off, ~2.5 TB usable, all ONLINE, added as PVE storage.
+
+_Original entry follows (written before the swap):_
+_iLO default password on the label is **not recorded** (charter §3) — change at first iLO login, store in 1Password only._
+
+| Item | Value |
+|---|---|
+| Model | **HPE ProLiant DL380 Gen10 8SFF**, product **868703-B21**, S/N **2M20130BJL** (same order as the HQ unit) |
+| iLO | iLO 5, default DNS name `ILO2M20130BJL`, MAC `94:40:C9:F7:8E:82`, static **10.224.9.22/24, no gateway** (OOB plan) set 2026-11-09; factory password to be changed in F9 |
+| Plan | RAM: 4 spare 32 GB from the Gen9 (128 GB) (the 2 spare 2933 sticks stay reserved for the HQ unit once its P2 slot 5 is fixed); CPU-only to start; build at HQ, then move to Beverley |
+| To check at first power-on | CPUs, memory, PSUs, controller, ROM version |
+
+**Gen9 (`pve`) server-triangle card (2026-11-09):** HPE **560SFP+ (Intel 82599ES)** fitted → `ens4f0` (port 1) **10.99.12.1/30 MTU 9000 ↔ pve-ai `nic4`** (DAC), **`ens4f1` (port 2) 10.99.13.1/30 MTU 9000 ↔ R710 `enp7s0d1` 10.99.13.2/30 — live 2026-11-09** (ping 0.17–0.39 ms, jumbo OK). Gen9 network = **Open vSwitch** (`vmbr0` OVS bridge, `bond0` OVS bond = X710 `ens6f0np0`+`ens6f1np1` to the 3850 Po4) — **never press Apply Configuration on the Gen9** (reloads OVS → phones drop); triangle ports added as plain stanzas at the end of `/etc/network/interfaces` + `ifup <port>`. Backups of the file: `/root/interfaces.bak-2026-11-09`, `/root/interfaces.bak-dup`. Other NICs: 4× BCM5719 `eno1-4`, 4× I350 `eno49-52`, 4× `ens1f0-3` (331T).
+
 #### Server hardware baseline — 2026-10-16 (iLO/IPMI readout, GPU-upgrade prep RND-2)
 _Read non-intrusively via `ipmitool` on the running host (`fru print`, `sdr`); no reboot, no credential held. For the DL380 Gen9 `CZJ64905NP`._
 | Item | Detail |
@@ -99,7 +128,7 @@ credential recorded. This is the first off-box backup target the estate has had 
 | Hypervisor | **Proxmox VE 9.2.2** (Debian 13 trixie) on the ZFS mirror, host **`pve-nas`** at **`10.224.10.20:8006`** |
 | Backup server | **Proxmox Backup Server 4.2.8** installed alongside (no-subscription repos), UI at **`https://10.224.10.20:8007`**; datastore **`store1`** on dataset `rpool/pbs-store`; cert fingerprint `86:63:…:96` (public, not a secret). Added as storage **`pbs-nas`** on the HQ Proxmox (`10.224.10.10`). |
 | iDRAC | **iDRAC6** (fw 1.97.02) at **`10.224.10.21`** (moved off default `192.168.0.130`). Password Minda-held (§3). |
-| Network | `vmbr0` → **`10.224.10.20/24` gw `10.224.10.1`** (the ASA — per-VLAN host gateway, NOT the 3850 SVI `.4`), data NIC `nic0` on 3850 **Gi1/0/44 (vlan 10)**. Reachable over **Tailscale** via the HQ subnet router (no Tailscale on the box itself). NIC1 MAC `D0:67:E5:F3:D0:A5`, NIC2 `…A7`. |
+| Network | `vmbr0` → **`10.224.10.20/24` gw `10.224.10.1`** (the ASA — per-VLAN host gateway, NOT the 3850 SVI `.4`), data NIC `nic0` on 3850 **Gi1/0/44 (vlan 10)**. **10G card fitted 2026-11-09: Mellanox ConnectX-3 Pro (MT27520) 2-port SFP+** at 07:00.0 → `enp7s0` (e4:1d:2d:b6:77:10) + `enp7s0d1` (…77:11) — server-triangle ports (**enp7s0 ↔ pve-ai nic5, 10.99.23.2/30 MTU 9000 — live 2026-11-09**; **enp7s0d1 ↔ Gen9 ens4f1, 10.99.13.2/30 MTU 9000 — live 2026-11-09**). Reachable over **Tailscale** via the HQ subnet router (no Tailscale on the box itself). NIC1 MAC `D0:67:E5:F3:D0:A5`, NIC2 `…A7`. |
 | Backups proven | **VM 105 (FusionPBX)** backed up (Snapshot, 50 GiB/84 s, TASK OK) + **restore-tested to a new VM 999** (round-trip proven). **Remaining: schedule the nightly vzdump→`pbs-nas` job** to fully close OI-17. |
 | Status | R&D interim (RND-3) until graduation; DS2246 shelf joins later as capacity expansion. |
 

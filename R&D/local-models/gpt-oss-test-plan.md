@@ -85,3 +85,36 @@ A one-page result note: tokens/s for each stage, scores, and a recommendation fo
 - **120b = Generalist candidate** (better domain knowledge, PO-aware drafting, names injection attempts). **20b = Receptionist / fast drafts.**
 - Stage 2 (Gen10 + 2× P40) should make the 120b markedly faster; the V100 purchase looks less necessary — decide after Stage 2.
 - Rules carried into the gateway design: dates via a tool, contract/tax answers from our documents with sources, injection text treated as data.
+
+## Stage 2 setup — 2026-11-09 (pve-ai, HQ Gen10 BJL, 2× P40)
+- Container **CT 200 `ai-lab`** (unprivileged Debian 12, 32 cores, 256 GB RAM, 64 GB rootfs on local-zfs, 10.224.10.31, DNS 1.1.1.1), devices nvidia0/1, nvidiactl, nvidia-uvm(-tools) passed in; host dataset `models/gguf` (chown 100000) mounted at `/models`; `LLAMA_CACHE=/models`.
+- Inside: NVIDIA 580.196.07 userspace (`--no-kernel-modules`); **CUDA toolkit 12.9** (CUDA 13 can't build sm_61/Pascal); llama.cpp built `-DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=61`, **commit `a0ad695cb`** (Stage 1 was `3259ab6e5`).
+
+## Results — Stage 2, 2026-11-09 (pve-ai, 2× P40, llama.cpp a0ad695cb, CUDA 12.9)
+| Model | Where | pp512 t/s | tg128 t/s | vs Stage 1 CPU |
+|---|---|---|---|---|
+| gpt-oss-20b MXFP4 (11.27 GiB) | GPU, `-ngl 99` | **1419.12 ± 11.22** | **60.69 ± 0.00** | pp ×21 (67), tg ×3 (20.1) |
+| gpt-oss-120b MXFP4 (59.02 GiB) | 2× P40 + RAM, `-ncmoe 18 -ts 27/9` | **115.48 ± 1.66** | **17.01 ± 0.34** | pp ×2.7 (42.4), tg ×1.3 (13.5) |
+
+| gpt-oss-120b | `-ncmoe 14 -ts 25/11 -t 16` | **128.99 ± 1.89** | **20.97 ± 0.74** | best so far; VRAM 20.9 / 17.3 GB used |
+| gpt-oss-120b | `-ncmoe 14 -ts 25/11 -t 32` | 125.38 ± 1.45 | **5.69 ± 6.03** | 32 threads collapses (oversubscribed / cross-socket) → use 16 |
+| gpt-oss-120b | `-ncmoe 12 -ts 23/13 -t 12` | **137.37 ± 2.24** | **25.77 ± 0.58** | **BEST — use this** (≈2 GB VRAM headroom per card) |
+| gpt-oss-120b | `-ncmoe 12 -ts 23/13 -t 16` | 137.57 ± 1.23 | 23.40 ± 0.40 | |
+
+**Verdict (Stage 2 speed):** 120b on 2× P40 + RAM ≈ **26 t/s writing, 137 t/s reading** — usable for staff chat; a 3rd P40 (all on GPU, est. 35–45 t/s) is an upgrade, not a must. Still to check: real chat with long context (KV headroom ~2 GB/card) + the quality prompts.
+
+**Chat (llama-server, CT 200 `10.224.10.31:8080`, `--n-cpu-moe 12 -ts 23/13 -t 12 -c 32768 --jinja`):** VAT prompt **2/2** (£98.45 / £19.69 / £118.14, clear table), 519 tokens in 23 s = **22.47 t/s** real chat (CPU run 5 Nov: 12.6 t/s). Long-document test (a ~14-section project close-out / completion-report procedure, Minda's doc): summary in 5 points **with correct section refs**, no memory error, **21.70 t/s** (547 tokens, 25 s). Input: 13 KB method statement (6 pages) = **3,287 tokens, read in 33 s (99 t/s)** → the weak spot of the hybrid set-up: ~1 min wait per 10 pages before the answer starts. **With `-b 2048 -ub 2048`: 3,044 tokens read in 15 s = 200.7 t/s (2× faster), writing 26.1–26.3 t/s** — fits in VRAM, adopt as the default server line. 3rd P40 would cut reading further.
+
+Notes: `-ncmoe 14,18,24` with default even split → OOM on device 1 (28.5 GB): CPU-expert layers are the first N, so the heavy layers all land on GPU 1 → set `-ts` to give GPU 0 more layers. 120b on 2 cards is limited by the CPU-expert part; tuning next (ncmoe 14, threads), third P40 would hold it all on GPU.
+
+## Eyes test — 2026-11-09 (Qwen3-VL-30B-A3B-Instruct Q4_K_M + mmproj-BF16, unsloth, `-ngl 99 -c 16384`, CT 200)
+- Delivery note photo (hand-held, angled): image read ~3.4 s (~1,300–1,450 tokens, 377–434 t/s); writing **59–63 t/s**.
+- Without a question it volunteered a wrong date judgement ("09/09/2025 is in the future" on 09/11/2026) → **dates/comparisons by code, never the model** (same as gpt-oss).
+- With the extraction prompt: valid JSON; lines incl. "Timco Solo Wood Screws PZ1 CSK ZYP 50mm x 5mm (200 box) 50050SOLOC" qty 2, "70MM" qty 2, "Carriage Charge" qty 1; **unit prices = "unclear"** (did not invent numbers ✅). Accuracy vs the paper: to check against a flat photo.
+- Note: `ggml-org/Qwen3-VL-30B-A3B-Instruct-GGUF` does not exist (HF 401) → use `unsloth/…:Q4_K_M` (pulls mmproj automatically).
+- **Checked against the paper (Minda's flat photo):** 14 real lines. Quantities **13/14 correct**; ✗ "Wood Screws 100mm (100 box)" read **15, paper says 2** (copied from the line above); ✗ "70MM" is a description fragment (no qty) but became its own line with qty 2; ✗ "Hadley **989** MF6A" read as 988. Supplier + all other descriptions/codes right; no invented prices. **≈ 93 % line accuracy, 1 quantity error that matters**. Minda's check adds: **delivery note / order number letter O read as digit 0** (model 'ELS0R…') → O/0, I/1, S/5 confusion on references; reference numbers must be matched by code against the supplier's account/PO list (fuzzy O↔0), never trusted as read → Ledger Desk must keep a human check, and a code check (line count, qty per unit, totals vs invoice). Asking for the Unit column + item code too would let code validate lines.
+- **Rating plate** (AES STK-10.000 industrial dust collector, Turkish/English plate): make AES ✅, model STK-10.000 ✅, serial A-077 ✅, 11 kW / 380 V / 50 Hz ✅ — **5/5 asked fields exact**. Did not volunteer capacity/weight/year (not asked) → the "10.000 = 10,000 m³/h" and damaged-year traps still to test with a fuller prompt.
+- Follow-up (traps): capacity "10.000 M³/H" (copied as printed — ambiguous, not converted to 10,000; code must normalise European thousands dots), weight 740 kg ✅, **year "2024" ✅ correct** (Minda confirmed on the machine: the plate is not damaged — the mark Eugene took for damage was a reflection/scratch in the photo; Eugene's answer key was wrong). Uncertainty-flagging not tested by this plate.
+- **Eyes verdict so far:** reads printed text very well (descriptions, model/serial exact) at ~60 t/s; weak on (a) O/0-type characters in references, (b) row alignment of quantities, (c) uncertainty-flagging still untested (no genuinely unreadable field yet). Use: draft-filling with code validation + human confirm, never auto-post.
+- **Site photo** (shop-unit fit-out, diagonal large-format marble-effect porcelain, OSB + stud walls, vacuum extraction): work ✅ (fit-out, diagonal marble-effect tiles, OSB, polythene dust containment, extractor), progress ✅ ("mid-stage, floor partially covered"). Risks found: trips (hose/tools/boxes), wet/dusty floor slip, housekeeping, dust inhalation, eye/ear PPE "not clear" (properly hedged ✅) ≈ 4–5 of 7. **Invented/wrong:** "the worker is wearing a high-visibility vest" (the tiler wears black — the hi-vis is another person), "cords visible on the floor" (cordless tools; those are hoses). Missed: leaning broom/timber, kneeling/knee pads, manual handling of large tiles, and good practice (floor protection boards, drawing on wall). 624 tokens, 11 s, 55.6 t/s; image read 2 s.
+- **Site-photo verdict:** good scene understanding; safety list leans generic and conflates people/objects → fine as a draft observation for a human (site manager) to confirm, never as a safety record on its own.

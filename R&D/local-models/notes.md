@@ -161,3 +161,21 @@ primary RAG source; storage (RND-3) hosts it; GPU (2× P40) runs the brain that 
 ## 2026-11-04 — additions (RND-32)
 - **gpt-oss-120b** — Generalist candidate (MoE, ~5.1B active, ~63 GB MXFP4; text-only). **gpt-oss-20b** — receptionist / day coder. Test plan: `gpt-oss-test-plan.md`.
 - **Vision shortlist:** Qwen3-VL 30B-A3B (first choice for Eyes), Qwen3-VL 8B (triage), Gemma 3/4 27B, Mistral Small 24B; PaddleOCR/Tesseract as numeric cross-check. Llama 3.2 Vision dropped (weaker OCR). Confirm the pinned llama.cpp handles Qwen3-VL before relying on it.
+
+## 2026-11-09 — NVIDIA driver vs Proxmox 9.2 kernel 7.0 (pve-ai, HQ Gen10 BJL)
+pve-ai runs PVE 9.2.2, kernels 7.0.14-28-pve (new) + 7.0.2-6-pve. Web check (forum posts, not official — verify at install):
+- Pascal (P40) is capped at the **R580** branch; **Debian's packaged nvidia-driver (550) fails on kernel 7.0** → use the **NVIDIA .run installer, R580 ≥ 580.159.04** (580.178.04 reported working on PVE 9.2 / kernel 7.0.x with a Pascal card).
+- Pascal has **no open kernel module** → force the proprietary module (`-m=kernel`), build with DKMS against `proxmox-headers-$(uname -r)`.
+- Kernel 7.0 ships **nova_core** (new in-kernel NVIDIA driver) which can grab the card → blacklist `nova_core` as well as `nouveau`.
+- Once `nvidia-smi` shows both P40s: **pin the working kernel** (`proxmox-boot-tool kernel pin <ver>`) so an update can't break the driver; test new kernels deliberately.
+- Some 580 builds fail on kernels newer than 7.0.6; 7.0.14-x reported working with later 580 point releases.
+Sources: forum.proxmox.com threads 183421, 185614, 185092, 183800 (via search; forum not reachable from Eugene's session).
+
+## 2026-11-09 — Permanent serving on pve-ai CT 200 `ai-lab` (10.224.10.31)
+- Model files: stable names in `/models/live/` (symlinks into the HF cache): gpt-oss-120b.gguf (63,387,346,208 B), gpt-oss-20b.gguf (12,109,566,624 B), qwen3-vl-30b.gguf + qwen3-vl-30b-mmproj.gguf.
+- **llama-swap v271** (`/usr/local/bin`, checksum OK) → `/etc/llama-swap/config.yaml`, systemd `llama-swap.service`, **listens 127.0.0.1:9000 only**; swaps one model at a time (48 GB VRAM can't hold all three). 120b line = tested best (`--n-cpu-moe 12 -ts 23/13 -t 12 -c 32768 -b 2048 -ub 2048 --jinja`).
+- **Open WebUI v0.13.3** (pip venv `/opt/open-webui`, data `/var/lib/open-webui`), systemd `open-webui.service`, **port 3000 on the LAN, login required**, `OPENAI_API_BASE_URL=http://127.0.0.1:9000/v1` (key "local" = placeholder, not a secret), Ollama off, `CUDA_VISIBLE_DEVICES=` (CPU only, GPUs stay with the models), WEBUI_NAME "Fishbone AI". Its own secret key is generated and kept on the server. Admin account = Minda (password in 1Password only).
+- Done: sign-ups OFF (verified in incognito: "Sign in" only), DEFAULT_USER_ROLE=pending, community sharing OFF, ENABLE_PERSISTENT_CONFIG=false (env wins), CUDA_VISIBLE_DEVICES= (CPU only).
+- Done: models renamed **Fishbone Generalist** (120b) / **Fishbone Quick** (20b) / **Fishbone Eyes** (qwen3-vl) with system prompt `Today is {{CURRENT_WEEKDAY}}, {{CURRENT_DATE}}…` (+ 'unclear' rule for Eyes), visibility for logged-in users. **Date test passed:** "Monday 9 November 2026; next Thursday 12 November 2026" (both gpt-oss models got weekdays wrong without it on 5 Nov).
+- **Done 2026-11-09:** CT 200 `onboot: 1` (Fishbone AI starts with pve-ai). pve-ai storage **`pbs-nas`** (10.224.10.20, datastore store1, root@pam — Minda typed the password; fingerprint 86:63:e4:…:7e:96). Backup job **pve-ai, CT 200, daily 03:00, Snapshot, keep-daily 7 / keep-weekly 4**. First run: 24.4 GiB rootfs (13.0 GiB compressed; CUDA toolkit + venv + build), 2 min 40 s, **TASK OK**. `/models` bind mount not in backup (models re-downloadable).
+- To do (was): per-model system prompt with {{CURRENT_DATE}} + {{CURRENT_WEEKDAY}}; friendly model names; backup of `/var/lib/open-webui` (PBS); later the RND-14 gateway.

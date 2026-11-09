@@ -93,7 +93,7 @@ Then on OPNsense: VLAN 21 on the LACP, CARP `.1`, DHCP pool, GUEST rules. Test: 
 - **Window 2 (inside):** the route `10.224.17.0/32 via 10.224.11.11` (the OPNsense **VM 101** — IPsec on 500/4500 via DMZ) moves to the new pair as `10.224.17.0/24 via 10.224.11.11` (the /32 looks like a typo — confirm).
 
 ## 6. Step B preview (later; not in this plan's windows)
-Gateway group on OPNsense = today's ASA tracked routes: **FTTB tier 1** (monitor 8.8.4.4) → **Starlink tier 2** (monitor 1.1.1.1) → **Vodafone tier 3**; **BT** (81.143.32.194/29, 0 hits) — keep or drop (Minda). Port forwards: DocuSeal 80/443, proxy 80/443, PBX UDP 5080, IPsec 500/4500 → VM 101 (or fold its VPN into the pair). MSS clamp 1452 (ASA `sysopt connection tcpmss 1452`) on the WANs. The /29 public-IP question returns here.
+Gateway group on OPNsense (**order confirmed by Minda 7 Nov**): **FTTB tier 1** (monitor 8.8.4.4) → **BT Business via the radio, VLAN 4, tier 2** → **Starlink tier 3** (monitor 1.1.1.1) → **Vodafone tier 4**; **BT** (81.143.32.194/29, 0 hits) — keep or drop (Minda). Port forwards: DocuSeal 80/443, proxy 80/443, PBX UDP 5080, IPsec 500/4500 → VM 101 (or fold its VPN into the pair). MSS clamp 1452 (ASA `sysopt connection tcpmss 1452`) on the WANs. The /29 public-IP question returns here.
 
 ## 7. Dropped / not carried over (confirm)
 - Admin port-forwards (removed 1 Nov) and the `permit ip any any` lines — **not** recreated.
