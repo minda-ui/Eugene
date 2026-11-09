@@ -80,6 +80,8 @@ _iLO default password on the label is **not recorded** (charter §3) — change 
 | Plan | RAM: 4 spare 32 GB from the Gen9 (128 GB) (the 2 spare 2933 sticks stay reserved for the HQ unit once its P2 slot 5 is fixed); CPU-only to start; build at HQ, then move to Beverley |
 | To check at first power-on | CPUs, memory, PSUs, controller, ROM version |
 
+**Gen9 (`pve`) server-triangle card (2026-11-09):** HPE **560SFP+ (Intel 82599ES)** fitted → `ens4f0` (port 1) **10.99.12.1/30 MTU 9000 ↔ pve-ai `nic4`** (DAC), `ens4f1` (port 2) reserved ↔ R710 `enp7s0d1` (10.99.13.0/30). Gen9 network = **Open vSwitch** (`vmbr0` OVS bridge, `bond0` OVS bond = X710 `ens6f0np0`+`ens6f1np1` to the 3850 Po4) — **never press Apply Configuration on the Gen9** (reloads OVS → phones drop); triangle ports added as plain stanzas at the end of `/etc/network/interfaces` + `ifup <port>`. Backups of the file: `/root/interfaces.bak-2026-11-09`, `/root/interfaces.bak-dup`. Other NICs: 4× BCM5719 `eno1-4`, 4× I350 `eno49-52`, 4× `ens1f0-3` (331T).
+
 #### Server hardware baseline — 2026-10-16 (iLO/IPMI readout, GPU-upgrade prep RND-2)
 _Read non-intrusively via `ipmitool` on the running host (`fru print`, `sdr`); no reboot, no credential held. For the DL380 Gen9 `CZJ64905NP`._
 | Item | Detail |
