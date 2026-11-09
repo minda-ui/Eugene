@@ -98,5 +98,9 @@ A one-page result note: tokens/s for each stage, scores, and a recommendation fo
 
 | gpt-oss-120b | `-ncmoe 14 -ts 25/11 -t 16` | **128.99 ± 1.89** | **20.97 ± 0.74** | best so far; VRAM 20.9 / 17.3 GB used |
 | gpt-oss-120b | `-ncmoe 14 -ts 25/11 -t 32` | 125.38 ± 1.45 | **5.69 ± 6.03** | 32 threads collapses (oversubscribed / cross-socket) → use 16 |
+| gpt-oss-120b | `-ncmoe 12 -ts 23/13 -t 12` | **137.37 ± 2.24** | **25.77 ± 0.58** | **BEST — use this** (≈2 GB VRAM headroom per card) |
+| gpt-oss-120b | `-ncmoe 12 -ts 23/13 -t 16` | 137.57 ± 1.23 | 23.40 ± 0.40 | |
+
+**Verdict (Stage 2 speed):** 120b on 2× P40 + RAM ≈ **26 t/s writing, 137 t/s reading** — usable for staff chat; a 3rd P40 (all on GPU, est. 35–45 t/s) is an upgrade, not a must. Still to check: real chat with long context (KV headroom ~2 GB/card) + the quality prompts.
 
 Notes: `-ncmoe 14,18,24` with default even split → OOM on device 1 (28.5 GB): CPU-expert layers are the first N, so the heavy layers all land on GPU 1 → set `-ts` to give GPU 0 more layers. 120b on 2 cards is limited by the CPU-expert part; tuning next (ncmoe 14, threads), third P40 would hold it all on GPU.
