@@ -1,0 +1,11 @@
+# Change log — 2026-11-09 (Mon, HQ) — Gen10 servers in, pve-ai built, P40s live
+
+_Guide-only session (§3): Minda did every physical and console step; Eugene guided and checked from photos._
+
+- **Both DL380 Gen10 arrived** (Bargain Hardware SS207004, delivered Sat 7 Nov — earlier than the expected Tue). Logged S/N 2M20130BGN + 2M20130BJL. iLO factory passwords on the pull-out labels **not recorded** (1Password only).
+- **RAM:** 12× 32 GB 2933 in the 12 white slots (1 per channel). BGN: error 234 Processor 2 DIMM 5 with two different sticks → slot/CPU2 fault, not the stick (warranty claim to Bargain Hardware pending). BJL: **384 GB clean** → **roles swapped: BJL = HQ AI server, BGN = Beverley.**
+- BJL: 2× Xeon Gold 6238, ROM U30 v3.66, 2× 1600 W PSU, 6 performance fans, E208i-a (no arrays → disks pass through), 2× 240 GB SATA SSD. Workload profile → General Throughput Compute. iLO static 10.224.9.22/24, no gateway (OOB plan), MAC 94:40:C9:F7:8E:82.
+- **Proxmox VE 9.2.2 → 9.2.26** installed: host `pve-ai`, ZFS RAID1 on the 2 SSDs, `10.224.10.30/24` gw `10.224.10.1`, **DNS 1.1.1.1 / 8.8.8.8** (the ASA gives no DNS — first install used .1 and failed), 3850 Gi2/0/17 (VLAN 10). Repos: enterprise off, pve-no-subscription on. Kernel 7.0.14-28-pve.
+- **2× Tesla P40 live:** NVIDIA data-centre driver **580.196.07** (.run, `--dkms -m=kernel`), nouveau + nova_core blacklisted. `nvidia-smi` = 2× P40, 23040 MiB each. Power cables (869820-001) were plugged before a meter check; proven correct by clean boots + the driver (no power-cable error). Lesson kept: meter-check first next time (HL-0110).
+- Lessons: Debian's 550 driver fails on kernel 7.0 → use NVIDIA .run R580; kernel 7.0's nova_core must be blacklisted; DNS on VLAN 10 is 1.1.1.1, not the ASA.
+- Next: pin kernel; persistence mode; gpt-oss Stage 2 on the P40s; 6× 900 GB SAS model library; Beverley Gen10 (BGN) RAM + warranty claim; check Gen9 phones after the P40 removal.
