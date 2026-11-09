@@ -103,4 +103,6 @@ A one-page result note: tokens/s for each stage, scores, and a recommendation fo
 
 **Verdict (Stage 2 speed):** 120b on 2× P40 + RAM ≈ **26 t/s writing, 137 t/s reading** — usable for staff chat; a 3rd P40 (all on GPU, est. 35–45 t/s) is an upgrade, not a must. Still to check: real chat with long context (KV headroom ~2 GB/card) + the quality prompts.
 
+**Chat (llama-server, CT 200 `10.224.10.31:8080`, `--n-cpu-moe 12 -ts 23/13 -t 12 -c 32768 --jinja`):** VAT prompt **2/2** (£98.45 / £19.69 / £118.14, clear table), 519 tokens in 23 s = **22.47 t/s** real chat (CPU run 5 Nov: 12.6 t/s). Long-document test: pending.
+
 Notes: `-ncmoe 14,18,24` with default even split → OOM on device 1 (28.5 GB): CPU-expert layers are the first N, so the heavy layers all land on GPU 1 → set `-ts` to give GPU 0 more layers. 120b on 2 cards is limited by the CPU-expert part; tuning next (ncmoe 14, threads), third P40 would hold it all on GPU.
