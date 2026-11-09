@@ -66,6 +66,16 @@ _From Minda's photos of the open chassis. The iLO default password on the pull-o
 | First boot (2026-11-09) | System ROM **U30 v3.66 (04/01/2026)** · **2× Xeon Gold 6238** (22c each, 44c/88t) · SmartMemory authenticated · Boot UEFI. ⚠️ **Error 234: Processor 2 DIMM 5 fails training** (codes 0x29/0x02) with two different sticks → **slot / CPU2 seating fault, not the stick.** Interim: both F-5 sticks removed → **10× 32 GB = 320 GB**, warning 510 (unbalanced controllers, minor speed loss). Next: torch-check slot; raise with Bargain Hardware (warranty) before any CPU reseat. 2 spare 32 GB sticks on the shelf. |
 | To check at first power-on | Memory count + speed, CPU model, PSU wattage (2× 1600 W wanted for GPUs), controller model (E208i-a expected), iLO/System ROM firmware |
 
+#### Beverley server — DL380 Gen10 (arrived, logged 2026-11-09)
+_iLO default password on the label is **not recorded** (charter §3) — change at first iLO login, store in 1Password only._
+
+| Item | Value |
+|---|---|
+| Model | **HPE ProLiant DL380 Gen10 8SFF**, product **868703-B21**, S/N **2M20130BJL** (same order as the HQ unit) |
+| iLO | iLO 5, default DNS name `ILO2M20130BJL`, user Administrator, ⚠️ factory password still set |
+| Plan | RAM: 4 spare 32 GB from the Gen9 (128 GB) **+ the 2 spare 2933 sticks from the HQ Gen10** (see below); CPU-only to start; build at HQ, then move to Beverley |
+| To check at first power-on | CPUs, memory, PSUs, controller, ROM version |
+
 #### Server hardware baseline — 2026-10-16 (iLO/IPMI readout, GPU-upgrade prep RND-2)
 _Read non-intrusively via `ipmitool` on the running host (`fru print`, `sdr`); no reboot, no credential held. For the DL380 Gen9 `CZJ64905NP`._
 | Item | Detail |
