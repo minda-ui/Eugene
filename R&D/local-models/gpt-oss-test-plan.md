@@ -85,3 +85,7 @@ A one-page result note: tokens/s for each stage, scores, and a recommendation fo
 - **120b = Generalist candidate** (better domain knowledge, PO-aware drafting, names injection attempts). **20b = Receptionist / fast drafts.**
 - Stage 2 (Gen10 + 2× P40) should make the 120b markedly faster; the V100 purchase looks less necessary — decide after Stage 2.
 - Rules carried into the gateway design: dates via a tool, contract/tax answers from our documents with sources, injection text treated as data.
+
+## Stage 2 setup — 2026-11-09 (pve-ai, HQ Gen10 BJL, 2× P40)
+- Container **CT 200 `ai-lab`** (unprivileged Debian 12, 32 cores, 256 GB RAM, 64 GB rootfs on local-zfs, 10.224.10.31, DNS 1.1.1.1), devices nvidia0/1, nvidiactl, nvidia-uvm(-tools) passed in; host dataset `models/gguf` (chown 100000) mounted at `/models`; `LLAMA_CACHE=/models`.
+- Inside: NVIDIA 580.196.07 userspace (`--no-kernel-modules`); **CUDA toolkit 12.9** (CUDA 13 can't build sm_61/Pascal); llama.cpp built `-DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=61`, **commit `a0ad695cb`** (Stage 1 was `3259ab6e5`).
