@@ -61,6 +61,7 @@ _From Minda's photos of the open chassis. The iLO default password on the pull-o
 | Model | **HPE ProLiant DL380 Gen10 8SFF**, product **868703-B21**, S/N **2M20130BGN** (Bargain Hardware order 002022046, shipment SS207004, invoice PPSI147647) |
 | iLO | iLO 5, default DNS name `ILO2M20130BGN`, user Administrator. ⚠️ Factory password still on the label → change before it goes on the network (same gap as OI-31 on the Gen9). |
 | Seen in photos | 2 CPUs with heatsinks · **6 "Performance" fans** (the high-performance kit GPUs need) · Type-a storage controller fitted (cables AROC PORT1/PORT2 to the drive backplane) · primary + secondary riser cages fitted, no cards yet · memory slots look empty in the photo (RAM: 6× P03052-091 to fit) |
+| RAM plan (2026-11-09) | **12× 32 GB = 384 GB**, 1 stick per channel: **all 12 WHITE slots** = slots 1, 3, 5, 8, 10, 12 (letters A–F) on each processor; black slots stay empty → full 2933 speed, all 6 channels per CPU |
 | Role | HQ AI brain (2× P40 first, V100 later) — see `R&D/estate-compute-split/v100-brain-sketch.md` |
 | To check at first power-on | Memory count + speed, CPU model, PSU wattage (2× 1600 W wanted for GPUs), controller model (E208i-a expected), iLO/System ROM firmware |
 
