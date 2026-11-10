@@ -166,3 +166,13 @@ MACs: unit 2 188b.9d72.a28f…a297; **unit 3 88:5a:92:87:ed:af…b7**.
 - After install: BIOS 1st Boot = HDD, stick out; OPNsense boots from `/dev/gpt/rootfs`. Console 115200.
 - **Unit 3 bench config (6 Nov):** console option 1 → WAN none, **LAN = em8 (Management port)**; option 2 → LAN **192.168.99.1/24**, no gateway, no IPv6, DHCP 192.168.99.100–150, HTTPS kept, web GUI defaults restored. GUI: https://192.168.99.1 from a laptop on the MGMT port only.
 - GUI reached from the HQ desktop PC (no RJ45 on the laptop). Wizard blocks on the WAN page when no WAN is assigned → skip wizard (click logo) and set **System → Settings → General**: hostname **bev-fw**, domain **fishbone.local**, Europe/London, DNS 1.0.0.1 + 8.8.8.8 (one per line) — saved 6 Nov. Temporary WAN for updates: **em3 (Gi0/0) → office socket**, DHCP got 10.224.11.72; ping 1.1.1.1 OK. Update offered: **26.7 → 26.7.8 (30 Oct 2026)**, security fixes (OpenSSH 10.6 regenerates ML-DSA host keys on reboot → SSH host key fingerprints change; StrongSwan IKEv1 deprecation — we use WireGuard/IKEv2 only). Backup: deferred by Minda to go-live (nightly config.xml pull → PBS). Root 2FA: deferred.
+
+### Unit 2 install log (2026-11-10) — becomes `hq-fw-a`
+- Console via DIY VGA cable on header J9 (works; wiring in the VGA section above). Serial FCH19267THV.
+- Booted the OPNsense 26.7 USB stick straight into live mode (no SSD pre-wipe needed this time). Live-mode login is `installer` (factory default), not `root`.
+- Installer → **Install (ZFS)** → stripe → **ada0 Micron M550 MTFDDAK128MAY** only (da1 "USB DISK MODULE" = eUSB, left alone). Unit 3 is UFS; unit 2 is ZFS — both fine, ZFS chosen this time (boot env snapshots).
+- No root password was set in the installer → first login used the factory default; changed at once with `passwd` from the console shell. Password lives only in 1Password (Fishbone IT, "ASA unit 2 – OPNsense root").
+- Boots from `zroot/ROOT/default`. Ports em0…em8 = MAC …a2:97 … …a2:8f, same order as unit 3 → **em8 = Management**, em3 = Gi0/0.
+- Bench access (Minda's choice): **LAN = em8 as DHCP client on the office network** → got **10.224.11.73**; WAN = em3 (unplugged). This avoids a direct-cable laptop. Before go-live em8 moves to OOB VLAN 9 (10.224.9.2) per the HQ plan. Lesson: while em8 still had the factory 192.168.1.1 + DHCP server, the office cable was pulled until option 2 switched it to DHCP client (otherwise it would hand out 192.168.1.x on the office LAN).
+- GUI: hostname **hq-fw-a**, fishbone.local, Europe/London, DNS 1.0.0.1 + 8.8.8.8; firmware update 26.7 → 26.7.8 started.
+- Next: restore a **cleaned** copy of unit 3's config (no Tailscale identity, no Beverley addresses/VLANs/DHCP) — HQ build per `Plan-OPNsense-HQ-Translation-AWT-1069b.md`.
