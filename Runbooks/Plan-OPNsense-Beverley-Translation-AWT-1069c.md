@@ -151,3 +151,4 @@ VLANs on lagg0: **6 = WAN2_RES** (residential hub B, 192.168.1.111/24, gw .254 �
 - **Stage 1 ✅** Tailscale (100.84.154.117), webGUI rule.
 - **Stage 2 ✅** lagg0 = em7+em2 LACP ("trunk to home-sw"); VLANs vlan01–06 on lagg0 (6 WAN2_RES, 10 HQMGMT, 110 APMGMT, 111 INSIDE, 120 WIFI, 121 IOT); assigned opt2–opt7, enabled+locked, static: 192.168.1.111/24, 10.224.10.254/24, 10.224.110.1/24, 10.224.111.1/24, 10.224.120.1/24, 10.224.121.1/24; block private/bogons off; no gateway yet. Applied.
 - Next: stage 3 DHCP (pools .10–.248, DNS 1.0.0.1/8.8.8.8, reservations), stage 4 routes to HQ, stage 5 rules + outbound NAT, stage 6 WAN2/WAN3 gateways + group.
+- **Stage 3 ✅ (2026-11-10)** Kea DHCPv4 enabled on APMGMT, INSIDE, IOT, WIFI (firewall rules auto); subnets 10.224.110/111/120/121.0/24, pools .10–.248, routers = interface .1, DNS 1.0.0.1 + 8.8.8.8 (auto-collect off). Dnsmasq still serves only MGMT (bench) — check its ranges. Reservations (Loxone/printer) still to add.
