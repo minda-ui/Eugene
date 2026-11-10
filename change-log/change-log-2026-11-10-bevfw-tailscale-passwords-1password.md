@@ -1,5 +1,16 @@
 # Change log — 2026-11-10 (Tue, Minda at Beverley) — bev-fw remote access + password reset into 1Password
 
+## Update 2026-11-10 ~19:50 UTC — Beverley SWAP done: bev-fw live (guide-only §3)
+| Item | Result |
+|---|---|
+| Pre-check Source NAT | HQMGMT not NATed ✅; WAN2_RES had no NAT → fixed (interface gateway = BT_RESIDENTIAL) |
+| Swap | old ASA off; Po1 cables → bev-fw Gi0/1+Gi0/2; lagg0 + 6 VLANs up; BT_BUSINESS active, BT_RESIDENTIAL + HQ_RADIO green |
+| Fault found + fixed | Wi-Fi "couldn't get IP": Dnsmasq held UDP 67 on all interfaces → Kea couldn't bind. MGMT DHCP moved to Kea, Dnsmasq disabled → clients get addresses |
+| Tests | Wi-Fi ✅ internet ✅ Loxone ✅ IoT leases ✅ bev-fw→PBX 1.2 ms ✅ · UniFi not checked · **ext 1006 open** (patch cable pulled from its termination — Minda re-terminates 11 Nov) |
+| After | encrypted bev-fw backup in 1Password ✅; old ASA off, kept 30 days |
+| Decisions | Automated config backups approved: Oxidized LXC `netbackup` on pve-ai, nightly, switches + 3 OPNsense, HQ ASA excluded (`Runbooks/Plan-Network-Config-Backups.md`) |
+| For HQ tomorrow | disable Dnsmasq on hq-fw-a/b before go-live (same port-67 clash) |
+
 _Guide-only (§3). Minda generated and holds every secret (1Password vault **Fishbone IT**); Eugene never saw a value._
 
 - **bev-fw (unit 3) on Tailscale:** `os-tailscale` plugin, single-use auth key (1Password), IP **100.84.154.117**, key expiry disabled. tailscale0 assigned as opt1 TAILSCALE; rule pass TCP 100.64.0.0/10 → This Firewall :443. webGUI verified from the phone on mobile data → bench build can be done remotely. Gotchas: "Interface (origin)" only for out-rules; `/10` dropped into Source Port.
