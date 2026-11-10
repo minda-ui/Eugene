@@ -146,3 +146,8 @@ Outcome decides: A (public IP behind the hub) vs B (PPPoE on bev-fw) for the swa
 | Management | em8 | bench/admin 192.168.99.1 (description renamed **MGMT**; identifier stays `lan` so the anti-lockout rule keeps working) |
 | — | tailscale0 | TAILSCALE (remote admin, done) |
 VLANs on lagg0: **6 = WAN2_RES** (residential hub B, 192.168.1.111/24, gw .254 — WAN2 until 2027), **10 = HQMGMT** 10.224.10.254/24 (also WAN3 = HQ via 10.224.10.1), **110 = APMGMT** .110.1, **111 = INSIDE** .111.1, **120 = WIFI** .120.1, **121 = IOT** .121.1. Gateway group later: BT_BUSINESS → RESIDENTIAL → HQ_RADIO. Switch side unchanged (Po1 + allowed VLANs incl. 6 and 10).
+
+### Bench build progress (remote over Tailscale, 2026-11-10)
+- **Stage 1 ✅** Tailscale (100.84.154.117), webGUI rule.
+- **Stage 2 ✅** lagg0 = em7+em2 LACP ("trunk to home-sw"); VLANs vlan01–06 on lagg0 (6 WAN2_RES, 10 HQMGMT, 110 APMGMT, 111 INSIDE, 120 WIFI, 121 IOT); assigned opt2–opt7, enabled+locked, static: 192.168.1.111/24, 10.224.10.254/24, 10.224.110.1/24, 10.224.111.1/24, 10.224.120.1/24, 10.224.121.1/24; block private/bogons off; no gateway yet. Applied.
+- Next: stage 3 DHCP (pools .10–.248, DNS 1.0.0.1/8.8.8.8, reservations), stage 4 routes to HQ, stage 5 rules + outbound NAT, stage 6 WAN2/WAN3 gateways + group.
