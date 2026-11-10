@@ -1,6 +1,6 @@
 # Plan — automated config backups for the switches and firewalls (v0.1)
 
-**Date:** 2026-11-10. **Author:** Eugene. **Status:** draft for Minda; nothing is built until she approves.
+**Date:** 2026-11-10. **Author:** Eugene. **Status:** APPROVED by Minda 2026-11-10 — build after the HQ swap.
 **Guide-only (§3):** Minda creates every account, key and password (1Password, vault Fishbone IT) and runs every live step. Eugene writes the config and checks the result. No secret ever goes into this repo.
 
 ## Why
@@ -24,7 +24,6 @@ Same rule as OI-26: **the backup host pulls; devices never push and hold no cred
 | Beverley home-sw 3850 | 10.224.110.4 | same, over the radio | same |
 | hq-fw-a / hq-fw-b | OOB / MGMT addresses after go-live | **OPNsense API** `GET /api/core/backup/download/this` (encrypted export if supported) | dedicated API user with **only** the backup privilege, key+secret |
 | bev-fw | 10.224.10.254 (HQMGMT) | same API | same |
-| HQ ASA 5550 (until retired) | 10.224.10.1 | SSH, `more system:running-config` | read-only-ish user, retire with the box |
 
 Notes:
 - Cisco `show running-config` needs privilege 15 to show the full config; the `oxidized` user is restricted by **SSH key + source ACL + no password login**, and its use is visible in the switch log.
@@ -37,7 +36,7 @@ Notes:
 4. First pull, check every device shows green and the git log has one commit each.
 5. Test restore drill on the bench box (old ASA unit 4 or a spare): take a pulled OPNsense config, restore it, confirm it boots.
 
-## Open for Minda
-1. OK to run it on **pve-ai** (recommended) — or on pve-bev?
-2. Keep the HQ ASA in the list until it is retired? (Eugene: yes.)
-3. Nightly is enough, or also every 6 h during busy weeks like this one?
+## Decisions (Minda, 2026-11-10)
+1. Host: **pve-ai** (it also receives the storage shelf).
+2. **HQ ASA not included** — it is replaced in the HQ switch-over on 11 Nov.
+3. **Nightly only** — these devices change rarely.
