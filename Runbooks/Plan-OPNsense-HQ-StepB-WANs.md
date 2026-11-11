@@ -40,3 +40,10 @@ Giacom order **5020640**: **Sky Ethernet 1 Gb/1 Gb**, **/30 IP range**, managed 
 3. **VM 101 IPsec** (UDP 500/4500 open on FTTB) — believed unused (OI-33). Power VM 101 off for a week first, then drop the forwards.
 4. Admin logins for the StarLink and Vodafone routers (to check their LAN side / DHCP) — in 1Password?
 5. A quiet day (office empty) — Step B takes the whole internet for ~10–20 min per line.
+
+## 5. Same day: DS2246 shelf into the freed ASA slot (Minda, 11 Nov — reason: power + space)
+- HQ ASA 5550 pair (2× 1U, below the 3850s) comes out after Step B → DS2246 (2U) goes into that space; ASAs kept 30 days on a shelf.
+- pve-ai (Gen10 BJL, top of rack): free **slot 3** (primary riser, CPU1, x8, full-height) and slot 6 (secondary riser) under the P40s → **CP400e into slot 3** (check bracket is full-height). Check card temp in iLO after.
+- SAS cable SFF-8644→QSFP **3 m**: ASA slot → pve-ai is ~10U (~45 cm) → reaches easily; route up the rack side with velcro, no tight bends.
+- Shelf ~25–30 kg with 24 drives → needs rails or a support shelf (check the DS2246 rail kit is on hand).
+- Order still open: R710 IT-mode HBA + 6 disks (size from the PBS datastore usage).
