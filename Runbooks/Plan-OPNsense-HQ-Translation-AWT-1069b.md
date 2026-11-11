@@ -138,3 +138,4 @@ All six VLANs gatewayed by the OPNsense pair; CARP failover tested (pull hq-fw-a
   - Tests: office PC 10.224.11.70 gw **10.224.11.1** DNS 1.0.0.1/8.8.8.8 from Kea ✅, internet ✅, staff Wi-Fi ✅, Fishbone AI 10.224.10.31 ✅, CCTV live view ✅, desk phones ✅, unit 1 all 5 VIPs **BACKUP** ✅.
   - Roll-back (until write mem): 3850 `allowed vlan remove 11,12,20` on Po5/Po6; ASA Po1.11/.12/.20 `no shutdown`, dhcpd enable ×3, remove 3 routes + 8 transit NATs, restore 8 old NATs.
   - Open: VM 101 route 10.224.17.0 via 10.224.11.11 (old ASA `route inside`) now dead — VM 101 believed unused (OI-33); add on the pair only if needed. Remove `temp admin from guest` once OOB VLAN 9 access exists.
+- **Saved (11 Nov):** `write memory` [OK] on HQ ASA + 3850; hq-fw-a encrypted config backup in 1Password. **Next:** window 3 (MGMT VLAN 10 + OOB VLAN 9 admin access, remove `temp admin from guest`, Kea HA, VM 101 route) and window 4 (TELEPHONY VLAN 13, phones-free) — separate days.
