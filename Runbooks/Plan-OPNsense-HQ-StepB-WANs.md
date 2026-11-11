@@ -1,0 +1,37 @@
+# Plan — HQ Step B: internet lines onto the OPNsense pair, retire the ASA (v0.1)
+
+**Date:** 2026-11-11. **Author:** Eugene. **Status:** draft for Minda — nothing changes until she picks a day.
+**Guide-only (§3).** Minda runs every live step; Eugene writes the lines and checks results. No secrets here.
+**Builds on:** `Plan-OPNsense-HQ-Translation-AWT-1069b.md` (Step A complete 11 Nov: all internal VLANs on hq-fw-a/b).
+
+## 1. What the ASA still carries (live read 11 Nov)
+| VLAN | ASA nameif | ASA address | What it is | Step B |
+|---|---|---|---|---|
+| 2 | outside_sl | 192.168.1.254/24 | **StarLink**, behind the StarLink router (private) | → pair, CARP easy (private range) |
+| 3 | outside_vf | 192.168.3.254/24 | **Vodafone**, behind the Vodafone router (private) | → pair, CARP easy |
+| 4 | outside_bt | 81.143.32.194/29 | old BT Business via the radio — **dead** since BT moved direct to bev-fw (track 4 down 5 weeks) | **drop** |
+| 6 | outside_fttb | **62.105.119.118/30**, gw .117 | **FTTB, main line** — /30 = only ONE usable public address | → pair, see §2 |
+| 30 | dmz (sec 30) | 10.224.30.1/24 | DMZ: `proxy` 10.224.30.30, `opnsense_wan` (VM 101 IPsec) | → pair (internal VLAN) |
+| 5 | ubnt_mgmt (sec 0) | 192.168.5.1/24 | airFiber radio management (Beverley routes 192.168.5.0/24 to HQ) | → pair (internal VLAN) |
+| 250 | transit | 10.224.250.1/29 | link to the pair | removed at the end |
+
+DMZ NATs today: proxy 443 on **bt + vf**, proxy 80 on **bt + vf** (none on FTTB → proxy is not reachable on the main line today); VM 101 IPsec UDP 500/4500 on **bt + vf + fttb**; dmz PAT on vf/sl/bt/fttb.
+
+## 2. The FTTB question — one public address (/30)
+CARP normally needs 3 addresses per line (a, b, shared). FTTB has only one. Options:
+- **A. Ask the provider for a routed /29** (5 usable) → classic CARP on FTTB. Cleanest; may cost a little / take days.
+- **B. CARP with private interface addresses + the public .118 as CARP VIP** (interface addresses e.g. 172.31.6.2/.3 /29 on VLAN 6, VIP 62.105.119.118/30, gateway 62.105.119.117 marked *far gateway*). Works with today's /30, full failover, no provider change. Eugene's pick if A is slow.
+- C. FTTB on hq-fw-a only (no failover for the main line) — not recommended.
+
+## 3. Shape after Step B
+- Gateway group (Minda 7 Nov order): **FTTB tier 1** (monitor 8.8.4.4) → **Vodafone tier 2** → **StarLink tier 3** (monitor 1.1.1.1); BT dropped. HQ ↔ Beverley backup path via bev-fw over VLAN 10 (BT Business at Beverley) — tier 4, later.
+- Port forwards on FTTB: DocuSeal 80/443 → 10.224.10.60; PBX UDP 5080 → 10.224.13.9. Proxy + VM 101 IPsec only if still needed (§4).
+- Outbound NAT hybrid on each WAN; MSS clamp 1452 (as ASA). Default deny inbound.
+- ASA powered off, kept 30 days as roll-back, then archived.
+
+## 4. Questions for Minda (before the day)
+1. FTTB: option A (ask provider for /29) or B (private + far gateway)?
+2. **proxy 10.224.30.30** (public 80/443 on BT/VF only today) — still used? If not, retire with the ASA.
+3. **VM 101 IPsec** (UDP 500/4500 open on FTTB) — believed unused (OI-33). Power VM 101 off for a week first, then drop the forwards.
+4. Admin logins for the StarLink and Vodafone routers (to check their LAN side / DHCP) — in 1Password?
+5. A quiet day (office empty) — Step B takes the whole internet for ~10–20 min per line.
