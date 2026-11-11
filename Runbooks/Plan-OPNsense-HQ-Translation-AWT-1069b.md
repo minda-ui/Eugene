@@ -119,3 +119,10 @@ All six VLANs gatewayed by the OPNsense pair; CARP failover tested (pull hq-fw-a
 4. **Keep BT and Vodafone** for Step B ✅
 5. `tmp_hack` 192.168.228.0/24: unknown → treated as a leftover. Check its hit counts on the ASA/3850 first; remove only after a week with zero use.
 6. Windows: **go with the flow** — only Minda and Andrejus work at HQ, so the guest/office/CCTV/mgmt windows can be short daytime slots agreed on the day. **Telephony stays a planned phones-free window** (the PBX serves the whole company, not only HQ desks).
+
+## 11. Live re-check before go-live (2026-11-11, Minda at HQ console; Rule C)
+- `show run interface/route/nat/dhcpd` = 1 Nov export, no drift. Prompt `fishbone-asa/sec/act` → **HQ ASA is a failover pair and the SECONDARY unit is currently active** (note; changes replicate).
+- Default route in use: **FTTB 62.105.119.117** (metric 9). `outside_bt` (VLAN 4, .194 → .198, track 4) **down 5 weeks** — dead since BT Business moved direct to bev-fw; remove at Step B.
+- NAT: guest_wifi PAT on vf/sl/bt/fttb (= window-1 lines). **CCTV has no NAT today (no internet)** → window 2 adds transit NAT for inside + wifi only, not cctv. ssh-gateway forward **TCP 22999** on fttb + bt (OI-33, close after the swap).
+- DHCP: lease 28800, DNS 1.0.0.1 + 8.8.8.8; pools mgmt .50–.240 (+ option 43 `01040ae06e05`), inside .50–.240, cctv/telephony/wifi/guest .10–.248 — unchanged.
+- **Design decision for the bench→rack phase:** OOB stays on the office net (LAN_GW default) until OOB moves to VLAN 9; moved VLANs reach the internet by **policy routing** (pass rules with gateway ASA_TRANSIT), so admin replies never go asymmetric through the ASA. The 3850 trunks to the pair carry **only VLAN 250** until each window adds its VLAN (otherwise the CARP .1 VIPs would clash with the ASA's .1).
