@@ -23,6 +23,10 @@ CARP normally needs 3 addresses per line (a, b, shared). FTTB has only one. Opti
 - **B. CARP with private interface addresses + the public .118 as CARP VIP** (interface addresses e.g. 172.31.6.2/.3 /29 on VLAN 6, VIP 62.105.119.118/30, gateway 62.105.119.117 marked *far gateway*). Works with today's /30, full failover, no provider change. Eugene's pick if A is slow.
 - C. FTTB on hq-fw-a only (no failover for the main line) — not recommended.
 
+### New line on order (Raw/ screenshot, 11 Nov 13:37)
+Giacom order **5020640**: **Sky Ethernet 1 Gb/1 Gb**, **/30 IP range**, managed router **Cisco C1111-8P**, site comms room ground floor Unit 32 (HQ), order category **Cat 1.1** (no indicative excess construction charges), next update in 10 working days (~25 Nov). Customer name on the order: "RMT Accountants & Business Advisors Ltd", end user "Fishbone drylining" — Minda to confirm the account name is intended.
+**Consequence:** a /30 behind a provider router again gives ONE usable address → same problem as FTTB. **Cheapest moment to ask for a /29 (or /28) is now, before install.** If the /29 is granted, the Sky line can be the CARP-native tier-1 WAN and option B is only needed for FTTB.
+
 ## 3. Shape after Step B
 - Gateway group (Minda 7 Nov order): **FTTB tier 1** (monitor 8.8.4.4) → **Vodafone tier 2** → **StarLink tier 3** (monitor 1.1.1.1); BT dropped. HQ ↔ Beverley backup path via bev-fw over VLAN 10 (BT Business at Beverley) — tier 4, later.
 - Port forwards on FTTB: DocuSeal 80/443 → 10.224.10.60; PBX UDP 5080 → 10.224.13.9. Proxy + VM 101 IPsec only if still needed (§4).
