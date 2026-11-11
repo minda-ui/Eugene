@@ -21,7 +21,7 @@
 | ⚪ | — | UPS batteries / AI-server UPS / 16 A circuit / cooling | only if AWT-1065/1066 readings say so | 0–4,000 | measurements |
 
 | 🟠 | 1 | **HBA for the R710 internal bays (copy-3 pool)** — revived 2026-11-10 | **Dell H200 Integrated** (fits the PERC 6/i storage slot, reuses the 2 internal SFF-8087 cables) **or LSI 9211-8i**, either **flashed to IT mode** (pass-through for ZFS). Not a PERC H700/H710 (RAID-only). | 15–30 | **to buy** (Minda decision 2026-11-10) |
-| 🟠 | 6 | **Data disks for the R710 copy-3 pool** | 2.5" SAS **512n**, in **Dell R710 2.5" caddies** (not NetApp shelf caddies). Size: 6× 900 GB RAIDZ2 ≈ 3.2 TB usable — ⚠️ at/under the ~3.7 TB backup set → prefer **6× 1.2 TB (≈4.3 TB) or 6× 1.8 TB (≈6.5 TB)** 10k SAS, or RAIDZ1 on 900 GB. Check `proxmox-backup-manager datastore list` usage first. | 60–180 | **to buy** — size TBC |
+| 🟢 | 6 | **Data disks for the R710 copy-3 pool** — **no purchase needed (11 Nov)** | Live PBS usage: `tank-store` **13 GB used of 13 TB** (dedup + compression) → 6× 900 GB RAIDZ2 (~3.2 TB) is ample for years → **reuse 6 spare 900 GB SAS 512n** (NetApp X423 / Seagate ST900MM0006) in **Dell R710 2.5" caddies** (buy caddies only if missing). Also check `store1` (/rpool/pbs-store, old interim datastore on the R710 boot mirror) before the R710 reinstall. | 0 (caddies ~£5 ea if needed) | reuse |
 
 **Decision (Minda, 2026-11-10):** the DS2246 shelf + CP400e + `tank` pool move from the R710 to **pve-ai (Gen10 BJL)** = always-on primary PBS. The R710 becomes the **scheduled-power 3rd copy** (pull, off between runs, WoL) with its own 6-disk pool on the internal bays behind the new IT-mode HBA. PERC 6/i comes out → reinstall PVE/PBS on the R710 boot mirror rather than migrating it.
 
