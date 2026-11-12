@@ -1,7 +1,7 @@
 # Current State — Eugene (AI IT & Engineering Assistant)
 
 
-**2026-11-12 (late) — Lab hub + Lab mode:** 10 R&D rows in the Lab index (4471351379363716); Raw notes to Laima, Sarah, Victoria; CLAUDE.md §5 Lab mode v1.0; OI-36 open (Creative mode alignment, Minda). Lab mode words: "Lab mode on" / "Lab mode off".
+**2026-11-12 (late) — Lab hub + Lab mode:** 10 R&D rows in the Lab index (4471351379363716); Raw notes to Laima, Sarah, Victoria; CLAUDE.md §5 Lab mode v1.0; OI-36 resolved: all 34 R&D ideas live in the Lab index (owner Eugene); `R&D/ideas-log.md` frozen; "Creative mode" = estate chat-only mode. Lab mode words: "Lab mode on" / "Lab mode off".
 _Standing control file. Overwritten by archive-then-recreate at the end of any session that changes it — it holds the present snapshot, not history. Per-session history lives in `change-log/`. Companion standing files: `open-issues.md`, `external-source-register.md`, `processed-items-ledger.md`. See `CLAUDE.md` §4._
 
 | Field | Value |

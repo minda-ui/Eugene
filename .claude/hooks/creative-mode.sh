@@ -1,25 +1,31 @@
 #!/bin/bash
-# Eugene — UserPromptSubmit hook: Creative / R&D mode toggle.
-#
-# "Creative mode" => enter Eugene's R&D world (bolder exploration, work in R&D/,
-# lighter logging) with charter §3 safety UNCHANGED. "Normal mode" => return to
-# the standard working posture. Owner idea, Minda 2026-10-04. Read-only: prints
-# context, changes nothing, never blocks the message (always exit 0).
+# Eugene — UserPromptSubmit hook: Creative mode / Lab mode toggle (Lab mode v1.0, charter §5).
+# Changed 2026-11-12 (Minda: "R&D ideas should go to lab"). Read-only: prints context,
+# changes nothing, never blocks the message (always exit 0).
 input="$(cat)"
 prompt="$(printf '%s' "$input" | jq -r '.prompt // empty' 2>/dev/null)"
 [ -n "$prompt" ] || exit 0
-if printf '%s' "$prompt" | grep -qiE "\bcreative mode\b|\br&d mode\b|\blab mode\b|enter creative"; then
+p="$(printf '%s' "$prompt" | tr '[:upper:]' '[:lower:]')"
+if printf '%s' "$p" | grep -qE "\blab mode off\b|\bcreative mode off\b|\bnormal mode\b|back to normal|exit creative|end creative"; then
   cat <<'EOF'
-CREATIVE / R&D MODE ON (Eugene's R&D pool). Hold this posture for this and following turns until Minda says "Normal mode":
-- Explore boldly: propose speculative, ambitious ideas; sketch and prototype quickly; think beyond the usual scope. Half-formed ideas are welcome here — the point is to generate, and let the good ones become real.
-- Workspace: do R&D work in R&D/ — log every spark in R&D/ideas-log.md, and use a per-experiment folder R&D/<slug>/ for anything substantial. Keep R&D churn OUT of the main control files (current-state.md, processed-items-ledger.md, open-issues.md) until an idea graduates.
-- Graduation: when an idea is ready to become real, put it to Minda — record it in R&D/graduation-register.md and turn it into a real project/runbook/Hub task, or hand it to the right employee via their Raw/, with her approval.
-- SAFETY IS UNCHANGED. Charter §3 applies in full in Creative mode: no live-system changes (guide-and-verify only), never hold/type/request secrets, archive-never-trash, cross-KB only via Raw/. Creative is not reckless — anything irreversible or production-affecting is still flagged for a human, never done unilaterally.
-- Full rules: R&D/README.md.
+LAB / CREATIVE MODE OFF. Return to Eugene's standard working posture (CLAUDE.md §4 documentation discipline). Nothing from Creative mode is written or released by switching off.
 EOF
-elif printf '%s' "$prompt" | grep -qiE "\bnormal mode\b|exit creative|back to normal|end creative"; then
+elif printf '%s' "$p" | grep -qE "\blab mode\b"; then
   cat <<'EOF'
-CREATIVE / R&D MODE OFF. Return to Eugene's standard working posture: normal scope, and full control-file documentation discipline per CLAUDE.md §4. Any R&D worth keeping should already be in R&D/ideas-log.md; carry forward only what Minda has approved to graduate.
+LAB MODE ON (Lab mode v1.0, CLAUDE.md §5). Until "Lab mode off":
+- Write Lab work ONLY in Master Core – Lab: index "00 Models & Proposals Index" (Smartsheet 4471351379363716; your own rows, owner Eugene) and Drive Lab/ 1yUa7h10FeajcX15plwxSYTx6lZw380Ve (git working copy R&D/lab/<item>/ or R&D/<slug>/). Every item labelled LAB.
+- Every R&D idea gets a Lab index row (not R&D/ideas-log.md, which is frozen history).
+- Read live systems read-only; synthetic test data; no personal or financial data.
+- NEVER from Lab work: sending, Hub rows, Roster/Authority changes, live writes, edits to another seat's files, sharing changes. A Lab item is never evidence.
+- Only Minda releases an item, one at a time, naming what and where. Charter §3 applies in full.
+EOF
+elif printf '%s' "$p" | grep -qE "\bcreative mode\b|\br&d mode\b"; then
+  cat <<'EOF'
+CREATIVE MODE ON (estate one-to-one Creative mode, Lab mode v1.0 §1). Until "Creative mode off":
+- Ideas stay in the chat: write NOTHING anywhere (no files, no Lab rows, no git), send nothing, no searches carrying Minda's words.
+- What Minda says here is not an instruction, task, decision or record.
+- Only Minda releases an idea, one at a time, naming what and where (normally: a new Lab index row). Show the exact text and place first and wait for her yes.
+- Switching off releases nothing; a summary says only that Creative mode was on. Charter §3 applies in full.
 EOF
 fi
 exit 0
