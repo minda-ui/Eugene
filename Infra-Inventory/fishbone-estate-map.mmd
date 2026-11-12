@@ -1,82 +1,80 @@
-%% Fishbone estate network + compute + backup map — 2026-10-28 (Eugene, guide-only, §3).
-%% Target architecture with current reality noted. IPs from Infra-Inventory; verify at build.
+%% Fishbone estate network + compute + backup map — updated 2026-11-12 (Eugene, guide-only, §3).
+%% As-built after the OPNsense migration (Beverley 10 Nov, HQ Step A 11 Nov). IPs from Infra-Inventory + runbooks.
 flowchart TB
   classDef live fill:#e6f4ea,stroke:#1e7e34,color:#14532d;
-  classDef up fill:#fff4e5,stroke:#c77700,color:#7a4b00;
+  classDef old fill:#fdecea,stroke:#b42318,color:#7a271a;
   classDef plan fill:#e7f0ff,stroke:#2b6cb0,color:#1a365d,stroke-dasharray:5 4;
   classDef net fill:#eef1f4,stroke:#6c757d,color:#212529;
-  classDef bk fill:#f3e8ff,stroke:#7e22ce,color:#4a1072;
 
-  subgraph CLOUD["Internet / Overlay"]
-    WAVE["Wavenet FTTB — HQ primary WAN"]:::net
-    STAR["Starlink — HQ backup WAN"]:::net
-    BTP["Personal BT — Beverley WAN"]:::net
-    BTB["BT Business @ Beverley — backhaul to HQ vlan4<br/>ENDING 27 Oct (OI-24)"]:::net
-    TS["Tailscale overlay — remote admin, split-tunnel"]:::live
-    OFF["Encrypted offline copy — cloud / USB (the -1)<br/>PLANNED"]:::plan
+  subgraph CLOUD["Internet / overlay"]
+    FTTB["Wavenet FTTB 1G — HQ primary<br/>62.105.119.118/30"]:::net
+    VF["Vodafone — HQ backup<br/>192.168.3.x behind router"]:::net
+    STAR["Starlink — HQ backup<br/>192.168.1.x behind router"]:::net
+    SKY["Sky Ethernet 1G — HQ NEW (on order)<br/>Giacom 5020640, /29 requested"]:::plan
+    BTB["BT Business — Beverley primary<br/>81.143.32.195/29 gw .198"]:::net
+    BTR["BT residential — Beverley backup<br/>192.168.1.111, VLAN 6, ends Jul/Aug 2027"]:::net
+    TS["Tailscale — remote admin (split tunnel)<br/>subnet routers at HQ + Beverley; bev-fw 100.84.154.117"]:::live
   end
 
-  subgraph HQ["Fishbone HQ, Wallsend — core site"]
-    HASA["Cisco ASA 5550 x2 — active/standby HA"]:::live
-    HSW["Catalyst 3850 x2, stacked — core .4<br/>VLANs 10 mgmt / 11 / 13 phones / 20 wifi / CCTV"]:::live
-    GEN9["DL380 Gen9 — THE BRAIN<br/>2x E5-2695v4 - 256GB (Sat) - 2x P40 48GB (Sat)<br/>Proxmox .10 - iLO4 .50"]:::up
-    GEN10["DL380 Gen10 — STORAGE SPINE<br/>ZFS + primary PBS (append-only) + PBX + 10G<br/>Copy 1 - PLANNED (Fri order)"]:::plan
-    R710["Dell R710 — 3rd BACKUP COPY<br/>pull + Wake-on-LAN (near-air-gapped)<br/>pve-nas .20 - PBS :8007 - iDRAC .21"]:::live
-    SHELF["NetApp DS2246 — 24-bay SAS shelf"]:::live
-    PBX["FusionPBX VM105 — 10.224.13.9<br/>phones both sites - on Gen9 now, moves to Gen10"]:::up
-    HWIFI["UniFi WiFi x3 — FSG0218 / Fishbone"]:::live
-    CCTV["Hikvision NVR + 16 cams — isolated VLAN"]:::live
-    HUPS["2x APC UPS 2200 — whole rack"]:::live
+  subgraph HQ["Fishbone HQ, Wallsend"]
+    HASA["Old ASA 5550 pair (secondary active)<br/>NOW: WANs + DMZ 30 + VLAN 5 + transit .250.1 only<br/>retire at Step B"]:::old
+    HFW["hq-fw-a / hq-fw-b — OPNsense 26.7 CARP pair<br/>(ASA 5525-X units 2 + 1)<br/>gateways .1 for VLANs 10/11/12/13/20/21<br/>Kea DHCP HA · SYNC 10.99.250.0/30 · OOB VLAN 9"]:::live
+    HSW["Catalyst 3850 x2 stack — 10.224.10.4<br/>Po5/Po6 to the pair · Po1/Po2 to the ASA · Po4 Gen9"]:::live
+    GEN9["DL380 Gen9 'pve' 10.224.10.10<br/>PBX VM105, DocuSeal VM106, proxy VM102, ssh-gw VM104<br/>VM101 old OPNsense = STOPPED"]:::live
+    PVEAI["DL380 Gen10 'pve-ai' 10.224.10.30<br/>384 GB, 2x Tesla P40<br/>Fishbone AI 10.224.10.31:3000"]:::live
+    R710["Dell R710 'pve-nas' 10.224.10.20<br/>primary PBS tank-store today<br/>→ scheduled 3rd copy (H200 + 4x 1.2TB ordered)"]:::live
+    SHELF["NetApp DS2246 24x 900GB 'tank'<br/>→ moves to pve-ai at Step B"]:::live
+    HAP["UniFi APs x3 (2x U7 Pro XG, U7 Outdoor)<br/>mgmt VLAN 10 (.200+), managed again 12 Nov"]:::live
+    CCTV["Hikvision NVR — VLAN 12"]:::live
+    PHQ["Yealink phones — VLAN 13 · PBX 10.224.13.9"]:::live
   end
 
-  subgraph BEV["Beverley Place — 2nd site / failover (Minda's home)"]
-    BASA["Cisco ASA 5550 — single"]:::live
-    BSW["Catalyst 3850 home-sw — 10.224.110.4<br/>VLANs 10 / 11 / 110 / 111"]:::live
-    BGEN10["DL380 Gen10 — FAILOVER BRAIN + REPLICA<br/>SSD storage + 2x P40 (1 now, 1 later)<br/>Copy 2 off-site - PLANNED"]:::plan
-    LENOVO["Lenovo mini-PC — Proxmox 10.224.111.199"]:::live
-    CK["UniFi Cloud Key Gen2 — 10.224.110.5<br/>WiFi controller (both sites)"]:::live
-    BUPS["APC UPS"]:::live
+  subgraph BEV["Beverley Place"]
+    BFW["bev-fw — OPNsense 26.7 (ASA 5525-X unit 3)<br/>HQMGMT 10.224.10.254 · Kea DHCP<br/>gateway failover BT Business → residential → HQ radio"]:::live
+    BSW["Catalyst 3850 home-sw 10.224.110.4<br/>SVIs .10.249 / .11.249"]:::live
+    PVEBEV["DL380 Gen10 'pve-bev' 10.224.10.32<br/>128 GB · off-site copy (to build)"]:::live
+    CK["UniFi Cloud Key Gen2+ 10.224.110.5<br/>controller for all 6 APs"]:::live
+    BAP["UniFi APs x3 (2x U7 Pro XGS, U7 Outdoor)<br/>VLAN 110"]:::live
+    LOX["Loxone Miniserver .111.2 · Audio .3 · Intercom .4"]:::live
+    P1006["Yealink ext 1006 — Gi1/0/10"]:::live
   end
 
   %% WAN
-  WAVE --> HASA
+  FTTB --> HASA
+  VF --> HASA
   STAR --> HASA
-  BTP --> BASA
-  BTB -. backhaul .-> HSW
+  SKY -. Step B .-> HFW
+  BTB --> BFW
+  BTR --> BSW
   TS -. admin .-> HSW
-  TS -. admin .-> BSW
+  TS -. admin .-> BFW
 
   %% HQ internal
-  HASA --- HSW
+  HASA == "transit VLAN 250 (.250.1 ↔ CARP .4)" === HSW
+  HFW === HSW
   HSW --- GEN9
-  HSW --- GEN10
+  HSW --- PVEAI
   HSW --- R710
-  HSW --- HWIFI
+  HSW --- HAP
   HSW --- CCTV
-  GEN9 -. hosts PBX now .- PBX
-  GEN10 -. hosts PBX later .- PBX
+  HSW --- PHQ
   R710 === SHELF
-  HUPS -. UPS .- HSW
+  GEN9 -. "10G triangle 10.99.12/13/23" .- PVEAI
+  PVEAI -. 10G .- R710
 
   %% Beverley internal
-  BASA --- BSW
-  BSW --- BGEN10
-  BSW --- LENOVO
+  BFW === BSW
+  BSW --- PVEBEV
   BSW --- CK
-  BUPS -. UPS .- BSW
+  BSW --- BAP
+  BSW --- LOX
+  BSW --- P1006
 
   %% inter-site
-  HSW == airFiber AF-5 583m, VLANs 10/11 bridged ==> BSW
-  HASA -. IPsec VPN fallback .- BASA
-
-  %% backup flows — 3-2-1(-1), all PULL so no source can delete a copy
-  GEN10 -. pulled by Beverley, off-site .-> BGEN10
-  GEN10 -. pulled by R710, local air-gap .-> R710
-  GEN10 -. encrypted offline .-> OFF
+  HSW == "airFiber radio — VLANs 10/11 bridged" ==> BSW
 
   subgraph LEGEND["Legend"]
-    L1["live / in place"]:::live
-    L2["upgrading Saturday"]:::up
-    L3["planned / to buy-build"]:::plan
-    L4["backup pull flow (dotted)"]:::bk
+    L1["live"]:::live
+    L2["old — being retired"]:::old
+    L3["planned / on order"]:::plan
   end
