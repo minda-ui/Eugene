@@ -26,7 +26,8 @@ CARP normally needs 3 addresses per line (a, b, shared). FTTB has only one. Opti
 ### New line on order (Raw/ screenshot, 11 Nov 13:37)
 Giacom order **5020640**: **Sky Ethernet 1 Gb/1 Gb**, **/30 IP range**, managed router **Cisco C1111-8P**, site comms room ground floor Unit 32 (HQ), order category **Cat 1.1** (no indicative excess construction charges), next update in 10 working days (~25 Nov). Customer name on the order: "RMT Accountants & Business Advisors Ltd", end user "Fishbone drylining" — Minda to confirm the account name is intended.
 **Consequence:** a /30 behind a provider router again gives ONE usable address → same problem as FTTB. **Cheapest moment to ask for a /29 (or /28) is now, before install.** If the /29 is granted, the Sky line can be the CARP-native tier-1 WAN and option B is only needed for FTTB.
-**11 Nov:** Minda has asked the provider for a /29 on the Sky line — awaiting reply.
+**11 Nov:** Minda has asked the provider for a /29 — awaiting reply.
+**12 Nov (correction):** the /29 request is for the **existing Wavenet FTTB line** (62.105.119.118/30), as an upgrade — not the Sky order. Via RMT Technology (Ben Caygill / Megan Hindmarch): reason sent 12 Nov; provider change-request form (sections I-IV) filled by Eugene and left as a draft in minda@ for Minda to send. Asked for: /29 replacing the /30 (needs a short agreed window to readdress), or a routed /29 to .118 alongside the /30 (no downtime). If granted, FTTB uses classic CARP (option A) and option B is not needed.
 
 ## 3. Shape after Step B
 - Gateway group (Minda 7 Nov order): **FTTB tier 1** (monitor 8.8.4.4) → **Vodafone tier 2** → **StarLink tier 3** (monitor 1.1.1.1); BT dropped. HQ ↔ Beverley backup path via bev-fw over VLAN 10 (BT Business at Beverley) — tier 4, later.
