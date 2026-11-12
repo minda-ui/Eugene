@@ -21,8 +21,13 @@
 - Browser defaulted to info@ → do the consent in a private window as minda@.
 - PowerShell on the office PC has no winget → download rclone zip with Invoke-WebRequest.
 
+## Done later on 12 Nov
+- First sync running (30 GB of ~53 GB after ~50 min). "Shared with me" = ~11.8 GiB / 19,226 objects (537 Google-native, unknown size) → included.
+- `/usr/local/bin/drive-mirror.sh` (sync gdrive: → /mnt/drive/mydrive; sync gdrive: --drive-shared-with-me → /mnt/drive/shared) + `drive-mirror.service`/`.timer` **daily 01:30** (first run Fri 13 Nov).
+- pve-ai `/etc/cron.d/drive-snapshots`: 04:15 daily `zfs snapshot tank/drive@YYYY-MM-DD`, keep newest 30.
+
 ## Still to do
-1. Nightly sync (systemd timer ~01:30) + ZFS snapshots of `tank/drive` (daily, keep 30) + include CT 210 in the PBS backup job.
+1. Include CT 210 in the pve-ai PBS backup job (container only; the shelf data is an mp0 bind and is not in the backup by design).
 2. Fishbone AI: private knowledge collection from `/tank/drive/mydrive` (read-only mount into CT 200), visible to Minda only.
 3. Raw/ note to Rachel: read-only AI copy includes the Financial Archive (its single home stays Drive).
 4. Decide on "Shared with me" (separate remote with `--drive-shared-with-me`).
