@@ -26,6 +26,8 @@
 - `/usr/local/bin/drive-mirror.sh` (sync gdrive: → /mnt/drive/mydrive; sync gdrive: --drive-shared-with-me → /mnt/drive/shared) + `drive-mirror.service`/`.timer` **daily 01:30** (first run Fri 13 Nov).
 - pve-ai `/etc/cron.d/drive-snapshots`: 04:15 daily `zfs snapshot tank/drive@YYYY-MM-DD`, keep newest 30.
 
+- First full sync finished: **47,304 files in 1h21m**, 56 failed with `file name too long` (archive copies whose "(archived …, superseded by …)" names exceed the 255-byte filesystem limit). rclone 1.76 `--name-transform file,truncate_keep_extension=N` tested in dry-run → `transform cannot render path segments empty` errors → **not used**. Instead the nightly script got `--ignore-errors`, so deletions still propagate while those 56 stay Drive-only. Follow-up: Raw/ note to Alex to shorten the over-long archive names.
+
 ## Still to do
 1. Include CT 210 in the pve-ai PBS backup job (container only; the shelf data is an mp0 bind and is not in the backup by design).
 2. Fishbone AI: private knowledge collection from `/tank/drive/mydrive` (read-only mount into CT 200), visible to Minda only.
