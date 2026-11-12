@@ -44,3 +44,24 @@
 2. Add to the pack: 1Password, the DEFAULT mechanism, Smartsheet approvals as decision proof, the
    "copies, never access" rule — then rerun.
 3. Between tests: stop CT 220 and the CT 200 socat door (both off unless a test is running).
+
+## Test 1 (same evening): plain Fishbone AI + the same facts pack — separates "pack" from "harness"
+Fishbone Generalist (gpt-oss-120b + our short system prompt), the 3 PDFs attached, same prompt.
+Note: Open WebUI itself used tools to read the files ("list_chat_files, 3 view_file").
+
+| Measure | dsh + pack | Fishbone AI + pack |
+|---|---|---|
+| Time | 26 min 36 s | **~20 min** (20:30–20:50) |
+| Assumptions listed / invented systems | 20 / **0** | 10 / **0** |
+| Labels wrong | 0 | **2** ("seats author routines via a form" and "Authority Register edits by seats" marked "uses what exists" — neither exists, both are Minda's) |
+| Rule-breaking ideas | 3 (headless-browser routines, view-only sharing to secondary cores, PGP) | 3 (seats creating routines, live read-only view for Andrejus's assistant, seats editing the Authority Register) |
+| Invented citations | 1 ("point 73") | 0 |
+| Unsupported numbers | ~20 % → ~80 % | "roughly halfway", "3–6 months" |
+| Useful extras | restore test, monitoring, config backups | shared mailboxes as a leak route, per-seat token revocation, daily gate summary report, "copy within master core already allowed" |
+| Missed (both) | DEFAULTs firing automatically, delegating decisions to Victoria, 1Password | same |
+
+**Conclusion:** the gain came from the **facts pack + "list your assumptions"**, not from the harness.
+Plain Fishbone AI is as good, a little faster, and needs no extra container. dsh's only edge here was
+more disciplined labelling. **Recommendation (Minda decides):** park RND-35 for review tasks (reason: no
+gain over Fishbone AI; revisit if we need an agent that runs read-only checks in steps, e.g. the night
+shift RND-15); instead keep the facts pack current and attach it to reviews. Lab stopped between tests.
