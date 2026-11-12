@@ -165,6 +165,8 @@ credential recorded. This is the first off-box backup target the estate has had 
 ### WAN
 | Path | Detail |
 |---|---|
+_Corrected 2026-11-12 (Minda): HQ's primary line (62.105.119.118/30, "FTTB" on the ASA) is a **Sky 1Gb leased line supplied by RMT Technology** (5-year contract signed 2025) — every "Wavenet FTTB" below means this line; the Wavenet name was a long-standing mistake._
+
 _Corrected 2026-10-19 (Minda): the "Openreach leased line" previously recorded here is **not** an independent HQ line — it is the **BT Business fibre from Beverley, carried to HQ over the airFiber radio** (lands on **vlan 4**). HQ's own primary WAN is **Wavenet FTTB**._
 | Path | Detail |
 |---|---|
