@@ -28,8 +28,10 @@
 
 - First full sync finished: **47,304 files in 1h21m**, 56 failed with `file name too long` (archive copies whose "(archived …, superseded by …)" names exceed the 255-byte filesystem limit). rclone 1.76 `--name-transform file,truncate_keep_extension=N` tested in dry-run → `transform cannot render path segments empty` errors → **not used**. Instead the nightly script got `--ignore-errors`, so deletions still propagate while those 56 stay Drive-only. Follow-up: Raw/ note to Alex to shorten the over-long archive names.
 
+- **Fishbone AI import:** `/usr/local/bin/owui-import.py` (repo copy `Hardware-Projects/drive-mirror/owui-import.py`) in CT 210; API key of Minda's Open WebUI account in `/root/.owui-key` (600; 1Password "Fishbone AI API key – minda"); state `/var/lib/owui-import/state.json`. Imports .pdf .docx .xlsx .pptx .md .txt .csv ≤25 MB from mydrive + shared into knowledge collection **"Minda - Drive"** (id c25fa0ee-8207-48b7-a7f1-ffb1c09ee1cf) — **verified Private** ("No access grants. Private to you."). Test 20/20 OK; full run started as `owui-first`; appended to drive-mirror.sh so it runs nightly after the rclone syncs (log /var/log/owui-import.log). Note: `pct enter` shell lacks /usr/local/bin in PATH — call scripts by full path. CT 210 added to pve-ai backup job.
+
 ## Still to do
-1. Include CT 210 in the pve-ai PBS backup job (container only; the shelf data is an mp0 bind and is not in the backup by design).
-2. Fishbone AI: private knowledge collection from `/tank/drive/mydrive` (read-only mount into CT 200), visible to Minda only.
+1. Check full import finished (count in state.json; errors in journal `journalctl -u owui-first`).
+2. Deleted-in-Drive files are not yet removed from the collection (script adds/updates only) — add a prune step later.
 3. Raw/ note to Rachel: read-only AI copy includes the Financial Archive (its single home stays Drive).
 4. Decide on "Shared with me" (separate remote with `--drive-shared-with-me`).
