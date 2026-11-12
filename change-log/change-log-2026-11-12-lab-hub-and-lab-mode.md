@@ -1,5 +1,28 @@
 # 2026-11-12 — Lab hub, Raw notes, Lab mode v1.0 in the charter
 
+## Update 2026-11-12 ~21:35 UTC — evening: RND-35 trial, HQ line correction, /29 form, RND-36
+
+**Lab (RND-35, DeepSeek Harness)**
+| Step | Result |
+|---|---|
+| Desk research | code read at `e8f7b93a3`; can use our gpt-oss; telemetry ON by default (session upload on feedback) |
+| Trial | CT 220 `dsh-lab` (10.224.10.36), read-only, telemetry off, no internet; 26.5 min; 0 invented systems |
+| Test 1 | plain Fishbone AI + same facts pack: as good, ~20 min → **gain = facts pack, not harness** |
+| Recommendation | park for reviews (Minda decides); keep facts pack current |
+
+**Live changes made by Minda for the trial (all reversible, all off now)**
+- CT 220 `dsh-lab` on pve-ai — **stopped**, not on boot.
+- CT 200 `lab-llama-fwd.service` (socat 10.224.10.31:9001 → llama-swap, only from .36) — **disabled**.
+- hq-fw-a/b MGMT: "dsh-lab replies to Minda PC" (pass, TCP, src port 3080 → 10.224.111.11, sloppy, flags any) + "dsh-lab no outbound" (block .36 → any, logged) — **kept**.
+- Fishbone AI: "Enable API Keys" switched on, user `lab-dsh` + group `lab` created — **not needed in the end** (normal users get no keys in this version); tidy-up suggested.
+- Lessons: dsh refuses telemetry vars in `.env` (export them); asymmetric Beverley path needs **TCP flags any** on the reply rule.
+
+**HQ main line — corrected (Minda):** 62.105.119.118/30 is a **Sky 1Gb leased line supplied by RMT Technology**, 5-year contract signed 2025 — not "Wavenet" (long-standing misname). Plan, inventory, map fixed. Open: what Giacom order 5020640 is.
+**/29 upgrade:** reason email sent by Minda; provider change-request form (sections I–IV) filled by Eugene and left as a **draft in minda@** (phone + company name to check). Two wrong versions (Sky-new, Wavenet) deleted.
+**Mail lesson:** the Gmail MCP connector here is **ops@**; Composio's default Gmail account is now **enquiries@amfa.uk** → always use `--account eugene-gmail` (minda@). A first draft went to ops@ by mistake and was deleted.
+
+**RND-36 Estate Library** added (Minda: "one big library … only not working together"): locked library on pve-ai + Drive work copies, tie existing pieces together. Alexey's 5 Oct "archiving" method (1983 document-flow regulation) saved as its source note.
+
 ## Later: "R&D ideas should go to lab" (Minda) — OI-36 resolved
 - Added the remaining 22 ideas to the Lab index (rows 24-45). All 34 RND ideas are now covered (RND-1 is the pool itself; RND-2 is "Master core Lab server").
 - Status mapping: ideas already built before Lab mode existed (RND-3, 4, 5, 23, 26, 30) → **Approved**, with "Released to" pointing at where they became real; RND-20 → **Superseded** (by RND-23); RND-31 exo → **Parked**, review 1 Feb 2027. Everything else kept its spark/exploring status.
