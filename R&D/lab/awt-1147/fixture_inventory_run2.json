@@ -1,0 +1,108 @@
+{
+ "scope": {
+  "source": "synthetic fixture",
+  "account": "master core (read-only)",
+  "listed": "Drive files+folders incl. inherited, Smartsheet sheets+workspaces incl. published flag",
+  "not_listed": "Gmail, shared drives of other tenants"
+ },
+ "objects": [
+  {
+   "id": "f1",
+   "kind": "file",
+   "title": "Fake budget A",
+   "home_core": "master",
+   "location": "master-root",
+   "ancestors": [],
+   "shared_with": [
+    {
+     "principal": "andrejus@example.test",
+     "role": "writer"
+    }
+   ]
+  },
+  {
+   "id": "f3",
+   "kind": "folder",
+   "title": "Fake shared plan",
+   "home_core": "master",
+   "location": "sub-1",
+   "ancestors": [
+    "collab-space"
+   ],
+   "shared_with": [
+    {
+     "principal": "irina@example.test",
+     "role": "reader"
+    }
+   ]
+  },
+  {
+   "id": "s1",
+   "kind": "sheet",
+   "title": "Fake tracker",
+   "home_core": "secondary-a",
+   "location": "sub-2",
+   "ancestors": [
+    "collab-space"
+   ],
+   "shared_with": [
+    {
+     "principal": "minda@example.test",
+     "role": "editor"
+    }
+   ]
+  },
+  {
+   "id": "s2",
+   "kind": "sheet",
+   "title": "Fake public form data",
+   "home_core": "secondary-b",
+   "location": "secondary-b-ws",
+   "published": true,
+   "shared_with": []
+  },
+  {
+   "id": "f4",
+   "kind": "file",
+   "title": "Fake inherited share",
+   "home_core": "master",
+   "location": "master-root",
+   "ancestors": [],
+   "shared_with": [
+    {
+     "principal": "irina@example.test",
+     "role": "reader",
+     "via": "parent folder 'Fake HR'"
+    }
+   ]
+  },
+  {
+   "id": "f5",
+   "kind": "file",
+   "title": "Fake clean",
+   "home_core": "master",
+   "location": "master-root",
+   "ancestors": [],
+   "shared_with": [
+    {
+     "principal": "victoria@example.test",
+     "role": "editor"
+    }
+   ]
+  },
+  {
+   "id": "f6",
+   "kind": "file",
+   "title": "Fake new leak",
+   "home_core": "master",
+   "location": "master-root",
+   "ancestors": [],
+   "shared_with": [
+    {
+     "principal": "stranger@example.test",
+     "role": "reader"
+    }
+   ]
+  }
+ ]
+}
