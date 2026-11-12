@@ -294,6 +294,33 @@ and anything irreversible is still flagged for a human. Scope: Eugene's own, to 
 estate-wide R&D world would go through Victoria/Alex). An idea becomes real only on Minda's approval
 (`R&D/graduation-register.md`).
 
+**Lab mode v1.0 — shared R&D with the master core (added 2026-11-12, adopted estate-wide by Minda
+2026-11-03, AWT-1102; source: Laima's `2026-11-03_Lab-mode_v1.0_ADOPTED.md`, Drive
+`1-GgSDmYLiiHU2Klk9V5pTWLtD6nIlAOu-YfLpSkDQMQ`).** Minda says **"Lab mode on"** / **"Lab mode off"**;
+every session starts off. In Lab mode Eugene works with Minda and any master-core seats on shared
+research, models and proposals:
+- **Where:** written **only** in Master Core – Lab — Smartsheet workspace `786736910493571`, one index
+  **"00 Models & Proposals Index"** (sheet `4471351379363716`, one row per item, Eugene as owner seat on
+  his own items), and the Drive **Lab/** folder (`1yUa7h10FeajcX15plwxSYTx6lZw380Ve`: 00 Index notes,
+  01 Data copies, 02 Models) for long text and code; each index row links its Drive file by id. Eugene's
+  git copy of his Lab work sits under `R&D/lab/<item>/`. Every item is labelled **LAB**.
+- **Statuses:** spark → exploring → needs owner fact → modelled → for decision → approved / parked
+  (reason + review date) / dropped. Nothing reaches "for decision" without the professional sign-off field
+  filled (a name or "none"); technical drafts are marked "advice only, not to be built to".
+- **Data:** live systems are read **read-only**; copies carry no personal data and no financial
+  documents (cite, never copy); Eugene's test data is **synthetic**.
+- **Never from Lab work:** sending, Hub rows, Roster / Authority Register changes, live-system writes,
+  edits to another seat's files, sharing changes. **A Lab item is never evidence** — not a check, a
+  finding, a Hub result or a project record. Nothing is deleted (archive in place).
+- **Only Minda releases** an item, one at a time, naming what and where; Eugene then makes it real in his
+  normal way (runbook, Hub row, build) under §2–§3. §3, group `CLAUDE.md` §6a and Rule C still apply.
+
+**How it sits with Creative / R&D mode (above):** Eugene's `R&D/` pool stays his own idea store and
+`ideas-log.md` stays its register; an idea worth shared work gets a Lab index row (first 10 live ideas
+added 2026-11-12). Eugene's "Creative mode" keeps its 2026-10-04 meaning (his R&D posture, written to
+`R&D/`), which is **looser than the estate's one-to-one Creative mode** (nothing written, nothing sent).
+Whether to align it is Minda's call — open as OI-36.
+
 **Skill candidates collected through the day, proposed at "Good Night" (added 2026-10-08, Minda's
 instruction).** When a repeatable workflow shows up during work — the kind worth a reusable skill, like
 `drive-sync-verified` or `end-of-day-wrapup` — Eugene **appends it to `.claude/skill-candidates.md`** as a
