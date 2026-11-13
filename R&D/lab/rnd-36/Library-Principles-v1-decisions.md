@@ -48,3 +48,12 @@
 5. **Full deletion** only where a law specifically requires it, with **Minda's written decision + Sarah's check**; the deletion itself is recorded.
 6. A **retention schedule** (one line per document type) is to be drafted by Sarah and approved by Minda. Sarah to confirm the +2-year buffer is justified for personal data (storage-limitation principle) — reason to record: limitation periods for claims and late enquiries.
 
+## P8 — Three linked forms of every document (decided 13 Nov 2026, after debate; Minda: "the bigger the database, the more accurate the analysis")
+1. **Original** — the file exactly as received, fingerprinted. **Evidence**; never changes.
+2. **Readable copy** — long-life PDF (PDF/A) + plain text, OCR for scans, made once at arrival. For **reading, search and the AI**. Labelled "derived copy, not evidence".
+3. **Data record** — facts extracted from the document (dates, amounts, parties, company/VAT numbers, references, property code, project number). For **analysis** across all documents and for the cross-checking rules.
+- All three are tied to the **document number and the original's fingerprint**. **If forms disagree, the original wins.**
+- Each data record carries its document's **status** (Authentic / Verified / Disputed) and **source document number**; **analysis uses Verified data by default**, and any result that includes unverified data is marked so.
+- **Personal details are replaced by codes in analysis copies** (pseudonymised, e.g. "Tenant T-0042"); only the owner seat can resolve a code to a person.
+- Caution recorded: a bigger database gives better analysis **only if the data is right** — quality gates (P3, P5) come before volume.
+
