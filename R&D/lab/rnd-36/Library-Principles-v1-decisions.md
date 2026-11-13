@@ -120,3 +120,6 @@
 All five replies in (Sarah, Laima, Anna, Rachel, Victoria). v2 draft written:
 `2026-11-13_Estate-Library_Principles-v2-draft.md` (Drive 1HKsVQ_o6_mtRU2iV1mhjwVdFkMDsVZCZ, Lab folder).
 New P15 (one catalogue, one key = Drive file ID). Decisions D1–D11 for Minda. Nothing decided yet in v2.
+
+### v2 decisions (Minda, 13 Nov evening)
+- **D1 — Sarah's access: A.** Charter amendment + Authority Register row (Minda approves, Alex records, amendment to Sarah via her Raw/); read-only and logged; takes effect only when the library exists. Sarah never adds, changes or hands out copies.
