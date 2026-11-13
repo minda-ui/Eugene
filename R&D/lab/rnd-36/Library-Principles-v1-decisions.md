@@ -40,3 +40,11 @@
 6. Safety: quarantine items are **never opened on normal computers, never handed out as working copies, never read by the everyday AI**; analysed only in the isolated Lab (no internet, read-only), with Minda's approval. Access: Minda and Sarah only.
 7. P1 still applies: only **registered** documents enter — ordinary spam is never registered and never stored.
 
+## P7 — Deletion only by law: keep the record, remove the personal part (decided 13 Nov 2026: C, after debate)
+1. A document's **record never disappears**: number, date, type, sender, fingerprint, the fact it existed, and every decision about it.
+2. **Retention = the legal minimum + 2 years** (Minda). E.g. accounts/tax: legal 6 years → kept 8; tenancy files: 6 years after the tenancy ends → 8. Permanent records (company constitution, title deeds, …) stay permanent.
+3. When retention ends and nothing requires keeping it, **personal details are removed** (redaction, or the content's encryption key destroyed) as a **new version with a change note** (P4): which rule, decided by Minda, checked by Sarah, date.
+4. **Legal hold** overrides everything: dispute, claim, HMRC enquiry, suspected fraud and every P6 quarantine case — nothing is removed until the hold is lifted.
+5. **Full deletion** only where a law specifically requires it, with **Minda's written decision + Sarah's check**; the deletion itself is recorded.
+6. A **retention schedule** (one line per document type) is to be drafted by Sarah and approved by Minda. Sarah to confirm the +2-year buffer is justified for personal data (storage-limitation principle) — reason to record: limitation periods for claims and late enquiries.
+
