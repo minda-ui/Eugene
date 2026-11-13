@@ -101,3 +101,17 @@
    - **gaps are listed** ("not on file"); the AI is instructed: if a fact is not on the page or in a Verified document, say you don't know.
 4. **Nightly rebuild**, "as at" at the top, a "what changed" section; delivered through P10's robot door (General → Fishbone AI per company; Finance → finance collections; a copy on Drive for the seats).
 
+## P14 — The cross-checking rules (decided 13 Nov 2026, after debate)
+**R1 — Who decides (agreed, with Minda's addition):**
+- **Fixed rules decide pass/fail** — same answer every time, explainable, tested on the P6 case library, not swayed by text inside the document.
+- **AI only assists:** extracts data (P8, its extraction itself checked, e.g. totals add up) and **raises suspicions** → "needs a person", never a pass.
+- **Third check (Minda):** if the rules and the AI **cannot decide** (rules "not checked"/inconclusive, or rules pass but AI raises a suspicion, or they conflict), **the question goes to Minda**, with the rule report, the AI's note and the owner seat's view attached. Her decision and reason are recorded (P4) and feed the learning loop (R5).
+
+**R2 — Six rule families:** Integrity (fingerprint) · Source (sender domain, portal reference) · Inside the document (totals, dates, required parts) · Against our own records (VAT/company numbers, property codes, project numbers, PO/contract amounts) · Against official sources (Companies House, HMRC VAT check, Land Registry) · Fraud warning signs (bank-detail change, new sender for known supplier, unusual urgency, unusual amount → always Disputed until a person confirms).
+
+**R3 — "Not checked" is never "pass".** A rule that cannot run (missing data, source offline) leaves the document not passed.
+
+**R4 — Who writes and approves rules:** the owner seat says *what* must be true · Eugene writes the rule and tests it on the case library (must catch known bad, pass known good) · Sarah reviews · Minda approves rules for high-risk types (money, legal, SSAS) · rules are **versioned** with change notes, and every check report records the rule version used.
+
+**R5 — Learning loop:** a disputed case decided "our rule was wrong" → the rule is fixed and re-tested · a **monthly rule report** (inside P11's page): pass/fail/dispute counts per rule, rules that flag too much or never catch anything.
+
