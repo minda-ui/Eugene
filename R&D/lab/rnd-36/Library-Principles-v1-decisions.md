@@ -77,3 +77,9 @@
 4. **Nightly Drive ↔ library check:** same fingerprint ✔ · Drive copy changed → flagged (register a new version, P4, or restore) · Drive copy missing → flagged, restorable · Drive copy is a failed/disputed version → flagged so nobody works from it.
 5. The access table (RND-36 access v0.1) now only needs to define **what Fishbone AI may receive**, per area and company.
 
+## P11 — Self-checks, with Sarah's independent check (decided 13 Nov 2026: C, after debate)
+- **Nightly (automatic):** new arrivals stored · Drive ↔ library check (P10) · all 3 copies updated. Only **problems** are reported (owner + Eugene); a quiet night sends nothing.
+- **Monthly (automatic → one page to Minda, green/amber/red):** every document's fingerprint re-checked on all 3 copies · register ↔ library compared (nothing missing, nothing extra) · disputed-list ageing (P6) · **restore test**: a random document pulled back from **Beverley** and opened.
+- **Monthly (Sarah, independent):** Sarah reviews the report and samples a few documents end to end — register → library → Drive → Fishbone AI — so the system does not mark its own homework (four eyes, as P5).
+- **Yearly:** offline disk written and placed in the safe (P9) · **full restore drill** — rebuild one company's library from the offline disk as if HQ were lost · emergency-key seal checked (P9). Minda + Sarah.
+
