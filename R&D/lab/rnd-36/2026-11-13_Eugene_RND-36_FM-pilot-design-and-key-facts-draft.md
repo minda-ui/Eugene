@@ -51,3 +51,9 @@ Sources (read-only, 13 Nov): Document Register, all 28 FM rows (not sampled); FM
 - Three ZFS datasets on pve-ai (`library-general`, `library-finance`, `library-restricted`) with access set per area.
 - Decision on FM0000009 (restricted copy or excluded).
 - Owners' feedback first (requested 13 Nov: Victoria, Laima, Rachel, Sarah, Anna).
+
+## 6. Principle set by Minda (13 Nov): EVERY document goes into the library
+"All documents need to go to library. Then which documents people or AI employees can read or receive — that's what we need to design."
+- **Storage is complete:** every registered document, every area, no exclusions (FM0000009 included, kept in the restricted area).
+- **Access is a separate layer**, designed next: who may **read** (look at the locked copy) and who may **receive** (get a labelled working copy, e.g. into their Raw/), per document area, per person or AI seat.
+- The library itself is never edited by anyone; access rules decide only who sees or gets what.
