@@ -70,3 +70,10 @@
 - **A sealed emergency key** (break-glass) is kept in a separate place with a trusted holder — **who: Minda to decide later**. Opening it is recorded and visible.
 - **Robot jobs have narrow keys:** add documents and hand out copies only — **never change or delete**. Not even Eugene can alter the library.
 
+## P10 — Who uses the library (decided 13 Nov 2026, after debate; Minda: "me and Sarah more than enough")
+1. **The library is the safe, not for daily use. Access: Minda and Sarah only** — read-only, every look logged.
+2. **Everyone else — staff and AI seats — works on the Google Drive copies as today** (Collaboration Space, Financial Archive, project folders). No library access is given to anyone else.
+3. **One robot door out**, for two jobs only: (a) nightly copy of **Verified** readable copies + key-facts pages to **Fishbone AI**, per company; (b) **restore** of a lost/damaged/changed Drive copy, on Minda's or Sarah's request.
+4. **Nightly Drive ↔ library check:** same fingerprint ✔ · Drive copy changed → flagged (register a new version, P4, or restore) · Drive copy missing → flagged, restorable · Drive copy is a failed/disputed version → flagged so nobody works from it.
+5. The access table (RND-36 access v0.1) now only needs to define **what Fishbone AI may receive**, per area and company.
+
