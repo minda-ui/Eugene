@@ -57,3 +57,16 @@
 - **Personal details are replaced by codes in analysis copies** (pseudonymised, e.g. "Tenant T-0042"); only the owner seat can resolve a code to a person.
 - Caution recorded: a bigger database gives better analysis **only if the data is right** — quality gates (P3, P5) come before volume.
 
+## P9 — Copies and keys (decided 13 Nov 2026, after debate)
+**Copies — 3-2-1 + yearly offline disk:**
+- **3 copies:** pve-ai (HQ, master) · pve-bev (Beverley, off-site) · R710 (HQ, separate machine, once rebuilt).
+- **2 kinds of storage:** live ZFS disks + Proxmox Backup Server.
+- **1 copy away from HQ:** Beverley.
+- **+ one offline disk per year**, written once, unplugged, kept in a safe — out of reach of ransomware or a stolen password.
+- **No cloud copy** for now ("not like Google Drive").
+
+**Keys — Minda + a sealed emergency key:**
+- **Only Minda administers** the library; the admin secret lives only in her 1Password.
+- **A sealed emergency key** (break-glass) is kept in a separate place with a trusted holder — **who: Minda to decide later**. Opening it is recorded and visible.
+- **Robot jobs have narrow keys:** add documents and hand out copies only — **never change or delete**. Not even Eugene can alter the library.
+
