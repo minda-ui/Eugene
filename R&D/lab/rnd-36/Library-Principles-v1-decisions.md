@@ -23,3 +23,11 @@
 - A new version starts at the lobby again: it is not Authentic/Verified until it passes the checks itself (the old version keeps its own status).
 - Status changes (e.g. Verified → disputed, certificate withdrawn) are recorded the same way, with a reason.
 
+## P5 — Who certifies: "four eyes" (decided 13 Nov 2026, after debate)
+1. **The registrar never certifies their own document** (segregation of duties).
+2. **Rules run first, automatically**, and attach a check report (fingerprint, sender domain, company/VAT numbers, references, dates).
+3. **Authentic:** automatic when **every** rule passes; any failed rule → a person decides.
+4. **Verified:** always confirmed by a **second seat that owns the subject** (finance → Rachel; construction → Anna; property/company facts → John/Laima; …), with the rule report in front of them.
+5. **High-risk types** (money, legal, SSAS, anything changing bank or payment details) need **two people, one of them Minda**.
+6. Owner map = the master index + seat charters (no new list invented).
+
