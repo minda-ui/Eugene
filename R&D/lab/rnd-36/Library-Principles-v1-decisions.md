@@ -31,3 +31,12 @@
 5. **High-risk types** (money, legal, SSAS, anything changing bank or payment details) need **two people, one of them Minda**.
 6. Owner map = the master index + seat charters (no new list invented).
 
+## P6 — Failed checks, and nothing is ever thrown away (decided 13 Nov 2026, after debate; Minda's addition)
+1. A document that fails a check becomes **Disputed**: it stays locked in the library; its **owner seat resolves** it as one of: *our rule was wrong* (fix the rule, document passes) · *genuine but wrong* (**Authentic-disputed**, evidence only, never truth) · *not genuine* (**Rejected / suspected fraud**, Minda told immediately).
+2. **Weekly disputed list** to each owner, **7-day deadline**; overdue items go on Minda's list.
+3. **Bank / payment detail changes** are automatically Disputed until a person confirms through a **separate channel** (a phone number we already hold, never one printed on the document).
+4. **Nothing is ever thrown away — rejected documents included** (Minda). Rejected and disputed documents go to a **quarantine collection** with: the document + whole email, the rule report, the decision (who, outcome, reason), and any later lesson ("rule N changed because of this case").
+5. Purpose: a **labelled case library** to improve the rules (too strict / too weak), spot fraud patterns, and keep evidence for bank, police or insurers.
+6. Safety: quarantine items are **never opened on normal computers, never handed out as working copies, never read by the everyday AI**; analysed only in the isolated Lab (no internet, read-only), with Minda's approval. Access: Minda and Sarah only.
+7. P1 still applies: only **registered** documents enter — ordinary spam is never registered and never stored.
+
