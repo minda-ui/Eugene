@@ -50,3 +50,25 @@ Read-only research: Drive search, the group policy, the master index, a sampled 
 - Whether `pve-ai` access for staff (read-only browse of the locked library) is wanted, or AI-only.
 - Personal-data handling inside the library (SSAS members, tenants) — needs Sarah's view.
 - Depends on per-seat identities (RND-36 note) for true read-only enforcement in Drive; the pve-ai copy is read-only regardless.
+
+## 6. Full register read (13 Nov, all 396 rows, not sampled — read in two filtered halves)
+| Entity | Rows | Issued | Superseded/Void | Draft | Source = Drive file id | Gmail thread | Other (folder link, text, another doc no.) | Blank |
+|---|---|---|---|---|---|---|---|---|
+| FP Properties | 204 | 195 | 7 | 2 | 128 | 43 | 31 | 2 |
+| FC Construction | 87 | 79 | 4 | 3 | 60 | 1 | 21 | 5 |
+| FH Holdings | 28 | 25 | 3 | 0 | 27 | 0 | 1 | 0 |
+| FM Commercial Props | 28 | 28 | 0 | 0 | 27 | 0 | 1 | 0 |
+| FW Waste | 20 | 18 | 2 | 0 | 16 | 0 | 4 | 0 |
+| FS SSAS | 13 | 13 | 0 | 0 | 13 | 0 | 0 | 0 |
+| FA Amfa | 10 | 10 | 0 | 0 | 7 | 0 | 3 | 0 |
+| FG Group | 6 | 4 | 2 | 0 | 6 | 0 | 0 | 0 |
+| **Total** | **396** | **372** | **25** | **5** (+1 "Received") | **284 (72 %)** | **44** | **61** | **7** |
+
+**What it means for the library**
+- **284 documents (72 %) can be copied automatically** — their Source key is a Drive file id the nightly job can fetch.
+- **44 are email-only** (Gmail thread) — need an "save the attachment" step, or stay as references.
+- **68 need a human look** (61 "other" — folder links, free text, another document number — plus 7 blank). Fixing these is the cleanup list before the pilot.
+- **FM fits the pilot:** 28 rows, 27 with a Drive id, 1 to fix.
+- **About a third is finance** (Finance-Lending 57, Statutory Accounts 32, Corporation Tax 28, Banking 9) → the separate finance dataset in §3 is needed from day one.
+- **Integrity finding:** 3 document numbers appear twice (FP0000153, FP0000160, FC0000074) — against policy §4 (one number, one row). For the owners (Rachel/Peter for FP, Anna for FC) to check; not changed by Eugene.
+- One Status value ("Received") is outside the policy list (Draft/Issued/Superseded/Void).
