@@ -91,3 +91,13 @@
 5. **Portal downloads** (HMRC, Companies House, …): the data record holds "downloaded from [portal], by [seat], on [date]" and any public reference (Companies House transaction id, HMRC submission ref) for the rules to check — candidates for automatic Authentic.
 6. **Site photos:** registered in **meaningful batches** (one row per set, e.g. "FC2611 progress photos, week 45"), as FC0000072 already does for a zip; a single photo that becomes evidence (damage, accident, dispute) gets its own row.
 
+## P13 — Key-facts pages per company (decided 13 Nov 2026, after debate; all four agreed)
+**Main purpose (Minda): show and highlight contradictions, so they are put right before they cause damage.**
+1. **Generated nightly from Verified data records (P8); changes approved by owners.** Lines new/changed since yesterday are shown to the owner to confirm or flag. **Laima** owns each page as a whole; **section owners** confirm their parts (property — John/Rachel; finance — Rachel; construction projects — Anna; IT & lines — Eugene).
+2. **Two pages per company:** **General** (company facts, properties, contracts, insurance, deadlines, systems → Fishbone AI for that company's staff) and **Finance** (amounts, loans, tax positions → Rachel's and Minda's AI collections only). Public facts only for people (e.g. directors as at Companies House); no tenants, staff or customers.
+3. **Trust rules:**
+   - every line shows its **source document(s) and as-at date**;
+   - **contradictions are shown and highlighted at the top of the page, never resolved by the robot** — two Verified documents that disagree are both shown, flagged, and sent to the owner the same night, with a deadline (as P6: 7 days, then onto Minda's list);
+   - **gaps are listed** ("not on file"); the AI is instructed: if a fact is not on the page or in a Verified document, say you don't know.
+4. **Nightly rebuild**, "as at" at the top, a "what changed" section; delivered through P10's robot door (General → Fishbone AI per company; Finance → finance collections; a copy on Drive for the seats).
+
