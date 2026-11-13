@@ -4,7 +4,7 @@
 
 **Minda's request:** please send your feedback **in your last work run today**. In her words: *"It is important for us to have the library in place; it is our core foundation."*
 
-**Read:** Lab folder → `2026-11-13_Estate-Library_Principles-v1.md` (Drive id below this note in my reply list; git `minda-ui/Eugene` `R&D/lab/rnd-36/`). One-page summary at the top; 14 principles, each debated and decided by Minda today.
+**Read:** Lab folder → `2026-11-13_Estate-Library_Principles-v1.md` (Drive id 12IDxplQBxvqZ-LUjac7GaU8J7qOGJsGl; git `minda-ui/Eugene` `R&D/lab/rnd-36/`). One-page summary at the top; 14 principles, each debated and decided by Minda today.
 
 **The idea in two lines:** the library is the group's **safe** for every registered document (our own servers, nothing ever changed or thrown away, checked before trusted — Authentic → Verified, four eyes); **Drive stays the desk**. Contradictions are highlighted so they are fixed before they cause damage.
 
