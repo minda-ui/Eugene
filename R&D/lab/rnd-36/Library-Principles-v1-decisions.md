@@ -83,3 +83,11 @@
 - **Monthly (Sarah, independent):** Sarah reviews the report and samples a few documents end to end — register → library → Drive → Fishbone AI — so the system does not mark its own homework (four eyes, as P5).
 - **Yearly:** offline disk written and placed in the safe (P9) · **full restore drill** — rebuild one company's library from the offline disk as if HQ were lost · emergency-key seal checked (P9). Minda + Sarah.
 
+## P12 — Documents that don't arrive by email (decided 13 Nov 2026, after debate; all proposals agreed)
+1. **Lobby inbox per company** (a Drive folder): anyone drops the file (scan, photo, download, our own issued document) → the **owner seat registers** it → the nightly job locks it into the library. A daily "waiting in inbox" list goes to the owner; until registered, the Drive backup protects it. (Email continues via Peter, P2.)
+2. **Paper originals:** scanned into the library (Authentic) **and the paper kept** in a known place; the data record (P8) holds **"paper original held at"** (e.g. "HQ safe, box FM-01"). Deeds, signed contracts, leases and share certificates may be the legal original on paper.
+3. **Our own documents:** drafts stay on Drive; a document enters the library **when issued — sent or signed**. A corrected re-issue is a new version with a change note (P4).
+4. **Signed copies: same number, new version** (e.g. FC0000072 v1 unsigned → v2 signed). **Conflicts with policy v1.5** ("register the new version under a new number") → to be raised as a Change Request to the group KB, together with the whole principles package, once all principles are settled.
+5. **Portal downloads** (HMRC, Companies House, …): the data record holds "downloaded from [portal], by [seat], on [date]" and any public reference (Companies House transaction id, HMRC submission ref) for the rules to check — candidates for automatic Authentic.
+6. **Site photos:** registered in **meaningful batches** (one row per set, e.g. "FC2611 progress photos, week 45"), as FC0000072 already does for a zip; a single photo that becomes evidence (damage, accident, dispute) gets its own row.
+
