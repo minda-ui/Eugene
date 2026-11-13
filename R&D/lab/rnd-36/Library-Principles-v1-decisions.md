@@ -115,3 +115,8 @@
 
 **R5 — Learning loop:** a disputed case decided "our rule was wrong" → the rule is fixed and re-tested · a **monthly rule report** (inside P11's page): pass/fail/dispute counts per rule, rules that flag too much or never catch anything.
 
+
+## 13 Nov evening — v2 draft from team feedback
+All five replies in (Sarah, Laima, Anna, Rachel, Victoria). v2 draft written:
+`2026-11-13_Estate-Library_Principles-v2-draft.md` (Drive 1HKsVQ_o6_mtRU2iV1mhjwVdFkMDsVZCZ, Lab folder).
+New P15 (one catalogue, one key = Drive file ID). Decisions D1–D11 for Minda. Nothing decided yet in v2.
