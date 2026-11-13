@@ -123,3 +123,4 @@ New P15 (one catalogue, one key = Drive file ID). Decisions D1–D11 for Minda. 
 
 ### v2 decisions (Minda, 13 Nov evening)
 - **D1 — Sarah's access: A.** Charter amendment + Authority Register row (Minda approves, Alex records, amendment to Sarah via her Raw/); read-only and logged; takes effect only when the library exists. Sarah never adds, changes or hands out copies.
+- **D2 — Retention: B.** Schedule per document type, each line with its legal period + written reason (finance 8 yrs; loans 8 yrs after end; HMRC TTP/enquiry on legal hold; construction from Limitation Act / Defective Premises Act (BSA 2022) / CDM H&S file life of structure). +2 yrs for personal data only where a reason is written for that type; otherwise personal details removed at the legal minimum, record + coded data stay. Sarah drafts and checks, Minda decides. **No outside data-protection adviser for now** (can be added later).
