@@ -5,6 +5,27 @@ convention as `change-log/`. Created 2026-09-23 when the single-file charter was
 
 ---
 
+**2026-11-12 (later) — §5: R&D ideas go to the Lab; Creative mode = estate one-to-one mode (OI-36).**
+Minda: "R&D ideas should go to lab". The Creative / R&D paragraph is rewritten: every Eugene idea is a
+Lab index row; `R&D/` is only the working copy; `R&D/ideas-log.md` is frozen; "Creative mode" is the
+estate's chat-only mode; a new "Idea to real" line replaces "How it sits with Creative / R&D mode".
+Hook rewritten to match. See `change-log/change-log-2026-11-12-lab-hub-and-lab-mode.md`.
+
+---
+
+**2026-11-12 — §5: Lab mode v1.0 written in (estate-wide adoption, AWT-1102).** Minda adopted Lab mode
+v1.0 for the master core on 2026-11-03 (Laima's `2026-11-03_Lab-mode_v1.0_ADOPTED.md`, Drive
+`1-GgSDmYLiiHU2Klk9V5pTWLtD6nIlAOu-YfLpSkDQMQ`); each seat writes it into its own charter. Eugene's reply
+was still pending; Minda said "do all, please" in the attended session of 12 Nov. Added to §5 "How Eugene
+runs": the on/off words, where Lab work lives (Lab workspace, the one index, Drive Lab/, git
+`R&D/lab/`), the statuses, the data rules (read-only, synthetic test data, no personal or financial
+data), the never-from-Lab list, "a Lab item is never evidence", and "only Minda releases". Eugene's own
+Creative / R&D mode is kept as it was; the gap with the estate's stricter one-to-one Creative mode is
+raised as OI-36 for Minda. Reply DONE sent to Victoria's Raw/. See
+`change-log/change-log-2026-11-12-lab-hub-and-lab-mode.md`.
+
+---
+
 **2026-10-09 — Charter-Rules: Rule G added — name the project; the Project Register is the spine
 (estate-wide, via Victoria's Raw/ hand-off AWT-0493).** Minda's 2026-10-09 ruling, folded in per the §1
 Raw/-process: every job has a row in the Project Register (Smartsheet `5250912102778756`), extending

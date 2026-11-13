@@ -7,7 +7,7 @@ flowchart TB
   classDef net fill:#eef1f4,stroke:#6c757d,color:#212529;
 
   subgraph CLOUD["Internet / overlay"]
-    FTTB["Wavenet FTTB 1G — HQ primary<br/>62.105.119.118/30"]:::net
+    FTTB["Sky 1G leased line via RMT — HQ primary<br/>62.105.119.118/30 (was misnamed Wavenet)"]:::net
     VF["Vodafone — HQ backup<br/>192.168.3.x behind router"]:::net
     STAR["Starlink — HQ backup<br/>192.168.1.x behind router"]:::net
     SKY["Sky Ethernet 1G — HQ NEW (on order)<br/>Giacom 5020640, /29 requested"]:::plan

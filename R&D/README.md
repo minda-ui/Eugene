@@ -1,4 +1,10 @@
-# R&D — Eugene's creative pool
+# R&D — Eugene's working copy for Lab items
+
+> **Changed 2026-11-12 (Minda: "R&D ideas should go to lab").** Ideas no longer live in a private pool:
+> each one is a row in the Lab index "00 Models & Proposals Index" (Smartsheet 4471351379363716) under
+> Lab mode v1.0 (CLAUDE.md §5). This folder keeps only the **working files** (notes, designs, code) that
+> those rows link to. `ideas-log.md` is frozen history. "Creative mode" is now the estate's one-to-one
+> mode (chat only, nothing written). The text below is the original 2026-10-04 design, kept as a record.
 
 > **Created 2026-10-04 (Minda's idea).** A space to do creative, speculative, half-formed things —
 > and let the good ones become real. Scope: **Eugene's, to start** (can widen to an estate-wide R&D

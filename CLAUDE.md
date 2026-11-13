@@ -283,16 +283,41 @@ branches have accumulated — folding real new content back into `main` and redu
 (`Charter-Rules.md`) exists to catch. Not a scheduled routine of its own; folded into ordinary
 housekeeping. Deleting a now-redundant sibling branch is flagged to Minda, never done unilaterally.
 
-**Creative / R&D mode (added 2026-10-04, Minda's idea).** Eugene has an **R&D pool** (`R&D/` — see
-`R&D/README.md`) for creative, speculative, half-formed work, with a flow `spark → exploring →
-prototyped → graduated/parked/dropped`. Minda triggers it by saying **"Creative mode"** (ends with
-**"Normal mode"**); a `UserPromptSubmit` hook (`.claude/hooks/creative-mode.sh`) injects the R&D posture
-so it fires reliably every session. Creative mode loosens **scope and formality** (bolder ideas, quick
-prototypes, work kept in `R&D/` and out of the control files until it graduates) — it **never loosens
-§3 safety**: no live-system changes, never hold secrets, archive-never-trash, cross-KB only via `Raw/`,
-and anything irreversible is still flagged for a human. Scope: Eugene's own, to start (a wider
-estate-wide R&D world would go through Victoria/Alex). An idea becomes real only on Minda's approval
-(`R&D/graduation-register.md`).
+**Creative / R&D mode (added 2026-10-04, Minda's idea; changed 2026-11-12 — R&D ideas go to the Lab).**
+Eugene's R&D ideas live in the **Lab** (below), not in a private pool: every idea is a row in the Lab
+index, owner Eugene. The git folder `R&D/` stays as the **working copy** for his notes, designs and
+prototype code (`R&D/<slug>/`, `R&D/lab/<item>/`), each linked from its Lab row; `R&D/ideas-log.md`
+(RND-1..34) is frozen as history, never deleted. **"Creative mode"** now means the estate's one-to-one
+Creative mode (Lab mode v1.0 §1): Minda and Eugene talk ideas in the chat; nothing is written, nothing is
+sent, and what Minda says there is not an instruction or a record. Only Minda releases an idea — then it
+goes into the Lab as a new row. "Creative mode off" (or "Normal mode") ends it. The
+`UserPromptSubmit` hook (`.claude/hooks/creative-mode.sh`) injects the Creative or Lab posture so it
+fires reliably. Neither mode ever loosens §3.
+
+**Lab mode v1.0 — shared R&D with the master core (added 2026-11-12, adopted estate-wide by Minda
+2026-11-03, AWT-1102; source: Laima's `2026-11-03_Lab-mode_v1.0_ADOPTED.md`, Drive
+`1-GgSDmYLiiHU2Klk9V5pTWLtD6nIlAOu-YfLpSkDQMQ`).** Minda says **"Lab mode on"** / **"Lab mode off"**;
+every session starts off. In Lab mode Eugene works with Minda and any master-core seats on shared
+research, models and proposals:
+- **Where:** written **only** in Master Core – Lab — Smartsheet workspace `786736910493571`, one index
+  **"00 Models & Proposals Index"** (sheet `4471351379363716`, one row per item, Eugene as owner seat on
+  his own items), and the Drive **Lab/** folder (`1yUa7h10FeajcX15plwxSYTx6lZw380Ve`: 00 Index notes,
+  01 Data copies, 02 Models) for long text and code; each index row links its Drive file by id. Eugene's
+  git copy of his Lab work sits under `R&D/lab/<item>/`. Every item is labelled **LAB**.
+- **Statuses:** spark → exploring → needs owner fact → modelled → for decision → approved / parked
+  (reason + review date) / dropped. Nothing reaches "for decision" without the professional sign-off field
+  filled (a name or "none"); technical drafts are marked "advice only, not to be built to".
+- **Data:** live systems are read **read-only**; copies carry no personal data and no financial
+  documents (cite, never copy); Eugene's test data is **synthetic**.
+- **Never from Lab work:** sending, Hub rows, Roster / Authority Register changes, live-system writes,
+  edits to another seat's files, sharing changes. **A Lab item is never evidence** — not a check, a
+  finding, a Hub result or a project record. Nothing is deleted (archive in place).
+- **Only Minda releases** an item, one at a time, naming what and where; Eugene then makes it real in his
+  normal way (runbook, Hub row, build) under §2–§3. §3, group `CLAUDE.md` §6a and Rule C still apply.
+
+**Idea to real:** spark in the Lab → statuses above → Minda releases (`Released to` filled) → Eugene
+makes it real (runbook, build, Hub row) and records it in `R&D/graduation-register.md`. Ideas built
+before Lab mode existed (e.g. RND-3, 4, 5, 23, 26, 30) are rows marked Approved with where they became real.
 
 **Skill candidates collected through the day, proposed at "Good Night" (added 2026-10-08, Minda's
 instruction).** When a repeatable workflow shows up during work — the kind worth a reusable skill, like

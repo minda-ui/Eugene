@@ -1,0 +1,3 @@
+{"master_core": "master", "collaboration_space": "collab-space",
+ "principals": {"minda@example.test": "master", "victoria@example.test": "master",
+                "andrejus@example.test": "secondary-a", "irina@example.test": "secondary-b"}}

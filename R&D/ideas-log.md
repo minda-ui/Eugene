@@ -1,5 +1,10 @@
 # R&D ideas log — Eugene
 
+> **FROZEN 2026-11-12 (Minda: "R&D ideas should go to lab").** Every idea below now has a row in the
+> Lab index "00 Models & Proposals Index" (Smartsheet 4471351379363716, owner Eugene; RND-2 is the row
+> "Master core Lab server", RND-1 is this pool itself). New ideas go straight into the Lab, not here.
+> Kept as history, never deleted. The `R&D/<slug>/` folders stay as the working copy, linked from the Lab rows.
+
 _One row per spark. Status: **spark** → **exploring** → **prototyped** → **graduated** / **parked** /
 **dropped**. Nothing is deleted — a dropped idea stays as a record (archive-never-trash). See
 `README.md` for the flow._

@@ -1,0 +1,37 @@
+{
+ "scope": {
+  "source": "synthetic fixture"
+ },
+ "objects": [
+  {
+   "id": "f1",
+   "kind": "file",
+   "title": "Fake budget A",
+   "home_core": "master",
+   "location": "master-root",
+   "ancestors": [],
+   "shared_with": [
+    {
+     "principal": "andrejus@example.test",
+     "role": "writer"
+    }
+   ]
+  },
+  {
+   "id": "f3",
+   "kind": "folder",
+   "title": "Fake shared plan",
+   "home_core": "master",
+   "location": "sub-1",
+   "ancestors": [
+    "collab-space"
+   ],
+   "shared_with": [
+    {
+     "principal": "irina@example.test",
+     "role": "reader"
+    }
+   ]
+  }
+ ]
+}
