@@ -56,3 +56,4 @@ interface GigabitEthernet0/0
 - **Widened to /24 DONE (14 Nov, Minda):** hq-fw-a (via .252) and hq-fw-b (via OOB 10.224.9.3) management interface /29 → /24; laptop "Ethernet 3" 10.224.9.4/24 no gateway → https://10.224.9.2 ✅ + https://10.224.9.3 ✅. Pending: 3850 Gi1/0/45, Gi2/0/45, Gi1/0/46 shutdown (lines above); iLOs / UPS cards one at a time (next: pve-ai iLO 10.224.9.22).
 - **pve-ai iLO on OOB (14 Nov):** iLO port → TL-SG1016; https://10.224.9.22 loads from the OOB laptop ✅.
 - **3850 old OOB ports shut (14 Nov, Minda):** Gi1/0/45, Gi2/0/45, Gi1/0/46 shutdown (description "spare - OOB moved to TL-SG1016"); `vlan 9` kept (unused). OOB now fully independent of the 3850.
+- **Gen9 iLO on OOB (14 Nov, Minda):** iLO 4 IPv4 static 10.224.9.21/24, gateway 0.0.0.0, ping-gateway-on-startup off; cable moved 3850 **Gi1/0/17** → TL-SG1016; https://10.224.9.21 ✅. Gi1/0/17 now free.
