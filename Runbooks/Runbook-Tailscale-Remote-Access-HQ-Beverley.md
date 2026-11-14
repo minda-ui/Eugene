@@ -18,7 +18,7 @@ end-to-end encrypted; Tailscale's servers broker the connection but can't read i
 ## Site subnets each router advertises (confirmed from Infra-Inventory + Beverley device-map)
 | Site | Advertise routes | Reaches |
 |---|---|---|
-| **HQ** | `10.224.10.0/24,10.224.13.0/24,10.224.20.0/24` | Proxmox `10.224.10.10:8006`, iLO `.78`, 3850 `.4`, PBX `10.224.13.9`, phones, WiFi |
+| **HQ** | `10.224.10.0/24,10.224.11.0/24,10.224.13.0/24,10.224.20.0/24,10.224.9.0/24` (14 Nov: + OOB 10.224.9.0/24 via Gen9 eno1 10.224.9.10) | Proxmox `10.224.10.10:8006`, iLO `.78`, 3850 `.4`, PBX `10.224.13.9`, phones, WiFi |
 | **Beverley** | `10.224.110.0/24,10.224.111.0/24` | Beverley Proxmox `10.224.111.199`, Cloud Key `10.224.110.5`, ASA/3850/UniFi |
 > ⚠️ Before finalising, glance at each site's UniFi/ASA for any extra VLAN/subnet you want to reach and add
 > it to that site's list. CCTV VLAN is deliberately **excluded** (isolated).
