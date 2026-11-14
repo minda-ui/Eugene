@@ -21,7 +21,7 @@
 |---|---|---|
 | AI server DL380 Gen10 | 2U | empty rails under the Gen9 |
 | OPNsense pair (5525-X) | 2× 1U | already at the top |
-| OOB switch TP-Link TL-SG1016 | 1U | near the top, next to the firewalls / patch panels |
+| OOB switch TP-Link TL-SG1016(UN) v15, S/N 22B3E0002368 (arrived 14 Nov), UPS A, no uplink | 1U | near the top, next to the firewalls / patch panels |
 | 1U cable manager(s) | 1U each | rear, by the 3850s and patch panels |
 | NVR fix | (ears) or 2U shelf | where it is now |
 

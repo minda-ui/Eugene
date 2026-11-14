@@ -144,7 +144,7 @@ Layout suggestion: AI server low (heaviest, most heat); OPNsense pair next to th
 
 ### Mail check 2026-11-06 (evening)
 - **Bargain Hardware dispatched 6 Nov (Shipment SS207004, invoice PPSI147647)** — the 2× DL380 Gen10 (order 002022046). **BOTH ARRIVED (Sat 7 Nov, confirmed 9 Nov) — HQ = S/N 2M20130BJL (384 GB OK), Beverley = S/N 2M20130BGN (P2 slot 5 fault, warranty claim) — roles swapped 9 Nov** (was due Tue 10 Nov). DPD: **driver cannot leave it safe** → someone must be in to sign. Tracking number is in the attached shipment PDF.
-- **TP-Link TL-SG1016** (OOB switch) ordered on eBay 6 Nov, expected 9–13 Nov.
+- **TP-Link TL-SG1016** (OOB switch) ordered on eBay 6 Nov — **arrived 14 Nov** (v15, S/N 22B3E0002368), bench-tested OK.
 - VGA breakout + Dupont wires delivered 6 Nov (used for unit 3 BIOS).
 - Composio: free shared-key toolkits (Gemini, Yelp, text_to_pdf, weathermap…) end 13 Nov — the estate uses Gmail/Drive/GitHub/Smartsheet (own OAuth), not these → no action expected; Minda may ignore unless an employee uses web search via Composio.
 - GitHub: the Claude app requests updated permissions (review at github.com/settings/installations) — Minda's decision; ignoring keeps current permissions.

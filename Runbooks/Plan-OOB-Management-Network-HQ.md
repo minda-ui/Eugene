@@ -43,3 +43,11 @@ interface GigabitEthernet0/0
 ## Open
 - Beverley: same idea later (smaller: 3850 Gi0/0, bev-fw Management, UPS, Proxmox mini-PC as jump).
 - Switch model + whether it sits on UPS A or B feed.
+
+## Update 2026-11-14 — dedicated OOB switch arrived
+- **Switch:** TP-Link **TL-SG1016(UN) Ver 15.0**, 16× 1G unmanaged, 1U rack, internal PSU 100–240 V 0.3 A, S/N 22B3E0002368. Bench test OK (power + port link lights).
+- **Decisions (Minda):** **no uplink to the 3850** (fully independent OOB); powered from **UPS A** (same as the firewalls).
+- **State before the move (11 Nov):** OOB = VLAN 9 on the 3850 — Gi1/0/45 hq-fw-a em8 (10.224.9.2), Gi2/0/45 hq-fw-b em8 (10.224.9.3), Gi1/0/46 laptop jump port; firewall OOB addresses are **/29** (10.224.9.0/29).
+- **Move (Minda, ~10 min, office unaffected):** one firewall at a time, **hq-fw-b (backup) first**: move its em8 cable 3850 Gi2/0/45 → TP-Link; laptop on TP-Link 10.224.9.4/29 no gateway → https://10.224.9.3 loads; CARP status unchanged (a MASTER, b BACKUP). Then hq-fw-a (Gi1/0/45 → TP-Link) → https://10.224.9.2.
+- **Then 3850 (quiet window):** `interface range Gi1/0/45 , Gi2/0/45 , Gi1/0/46` → `shutdown` + description "spare (OOB moved to TL-SG1016)" so nobody bridges the two by patching; keep `vlan 9`; `write memory`.
+- **Then widen OOB to /24** on each firewall (Interfaces → OOB → IPv4 /24, per box, via the normal admin address 10.224.11.252 / .253), before adding iLOs (.21–.24, pve-ai iLO already 10.224.9.22/24) and UPS cards (.31/.32), one device at a time.
